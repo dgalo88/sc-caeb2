@@ -1,11 +1,16 @@
 package com.caeb2.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.caeb2.util.Controller;
 
 /**
  * Servlet implementation class Startup
@@ -25,7 +30,19 @@ public class Startup extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Bien......!!!1");
+		Connection con=null;
+		try {
+			con=Controller.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				con.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
 	}
 
 	/**
