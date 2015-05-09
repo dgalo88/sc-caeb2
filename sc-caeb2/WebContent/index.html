@@ -1,57 +1,59 @@
-<HTML>
-<HEAD>
-<TITLE>C.C.A.E.B</TITLE>
-</HEAD>
-<BODY>
-	<div style="border: none">
-		<div>
-			<div align="left">
-				<table>
-					<tr>
-						<td width="60%">
-							<table>
-								<tr>
-									<td><h1>CENSO COMUNITARIO</h1></td>
-								</tr>
-								<tr>
-									<td><h2>Consejo Comunal Andr�s Eloy Blanco 2</h2></td>
-								</tr>
-							</table>
-						</td>
-						<td><div align="right">
-								<IMG
-									SRC="http://lagranciudad.net/home/wp-content/uploads/2014/05/ine.gif"
-									WIDTH=50% HEIGHT=30%>
-							</div></td>
-					</tr>
-				</table>
+<html>
 
-			</div>
+<head>
+	<title>C.C.A.E.B</title>
+	<link rel="stylesheet" type="text/css" href="style/pages.css" media="screen" />
+</head>
 
+<body>
+	<div>
+		<div class="header">
+			<img class="toTheRight" src="images/logoccaeb2.png" width="95px" height="95px">
+			<span>
+				<span class="titleText1"><strong>CENSO COMUNITARIO</strong></span>
+				<br><br>
+				<span class="titleText2"><strong>Consejo Comunal Andrés Eloy Blanco 2</strong></span>
+			</span>
 		</div>
-		<div style="height: 5%; background: green"></div>
-		<div align=center style="height: 70%; background: white;">
+
+		<div class="bar">
+			<br>
+			<button type="button" onclick="alert('Hello world!')" class="menuButton">
+				<img class="menuButton" src="images/menuButton.png" width="33" height="33">
+				<span class="titleText3"> > Sección 1: Datos de la vivienda</span>
+			</button>
+		</div>
+
+		<div class="contentPane" align="center">
 			<form action="demo_form.asp">
-				<table
-					style="height: 100%; background: white; vertical-align: middle;">
+				<br>
+				<br>
+				<h2>Ingrese sus datos</h2>
+				<table class="loginTable">
+				<tbody>
 					<tr>
-						<td>
-							<table>
-								<tr>
-									<td>Usuario:</td>
-									<td><input type="text" name="name"></td>
-								</tr>
-								<tr>
-									<td>Contrase�a:</td>
-									<td><input type="PASSWORD" name="pass"></td>
-								</tr>
-							</table>
+						<td class="loginLabel">Usuario:</td>
+						<td><input type="text" name="name"></td>
+					</tr>
+					<tr>
+						<td class="loginLabel">Contraseña:</td>
+						<td><input type="password" name="pass"></td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<input class="loginButton smallButton" type="button" name="enter" value="Entrar">
+							<input class="loginButton smallButton" type="button" name="clear" value="Limpiar">
 						</td>
 					</tr>
+				</tbody>
 				</table>
 			</form>
 		</div>
-		<div style="height: 5%; background: blue"></div>
+
+		<div class="footer">
+			<span class="footerText">Copyright © 2015 - Servicio Comunitario - EISULA</span>
+		</div>
 	</div>
-</BODY>
-</HTML>
+</body>
+
+</html>
