@@ -1,16 +1,16 @@
 @CHARSET "UTF-8";
 
-p {
-	color: black;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-}
+/* p { */
+/* 	color: black; */
+/* 	font-family: Verdana, Arial, Helvetica, sans-serif; */
+/* } */
 
-img {
-	border: none;
-	padding: 2px;
-}
+/* img { */
+/* 	border: none; */
+/* 	padding: 2px; */
+/* } */
 
-h1, h2, h3, .titleText1, .titleText2, .titleText3 {
+.titleText1, .titleText2, .titleText3 {
 	color: black;
 	font-weight: bold;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -18,15 +18,15 @@ h1, h2, h3, .titleText1, .titleText2, .titleText3 {
 	vertical-align: middle;
 }
 
-h1, .titleText1 {
+.titleText1 {
 	font-size: x-large;
 }
 
-h2, .titleText2 {
+.titleText2 {
 	font-size: large;
 }
 
-h3, .titleText3 {
+.titleText3 {
 	font-size: medium;
 }
 
@@ -92,9 +92,10 @@ body {
 }
 
 .contentPane {
-	margin: 0;
-	padding: 0;
-	width: 100%;
+	margin: 0 auto;
+	padding: 15px;
+	width: 60%;
+	max-width: 330px;
 	vertical-align: middle;
 	height: 80%;
 }
@@ -113,7 +114,7 @@ body {
 	padding: 0;
 	background: gray;
 	width: 100%;
-	height: 5%;
+	height: 30px;
 	text-align: center;
 	vertical-align: middle;
 }
