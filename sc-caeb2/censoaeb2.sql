@@ -1,7 +1,7 @@
 --
 -- Base de datos: `censoaeb2`
 --
-CREATE DATABASE IF NOT EXISTS `censoaeb2` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE IF NOT EXISTS `censoaeb2` DEFAULT CHARACTER SET utf8;
 USE `censoaeb2`;
 
 --
@@ -9,8 +9,37 @@ USE `censoaeb2`;
 --
 CREATE TABLE IF NOT EXISTS `administrador` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `clave` varchar(255) NOT NULL COLLATE utf8_spanish_ci,
-  `usuario` varchar(255) NOT NULL COLLATE utf8_spanish_ci
+  `clave` varchar(255) NOT NULL,
+  `usuario` varchar(255) NOT NULL
+) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Inertar en la tabla `administrador` el administrador por defecto
+--
+INSERT INTO `administrador` (`id`, `clave`, `usuario`) VALUES ('1', '1234', 'admin');
+
+--
+-- Estructura de la tabla `documento_identificacion`
+--
+CREATE TABLE IF NOT EXISTS `documento_identificacion` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `numero` int(11) NOT NULL,
+  `tipo` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `directiva_cc`
+--
+CREATE TABLE IF NOT EXISTS `directiva_cc` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `apellido` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `documentoIdentificacionId` int(11) DEFAULT NULL,
+  `administradorId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`documentoIdentificacionId`) REFERENCES `documento_identificacion` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`administradorId`) REFERENCES `administrador` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -21,15 +50,6 @@ CREATE TABLE IF NOT EXISTS `credito` (
   `institucion` varchar(255) DEFAULT NULL,
   `usoCredito` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `documento_identificacion`
---
-CREATE TABLE IF NOT EXISTS `documento_identificacion` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `numero` int(11) NOT NULL,
-  `tipo` char(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Estructura de la tabla `telefono`
@@ -111,18 +131,19 @@ CREATE TABLE IF NOT EXISTS `empleo` (
 --
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `apellido` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `fechaNacimiento` datetime DEFAULT NULL,
+  `sexo` char(1) NOT NULL,
   `aisteEstablecimientoEducacion` bit(1) NOT NULL,
-  `apellido` varchar(255) DEFAULT NULL,
   `asisteControlMedicoParental` bit(1) NOT NULL,
   `beneficioEstablecimientoEducacion` varchar(255) DEFAULT NULL,
   `cursoCapacitacion` varchar(255) DEFAULT NULL,
   `edadNacimientoPrimerHijo` int(11) NOT NULL,
   `esAnalfabeta` bit(1) NOT NULL,
-  `fechaNacimiento` datetime DEFAULT NULL,
   `haAsistidoServicioSalud` bit(1) NOT NULL,
   `ingresoMensual` varchar(255) DEFAULT NULL,
   `nivelEducativo` varchar(255) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
   `numeroHijosAunViven` int(11) NOT NULL,
   `numeroHijosNacidosVivos` int(11) NOT NULL,
   `otrasHabilidades` varchar(255) DEFAULT NULL,
@@ -130,7 +151,6 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `profesion` varchar(255) DEFAULT NULL,
   `respEstablecimientoEducacion` varchar(255) DEFAULT NULL,
   `seEncuentraEmbarazada` bit(1) NOT NULL,
-  `sexo` char(1) NOT NULL,
   `situacionConyugal` varchar(255) DEFAULT NULL,
   `tienePareja` bit(1) NOT NULL,
   `ultimoGradoAprobado` int(11) NOT NULL,
