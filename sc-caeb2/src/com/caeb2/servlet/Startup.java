@@ -2,7 +2,9 @@ package com.caeb2.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,17 +34,37 @@ public class Startup extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) //
 	throws ServletException, IOException {
 
-		Connection con = null;
-
+		System.out.println("2.........................");
+		Connection connection = null;
+		Statement statement = null;
+		String user=request.getParameter("user");
+		String pass=request.getParameter("pass");
+		
+		System.out.println(user+"/"+pass);
+		
 		try {
-			con = Controller.getConnection();
+			connection = Controller.getConnection();
+			ResultSet rs;
+			statement = connection.createStatement();
+			rs=statement.executeQuery("SELECT * FROM administrador WHERE usuario='"+user+"' AND clave='"+pass+"'");
+			while (rs.next()) {
+				System.out.println("excelente");
+				response.sendRedirect("http://localhost:8080/sc-caeb2/page_1.jsp");
+				
+			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				con.close();
+				connection.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			try {
+				statement.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

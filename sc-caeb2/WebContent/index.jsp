@@ -17,12 +17,13 @@
 		</div>
 
 		<div class="contentPane container" align="center">
-			<form class="form-signin">
+			<form class="form-signin" action="http://localhost:8080/sc-caeb2/
+			startup" method="get">
 				<h4 class="form-signin-heading">Por favor ingrese sus datos</h4>
 				<label for="inputEmail" class="sr-only">Usuario</label>
-				<input type="email" id="inputEmail" class="form-control" placeholder="Usuario" required="" autofocus="">
+				<input type="text" id="inputEmail" name="user" class="form-control" placeholder="Usuario" required="" autofocus="">
 				<label for="inputPassword" class="sr-only">Contraseña</label>
-				<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+				<input type="password" id="inputPassword" name="pass" class="form-control" placeholder="Contraseña" required="">
 				<div class="checkbox">
 					<label><input type="checkbox" value="remember-me">Recordarme</label>
 				</div>
