@@ -3,6 +3,7 @@ package com.caeb2.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class Controller {
 
@@ -16,8 +17,12 @@ public class Controller {
 		// empty
 	}
 
+	public static Logger getLogger() {
+		return Logger.getLogger("CAEB2Logger");
+	}
+
 	public static Connection getConnection() //
-	throws SQLException, ClassNotFoundException {
+			throws SQLException, ClassNotFoundException {
 
 		Class.forName(driver);
 		String url = "jdbc:mysql://" + dbHost + "/" + dbName;

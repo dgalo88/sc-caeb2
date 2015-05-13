@@ -1,9 +1,10 @@
+<%@page import="com.caeb2.actions.Actions"%>
 <%@ include file="jsp/header.jsp" %>
 
 	<link href="css/signin.css" rel="stylesheet">
 
 	<div class="container-fluid">
-		<form class="form-signin" action="http://localhost:8080/sc-caeb2/startup" method="get">
+		<form class="form-signin" action="http://localhost:8080/sc-caeb2/startup?<%=Actions.ACTION%>=login" method="POST">
 			<h4 class="form-signin-heading text-center">Bienvenido</h4>
 			<label for="user" class="sr-only">Usuario</label>
 			<input type="text" id="user" name="user" class="form-control" placeholder="Usuario" required="" autofocus="">
