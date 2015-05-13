@@ -1,5 +1,5 @@
 <%@ include file="jsp/header.jsp"%>
-<div class="form-group" align="center" style="margin: 2%;">
+<div class="container" style="padding-top: 2%;">
 	<form>
 		<table width="100%">
 			<tr>
@@ -10,131 +10,24 @@
 				<td valign="top" style="padding-right: 2%;">
 					<div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Urbanizacion o Barrio</label> <input
-								type="email" class="form-control" id="exampleInputEmail1"
-								placeholder="Andres Eloy Blanco 2" disabled>
+							<label for="urbanizacion">Urbanización o barrio</label> 
+							<input type="text" class="form-control" id="urbanizacion" placeholder="Andrés Eloy Blanco 2" disabled>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail1">Calle o Pasaje</label> <input
-								type="email" class="form-control" id="exampleInputEmail1"
-								placeholder="Calle o Pasaje">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">Nombre o numero de la
-								Vivienda</label> <input type="password" class="form-control"
-								id="exampleInputPassword1"
-								placeholder="Nombre o numero de la Vivienda">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">Telefono Residencial</label> <input
-								type="text" class="form-control" id="exampleInputPassword1"
-								placeholder="Nombre o numero de la Vivienda">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">Tipo de Estructura</label> <select
-								class="form-control">
-								<option>Casa</option>
-								<option>Apartamento en Edificio</option>
-								<option>Apartamento en Quinta</option>
-								<option>Casa de Vecindad</option>
-								<option>Rancho</option>
-								<option>Otros</option>
-							</select>
+							<label for="nombre_vivienda">Nombre o número de vivienda</label> 
+							<input type="text" class="form-control" id="exampleInputPassword1" placeholder="21 o Pérez">
 						</div>
 					</div>
 				</td>
 				<td valign="top">
 					<div>
 						<div class="form-group">
-							<label for="exampleInputPassword1">Ubicacion de la Cocina</label>
-							<select class="form-control">
-								<option>Cuarto Solo</option>
-								<option>Sala, Comedor</option>
-								<option>Otro Citio</option>
-							</select>
+							<label for="calle_pasaje">Calle o pasaje</label> 
+							<input type="text" class="form-control" id="calle_pasaje" name="calle_pasaje" placeholder="Calle o Pasaje">
 						</div>
 						<div class="form-group">
-							<label for="exampleInputPassword1">Total de Cuarto que
-								contiene la Vivienda</label> <input type="number" required
-								class="form-control" id="exampleInputPassword1"
-								placeholder="No incluye Baños, Pasillos, Balcones ni Lavadores">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">Material Predominante
-								de la Vivienda</label>
-							<table style="padding: none;">
-								<tr>
-									<th width="30%">Paredes</th>
-									<th width="30%">Techo</th>
-									<th width="30%">Piso</th>
-								</tr>
-								<tr>
-									<td style="padding-right: 1%;"><select
-										class="form-control">
-											<option>Bloque o Ladrillo Frisado</option>
-											<option>Bloque o Ladrillo sin Frisar</option>
-											<option>Concreto</option>
-											<option>Madera Aserrada, Fornica, Fibra de vidrio y
-												Similares</option>
-											<option>Adobe, Tapia o Bahareque sin Frisar</option>
-											<option>Otros(Palmas, Tablas o Similares)</option>
-									</select></td>
-									<td style="padding-right: 1%;"><select
-										class="form-control">
-											<option>Platabanda</option>
-											<option>Teja</option>
-											<option>Laminas Asfalticas</option>
-											<option>Laminas Metalicas(Zinz y Similares)</option>
-											<option>Asbestos y Similares</option>
-											<option>Otros(Palmas, Tablas o Similares)</option>
-									</select></td>
-									<td><select class="form-control">
-											<option>Marmol, Mosaico, Granitpo, Vinil Ceramica,
-												Ladrillo, Terracota,Parquet, Alfombrado y similares</option>
-											<option>Cemento</option>
-											<option>Tierra</option>
-											<option>Otros</option>
-									</select></td>
-								</tr>
-							</table>
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">Servicios con los que
-								cuenta la Vivienda</label>
-							<table style="padding: none;">
-								<tr>
-									<th width="25%">Agua</th>
-									<th width="25%">Servicio Sanitario</th>
-									<th width="25%">¿Dispone de Servicio Electrico?</th>
-									<th width="25%">Recoleccion de Basura</th>
-								</tr>
-								<tr>
-									<td style="padding-right: 1%;"><select
-										class="form-control">
-											<option>Acueducto o Tuberia</option>
-											<option>Camion Cisterna</option>
-											<option>Pila Publica o Estanque</option>
-											<option>Pozo con tuberia o Bomba</option>
-											<option>Otros medios, Especifique</option>
-									</select></td>
-									<td style="padding-right: 1%;"><select
-										class="form-control">
-											<option>Poceta Conectada a la Cloaca</option>
-											<option>Poceta Conectada al Rio</option>
-									</select></td>
-									<td style="padding-right: 1%;"><select
-										class="form-control">
-											<option>Si</option>
-											<option>No</option>
-									</select></td>
-									<td><select class="form-control">
-											<option>Recogida por el Servicio de Aseo Urbano</option>
-											<option>Depositada en container Colectivo</option>
-											<option>Vertida en Quebradas, Rios, Lagos, Calles o
-												Terrenos Baldios</option>
-									</select></td>
-								</tr>
-							</table>
+							<label for="telefono_residencial">Teléfono residencia </label> 
+							<input type="text" class="form-control" id="telefono_residencial" name="telefono_residencial" placeholder="02742395120">
 						</div>
 					</div>
 				</td>
