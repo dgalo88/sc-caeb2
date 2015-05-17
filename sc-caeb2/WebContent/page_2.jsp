@@ -180,31 +180,70 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="vivienda_mejoras_PV" id="vivienda_mejoras_PV">
-											<option value="1">Cocina</option>
-											<option value="2">Comedor</option>
-											<option value="3">Dormitorio</option>
-											<option value="4">Baño</option>
-											<option value="5">Otra ¿Cual?</option>
-										</select>
+										<div class="checkbox">
+											<label> <input type="checkbox"> Cocina
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox"> Comedor
+											</label>
+										</div>
+										<div class="checkbox">
+											<label> <input type="checkbox"> Dormitorio
+											</label>
+										</div>
+										<div class="checkbox">
+											<label> <input type="checkbox"> Baño
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox" id="vivienda_mejoras_PV_checkbox" name="vivienda_mejoras_PV_checkbox"> Otra ¿Cual?
+											</label>
+										</div> 
 									</td>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="vivienda_mejoras_RM" id="vivienda_mejoras_RM">
-											<option value="1">Techo</option>
-											<option value="2">Piso</option>
-											<option value="3">Paredes</option>
-											<option value="4">Sistema eléctrico</option>
-											<option value="5">Otra ¿Cual?</option>
-										</select>
+										<div class="checkbox">
+											<label> <input type="checkbox">Techo
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Piso
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Paredes
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Sistema eléctrico
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox" id="vivienda_mejoras_RM_checkbox" name="vivienda_mejoras_RM_checkbox">Otra ¿Cual?
+											</label>
+										</div> 
 									</td>
 									<td>
-										<select class="form-control" name="vivienda_mejoras_TNR" id="vivienda_mejoras_TNR">
-											<option value="1">Friso</option>
-											<option value="2">Ampliación</option>
-											<option value="3">Remodelación</option>
-											<option value="4">Reparación</option>
-											<option value="5">Otra ¿Cual?</option>
-										</select>
+										<div class="checkbox">
+											<label> <input type="checkbox">Friso
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Ampliación
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Remodelación
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox">Reparación
+											</label>
+										</div> 
+										<div class="checkbox">
+											<label> <input type="checkbox" id="vivienda_mejoras_TNR_checkbox" name="vivienda_mejoras_TNR_checkbox">Otra ¿Cual?
+											</label>
+										</div> 
 									</td>
 								</tr>
 								<tr>
@@ -235,25 +274,22 @@
 		$('#la_vivienda_RMU_no').change(function() {
 			$('#la_vivienda_RMU_div').hide();
 		});
-		$('#vivienda_mejoras_PV').on('change', function (e) {
-		    var valueSelected = this.value;
-		    if(valueSelected=='5'){
+		$('#vivienda_mejoras_PV_checkbox').on('change', function (e) {
+		    if($("#vivienda_mejoras_PV_checkbox").is(':checked')){
 		    	$('#vivienda_mejoras_PV_otra').show();	
 		    }else{
 		    	$('#vivienda_mejoras_PV_otra').hide()
 		    }
 		});
-		$('#vivienda_mejoras_RM').on('change', function (e) {
-		    var valueSelected = this.value;
-		    if(valueSelected=='5'){
+		$('#vivienda_mejoras_RM_checkbox').on('change', function (e) {
+		    if($("#vivienda_mejoras_RM_checkbox").is(':checked')){
 		    	$('#vivienda_mejoras_RM_otra').show();	
 		    }else{
 		    	$('#vivienda_mejoras_RM_otra').hide()
 		    }
 		});
-		$('#vivienda_mejoras_TNR').on('change', function (e) {
-		    var valueSelected = this.value;
-		    if(valueSelected=='5'){
+		$('#vivienda_mejoras_TNR_checkbox').on('change', function (e) {
+		    if($("#vivienda_mejoras_TNR_checkbox").is(':checked')){
 		    	$('#vivienda_mejoras_TNR_otra').show();	
 		    }else{
 		    	$('#vivienda_mejoras_TNR_otra').hide()
