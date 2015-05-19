@@ -2,7 +2,6 @@ package com.caeb2.actions;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -31,11 +30,10 @@ public class Login {
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
 
-			ResultSet rs = statement.executeQuery( //
-					"SELECT * FROM administrador WHERE usuario='" + user //
-					+ "' AND clave=SHA1('" + pass + "')");
+			String sql = "SELECT * FROM administrador WHERE usuario='" + user //
+					+ "' AND clave=SHA1('" + pass + "')";
 
-			if (rs.first()) {
+			if (statement.executeQuery(sql).first()) {
 				Controller.getLogger().info(Constants.USER_LOGIN.replace("0", user));
 				page = "jsp/main.jsp";
 			} else {
@@ -45,10 +43,23 @@ public class Login {
 
 		} catch (ClassNotFoundException e) {
 			Controller.getLogger().log(Level.SEVERE, //
-					"Driver JDBC no encontrado." //
-					+ Constants.CONTACT_ADMIN, e);
+					Constants.DRIVER_ERROR + Constants.CONTACT_ADMIN, e);
 		} catch (SQLException e) {
 			Controller.getLogger().log(Level.SEVERE, Constants.SQL_ERROR, e);
+		} finally {
+
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// ignore
+			}
+
 		}
 
 		try {

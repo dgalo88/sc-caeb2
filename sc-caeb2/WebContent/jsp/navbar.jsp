@@ -31,7 +31,10 @@
 						</ul>
 					</li>
 				</ul>
-				<p class="navbar-text">Sección 1: Datos de la vivienda</p>
+				<p class="navbar-text">
+					<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+					Sección 1: Datos de la vivienda
+				</p>
 			</div><!-- /.navbar-collapse -->
 		</nav>
 	</div><!-- /.container-fluid -->

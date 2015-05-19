@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+.table td {
+	border-top: 0px !important;
+}
+
 .table-control {
 	border-top: 0px !important;
 	margin-bottom: 0px !important;
@@ -33,4 +37,11 @@ body {
 
 .page-row-expanded {
 	height: 100%;
+}
+
+.panel-error {
+	max-width: 550px;
+	padding: 15px;
+	margin: 0 auto;
+	margin-top: 4%;
 }

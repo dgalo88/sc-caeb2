@@ -32,7 +32,7 @@
 						<table class="table table-control">
 							<tbody>
 							<tr>
-								<td class="td-left-control">
+								<td class="td-left-control" width="50%">
 									<div class="form-group">
 										<label for="sexo">Sexo</label>
 										<div class="radio">
@@ -47,12 +47,17 @@
 										</div>
 									</div>
 								</td>
-								<td class="td-right-control">
-									<div class="form-group">
-										<label for="fechaNacimiento">Fecha de nacimiento</label>
+								<td class="td-right-control" width="50%">
+									<label for="fechaNacimiento">Fecha de nacimiento</label>
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" aria-label="calendar">
+												<span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+											</button>
+										</span>
 										<input type="datetime" class="form-control" placeholder="Ej. 15/02/1980"
 												id="fechaNacimiento" name="fechaNacimiento" required>
-									</div>
+									</div>	<!-- /input-group -->
 								</td>
 							</tr>
 							</tbody>

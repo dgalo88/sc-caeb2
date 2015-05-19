@@ -1,15 +1,11 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
-<div class="container" style="padding-top: 2%;">
+<div class="container-fluid">
 	<form>
-		<table width="100%">
+		<table class="table">
 			<tr>
-				<th  width="50%"></th>
-				<th  width="50%"></th>
-			</tr>
-			<tr>
-				<td valign="top" style="padding-right: 2%;">
+				<td width="50%">
 					<div>
 						<div class="form-group">
 							<label for="ultimo_GA">Ultimo grado aprobado</label> 
@@ -84,7 +80,7 @@
 						</div>
 					</div>
 				</td>
-				<td valign="top">
+				<td width="50%">
 					<div>
 						<div class="form-group">
 							<label for="profesion">Profesión</label> 
@@ -137,7 +133,7 @@
 					</div>
 				</td>
 			</tr>
-			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr>
+<!-- 			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr> -->
 		</table>
 	</form>
 </div>
