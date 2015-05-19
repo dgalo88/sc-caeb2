@@ -1,9 +1,7 @@
 
-	<link href="/sc-caeb2/css/docs.min.css" rel="stylesheet">
-
-	<footer class="bs-docs-footer" role="contentinfo">
+	<footer class="footer page-row" role="contentinfo">
 		<div class="container-fluid">
-			<p>Copyright © 2015 - Servicio Comunitario - EISULA</p>
+			<p class="text-muted text-center">Copyright © 2015 - Servicio Comunitario - EISULA</p>
 		</div>
 	</footer>
 
