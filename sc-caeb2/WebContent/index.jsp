@@ -1,15 +1,16 @@
-<%@page import="com.caeb2.actions.Actions"%>
+<%@page import="com.caeb2.util.Constants"%>
+
 <%@ include file="jsp/header.jsp" %>
 
 	<link href="css/signin.css" rel="stylesheet">
 
 	<div class="container-fluid">
-		<form class="form-signin" action="http://localhost:8080/sc-caeb2/startup?<%=Actions.ACTION%>=login" method="POST">
+		<form class="form-signin" action="http://localhost:8080/sc-caeb2/startup?<%=Constants.ACTION%>=login" method="POST">
 			<h4 class="form-signin-heading text-center">Bienvenido</h4>
 			<label for="user" class="sr-only">Usuario</label>
-			<input type="text" id="user" name="user" class="form-control" placeholder="Usuario" required="" autofocus="">
+			<input type="text" id="user" name="user" class="form-control" placeholder="Usuario" required autofocus>
 			<label for="pass" class="sr-only">Contraseña</label>
-			<input type="password" id="pass" name="pass" class="form-control" placeholder="Contraseña" required="">
+			<input type="password" id="pass" name="pass" class="form-control" placeholder="Contraseña" required>
 	<!-- 				<div class="checkbox"> -->
 	<!-- 					<label><input type="checkbox" value="remember-me">Recordarme</label> -->
 	<!-- 				</div> -->

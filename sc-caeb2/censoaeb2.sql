@@ -9,14 +9,14 @@ USE `censoaeb2`;
 --
 CREATE TABLE IF NOT EXISTS `administrador` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `clave` varchar(255) NOT NULL,
-  `usuario` varchar(255) NOT NULL
+  `usuario` varchar(40) NOT NULL,
+  `clave` varchar(40) NOT NULL
 ) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Inertar en la tabla `administrador` el administrador por defecto
 --
-INSERT INTO `administrador` (`id`, `clave`, `usuario`) VALUES ('1', '1234', 'admin');
+INSERT INTO `administrador` (`id`, `usuario`, `clave`) VALUES ('1', 'admin', SHA1('1234'));
 
 --
 -- Estructura de la tabla `documento_identificacion`

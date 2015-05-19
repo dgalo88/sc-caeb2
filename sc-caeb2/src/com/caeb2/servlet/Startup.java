@@ -2,8 +2,8 @@ package com.caeb2.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.caeb2.actions.Actions;
+import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 
 /**
@@ -46,46 +47,27 @@ public class Startup extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) //
 			throws ServletException, IOException {
 
-//		String page = null;
+		Class<?> actionClass = null;
+		Method method = null;
 
-		/**ApplicationResources provides a simple API 
-		 * for retrieving constants and other 
-		 * preconfigured values**/
-//		ApplicationResources resource = ApplicationResources.getInstance();
+		String actionName = request.getParameter(Constants.ACTION);
 
 		try {
 
-			// Use a helper object to gather parameter 
-			// specific information.
-//			RequestHelper helper = new RequestHelper(request);
+			actionClass = Class.forName(actions.getActionClass(actionName));
 
-//			Command cmdHelper= helper.getCommand();
-
-			// Command helper perform custom operation
-//			page = cmdHelper.execute(request, response);
-
-			String actionName = request.getParameter(Actions.ACTION);
-
-			System.out.println("action = " + actionName);
-			Class c = Class.forName(actions.getActionsMapping().get(actionName));
-			Object o = c.newInstance();
-
-			Method method = c.getMethod(actionName, HttpServletRequest.class, HttpServletResponse.class);
-
-			method.invoke(null, request, response);
-//			page = Login.login(request, response);
+			method = actionClass.getMethod(actionName, //
+					HttpServletRequest.class, HttpServletResponse.class);
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
-			Controller.getLogger().severe("EmployeeController:exception: " + e.getMessage());
-//			request.setAttribute(resource.getMessageAttr(), "Exception occurred : " + e.getMessage());
-//			page = resource.getErrorPage(e);
-
+			Controller.getLogger().log(Level.SEVERE, Constants.ACTION_ERROR, e);
 		}
 
-		// dispatch control to view
-//		dispatch(request, response, page);
+		try {
+			method.invoke(null, request, response);
+		} catch (Exception e) {
+			Controller.getLogger().log(Level.SEVERE, Constants.GENERAL_ERROR, e);
+		}
 
 	}
 
@@ -103,14 +85,6 @@ public class Startup extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) //
 			throws ServletException, IOException {
 		processRequest(request, response);
-	}
-
-	protected void dispatch(HttpServletRequest request, HttpServletResponse response, //
-			String page) throws ServletException, IOException {
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-		dispatcher.forward(request, response);
-
 	}
 
 }

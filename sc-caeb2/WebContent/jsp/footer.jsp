@@ -1,5 +1,5 @@
 
-	<link href="css/docs.min.css" rel="stylesheet">
+	<link href="/sc-caeb2/css/docs.min.css" rel="stylesheet">
 
 	<footer class="bs-docs-footer" role="contentinfo">
 		<div class="container-fluid">

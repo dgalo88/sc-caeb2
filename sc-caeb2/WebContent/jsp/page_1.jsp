@@ -1,13 +1,15 @@
-<%@ include file="jsp/header.jsp"%>
-<div class="container" style="padding-top: 2%;">
+<%@ include file="header.jsp"%>
+<%@ include file="navbar.jsp"%>
+
+<div class="container-fluid">
 	<form>
-		<table width="100%">
+		<table class="table">
+<!-- 			<tr> -->
+<!-- 				<th></th> -->
+<!-- 				<th></th> -->
+<!-- 			</tr> -->
 			<tr>
-				<th  width="50%"></th>
-				<th  width="50%"></th>
-			</tr>
-			<tr>
-				<td valign="top" style="padding-right: 2%;">
+				<td>
 					<div>
 						<div class="form-group">
 							<label for="urbanizacion">Urbanización o barrio</label> 
@@ -19,7 +21,7 @@
 						</div>
 					</div>
 				</td>
-				<td valign="top">
+				<td>
 					<div>
 						<div class="form-group">
 							<label for="calle_pasaje">Calle o pasaje</label> 
@@ -32,10 +34,15 @@
 					</div>
 				</td>
 			</tr>
-			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr>
+<!-- 			<tr> -->
+<!-- 				<td></td> -->
+<!-- 				<td> -->
+<!-- 					<button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
 		</table>
-		
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
 
 
@@ -136,5 +143,4 @@
 <!--     </div> -->
 <!-- </form> -->
 
-<%@ include file="jsp/footer.jsp"%>
-
+<%@ include file="footer.jsp"%>

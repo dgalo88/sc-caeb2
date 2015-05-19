@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Actions {
 
-	public static final String ACTION = "action";
-
 	private Map<String, String> actionsMapping;
 
 	public Actions() {
@@ -27,6 +25,10 @@ public class Actions {
 
 	public void addActionMapping(String methodName, String className) {
 		actionsMapping.put(methodName, className);
+	}
+
+	public String getActionClass(String methodName) {
+		return actionsMapping.get(methodName);
 	}
 
 }

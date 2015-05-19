@@ -1,4 +1,6 @@
-<%@ include file="jsp/header.jsp"%>
+<%@ include file="header.jsp"%>
+<%@ include file="navbar.jsp"%>
+
 <div class="container" style="padding-top: 2%;">
 	<form>
 		<table width="100%">
@@ -51,4 +53,5 @@
 	$(document).ready(function() {
 	});
 </script>
-<%@ include file="jsp/footer.jsp"%>
+
+<%@ include file="footer.jsp"%>

@@ -1,9 +1,15 @@
 package com.caeb2.util;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Logger;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class Controller {
 
@@ -60,6 +66,41 @@ public class Controller {
 
 	public static void setDBPass(String dbPass) {
 		Controller.dbPass = dbPass;
+	}
+
+	public static void forward(HttpServletRequest request, HttpServletResponse response, //
+			String page) throws ServletException, IOException {
+
+		getLogger().info(Constants.FORWARD + page);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+		dispatcher.forward(request, response);
+
+	}
+
+	public static void forward(HttpServletRequest request, HttpServletResponse response, //
+			String page, String message) throws ServletException, IOException {
+
+		request.setAttribute(Constants.ATT_MESSAGE, message);
+
+		forward(request, response, page);
+
+	}
+
+	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
+			String page, String params) throws ServletException, IOException {
+
+		forward(request, response, page + "?" + params);
+
+	}
+
+	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
+			String page, String params, String message) throws ServletException, IOException {
+
+		request.setAttribute(Constants.ATT_MESSAGE, message);
+
+		forward(request, response, page + "?" + params);
+
 	}
 
 }
