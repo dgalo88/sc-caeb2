@@ -1,49 +1,57 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
+<%
+	int pageNumber = 8;
+%>
+
 <div class="container-fluid">
-	<form>
+	<form class="form-group">
 		<table class="table">
 			<tr>
-				<td width="50%">
+				<td width="50%" valign="top">
 					<div>
 						<div class="form-group">
-							<label for="tiene_ADLSDPOD">Tiene alguna de las siguientes deficiencias, problemas o discapacidades: </label> 
-							<div class="checkbox">
-								<table class="table table-control">
-									<tr>
-										<td class="td-left-control">
-											<div class="form-group">
-												<label><input type="checkbox">Ninguna</label>
-												<label><input type="checkbox">Ceguera total</label>
-												<label><input type="checkbox">Dificultad para ver</label>
-												<label><input type="checkbox">Sordera total</label>
+							<label for="tiene_ADLSDPOD">Tiene alguna de las siguientes deficiencias, problemas o discapacidades: </label>
+							<table class="table table-control">
+								<tr>
+									<td valign="top">
+										<div class="form-group">
+											<div class="checkbox">
+												<label> <input type="checkbox">Ninguna</label>
+												<label> <input type="checkbox">Ceguera total</label>
+												<label> <input type="checkbox">Dificultad para ver</label>
+												<label> <input type="checkbox">Sordera total</label>
 											</div>
-										</td>
-										<td class="td-center-control">
-											<div class="form-group">
-												<label><input type="checkbox">Dificulta para oír</label>
-												<label><input type="checkbox">Dificultad para hablar</label>
-												<label><input type="checkbox">Retardo mental</label>
+										</div>
+									</td>
+									<td valign="top">
+										<div class="form-group">
+											<div class="checkbox">
+												<label> <input type="checkbox">Dificulta para oír</label>
+												<label> <input type="checkbox">Dificultad para hablar</label>
+												<label> <input type="checkbox">Retardo mental</label>
 											</div>
-										</td>
-										<td class="td-left-control">
-											<div class="form-group">
-												<label><input type="checkbox">Pérdida de capacidad mental</label>
-												<label><input type="checkbox">Pérdida o discapacidad de extremidades superiores</label>
-												<label><input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
+										</div>
+									</td>
+									<td valign="top">
+										<div class="form-group">
+											<div class="checkbox">
+												<label> <input type="checkbox">Pérdida de capacidad mental</label>
+												<label> <input type="checkbox">Pérdida o discapacidad de extremidades superiores</label>
+												<label> <input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
 											</div>
-										</td>
-									</tr>
-								</table>
-							</div>
+										</div>
+									</td>
+								</tr>
+							</table>
 						</div>
 						<div class="form-group">
-							<label for="cuando_RAMAQLA">¿Cuando requiere asistencia médica a qué lugar asiste?</label> 
+							<label for="cuando_RAMAQLA">¿Cuándo requiere asistencia médica a qué lugar asiste?</label> 
 							<select class="form-control" name="cuando_RAMAQLA_select" id="cuando_RAMAQLA_select">
 								<option value="Ninguno">Ninguno</option>
 								<option value="Ambulatorio">Ambulatorio</option>
-								<option value="Hospital publico">Hospital publico</option>
+								<option value="Hospital público">Hospital público</option>
 								<option value="Hospital del seguro social">Hospital del seguro social</option>
 								<option value="Clínica o consultorio privado">Clínica o consultorio privado</option>
 								<option value="Servicio médico del trabajo">Servicio médico del trabajo</option>
@@ -52,7 +60,7 @@
 							</select>
 						</div>
 						<div class="form-group" style="display: none" id="porque_RAAEEDS_div">
-							<label for="porque_RAAEEDS">¿Porque razón acude a ese establecimiento de salud?</label> 
+							<label for="porque_RAAEEDS">¿Por qué razón acude a ese establecimiento de salud?</label> 
 							<select class="form-control" name="porque_RAAEEDS_select" id="porque_RAAEEDS_select">
 								<option value="Bajos recursos económicos ">Bajos recursos económicos </option>
 								<option value="Los servicios son económicos">Los servicios son económicos</option>
@@ -61,7 +69,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="requiere_UDAOEM">¿Requiere uso de aparatos o equipos Médicos?</label> 
+							<label for="requiere_UDAOEM">¿Requiere uso de aparatos o equipos médicos?</label> 
 							<div class="radio">
 								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_si">Si</label>
 								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_no" checked="checked" >No</label>
@@ -69,7 +77,7 @@
 							<div class="form-group" id="requiere_UDAOEM_div" style="display: none">
 								<table class="table table-control">
 									<tr>
-										<td class="td-left-control">
+										<td valign="top" style="padding-right: 2%;">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_cual">¿Cuál?</label> 
 												<select class="form-control" name="requiere_UDAOEM_cual_select" id="requiere_UDAOEM_cual_select">
@@ -84,15 +92,15 @@
 											</div>
 											<div class="form-group">
 												<div class="radio">
-													<input type="text" required class="form-control" id="requiere_UDAOEM_cual_text" name="requiere_UDAOEM_cual_text" placeholder="¿Cual?" style="display: none">
+													<input type="text" required class="form-control" id="requiere_UDAOEM_cual_text" name="requiere_UDAOEM_cual_text" placeholder="¿Cuál?" style="display: none">
 												</div>
 											</div>
 										</td>
-										<td class="td-right-control">
+										<td valign="top">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_TEAOEQR">¿Tiene el aparato o equipo que requiere?</label> 
 												<div class="radio">
-													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_si">Si</label>
+													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_si">Sí</label>
 													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_no" checked="checked">No</label>
 												</div>
 											</div>
@@ -104,7 +112,7 @@
 						<div class="form-group">
 							<label for="se_ECE">¿Se encuentra embarazada?</label> 
 							<div class="radio">
-								<label><input type="radio" name="se_ECE">Si</label>
+								<label><input type="radio" name="se_ECE">Sí</label>
 								<label><input type="radio" name="se_ECE" checked="checked">No</label>
 							</div>
 						</div>
@@ -114,18 +122,14 @@
 					<div>
 						<div class="form-group">
 							<label for="por_CDLSSDPSEA">¿Por cuales de los siguientes sistemas de previsión social está amparado?</label>
-							<table class="table table-control">
-								<tr>
-									<td class="td-center-control">
-										<div class="checkbox">
-											<label><input type="checkbox">Ninguna</label><br>
-											<label><input type="checkbox">Seguro social obligatorio</label><br>
-											<label><input type="checkbox">Seguro privado de asistencia médica por su cuenta</label><br>
-											<label><input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
-										</div>
-									</td>									
-								</tr>
-							</table>
+							<div class="form-group">
+								<div class="checkbox">
+									<label> <input type="checkbox">Ninguna</label>
+									<label> <input type="checkbox">Seguro social obligatorio</label>
+									<label> <input type="checkbox">Seguro privado de asistencia médica por su cuenta</label>
+									<label> <input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
+								</div>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="padecido_OHSDPADLSE">¿Ha padecido o ha sido diagnosticado por alguna de las siguientes enfermedades?</label> 
@@ -138,127 +142,119 @@
 								<option value="Enfermedades de la piel">Enfermedades de la piel</option>
 								<option value="Hipertensión arterial">Hipertensión arterial</option>
 								<option value="Diabetes mellitus">Diabetes mellitus</option>
-								<option value="Otra ¿Cual?">Otra ¿Cual?</option>
+								<option value="Otra ¿Cuál?">Otra ¿Cuál?</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<div class="radio">
-								<input type="text" required class="form-control" id="padecido_OHSDPADLSE_text" name="padecido_OHSDPADLSE_text" placeholder="¿Cual?" style="display: none">
+								<input type="text" required class="form-control" id="padecido_OHSDPADLSE_text" name="padecido_OHSDPADLSE_text" placeholder="¿Cuál?" style="display: none">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
 							<table class="table table-control">
 								<tr>
-									<td class="td-left-control">
+									<td valign="top">
 										<table>
 											<tr>
-												<td>BCG:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_BCG" id="ha_RSHLSV_BCG">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>BCG: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_BCG" id="ha_RSHLSV_BCG">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 											<tr>
-												<td>Triple:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_triple" id="ha_RSHLSV_triple">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Triple: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_triple" id="ha_RSHLSV_triple">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 										</table>
 									</td>
-									<td class="td-left-control td-right-control">
+									<td valign="top">
 										<table>
 											<tr>
-												<td>Trivalente:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_trivalente" id="ha_RSHLSV_trivalente">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Trivalente: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_trivalente" id="ha_RSHLSV_trivalente">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 											<tr>
-												<td>Polio:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_polio" id="ha_RSHLSV_polio">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Polio: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_polio" id="ha_RSHLSV_polio">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 										</table>
 									</td>
-									<td class="td-left-control td-right-control">
+									<td valign="top">
 										<table>
 											<tr>
-												<td>Hepatitis A:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_hepatitis_A" id="ha_RSHLSV_hepatitis_A">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Hepatitis A: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_hepatitis_A" id="ha_RSHLSV_hepatitis_A">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 											<tr>
-												<td>Hepatitis B:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_hepatitis_B" id="ha_RSHLSV_hepatitis_B">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Hepatitis B: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_hepatitis_B" id="ha_RSHLSV_hepatitis_B">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 										</table>
 									</td>
-									<td class="td-right-control">
+									<td valign="top">
 										<table>
 											<tr>
-												<td>Meningitis:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_meningitis" id="ha_RSHLSV_meningitis">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Meningitis: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_meningitis" id="ha_RSHLSV_meningitis">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 											<tr>
-												<td>Sarampión:&nbsp;</td>
-												<td>
-													<select class="form-control" name="ha_RSHLSV_sarampion" id="ha_RSHLSV_sarampion">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-													</select>
-												</td>
+												<td>Sarampión: </td>
+												<td><select class="form-control"
+												name="ha_RSHLSV_sarampion" id="ha_RSHLSV_sarampion">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select></td>
 											</tr>
 										</table>
 									</td>
@@ -268,7 +264,7 @@
 						<div class="form-group">
 							<label for="asiste_ACMP">¿Asiste a control médico prenatal?</label> 
 							<div class="radio">
-								<label><input type="radio" name="asiste_ACMP">Si</label>
+								<label><input type="radio" name="asiste_ACMP">Sí</label>
 								<label><input type="radio" name="asiste_ACMP"  checked="checked">No</label>
 							</div>
 						</div>
@@ -277,8 +273,10 @@
 			</tr>
 		</table>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
-<script>
+
+<script type="text/javascript">
 	$(document).ready(function() {
 		
 		$('#requiere_UDAOEM_si').change(function() {

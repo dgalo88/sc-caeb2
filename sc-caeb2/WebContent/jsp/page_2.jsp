@@ -1,6 +1,10 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
+<%
+	int pageNumber = 2;
+%>
+
 <div class="container-fluid">
 	<form class="form-group">
 		<table class="table">

@@ -177,6 +177,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		$('#fechaNacimiento').datepicker();
+
 		$('#pasaporte').on("click", function() {
 			if ($("#pasaporte").is(":checked")) {
 				$("#numeroPasaporte").removeClass('hidden').addClass('show');
@@ -184,6 +187,7 @@
 				$("#numeroPasaporte").removeClass('show').addClass('hidden');
 			}
 		});
+
 	});
 </script>
 

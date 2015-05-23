@@ -1,14 +1,18 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
+<%
+	int pageNumber = 7;
+%>
+
 <div class="container-fluid">
-	<form>
+	<form class="form-group">
 		<table class="table">
 			<tr>
 				<td width="50%">
 					<div>
 						<div class="form-group">
-							<label for="ultimo_GA">Ultimo grado aprobado</label> 
+							<label for="ultimo_GA">Último grado aprobado</label> 
 							<div class="radio">
 								<label><input type="radio" name="ultimo_GA" id="ultimo_GA_NE" checked="checked">Nivel  educativo</label>
 								<label><input type="radio" name="ultimo_GA" id="ultimo_GA_GSA">Grado, semestre o año</label>
@@ -16,17 +20,17 @@
 							<select class="form-control" name="ultimo_GA_select" id="ultimo_GA_select">
 								<option value="Ninguno">Ninguno</option>
 								<option value="Preescolar">Preescolar</option>
-								<option value="Básico (1-9)/Primaria (1-6)">Básico (1-9)/Primaria (1-6)</option>
+								<option value="Básico (1-9) / Primaria (1-6)">Básico (1-9) / Primaria (1-6)</option>
 								<option value="Educación especial">Educación especial</option>
 								<option value="Media (1-2) / Bachillerato">Media (1-2) / Bachillerato</option>
-								<option value="Técnico medio (1-3)">Técnico medio (1-3)</option>
+								<option value="Técnico Medio (1-3)">Técnico Medio (1-3)</option>
 								<option value="Técnico Superior">Técnico Superior</option>
 								<option value="Universitario">Universitario</option>
 							</select>
 							<input type="number" required class="form-control" id="ultimo_GA_text" name="ultimo_GA_text" placeholder="Grado, semestre o año" style="display: none">
 						</div>
 						<div class="form-group">
-							<label for="usted_SE">UD. Se encuentra</label> 
+							<label for="usted_SE">Ud. Se encuentra</label> 
 							<select class="form-control" name="usted_SE_select" id="usted_SE_select">
 								<option>Trabajando</option>
 								<option>Sin trabajar pero tiene trabajo</option>
@@ -39,7 +43,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="usted_E">¿UD. Es?</label> 
+							<label for="usted_E">¿Ud. Es?</label> 
 							<div class="radio">
 								<label><input type="radio" name="usted_E" id="usted_E_EUO" checked="checked">Empleado(a) u obrero(a)</label>
 								<label><input type="radio" name="usted_E" id="usted_E_otro">Otro</label>
@@ -54,7 +58,7 @@
 								<option value="Empleador(a) o patrono(a)">Empleador(a) o patrono(a)</option>
 								<option value="Miembro de  cooperativa">Miembro de  cooperativa</option>
 								<option value="Ayudante familiar o no remunerado">Ayudante familiar o no remunerado</option>
-								<option value="Servicio domestico">Servicio domestico</option>
+								<option value="Servicio doméstico">Servicio doméstico</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -63,7 +67,7 @@
 								<option value="Dentro de la vivienda">Dentro de la vivienda</option>
 								<option value="En local anexo a la vivienda">En local anexo a la vivienda</option>
 								<option value="En local o lugar exclusivo">En local o lugar exclusivo</option>
-								<option value="En la calle (buhonero, puesto callejero,..)">En la calle (buhonero, puesto callejero,..)</option>
+								<option value="En la calle (buhonero, puesto callejero, ...)">En la calle (buhonero, puesto callejero, ...)</option>
 								<option value="En kiosco">En kiosco</option>
 								<option value="En mercado">En mercado</option>
 								<option value="En vehículo">En vehículo</option>
@@ -71,9 +75,9 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="parte_DTUOQDUTHPDOA">¿A parte del trabajo u oficio que desempeña UD. Tiene habilidades para desempeñar otra actividad?</label> 
+							<label for="parte_DTUOQDUTHPDOA">¿A parte del trabajo u oficio que desempeña Ud. tiene habilidades para desempeñar otra actividad?</label>
 							<div class="radio">
-								<label><input type="radio" name="parte_DTUOQDUTHPDOA" id="parte_DTUOQDUTHPDOA_si">Si ¿Cual?</label>
+								<label><input type="radio" name="parte_DTUOQDUTHPDOA" id="parte_DTUOQDUTHPDOA_si">Sí ¿Cuál?</label>
 								<label><input type="radio" name="parte_DTUOQDUTHPDOA" id="parte_DTUOQDUTHPDOA_no" checked="checked">No</label>
 							</div>
 							<input type="text" required class="form-control" id="parte_DTUOQDUTHPDOA_text" name="parte_DTUOQDUTHPDOA_text" style="display: none">
@@ -94,7 +98,7 @@
 							<label for="negocio_OOEDTE">El negocio, organismo o empresa donde trabaja es:</label> 
 							<div class="radio">
 								<label><input type="radio" name="negocio_OOEDTE" id="negocio_OOEDTE" checked="checked">Privado</label>
-								<label><input type="radio" name="negocio_OOEDTE" id="negocio_OOEDTE">Publica </label>
+								<label><input type="radio" name="negocio_OOEDTE" id="negocio_OOEDTE">Público</label>
 							</div>
 						</div>
 						<div class="form-group">
@@ -109,7 +113,7 @@
 						<div class="form-group">
 							<label for="ultimo_2AHRAC">En los últimos 2 años, ha recibido algún crédito</label> 
 							<div class="radio">
-								<label><input type="radio" name="ultimo_2AHRAC" id="ultimo_2AHRAC_si">Si ¿Cual instituto lo otorgo?</label>
+								<label><input type="radio" name="ultimo_2AHRAC" id="ultimo_2AHRAC_si">Sí ¿Cuál instituto lo otorgo?</label>
 								<label><input type="radio" name="ultimo_2AHRAC" id="ultimo_2AHRAC_no" checked="checked">No</label>
 							</div>
 							<select class="form-control" name="ultimo_2AHRAC_select" id="ultimo_2AHRAC_select" style="display: none">
@@ -122,22 +126,23 @@
 								<option value="FONDAFA">FONDAFA</option>
 								<option value="FONDEMI">FONDEMI</option>
 								<option value="FOMDES">FOMDES</option>
-								<option value="Otra ¿Cual?">Otra ¿Cual?</option>
+								<option value="Otra ¿Cuál?">Otra ¿Cuál?</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<div class="radio">
-								<input type="text" required class="form-control" id="ultimo_2AHRAC_text" name="ultimo_2AHRAC_text" placeholder="¿Cual?" style="display: none">
+								<input type="text" required class="form-control" id="ultimo_2AHRAC_text" name="ultimo_2AHRAC_text" placeholder="¿Cuál?" style="display: none">
 							</div>
 						</div>
 					</div>
 				</td>
 			</tr>
-<!-- 			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr> -->
 		</table>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
-<script>
+
+<script type="text/javascript">
 	$(document).ready(function() {
 		$('#ultimo_GA_NE').change(function() {
 			$('#ultimo_GA_select').show();

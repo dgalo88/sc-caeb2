@@ -22,6 +22,8 @@
 
 	<link href="/sc-caeb2/css/styles.css" rel="stylesheet">
 
+	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/datepicker.css"/>
+
 </head>
 
 <body>
@@ -29,6 +31,8 @@
 	<script src="/sc-caeb2/js/jquery-2.1.3.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="/sc-caeb2/js/bootstrap.min.js"></script>
+
+	<script src="/sc-caeb2/js/bootstrap-datepicker.js"></script>
 
 	<div class="container-fluid">
 		<table class="table" style="margin-bottom: 0px;">
