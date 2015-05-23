@@ -1,4 +1,9 @@
 <%@ include file="header.jsp"%>
+
+<%
+	int pageNumber = 3;
+%>
+
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -32,9 +37,10 @@
 			<label class="text-danger">Nota: Continúe la entrevista para el primer hogar censal en este mismo cuestionario y para el resto de los hogares utilice otro cuestionario</label>
 		</div>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 	});
 </script>

@@ -1,45 +1,46 @@
 <%@ include file="header.jsp"%>
-<%@ include file="navbar.jsp"%>
 
 <%
 	int pageNumber = 8;
 %>
 
+<%@ include file="navbar.jsp"%>
+
 <div class="container-fluid">
 	<form class="form-group">
 		<table class="table">
 			<tr>
-				<td width="50%" valign="top">
-					<div>
+				<td width="50%">
+					<div class="form-group">
 						<div class="form-group">
 							<label for="tiene_ADLSDPOD">Tiene alguna de las siguientes deficiencias, problemas o discapacidades: </label>
 							<table class="table table-control">
 								<tr>
-									<td valign="top">
+									<td class="td-left-control">
 										<div class="form-group">
 											<div class="checkbox">
-												<label> <input type="checkbox">Ninguna</label>
-												<label> <input type="checkbox">Ceguera total</label>
-												<label> <input type="checkbox">Dificultad para ver</label>
-												<label> <input type="checkbox">Sordera total</label>
+												<label><input type="checkbox">Ninguna</label><br>
+												<label><input type="checkbox">Ceguera total</label><br>
+												<label><input type="checkbox">Dificultad para ver</label><br>
+												<label><input type="checkbox">Sordera total</label>
 											</div>
 										</div>
 									</td>
-									<td valign="top">
+									<td class="td-center-control">
 										<div class="form-group">
 											<div class="checkbox">
-												<label> <input type="checkbox">Dificulta para oír</label>
-												<label> <input type="checkbox">Dificultad para hablar</label>
-												<label> <input type="checkbox">Retardo mental</label>
+												<label><input type="checkbox">Dificulta para oír</label><br>
+												<label><input type="checkbox">Dificultad para hablar</label><br>
+												<label><input type="checkbox">Retardo mental</label>
 											</div>
 										</div>
 									</td>
-									<td valign="top">
+									<td class="td-right-control">
 										<div class="form-group">
 											<div class="checkbox">
-												<label> <input type="checkbox">Pérdida de capacidad mental</label>
-												<label> <input type="checkbox">Pérdida o discapacidad de extremidades superiores</label>
-												<label> <input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
+												<label><input type="checkbox">Pérdida de capacidad mental</label><br>
+												<label><input type="checkbox">Pérdida o discapacidad de extremidades superiores</label><br>
+												<label><input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
 											</div>
 										</div>
 									</td>
@@ -71,13 +72,13 @@
 						<div class="form-group">
 							<label for="requiere_UDAOEM">¿Requiere uso de aparatos o equipos médicos?</label> 
 							<div class="radio">
-								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_si">Si</label>
-								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_no" checked="checked" >No</label>
+								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_si">Sí</label>
+								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_no" checked>No</label>
 							</div>
 							<div class="form-group" id="requiere_UDAOEM_div" style="display: none">
 								<table class="table table-control">
 									<tr>
-										<td valign="top" style="padding-right: 2%;">
+										<td class="td-left-control">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_cual">¿Cuál?</label> 
 												<select class="form-control" name="requiere_UDAOEM_cual_select" id="requiere_UDAOEM_cual_select">
@@ -96,12 +97,12 @@
 												</div>
 											</div>
 										</td>
-										<td valign="top">
+										<td class="td-right-control">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_TEAOEQR">¿Tiene el aparato o equipo que requiere?</label> 
 												<div class="radio">
 													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_si">Sí</label>
-													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_no" checked="checked">No</label>
+													<label><input type="radio" name="requiere_UDAOEM_TEAOEQR" id="requiere_UDAOEM_TEAOEQR_no" checked>No</label>
 												</div>
 											</div>
 										</td>
@@ -113,23 +114,29 @@
 							<label for="se_ECE">¿Se encuentra embarazada?</label> 
 							<div class="radio">
 								<label><input type="radio" name="se_ECE">Sí</label>
-								<label><input type="radio" name="se_ECE" checked="checked">No</label>
+								<label><input type="radio" name="se_ECE" checked>No</label>
 							</div>
 						</div>
 					</div>
 				</td>
 				<td width="50%">
-					<div>
+					<div class="form-group">
 						<div class="form-group">
-							<label for="por_CDLSSDPSEA">¿Por cuales de los siguientes sistemas de previsión social está amparado?</label>
-							<div class="form-group">
-								<div class="checkbox">
-									<label> <input type="checkbox">Ninguna</label>
-									<label> <input type="checkbox">Seguro social obligatorio</label>
-									<label> <input type="checkbox">Seguro privado de asistencia médica por su cuenta</label>
-									<label> <input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
-								</div>
-							</div>
+							<table class="table table-control">
+								<tr>
+									<td class="td-center-control">
+										<label for="por_CDLSSDPSEA">¿Por cuales de los siguientes sistemas de previsión social está amparado?</label>
+										<div class="form-group">
+											<div class="checkbox">
+												<label><input type="checkbox">Ninguna</label><br>
+												<label><input type="checkbox">Seguro social obligatorio</label><br>
+												<label><input type="checkbox">Seguro privado de asistencia médica por su cuenta</label><br>
+												<label><input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
 						</div>
 						<div class="form-group">
 							<label for="padecido_OHSDPADLSE">¿Ha padecido o ha sido diagnosticado por alguna de las siguientes enfermedades?</label> 
@@ -146,15 +153,13 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<div class="radio">
-								<input type="text" required class="form-control" id="padecido_OHSDPADLSE_text" name="padecido_OHSDPADLSE_text" placeholder="¿Cuál?" style="display: none">
-							</div>
+							<input type="text" required class="form-control" id="padecido_OHSDPADLSE_text" name="padecido_OHSDPADLSE_text" placeholder="¿Cuál?" style="display: none">
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
 							<table class="table table-control">
 								<tr>
-									<td valign="top">
+									<td class="td-left-control">
 										<table>
 											<tr>
 												<td>BCG: </td>
@@ -180,7 +185,7 @@
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-center-control">
 										<table>
 											<tr>
 												<td>Trivalente: </td>
@@ -206,7 +211,7 @@
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-center-control">
 										<table>
 											<tr>
 												<td>Hepatitis A: </td>
@@ -232,7 +237,7 @@
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-right-control">
 										<table>
 											<tr>
 												<td>Meningitis: </td>
@@ -265,7 +270,7 @@
 							<label for="asiste_ACMP">¿Asiste a control médico prenatal?</label> 
 							<div class="radio">
 								<label><input type="radio" name="asiste_ACMP">Sí</label>
-								<label><input type="radio" name="asiste_ACMP"  checked="checked">No</label>
+								<label><input type="radio" name="asiste_ACMP" checked>No</label>
 							</div>
 						</div>
 					</div>

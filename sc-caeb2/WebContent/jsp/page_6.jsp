@@ -1,4 +1,9 @@
 <%@ include file="header.jsp"%>
+
+<%
+	int pageNumber = 6;
+%>
+
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -120,10 +125,10 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form><%@ include file="pagination.jsp"%>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 
 		$('#siAsisteEstEduc').on('click', function() {

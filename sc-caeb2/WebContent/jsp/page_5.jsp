@@ -1,4 +1,9 @@
 <%@ include file="header.jsp"%>
+
+<%
+	int pageNumber = 5;
+%>
+
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -47,15 +52,16 @@
 								</td>
 								<td class="td-right-control" width="50%">
 									<label for="fechaNacimiento">Fecha de nacimiento</label>
-									<div class="input-group">
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default" aria-label="calendar">
-												<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-											</button>
-										</span>
-										<input type="datetime" class="form-control" placeholder="Ej. 15/02/1980"
-												id="fechaNacimiento" name="fechaNacimiento" required>
-									</div>	<!-- /input-group -->
+									<div class="form-group" id="fecha">	<!-- fecha -->
+										<div class="input-group date">
+											<input type="text" class="form-control" placeholder="Ej. 15/02/1980"
+													id="fechaNacimiento" name="fechaNacimiento" required>
+											<span class="input-group-addon" id="fechaNacIcon">
+												<i class="glyphicon glyphicon-calendar" aria-label="calendar" aria-hidden="true"></i>
+											</span>
+											<div class="date"></div>
+										</div>
+									</div>	<!-- /fecha -->
 								</td>
 							</tr>
 						</table>
@@ -140,11 +146,11 @@
 										<label for="tieneDI">¿Tiene?</label>
 										<div class="checkbox" id="tieneDI">
 											<label>
-												<input type="checkbox" name="pasaporte" id="pasaporte">
+												<input type="checkbox" name="docId" id="pasaporte">
 												Pasaporte
 											</label>
 											<label>
-												<input type="checkbox" name="partidaNacimiento" id="partidaNacimiento">
+												<input type="checkbox" name="docId" id="partidaNacimiento">
 												Partida de nacimiento
 											</label>
 											<br><br>
@@ -173,15 +179,16 @@
 			</tr>
 		</table>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#fechaNacimiento').datepicker();
+		$('#fecha input').datepicker();
 
 		$('#pasaporte').on("click", function() {
-			if ($("#pasaporte").is(":checked")) {
+			if ($(this).is(":checked")) {
 				$("#numeroPasaporte").removeClass('hidden').addClass('show');
 			} else {
 				$("#numeroPasaporte").removeClass('show').addClass('hidden');

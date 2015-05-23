@@ -1,4 +1,9 @@
 <%@ include file="header.jsp"%>
+
+<%
+	int pageNumber = 4;
+%>
+
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -131,9 +136,10 @@
 			</tr>
 		</table>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		
 		$('#hogar_UM_si').change(function() {

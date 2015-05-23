@@ -1,9 +1,10 @@
 <%@ include file="header.jsp"%>
-<%@ include file="navbar.jsp"%>
 
 <%
 	int pageNumber = 2;
 %>
+
+<%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group">
@@ -226,9 +227,10 @@
 			</tr>
 		</table>
 	</form>
+	<%@ include file="pagination.jsp"%>
 </div>
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		$('#la_vivienda_RMU_si').change(function() {
 			$('#la_vivienda_RMU_div').show();

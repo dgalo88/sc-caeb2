@@ -1,9 +1,10 @@
 <%@ include file="header.jsp"%>
-<%@ include file="navbar.jsp"%>
 
 <%
 	int pageNumber = 7;
 %>
+
+<%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group">
@@ -130,9 +131,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<div class="radio">
-								<input type="text" required class="form-control" id="ultimo_2AHRAC_text" name="ultimo_2AHRAC_text" placeholder="¿Cuál?" style="display: none">
-							</div>
+							<input type="text" required class="form-control" id="ultimo_2AHRAC_text" name="ultimo_2AHRAC_text" placeholder="¿Cuál?" style="display: none">
 						</div>
 					</div>
 				</td>

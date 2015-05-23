@@ -1,9 +1,10 @@
 <%@ include file="header.jsp"%>
-<%@ include file="navbar.jsp"%>
 
 <%
 	int pageNumber = 9;
 %>
+
+<%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group">
@@ -14,35 +15,35 @@
 						<label for="que_HAOMD">¿Qué habilidad artística o manual domina?</label> 
 						<table class="table table-control">
 							<tr>
-								<td valign="top">
+								<td class="td-left-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox">Ninguna</label>
-											<label><input type="checkbox">Instrumentos de cuerda</label>
-											<label><input type="checkbox">Cocina</label>
-											<label><input type="checkbox">Corte y costure</label>
+											<label><input type="checkbox">Ninguna</label><br>
+											<label><input type="checkbox">Instrumentos de cuerda</label><br>
+											<label><input type="checkbox">Cocina</label><br>
+											<label><input type="checkbox">Corte y costure</label><br>
 											<label><input type="checkbox">Repostería</label>
 										</div>
 									</div>
 								</td>
-								<td valign="top">
+								<td class="td-center-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox">Pintura</label>
-											<label><input type="checkbox">Teatro</label>
-											<label><input type="checkbox">Bordado</label>
-											<label><input type="checkbox">Peluquería</label>
+											<label><input type="checkbox">Pintura</label><br>
+											<label><input type="checkbox">Teatro</label><br>
+											<label><input type="checkbox">Bordado</label><br>
+											<label><input type="checkbox">Peluquería</label><br>
 											<label><input type="checkbox">Computación</label>
 										</div>
 									</div>
 								</td>
-								<td valign="top">
+								<td class="td-right-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox">Danza</label>
-											<label><input type="checkbox">Artesanía</label>
-											<label><input type="checkbox">Canto</label>
-											<label><input type="checkbox">Manicure y pedicure</label>
+											<label><input type="checkbox">Danza</label><br>
+											<label><input type="checkbox">Artesanía</label><br>
+											<label><input type="checkbox">Canto</label><br>
+											<label><input type="checkbox">Manicure y pedicure</label><br>
 											<label><input type="checkbox" id="que_HAOMD_cual">Otra ¿Cuál?</label>
 										</div>
 									</div>
@@ -87,30 +88,30 @@
 						<label for="cual_DLSDP">¿Cuál de los siguientes deportes practica?</label> 
 						<table class="table table-control">
 							<tr>
-								<td valign="top">
+								<td class="td-left-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox">Ninguna</label>
-											<label><input type="checkbox">Basketbol</label>
-											<label><input type="checkbox">Beisbol</label>
+											<label><input type="checkbox">Ninguna</label><br>
+											<label><input type="checkbox">Basketbol</label><br>
+											<label><input type="checkbox">Beisbol</label><br>
 											<label><input type="checkbox" id="cual_DLSDP_cual">Otro ¿Cuál?</label>
 										</div>
 									</div>
 								</td>
-								<td valign="top">
+								<td class="td-center-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label> <input type="checkbox">Fútbol campo</label>
-											<label> <input type="checkbox">Voleibol</label>
+											<label> <input type="checkbox">Fútbol campo</label><br>
+											<label> <input type="checkbox">Voleibol</label><br>
 											<label> <input type="checkbox">Natación</label>
 										</div>
 									</div>
 								</td>
-								<td valign="top">
+								<td class="td-right-control">
 									<div class="form-group">
 										<div class="checkbox">
-											<label> <input type="checkbox">Fútbol sala</label>
-											<label> <input type="checkbox">Softbol</label>
+											<label> <input type="checkbox">Fútbol sala</label><br>
+											<label> <input type="checkbox">Softbol</label><br>
 											<label> <input type="checkbox">Atletismo</label>
 										</div>
 									</div>
