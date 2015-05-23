@@ -5,56 +5,38 @@
 	<form>
 		<table class="table">
 			<tr>
-				<td width="50%" valign="top">
+				<td width="50%">
 					<div>
 						<div class="form-group">
 							<label for="tiene_ADLSDPOD">Tiene alguna de las siguientes deficiencias, problemas o discapacidades: </label> 
-							<table width="100%">
-								<tr>
-									<td valign="top">
-										<div class="form-group">
-											<div class="checkbox">
-												<label> <input type="checkbox">Ninguna</label>
+							<div class="checkbox">
+								<table class="table table-control">
+									<tr>
+										<td class="td-left-control">
+											<div class="form-group">
+												<label><input type="checkbox">Ninguna</label>
+												<label><input type="checkbox">Ceguera total</label>
+												<label><input type="checkbox">Dificultad para ver</label>
+												<label><input type="checkbox">Sordera total</label>
 											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Ceguera total</label>
+										</td>
+										<td class="td-center-control">
+											<div class="form-group">
+												<label><input type="checkbox">Dificulta para oír</label>
+												<label><input type="checkbox">Dificultad para hablar</label>
+												<label><input type="checkbox">Retardo mental</label>
 											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Dificultad para ver</label>
+										</td>
+										<td class="td-left-control">
+											<div class="form-group">
+												<label><input type="checkbox">Pérdida de capacidad mental</label>
+												<label><input type="checkbox">Pérdida o discapacidad de extremidades superiores</label>
+												<label><input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
 											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Sordera total</label>
-											</div>
-										</div>
-									</td>
-									<td valign="top">
-										<div class="form-group">
-											<div class="checkbox">
-												<label> <input type="checkbox">Dificulta para oír</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Dificultad para hablar</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Retardo mental</label>
-											</div>
-										</div>
-									</td>
-									<td valign="top">
-										<div class="form-group">
-											<div class="checkbox">
-												<label> <input type="checkbox">Pérdida de capacidad mental</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Pérdida o discapacidad de extremidades superiores</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Pérdida o discapacidad de extremidades inferiores</label>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</table>
+										</td>
+									</tr>
+								</table>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="cuando_RAMAQLA">¿Cuando requiere asistencia médica a qué lugar asiste?</label> 
@@ -85,9 +67,9 @@
 								<label><input type="radio" name="requiere_UDAOEM" id="requiere_UDAOEM_no" checked="checked" >No</label>
 							</div>
 							<div class="form-group" id="requiere_UDAOEM_div" style="display: none">
-								<table width="100%">
+								<table class="table table-control">
 									<tr>
-										<td valign="top" style="padding-right: 2%;">
+										<td class="td-left-control">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_cual">¿Cuál?</label> 
 												<select class="form-control" name="requiere_UDAOEM_cual_select" id="requiere_UDAOEM_cual_select">
@@ -106,7 +88,7 @@
 												</div>
 											</div>
 										</td>
-										<td valign="top">
+										<td class="td-right-control">
 											<div class="form-group">
 												<label for="requiere_UDAOEM_TEAOEQR">¿Tiene el aparato o equipo que requiere?</label> 
 												<div class="radio">
@@ -132,22 +114,14 @@
 					<div>
 						<div class="form-group">
 							<label for="por_CDLSSDPSEA">¿Por cuales de los siguientes sistemas de previsión social está amparado?</label>
-							<table width="100%">
+							<table class="table table-control">
 								<tr>
-									<td valign="top">
-										<div class="form-group">
-											<div class="checkbox">
-												<label> <input type="checkbox">Ninguna</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Seguro social obligatorio</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Seguro privado de asistencia médica por su cuenta</label>
-											</div>
-											<div class="checkbox">
-												<label> <input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
-											</div>
+									<td class="td-center-control">
+										<div class="checkbox">
+											<label><input type="checkbox">Ninguna</label><br>
+											<label><input type="checkbox">Seguro social obligatorio</label><br>
+											<label><input type="checkbox">Seguro privado de asistencia médica por su cuenta</label><br>
+											<label><input type="checkbox">Seguro colectivo de asistencia médica de empresa u organización</label>
 										</div>
 									</td>									
 								</tr>
@@ -174,109 +148,117 @@
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
-							<table width="100%">
+							<table class="table table-control">
 								<tr>
-									<td valign="top">
+									<td class="td-left-control">
 										<table>
 											<tr>
-												<td>BCG:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_BCG" id="ha_RSHLSV_BCG">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>BCG:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_BCG" id="ha_RSHLSV_BCG">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
-												<td>Triple:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_triple" id="ha_RSHLSV_triple">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Triple:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_triple" id="ha_RSHLSV_triple">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-left-control td-right-control">
 										<table>
 											<tr>
-												<td>Trivalente:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_trivalente" id="ha_RSHLSV_trivalente">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Trivalente:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_trivalente" id="ha_RSHLSV_trivalente">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
-												<td>Polio:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_polio" id="ha_RSHLSV_polio">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Polio:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_polio" id="ha_RSHLSV_polio">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-left-control td-right-control">
 										<table>
 											<tr>
-												<td>Hepatitis A:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_hepatitis_A" id="ha_RSHLSV_hepatitis_A">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Hepatitis A:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_hepatitis_A" id="ha_RSHLSV_hepatitis_A">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
-												<td>Hepatitis B:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_hepatitis_B" id="ha_RSHLSV_hepatitis_B">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Hepatitis B:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_hepatitis_B" id="ha_RSHLSV_hepatitis_B">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 										</table>
 									</td>
-									<td valign="top">
+									<td class="td-right-control">
 										<table>
 											<tr>
-												<td>Meningitis:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_meningitis" id="ha_RSHLSV_meningitis">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Meningitis:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_meningitis" id="ha_RSHLSV_meningitis">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
-												<td>Sarampión:</td>
-												<td><select class="form-control"
-												name="ha_RSHLSV_sarampion" id="ha_RSHLSV_sarampion">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="4">4</option>
-													<option value="5">5</option>
-												</select></td>
+												<td>Sarampión:&nbsp;</td>
+												<td>
+													<select class="form-control" name="ha_RSHLSV_sarampion" id="ha_RSHLSV_sarampion">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+												</td>
 											</tr>
 										</table>
 									</td>
@@ -293,7 +275,6 @@
 					</div>
 				</td>
 			</tr>
-<!-- 			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr> -->
 		</table>
 	</form>
 </div>

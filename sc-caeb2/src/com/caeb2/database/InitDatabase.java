@@ -33,7 +33,7 @@ public class InitDatabase {
 	}
 
 	private void readSqlFile(String fileName) //
-	throws IOException, SQLException, ClassNotFoundException {
+			throws IOException, SQLException, ClassNotFoundException {
 
 		File file = new File(fileName);
 		FileReader fileReader = new FileReader(file);
@@ -69,13 +69,16 @@ public class InitDatabase {
 
 			Statement statement = connection.createStatement();
 			statement.execute(query);
+			statement.close();
 
 		}
+
+		connection.close();
 
 	}
 
 	public static void createDatabaseUser(String user, String pass) //
-	throws SQLException {
+			throws SQLException {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
@@ -86,13 +89,16 @@ public class InitDatabase {
 		String sql = "CREATE USER " + user + "@localhost IDENTIFIED BY '" + pass + "'";
 
 		statement.execute(sql);
-		
+
 		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@localhost";
 
 		statement.execute(sql);
 
 		Controller.setDBUser(user);
 		Controller.setDBPass(pass);
+
+		statement.close();
+		connection.close();
 
 	}
 
@@ -110,6 +116,9 @@ public class InitDatabase {
 		statement.execute(sql);
 
 		Controller.setDBName(dbName);
+
+		statement.close();
+		connection.close();
 
 	}
 

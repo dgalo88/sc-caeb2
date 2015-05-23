@@ -1,15 +1,11 @@
 <%@ include file="header.jsp"%>
 <%@ include file="navbar.jsp"%>
 
-<div class="container" style="padding-top: 2%;">
-	<form>
-		<table width="100%">
+<div class="container-fluid">
+	<form class="form-group">
+		<table class="table">
 			<tr>
-				<th  width="50%"></th>
-				<th  width="50%"></th>
-			</tr>
-			<tr>
-				<td valign="top" style="padding-right: 2%;">
+				<td width="50%">
 					<div>
 						<div class="form-group">
 							<label for="tipo_estructura">Tipo de Estructura</label> 
@@ -19,7 +15,7 @@
 								<option>Apartamento en quinta, casa quinta</option>
 								<option>Casa de vecindad</option>
 								<option>Rancho</option>
-								<option>Otros (1=Deposito, 2=Talleres, 3=comercio)</option>
+								<option>Otros (1 = Depósito, 2 = Talleres, 3 = Comercio)</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -33,13 +29,13 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="total_cuartos">Total de cuarto que contiene la vivienda</label> 
-								<input type="number" required class="form-control" id="total_cuartos" name="total_cuartos" placeholder="No incluye Baños, Pasillos, Balcones ni Lavadores">
+							<label for="total_cuartos">Total de cuartos que contiene la vivienda</label> 
+								<input type="number" required class="form-control" id="total_cuartos" name="total_cuartos" placeholder="No incluye baños, pasillos, balcones ni lavaderos">
 						</div>
 						<div class="form-group">
 							<label for="la_vivienda_GFM">¿La vivienda se ajusta a su grupo familiar?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_GFM" checked="checked">Si</label>
+								<label><input type="radio" name="la_vivienda_GFM" checked>Sí</label>
 								<label><input type="radio" name="la_vivienda_GFM">No</label>
 							</div>
 						</div>
@@ -54,16 +50,16 @@
 						<div class="form-group">
 							<label for="la_vivienda_PA">¿La vivienda tiene posibilidad de ampliación?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_PA" checked="checked">Si</label>
+								<label><input type="radio" name="la_vivienda_PA" checked>Sí</label>
 								<label><input type="radio" name="la_vivienda_PA">No</label>
 							</div>
 						</div>
 					</div>
 				</td>
-				<td valign="top">
+				<td width="50%">
 					<div>
 						<div class="form-group">
-							<label for="exampleInputPassword1">Material Predominante de la Vivienda</label>
+							<label>Material Predominante de la Vivienda</label>
 							<table style="padding: none;">
 								<tr>
 									<th width="30%">Paredes</th>
@@ -73,28 +69,27 @@
 								<tr>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="paredes">
-											<option>Bloque o Ladrillo Frisado</option>
-											<option>Bloque o Ladrillo sin Frisar</option>
+											<option>Bloque o ladrillo frisado</option>
+											<option>Bloque o ladrillo sin frisar</option>
 											<option>Concreto</option>
-											<option>Madera Aserrada, Fornica, Fibra de vidrio y
-												Similares</option>
-											<option>Adobe, Tapia o Bahareque sin Frisar</option>
-											<option>Otros(Palmas, Tablas o Similares)</option>
+											<option>Madera aserrada, formica, fibra de vidrio y similares</option>
+											<option>Adobe, tapia o bahareque sin frisar</option>
+											<option>Otros (Palmas, tablas o similares)</option>
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="techo">
 											<option>Platabanda</option>
 											<option>Teja</option>
-											<option>Laminas Asfálticas</option>
-											<option>Laminas Metálicas (Zinz y Similares)</option>
-											<option>Asbestos y Similares</option>
-											<option>Otros (Palmas, Tablas o Similares)</option>
+											<option>Láminas asfálticas</option>
+											<option>Láminas metálicas (Zinc y similares)</option>
+											<option>Asbestos y similares</option>
+											<option>Otros (Palmas, tablas o Similares)</option>
 										</select>
 									</td>
 									<td>
 										<select class="form-control" name="piso">
-											<option>Mármol, Mosaico, Granito, Vinil Cerámica, Ladrillo, Terracota, Parquet, Alfombrado y similares</option>
+											<option>Mármol, mosaico, granito, vinil cerámica, ladrillo, terracota, parquet, alfombrado y similares</option>
 											<option>Cemento</option>
 											<option>Tierra</option>
 											<option>Otros</option>
@@ -106,48 +101,48 @@
 						<div class="form-group">
 							<label for="ubicacion_cocina">Ubicación de la Cocina</label>
 							<select class="form-control" name="ubicacion_cocina" id="ubicacion_cocina">
-								<option>Cuarto Solo</option>
-								<option>Sala, Comedor</option>
-								<option>Otro Sitio</option>
+								<option>Cuarto solo</option>
+								<option>Sala, comedor</option>
+								<option>Otro sitio</option>
 							</select>
 						</div>
 						
 						<div class="form-group">
-							<label for="exampleInputPassword1">Servicios con los que cuenta la Vivienda</label>
+							<label>Servicios con los que cuenta la Vivienda</label>
 							<table style="padding: none;">
 								<tr>
 									<th width="25%">Agua</th>
-									<th width="25%">Servicio Sanitario</th>
-									<th width="25%">¿Dispone de Servicio Eléctrico?</th>
-									<th width="25%">Recolección de Basura</th>
+									<th width="25%">Servicio sanitario</th>
+									<th width="25%">¿Dispone de servicio eléctrico?</th>
+									<th width="25%">Recolección de basura</th>
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="vivienda_S_agua" id="vivienda_S_agua">
-											<option value="1">Acueducto o Tubería</option>
-											<option value="2">Camión Cisterna</option>
-											<option value="3">Pila Publica o Estanque</option>
-											<option value="4">Pozo con tubería o Bomba</option>
-											<option value="5">Otros medios, Especifique</option>
+											<option value="1">Acueducto o tubería</option>
+											<option value="2">Camión cisterna</option>
+											<option value="3">Pila pública o estanque</option>
+											<option value="4">Pozo con tubería o bomba</option>
+											<option value="5">Otros medios, especifique</option>
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="servicio_sanitario">
-											<option>Peseta Conectada a la Cloaca</option>
-											<option>Peseta Conectada al Rio</option>
+											<option>Peseta conectada a la cloaca</option>
+											<option>Peseta conectada al río</option>
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="servicio_electrico">
-											<option>Si</option>
+											<option>Sí</option>
 											<option>No</option>
 										</select>
 									</td>
 									<td>
 										<select class="form-control" name="recoleccion_basura">
-											<option>Recogida por el Servicio de Aseo Urbano</option>
-											<option>Depositada en conteiner Colectivo</option>
-											<option>Vertida en Quebradas, Ríos, Lagos, Calles o Terrenos Baldíos</option>
+											<option>Recogida por el servicio de aseo urbano</option>
+											<option>Depositada en conteiner colectivo</option>
+											<option>Vertida en quebradas, ríos, lagos, calles o terrenos baldíos</option>
 										</select>
 									</td>
 								</tr>
@@ -169,82 +164,43 @@
 						<div class="form-group">
 							<label for="la_vivienda_RMU">¿La vivienda requiere mejoras urgentes?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_si">Si</label>
-								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_no" checked="checked">No</label>
+								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_si">Sí</label>
+								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_no" checked>No</label>
 							</div>
 						</div>
 						<div class="form-group" style="display: none" id="la_vivienda_RMU_div">
 							<table style="padding: none;">
 								<tr>
 									<th width="30%">¿En qué parte de la vivienda?</th>
-									<th width="30%">¿Que requiere mejorar?</th>
+									<th width="30%">¿Qué requiere mejorar?</th>
 									<th width="30%">¿Qué trabajo necesita realizar?</th>
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
 										<div class="checkbox">
-											<label> <input type="checkbox"> Cocina
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox"> Comedor
-											</label>
-										</div>
-										<div class="checkbox">
-											<label> <input type="checkbox"> Dormitorio
-											</label>
-										</div>
-										<div class="checkbox">
-											<label> <input type="checkbox"> Baño
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox" id="vivienda_mejoras_PV_checkbox" name="vivienda_mejoras_PV_checkbox"> Otra ¿Cual?
-											</label>
+											<label><input type="checkbox">Cocina</label><br>
+											<label><input type="checkbox">Comedor</label><br>
+											<label><input type="checkbox">Dormitorio</label><br>
+											<label><input type="checkbox">Baño</label><br>
+											<label><input type="checkbox" id="vivienda_mejoras_PV_checkbox" name="vivienda_mejoras_PV_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 									<td style="padding-right: 1%;">
 										<div class="checkbox">
-											<label> <input type="checkbox">Techo
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Piso
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Paredes
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Sistema eléctrico
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox" id="vivienda_mejoras_RM_checkbox" name="vivienda_mejoras_RM_checkbox">Otra ¿Cual?
-											</label>
+											<label><input type="checkbox">Techo</label><br>
+											<label><input type="checkbox">Piso</label><br>
+											<label><input type="checkbox">Paredes</label><br>
+											<label><input type="checkbox">Sistema eléctrico</label><br>
+											<label><input type="checkbox" id="vivienda_mejoras_RM_checkbox" name="vivienda_mejoras_RM_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 									<td>
 										<div class="checkbox">
-											<label> <input type="checkbox">Friso
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Ampliación
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Remodelación
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox">Reparación
-											</label>
-										</div> 
-										<div class="checkbox">
-											<label> <input type="checkbox" id="vivienda_mejoras_TNR_checkbox" name="vivienda_mejoras_TNR_checkbox">Otra ¿Cual?
-											</label>
+											<label><input type="checkbox">Friso</label><br>
+											<label><input type="checkbox">Ampliación</label><br>
+											<label><input type="checkbox">Remodelación</label><br>
+											<label><input type="checkbox">Reparación</label><br>
+											<label><input type="checkbox" id="vivienda_mejoras_TNR_checkbox" name="vivienda_mejoras_TNR_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 								</tr>
@@ -264,10 +220,10 @@
 					</div>
 				</td>
 			</tr>
-			<tr><td></td><td valign="top" align="right"><button class="btn btn-lg btn-primary btn-block" type="submit" style="width: initial;">Siguiente</button></td></tr>
 		</table>
 	</form>
 </div>
+
 <script>
 	$(document).ready(function() {
 		$('#la_vivienda_RMU_si').change(function() {
