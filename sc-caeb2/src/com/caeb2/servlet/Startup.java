@@ -50,9 +50,9 @@ public class Startup extends HttpServlet {
 		Class<?> actionClass = null;
 		Method method = null;
 
-		String actionName = request.getParameter(Constants.ACTION);
-
 		try {
+
+			String actionName = request.getParameter(Constants.ACTION);
 
 			actionClass = Class.forName(actions.getActionClass(actionName));
 
@@ -60,13 +60,31 @@ public class Startup extends HttpServlet {
 					HttpServletRequest.class, HttpServletResponse.class);
 
 		} catch (Exception e) {
-			Controller.getLogger().log(Level.SEVERE, Constants.ACTION_ERROR, e);
+
+			Controller.putLogger(Level.SEVERE, Constants.ACTION_ERROR, e);
+
+			try {
+				Controller.forward(request, response, "jsp/error.jsp", Constants.ACTION_ERROR);
+			} catch (Exception e1) {
+				Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e1);
+			}
+
+			return;
+
 		}
 
 		try {
 			method.invoke(null, request, response);
 		} catch (Exception e) {
-			Controller.getLogger().log(Level.SEVERE, Constants.GENERAL_ERROR, e);
+
+			Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
+
+			try {
+				Controller.forward(request, response, "jsp/error.jsp", Constants.GENERAL_ERROR);
+			} catch (Exception e1) {
+				Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e1);
+			}
+
 		}
 
 	}

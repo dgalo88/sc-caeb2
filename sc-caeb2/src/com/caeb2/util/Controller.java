@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -19,12 +20,18 @@ public class Controller {
 	private static String dbUser = "censoaeb2";
 	private static String dbPass = "123456";
 
+	private static Logger logger = Logger.getLogger("CAEB2Logger");
+
 	private Controller() {
 		// empty
 	}
 
 	public static Logger getLogger() {
-		return Logger.getLogger("CAEB2Logger");
+		return logger;
+	}
+
+	public static void putLogger(Level level, String msg, Throwable thrown) {
+		logger.log(level, msg, thrown);
 	}
 
 	public static Connection getConnection() //
@@ -69,17 +76,27 @@ public class Controller {
 	}
 
 	public static void forward(HttpServletRequest request, HttpServletResponse response, //
-			String page) throws ServletException, IOException {
+			String page) throws Exception {
 
-		getLogger().info(Constants.FORWARD + page);
+		try {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-		dispatcher.forward(request, response);
+			getLogger().info(Constants.FORWARD + page);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
+
+		} catch (ServletException | IOException e) {
+
+			putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
+
+			throw new Exception(e);
+
+		}
 
 	}
 
 	public static void forward(HttpServletRequest request, HttpServletResponse response, //
-			String page, String message) throws ServletException, IOException {
+			String page, String message) throws Exception {
 
 		request.setAttribute(Constants.ATT_MESSAGE, message);
 
@@ -88,14 +105,14 @@ public class Controller {
 	}
 
 	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
-			String page, String params) throws ServletException, IOException {
+			String page, String params) throws Exception {
 
 		forward(request, response, page + "?" + params);
 
 	}
 
 	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
-			String page, String params, String message) throws ServletException, IOException {
+			String page, String params, String message) throws Exception {
 
 		request.setAttribute(Constants.ATT_MESSAGE, message);
 

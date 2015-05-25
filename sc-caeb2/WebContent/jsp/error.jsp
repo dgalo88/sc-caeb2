@@ -1,7 +1,7 @@
 <%@page import="com.caeb2.util.Constants"%>
 
 <%
-	String errorMessage = (String) request.getAttribute(Constants.ATT_ERROR);
+	String errorMessage = (String) request.getAttribute(Constants.ATT_MESSAGE);
 
 	if (errorMessage == null) {
 		errorMessage = "Ha ocurrido un errorcito";
@@ -16,9 +16,16 @@
 			<div class="panel-heading"><%=Constants.JSP_ERROR%></div>
 			<div class="panel-body"><%=errorMessage%></div>
 		</div>
-		<input id="datepicker" type="text" type="text" class="form-control">
-		<button type="button" class="btn btn-danger"><%=Constants.JSP_RETURN%></button>
+		<button type="button" class="btn btn-danger" id="returnBtn" name="returnBtn"><%=Constants.JSP_RETURN%></button>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#returnBtn').on('click', function() {
+			window.location.href = 'main.jsp';
+		});
+	});
+</script>
 
 <%@ include file="footer.jsp"%>

@@ -7,7 +7,7 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group">
+	<form class="form-group" id="form_<%=pageNumber%>" name="form_<%=pageNumber%>">
 		<table class="table">
 			<tr>
 				<td width="50%">

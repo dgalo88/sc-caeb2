@@ -1,12 +1,11 @@
 package com.caeb2.actions;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.MessageFormat;
 import java.util.logging.Level;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,9 +14,7 @@ import com.caeb2.util.Controller;
 
 public class Login {
 
-	public static void login(HttpServletRequest request, HttpServletResponse response) {
-
-		String page = null;
+	public static void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Connection connection = null;
 		Statement statement = null;
@@ -34,18 +31,32 @@ public class Login {
 					+ "' AND clave=SHA1('" + pass + "')";
 
 			if (statement.executeQuery(sql).first()) {
-				Controller.getLogger().info(Constants.USER_LOGIN.replace("0", user));
-				page = "jsp/main.jsp";
+
+				Controller.getLogger().info(MessageFormat.format( //
+						Constants.USER_LOGIN, new Object[] { user }));
+
+				Controller.forward(request, response, "jsp/main.jsp");
+
 			} else {
+
 				Controller.getLogger().severe(Constants.LOGIN_ERROR);
-				page = "jsp/error.jsp";
+				Controller.forward(request, response, "jsp/error.jsp", Constants.LOGIN_ERROR);
+
 			}
 
 		} catch (ClassNotFoundException e) {
-			Controller.getLogger().log(Level.SEVERE, //
+
+			Controller.putLogger(Level.SEVERE, //
 					Constants.DRIVER_ERROR + Constants.CONTACT_ADMIN, e);
+
+			throw new Exception(e);
+
 		} catch (SQLException e) {
-			Controller.getLogger().log(Level.SEVERE, Constants.SQL_ERROR, e);
+
+			Controller.putLogger(Level.SEVERE, Constants.SQL_ERROR, e);
+
+			throw new Exception(e);
+
 		} finally {
 
 			try {
@@ -60,13 +71,6 @@ public class Login {
 				// ignore
 			}
 
-		}
-
-		try {
-			Controller.forward(request, response, page);
-		} catch (ServletException | IOException e) {
-			Controller.getLogger().log(Level.SEVERE, //
-					Constants.GENERAL_ERROR + Constants.CONTACT_ADMIN, e);
 		}
 
 	}
