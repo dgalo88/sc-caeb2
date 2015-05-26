@@ -1,3 +1,4 @@
+<%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.Constants"%>
 
 <div class="container-fluid text-center">
@@ -29,7 +30,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		pageNum = <%=pageNumber%>;
+		pageNum = <%=Parameters.getInpageNumber()%>;
 		var pageId = '#page_' + pageNum;
 		var formId = '#form_' + pageNum;
 

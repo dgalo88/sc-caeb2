@@ -1,13 +1,14 @@
 <%@ include file="header.jsp"%>
 
 <%
-	int pageNumber = 1;
+	Parameters.setInpageNumber(1);
+	Parameters.setTitle("Sección 1: Identificación de la estructura");
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=pageNumber%>" name="form_<%=pageNumber%>"
+	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>"
 			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=identifyingStructure" method="POST">
 		<table class="table">
 			<tr>
@@ -48,7 +49,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#form_<%=pageNumber%>').on('submit', function() {
+		$('#form_<%=Parameters.getInpageNumber()%>').on('submit', function() {
 
 			if (!validate()) {
 				console.log('!validate');

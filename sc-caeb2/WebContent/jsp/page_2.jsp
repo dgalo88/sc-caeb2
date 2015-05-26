@@ -1,13 +1,14 @@
 <%@ include file="header.jsp"%>
 
 <%
-	int pageNumber = 2;
+	Parameters.setInpageNumber(2);
+	Parameters.setTitle("Sección 2: Datos de la vivienda");
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=pageNumber%>" name="form_<%=pageNumber%>">
+	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>">
 		<table class="table">
 			<tr>
 				<td width="50%">

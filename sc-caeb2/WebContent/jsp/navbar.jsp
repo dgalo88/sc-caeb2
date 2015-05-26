@@ -1,5 +1,6 @@
 
-	<div class="container-fluid">
+	<%@page import="com.caeb2.util.Parameters"%>
+<div class="container-fluid">
 		<nav class="navbar navbar-default">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
@@ -33,7 +34,7 @@
 				</ul>
 				<p class="navbar-text">
 					<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-					Sección 1: Datos de la vivienda
+					<%= Parameters.getTitle() %>
 				</p>
 			</div><!-- /.navbar-collapse -->
 		</nav>
