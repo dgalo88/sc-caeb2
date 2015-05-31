@@ -15,18 +15,20 @@
 					<div>
 						<div class="form-group">
 							<label for="tipo_estructura">Tipo de Estructura</label> 
-							<select class="form-control" name="tipo_estructura" id="tipo_estructura">
+							<select class="form-control" name="<%=Constants.SECTION2_STRUCTURE_TYPE%>" id="<%=Constants.SECTION2_STRUCTURE_TYPE%>">
 								<option>Casa</option>
 								<option>Apartamento en edificio</option>
 								<option>Apartamento en quinta, casa quinta</option>
 								<option>Casa de vecindad</option>
 								<option>Rancho</option>
-								<option>Otros (1 = Depósito, 2 = Talleres, 3 = Comercio)</option>
+								<option>Depósito</option>
+								<option>Taller</option>
+								<option>Comercio</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="tenencia">Tenencia</label>
-							<select class="form-control" name="tenencia" id="tenencia">
+							<select class="form-control" name="<%=Constants.SECTION2_HOLDING%>" id="<%=Constants.SECTION2_HOLDING%>">
 								<option>Propia pagada totalmente</option>
 								<option>Propia pagándose</option>
 								<option>Alquilada</option>
@@ -36,18 +38,18 @@
 						</div>
 						<div class="form-group">
 							<label for="total_cuartos">Total de cuartos que contiene la vivienda</label> 
-								<input type="number" required class="form-control" id="total_cuartos" name="total_cuartos" placeholder="No incluye baños, pasillos, balcones ni lavaderos">
+								<input type="number" required class="form-control" id="<%=Constants.SECTION2_TOTAL_ROOMS%>" name="<%=Constants.SECTION2_TOTAL_ROOMS%>" placeholder="No incluye baños, pasillos, balcones ni lavaderos">
 						</div>
 						<div class="form-group">
 							<label for="la_vivienda_GFM">¿La vivienda se ajusta a su grupo familiar?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_GFM" checked>Sí</label>
-								<label><input type="radio" name="la_vivienda_GFM">No</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_HOUSING_FITS_HOUSEHOLD%>" checked value="Si">Sí</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_HOUSING_FITS_HOUSEHOLD%>" value="No">No</label>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="vivienda_sector">¿La vivienda está en un sector?</label>
-							<select class="form-control" name="vivienda_sector" id="vivienda_sector">
+							<select class="form-control" name="<%=Constants.SECTION2_HOUSE_SECTOR%>" id="<%=Constants.SECTION2_HOUSE_SECTOR%>">
 								<option>Plano</option>
 								<option>Inclinado </option>
 								<option>Mixto</option>
@@ -56,8 +58,8 @@
 						<div class="form-group">
 							<label for="la_vivienda_PA">¿La vivienda tiene posibilidad de ampliación?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_PA" checked>Sí</label>
-								<label><input type="radio" name="la_vivienda_PA">No</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_HOUSE_SCALABILITY%>" checked value="Si">Sí</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_HOUSE_SCALABILITY%>" value="No">No</label>
 							</div>
 						</div>
 					</div>
@@ -74,7 +76,7 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="paredes">
+										<select class="form-control" name="<%=Constants.SECTION2_WALLS%>">
 											<option>Bloque o ladrillo frisado</option>
 											<option>Bloque o ladrillo sin frisar</option>
 											<option>Concreto</option>
@@ -84,7 +86,7 @@
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="techo">
+										<select class="form-control" name="<%=Constants.SECTION2_CEILING%>">
 											<option>Platabanda</option>
 											<option>Teja</option>
 											<option>Láminas asfálticas</option>
@@ -94,7 +96,7 @@
 										</select>
 									</td>
 									<td>
-										<select class="form-control" name="piso">
+										<select class="form-control" name="<%=Constants.SECTION2_FLAT%>">
 											<option>Mármol, mosaico, granito, vinil cerámica, ladrillo, terracota, parquet, alfombrado y similares</option>
 											<option>Cemento</option>
 											<option>Tierra</option>
@@ -106,7 +108,7 @@
 						</div>
 						<div class="form-group">
 							<label for="ubicacion_cocina">Ubicación de la Cocina</label>
-							<select class="form-control" name="ubicacion_cocina" id="ubicacion_cocina">
+							<select class="form-control" name="<%=Constants.SECTION2_LOCATION_KITCHEN%>" id="<%=Constants.SECTION2_LOCATION_KITCHEN%>">
 								<option>Cuarto solo</option>
 								<option>Sala, comedor</option>
 								<option>Otro sitio</option>
@@ -124,7 +126,7 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="vivienda_S_agua" id="vivienda_S_agua">
+										<select class="form-control" name="<%=Constants.SECTION2_HOUSING_WATER%>" id="<%=Constants.SECTION2_HOUSING_WATER%>">
 											<option value="1">Acueducto o tubería</option>
 											<option value="2">Camión cisterna</option>
 											<option value="3">Pila pública o estanque</option>
@@ -133,19 +135,19 @@
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="servicio_sanitario">
+										<select class="form-control" name="<%=Constants.SECTION2_SANITARY_SERVICE%>">
 											<option>Peseta conectada a la cloaca</option>
 											<option>Peseta conectada al río</option>
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="servicio_electrico">
+										<select class="form-control" name="<%=Constants.SECTION2_ELECTRICAL_SERVICE%>">
 											<option>Sí</option>
 											<option>No</option>
 										</select>
 									</td>
 									<td>
-										<select class="form-control" name="recoleccion_basura">
+										<select class="form-control" name="<%=Constants.SECTION2_GARBAGE_COLLECTION%>">
 											<option>Recogida por el servicio de aseo urbano</option>
 											<option>Depositada en conteiner colectivo</option>
 											<option>Vertida en quebradas, ríos, lagos, calles o terrenos baldíos</option>
@@ -154,14 +156,14 @@
 								</tr>
 								<tr>
 									<td style="padding-top: 1%" colspan="4">
-										<input type="text" class="form-control" id="vivienda_S_agua_otra" name="vivienda_S_agua_otra" placeholder="Otros medios de servicio de agua" style="display: none">
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" name="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" placeholder="Otros medios de servicio de agua" style="display: none">
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div class="form-group">
 							<label for="vivienda_alturadar">¿La vivienda esta alturada en una zona de riesgo?</label>
-							<select class="form-control" name="vivienda_alturadar" id="vivienda_alturadar">
+							<select class="form-control" name="<%=Constants.SECTION2_HOUSING_RISK%>" id="<%=Constants.SECTION2_HOUSING_RISK%>">
 								<option>Ninguna</option>
 								<option>Inundación</option>
 								<option>Deslizamiento</option>
@@ -170,8 +172,8 @@
 						<div class="form-group">
 							<label for="la_vivienda_RMU">¿La vivienda requiere mejoras urgentes?</label> 
 							<div class="radio">
-								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_si">Sí</label>
-								<label><input type="radio" name="la_vivienda_RMU" id="la_vivienda_RMU_no" checked>No</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>" id="<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>_si">Sí</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>" id="<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>_no" checked>No</label>
 							</div>
 						</div>
 						<div class="form-group" style="display: none" id="la_vivienda_RMU_div">
@@ -233,10 +235,10 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#la_vivienda_RMU_si').change(function() {
+		$('#<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>_si').change(function() {
 			$('#la_vivienda_RMU_div').show();
 		});
-		$('#la_vivienda_RMU_no').change(function() {
+		$('#<%=Constants.SECTION2_URGENT_HOUSING_IMPROVEMENTS%>_no').change(function() {
 			$('#la_vivienda_RMU_div').hide();
 		});
 		$('#vivienda_mejoras_PV_checkbox').on('change', function (e) {
@@ -260,12 +262,12 @@
 		    	$('#vivienda_mejoras_TNR_otra').hide()
 		    }
 		});
-		$('#vivienda_S_agua').on('change', function (e) {
+		$('#<%=Constants.SECTION2_HOUSING_WATER%>').on('change', function (e) {
 		    var valueSelected = this.value;
 		    if(valueSelected=='5'){
-		    	$('#vivienda_S_agua_otra').show();	
+		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').show();	
 		    }else{
-		    	$('#vivienda_S_agua_otra').hide()
+		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').hide()
 		    }
 		});
 		

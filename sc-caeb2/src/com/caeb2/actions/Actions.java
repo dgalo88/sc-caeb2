@@ -13,6 +13,7 @@ public class Actions {
 
 		actionsMapping.put("login", "com.caeb2.actions.Login");
 		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
+		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 
 	}
 

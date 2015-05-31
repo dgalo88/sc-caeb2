@@ -83,7 +83,7 @@ public class InitDatabase {
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
 		Connection connection = DriverManager.getConnection( //
-				url, "root", "123456");
+				url, "root", "");
 		Statement statement = connection.createStatement();
 
 		String sql = "CREATE USER " + user + "@localhost IDENTIFIED BY '" + pass + "'";

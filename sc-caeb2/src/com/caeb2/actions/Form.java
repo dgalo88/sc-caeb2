@@ -5,26 +5,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.caeb2.sections.IdentifyingStructure;
+import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 
 public class Form {
 
 	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response){
 		
-		String callePaseje=request.getParameter("calle_OP");
-		String nombreVivienda=request.getParameter("nombre_NDV");
-		String telefono=request.getParameter("telefono_R");
+		String callePaseje=request.getParameter(Constants.SECTION1_STREET);
+		String nombreVivienda=request.getParameter(Constants.SECTION1_NAME_HOUSING);
+		String telefono=request.getParameter(Constants.SECTION1_HOME_PHONE);
 		
 		FileOutputStream filePro = null;
 		try {
 			filePro = new FileOutputStream("C:\\Users\\Jose Hidalgo\\Desktop\\fichero.prop");
 			Properties properties = new Properties();
-			properties.setProperty("section1_calle_OP",callePaseje);
-			properties.setProperty("section1_nombre_NDV",nombreVivienda);
-			properties.setProperty("section1_telefono_R",telefono);
+			properties.setProperty(Constants.SECTION1_STREET,callePaseje);
+			properties.setProperty(Constants.SECTION1_NAME_HOUSING,nombreVivienda);
+			properties.setProperty(Constants.SECTION1_HOME_PHONE,telefono);
 			
 			properties.store(filePro, "Fichero de Propiedades de la Web");
 		} catch (IOException e) {
@@ -49,13 +52,13 @@ public class Form {
 			
 			filePro = new FileInputStream("C:\\Users\\Jose Hidalgo\\Desktop\\fichero.prop");
 			properties.load(filePro);
-			String callePaseje=properties.getProperty("section1_calle_OP");
-			String nombreVivienda=properties.getProperty("section1_nombre_NDV");
-			String telefono=properties.getProperty("section1_telefono_R");
+			IdentifyingStructure identifyingStructure = new IdentifyingStructure(
+					properties.getProperty(Constants.SECTION1_STREET),
+					properties.getProperty(Constants.SECTION1_NAME_HOUSING),
+					properties.getProperty(Constants.SECTION1_HOME_PHONE));
 			
-			request.setAttribute("calle_OP", callePaseje);
-			request.setAttribute("nombre_NDV", nombreVivienda);
-			request.setAttribute("telefono", telefono);
+			request.setAttribute(Constants.SECTION1_IDENTIFYING_STRUCTURE, identifyingStructure);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
