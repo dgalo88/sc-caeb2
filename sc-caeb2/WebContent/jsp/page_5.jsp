@@ -18,16 +18,17 @@
 							<tr>
 								<td class="td-left-control">
 									<div class="form-group">
-										<label for="apellido">Apellidos</label>
+										<label for="<%=Constants.SECTION5_LASTNAMES%>">Apellidos</label>
 										<input type="text" class="form-control" placeholder="Ej. Blanco Meaño"
-												id="apellido" name="apellido" required autofocus>
+												id="<%=Constants.SECTION5_LASTNAMES%>" name="<%=Constants.SECTION5_LASTNAMES%>"
+												required autofocus>
 									</div>
 								</td>
 								<td class="td-right-control">
 									<div class="form-group">
-										<label for="nombre">Nombres</label>
+										<label for="<%=Constants.SECTION5_NAMES%>">Nombres</label>
 										<input type="text" class="form-control" placeholder="Ej. Andrés Eloy"
-												id="apellido" name="apellido" required>
+												id="<%=Constants.SECTION5_NAMES%>" name="<%=Constants.SECTION5_NAMES%>" required>
 									</div>
 								</td>
 							</tr>
@@ -38,25 +39,25 @@
 							<tr>
 								<td class="td-left-control" width="50%">
 									<div class="form-group">
-										<label for="sexo">Sexo</label>
+										<label for="<%=Constants.SECTION5_SEX%>">Sexo</label>
 										<div class="radio">
 											<label>
-												<input type="radio" name="sexo" id="masculino" value="M" checked>
+												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="masculino" value="M" checked>
 												Masculino
 											</label>
 											<label>
-												<input type="radio" name="sexo" id="femenino" value="F">
+												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="femenino" value="F">
 												Femenino
 											</label>
 										</div>
 									</div>
 								</td>
 								<td class="td-right-control" width="50%">
-									<label for="fechaNacimiento">Fecha de nacimiento</label>
+									<label for="<%=Constants.SECTION5_BIRTHDATE%>">Fecha de nacimiento</label>
 									<div class="form-group" id="fecha">	<!-- fecha -->
 										<div class="input-group date">
 											<input type="text" class="form-control" placeholder="Ej. 15/02/1980"
-													id="fechaNacimiento" name="fechaNacimiento" required>
+													id="<%=Constants.SECTION5_BIRTHDATE%>" name="<%=Constants.SECTION5_BIRTHDATE%>" required>
 											<span class="input-group-addon" id="fechaNacIcon">
 												<i class="glyphicon glyphicon-calendar" aria-label="calendar" aria-hidden="true"></i>
 											</span>
@@ -74,7 +75,8 @@
 									<div class="form-group">
 										<label for="celular">Indique su teléfono celular</label>
 										<div class="form-inline" id="celular">
-											<select class="form-control" id="codAreaCelular" name="codAreaCelular">
+											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD%>"
+													name="<%=Constants.SECTION5_PHONE_COD%>">
 												<option>0416</option>
 												<option>0426</option>
 												<option>0414</option>
@@ -82,7 +84,8 @@
 												<option>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698"
-													id="numeroCelular" name="numeroCelular" required>
+													id="<%=Constants.SECTION5_PHONE_NUM%>" name="<%=Constants.SECTION5_PHONE_NUM%>"
+													required>
 										</div>
 									</div>
 								</td>
@@ -90,7 +93,8 @@
 									<div class="form-group">
 										<label for="otroTelefono">Indique otro teléfono (opcional)</label>
 										<div class="form-inline" id="otroTelefono">
-											<select class="form-control" id="codAreaOtroTelf" name="codAreaOtroTelf">
+											<select class="form-control" id="<%=Constants.SECTION5_PHONE_OPTIONAL_COD%>"
+													name="<%=Constants.SECTION5_PHONE_OPTIONAL_COD%>">
 												<option>0416</option>
 												<option>0426</option>
 												<option>0414</option>
@@ -98,7 +102,8 @@
 												<option>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698"
-													id="numeroOtroTelf" name="numeroOtroTelf">
+													id="<%=Constants.SECTION5_PHONE_OPTIONAL_NUM%>"
+													name="<%=Constants.SECTION5_PHONE_OPTIONAL_NUM%>">
 										</div>
 									</div>
 								</td>
@@ -107,8 +112,9 @@
 						</table>
 
 						<div class="form-group">
-							<label for="parentesco">Parentesco con Jefe(a) del Hogar</label>
-							<select class="form-control" id="parentesco" name="parentesco">
+							<label for="<%=Constants.SECTION5_RELATIONSHIP%>">Parentesco con Jefe(a) del Hogar</label>
+							<select class="form-control" id="<%=Constants.SECTION5_RELATIONSHIP%>"
+									name="<%=Constants.SECTION5_RELATIONSHIP%>">
 								<option>Jefe o jefa del Hogar</option>
 								<option>Esposa(o) o compañera(o)</option>
 								<option>Hijo(a) o hijastro(a)</option>
@@ -133,12 +139,14 @@
 									<div class="form-group">
 										<label for="cedula">Cédula de Identidad</label>
 										<div class="form-inline" id="cedula">
-											<select class="form-control" id="tipoCedula" name="tipoCedula">
+											<select class="form-control" id="<%=Constants.SECTION5_CEDULA_TYPE%>"
+													name="<%=Constants.SECTION5_CEDULA_TYPE%>">
 												<option>V</option>
 												<option>E</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 16465123"
-													id="numeroCedula" name="numeroCedula" required>
+													id="<%=Constants.SECTION5_CEDULA_NUM%>" name="<%=Constants.SECTION5_CEDULA_NUM%>"
+													required>
 										</div>
 									</div>
 								</td>
@@ -165,15 +173,17 @@
 						</table>
 
 						<div class="form-group">
-							<label for="nacionalidad">Nacionalidad</label>
+							<label for="<%=Constants.SECTION5_NATIONALITY%>">Nacionalidad</label>
 							<input type="text" class="form-control" placeholder="Ej. Venezolano"
-									id="nacionalidad" name="nacionalidad" required>
+									id="<%=Constants.SECTION5_NATIONALITY%>" name="<%=Constants.SECTION5_NATIONALITY%>"
+									required>
 						</div>
 	
 						<div class="form-group">
-							<label for="correo">Indique su correo electrónico</label>
-							<input type="text" class="form-control" placeholder="Ej. andres@mail.com"
-									id="correo" name="correo" required>
+							<label for="<%=Constants.SECTION5_EMAIL%>">Indique su correo electrónico</label>
+							<input type="email" class="form-control" placeholder="Ej. andres@mail.com"
+									id="<%=Constants.SECTION5_EMAIL%>" name="<%=Constants.SECTION5_EMAIL%>"
+									required>
 						</div>
 					</div>
 				</td>
