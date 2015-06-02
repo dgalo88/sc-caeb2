@@ -1,14 +1,14 @@
 <%@ include file="header.jsp"%>
 
 <%
-	Parameters.setInpageNumber(2);
+	Parameters.setPageNumber(2);
 	Parameters.setTitle("Sección 2: Datos de la vivienda");
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -76,7 +76,7 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="<%=Constants.SECTION2_WALLS%>">
+										<select class="form-control" name="<%=Constants.SECTION2_WALLS_TYPE%>">
 											<option>Bloque o ladrillo frisado</option>
 											<option>Bloque o ladrillo sin frisar</option>
 											<option>Concreto</option>
@@ -86,7 +86,7 @@
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
-										<select class="form-control" name="<%=Constants.SECTION2_CEILING%>">
+										<select class="form-control" name="<%=Constants.SECTION2_CEILING_TYPE%>">
 											<option>Platabanda</option>
 											<option>Teja</option>
 											<option>Láminas asfálticas</option>
@@ -96,7 +96,7 @@
 										</select>
 									</td>
 									<td>
-										<select class="form-control" name="<%=Constants.SECTION2_FLAT%>">
+										<select class="form-control" name="<%=Constants.SECTION2_FLAT_TYPE%>">
 											<option>Mármol, mosaico, granito, vinil cerámica, ladrillo, terracota, parquet, alfombrado y similares</option>
 											<option>Cemento</option>
 											<option>Tierra</option>
@@ -186,29 +186,29 @@
 								<tr>
 									<td style="padding-right: 1%;">
 										<div class="checkbox">
-											<label><input type="checkbox">Cocina</label><br>
-											<label><input type="checkbox">Comedor</label><br>
-											<label><input type="checkbox">Dormitorio</label><br>
-											<label><input type="checkbox">Baño</label><br>
-											<label><input type="checkbox" id="vivienda_mejoras_PV_checkbox" name="vivienda_mejoras_PV_checkbox">Otra ¿Cuál?</label>
+											<label><input type="checkbox" value="Cocina" <%=""%>>  >Cocina</label><br>
+											<label><input type="checkbox" value="Comedor" <%=""%>>Comedor</label><br>
+											<label><input type="checkbox" value="Dormitorio" <%=""%>>Dormitorio</label><br>
+											<label><input type="checkbox" value="Baño" <%=""%>>Baño</label><br>
+											<label><input type="checkbox" value="Otra ¿Cuál?" id="vivienda_mejoras_PV_checkbox" name="vivienda_mejoras_PV_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 									<td style="padding-right: 1%;">
 										<div class="checkbox">
-											<label><input type="checkbox">Techo</label><br>
-											<label><input type="checkbox">Piso</label><br>
-											<label><input type="checkbox">Paredes</label><br>
-											<label><input type="checkbox">Sistema eléctrico</label><br>
-											<label><input type="checkbox" id="vivienda_mejoras_RM_checkbox" name="vivienda_mejoras_RM_checkbox">Otra ¿Cuál?</label>
+											<label><input type="checkbox" value="Techo">Techo</label><br>
+											<label><input type="checkbox" value="Piso">Piso</label><br>
+											<label><input type="checkbox" value="Paredes">Paredes</label><br>
+											<label><input type="checkbox" value="Sistema eléctrico">Sistema eléctrico</label><br>
+											<label><input type="checkbox" value="Otra ¿Cuál?" id="vivienda_mejoras_RM_checkbox" name="vivienda_mejoras_RM_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 									<td>
 										<div class="checkbox">
-											<label><input type="checkbox">Friso</label><br>
-											<label><input type="checkbox">Ampliación</label><br>
-											<label><input type="checkbox">Remodelación</label><br>
-											<label><input type="checkbox">Reparación</label><br>
-											<label><input type="checkbox" id="vivienda_mejoras_TNR_checkbox" name="vivienda_mejoras_TNR_checkbox">Otra ¿Cuál?</label>
+											<label><input type="checkbox" value="Friso">Friso</label><br>
+											<label><input type="checkbox" value="Ampliación">Ampliación</label><br>
+											<label><input type="checkbox" value="Remodelación">Remodelación</label><br>
+											<label><input type="checkbox" value="Reparación">Reparación</label><br>
+											<label><input type="checkbox" value="Otra ¿Cuál?"  id="vivienda_mejoras_TNR_checkbox" name="vivienda_mejoras_TNR_checkbox">Otra ¿Cuál?</label>
 										</div> 
 									</td>
 								</tr>

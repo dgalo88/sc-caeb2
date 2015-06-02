@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import com.caeb2.util.Controller;
 
 public class Form {
 
-	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response){
+	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String callePaseje=request.getParameter(Constants.SECTION1_STREET);
 		String nombreVivienda=request.getParameter(Constants.SECTION1_NAME_HOUSING);
@@ -41,8 +42,14 @@ public class Form {
 				e.printStackTrace();
 			}
 		}
-	
-		openProcessPage1(request, response);
+
+		try {
+			Controller.forward(request, response, "jsp/page_2.jsp");
+		} catch (Exception e) {
+			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
+			throw new Exception(e);
+		}
+
 	}
 	
 	public static void openProcessPage1(HttpServletRequest request, HttpServletResponse response){

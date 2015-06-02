@@ -1,14 +1,14 @@
 <%@ include file="header.jsp"%>
 
 <%
-	Parameters.setInpageNumber(7);
+	Parameters.setPageNumber(7);
 	Parameters.setTitle("Sección 5: Características individuales");
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
 		<table class="table">
 			<tr>
 				<td width="50%">

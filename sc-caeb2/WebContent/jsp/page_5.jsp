@@ -1,14 +1,15 @@
 <%@ include file="header.jsp"%>
 
 <%
-	Parameters.setInpageNumber(5);
+	Parameters.setPageNumber(5);
 	Parameters.setTitle("Sección 5: Características individuales");
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="http://localhost:8080/sc-caeb2/<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveIndividualCharacteristics" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -155,11 +156,11 @@
 										<label for="tieneDI">¿Tiene?</label>
 										<div class="checkbox" id="tieneDI">
 											<label>
-												<input type="checkbox" name="docId" id="pasaporte">
+												<input type="checkbox" name="docId" id="pasaporte" value="pasaporte">
 												Pasaporte
 											</label>
 											<label>
-												<input type="checkbox" name="docId" id="partidaNacimiento">
+												<input type="checkbox" name="docId" id="partidaNacimiento" value="partidaNacimiento">
 												Partida de nacimiento
 											</label>
 											<br><br>
@@ -189,6 +190,7 @@
 				</td>
 			</tr>
 		</table>
+		<input type="submit" value="Submit">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

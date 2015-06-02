@@ -1,5 +1,5 @@
+<%@page import="com.caeb2.util.Parameters"%>
 
-	<%@page import="com.caeb2.util.Parameters"%>
 <div class="container-fluid">
 		<nav class="navbar navbar-default">
 			<!-- Brand and toggle get grouped for better mobile display -->

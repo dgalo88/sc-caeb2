@@ -15,6 +15,8 @@ public class Actions {
 		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 
+		actionsMapping.put("saveIndividualCharacteristics", "com.caeb2.actions.IndividualCharacteristics");
+
 	}
 
 	public Map<String, String> getActionsMapping() {

@@ -2,7 +2,7 @@
 <%@ include file="header.jsp"%>
 
 <%
-	Parameters.setInpageNumber(1);
+	Parameters.setPageNumber(1);
 	Parameters.setTitle("Sección 1: Identificación de la estructura");
 // 	IdentifyingStructure identifyingStructure=new IdentifyingStructure();
 	IdentifyingStructure identifyingStructure=(IdentifyingStructure)request.getAttribute(Constants.SECTION1_IDENTIFYING_STRUCTURE);
@@ -11,8 +11,8 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getInpageNumber()%>" name="form_<%=Parameters.getInpageNumber()%>"
-			action="http://localhost:8080/sc-caeb2/<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage1" method="POST">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage1" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -24,7 +24,7 @@
 						</div>
 						<div class="form-group">
 							<label for="nombreVivienda">Nombre o número de vivienda</label> 
-							<input type="text" class="form-control" placeholder="Ej. #21 o Pérez" id="<%=Constants.SECTION1_NAME_HOUSING%>" name="<%=Constants.SECTION1_NAME_HOUSING%>" required value="<%= (identifyingStructure==null||identifyingStructure.getNameHousing()==null) ? "" : identifyingStructure.getNameHousing()%>">
+							<input type="text" class="form-control" placeholder="Ej. #21 o Pérez" id="<%=Constants.SECTION1_NAME_HOUSING%>" name="<%=Constants.SECTION1_NAME_HOUSING%>" required value="<%=(identifyingStructure==null||identifyingStructure.getNameHousing()==null) ? "" : identifyingStructure.getNameHousing()%>">
 						</div>
 					</div>
 				</td>
@@ -33,12 +33,12 @@
 						<div class="form-group">
 							<label for="callePasaje">Calle o pasaje</label>
 							<input type="text" class="form-control" placeholder="Ej. Pasaje 4"
-									id="<%=Constants.SECTION1_STREET%>" name="<%=Constants.SECTION1_STREET%>" required value="<%= (identifyingStructure==null||identifyingStructure.getStreet()==null) ? "" : identifyingStructure.getStreet()%>">
+									id="<%=Constants.SECTION1_STREET%>" name="<%=Constants.SECTION1_STREET%>" required value="<%=(identifyingStructure==null||identifyingStructure.getStreet()==null) ? "" : identifyingStructure.getStreet()%>">
 						</div>
 						<div class="form-group">
 							<label for="telfResidencial">Teléfono residencial</label>
 							<input type="number" class="form-control" placeholder="Ej. 02742395120"
-									id="<%=Constants.SECTION1_HOME_PHONE%>" name="<%=Constants.SECTION1_HOME_PHONE%>" required value="<%= (identifyingStructure==null||identifyingStructure.getHomePhone()==null) ? "" : identifyingStructure.getHomePhone()%>">
+									id="<%=Constants.SECTION1_HOME_PHONE%>" name="<%=Constants.SECTION1_HOME_PHONE%>" required value="<%=(identifyingStructure==null||identifyingStructure.getHomePhone()==null) ? "" : identifyingStructure.getHomePhone()%>">
 						</div>
 					</div>
 				</td>
@@ -52,7 +52,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#form_<%=Parameters.getInpageNumber()%>').on('submit', function() {
+		$('#form_<%=Parameters.getPageNumber()%>').on('submit', function() {
 
 // 			if (!validate()) {
 // 				console.log('!validate');

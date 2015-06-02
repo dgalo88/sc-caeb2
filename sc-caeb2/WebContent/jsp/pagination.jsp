@@ -30,7 +30,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		pageNum = <%=Parameters.getInpageNumber()%>;
+		pageNum = <%=Parameters.getPageNumber()%>;
 		var pageId = '#page_' + pageNum;
 		var formId = '#form_' + pageNum;
 

@@ -45,6 +45,7 @@ public class Constants {
 	public static final String JSP_PROFILE = "Perfil";
 	public static final String JSP_EXIT = "Salir";
 
+	// Properties and ids
 	public static final String SECTION1_IDENTIFYING_STRUCTURE = "section1_identifying_structure";
 	public static final String SECTION1_STREET = "section1_street";
 	public static final String SECTION1_NAME_HOUSING = "section1_name_housing";
@@ -56,20 +57,39 @@ public class Constants {
 	public static final String SECTION2_HOUSING_FITS_HOUSEHOLD = "section2_housing_fits_household";
 	public static final String SECTION2_HOUSE_SECTOR = "section2_house_sector";
 	public static final String SECTION2_HOUSE_SCALABILITY = "section2_house_scalability";
-	public static final String SECTION2_WALLS = "section2_walls";
-	public static final String SECTION2_CEILING = "section2_ceiling";
-	public static final String SECTION2_FLAT = "section2_flat";
+	public static final String SECTION2_WALLS_TYPE = "section2_walls_type";
+	public static final String SECTION2_CEILING_TYPE = "section2_ceiling_type";
+	public static final String SECTION2_FLAT_TYPE = "section2_flat_type";
 	public static final String SECTION2_LOCATION_KITCHEN = "section2_location_kitchen";
 	public static final String SECTION2_HOUSING_WATER = "section2_housing_water";
-
 	public static final String SECTION2_OTHER_HOUSING_WATER = "section2_other_housing_water"; 
 	public static final String SECTION2_SANITARY_SERVICE = "section2_sanitary_service";
 	public static final String SECTION2_ELECTRICAL_SERVICE = "section2_electrical_service";
-
 	public static final String SECTION2_GARBAGE_COLLECTION = "section2_garbage_collection";
 	public static final String SECTION2_HOUSING_RISK = "section2_housing_risk";
 	public static final String SECTION2_URGENT_HOUSING_IMPROVEMENTS = "section2_urgent_housing_improvements";
+	
+	public static final String SECTION2_COOKING = "section2_cooking"; 
+	public static final String SECTION2_DINING_ROOM = "section2_dining_room";
+	public static final String SECTION2_BEDROOM = "section2_bedroom";
+	public static final String SECTION2_BATH = "section2_bath"; 
+	public static final String SECTION2_PART_OTHER = "section2_part_other"; 
+	
+	public static final String SECTION2_CEILING = "section2_ceiling"; 
+	public static final String SECTION2_FLAT = "section2_flat";
+	public static final String SECTION2_WALLS = "section2_walls";
+	public static final String SECTION2_ELECTRIC_SYSTEM = "section2_electric_system"; 
+	public static final String SECTION2_REQUIRED_OTHER = "section2_required_other";
+	
+	public static final String SECTION2_FRIEZE = "section2_frieze"; 
+	public static final String SECTION2_EXTENSION = "section2_extension";
+	public static final String SECTION2_RESHUFFLE = "section2_reshuffle";
+	public static final String SECTION2_REPAIR = "section2_repair";
+	public static final String SECTION2_WORK_NEEDS_OTHER = "section2_work_needs_other";
+	
+	
 
+	
 	public static final String SECTION5_LASTNAMES = "section5_lastnames";
 	public static final String SECTION5_NAMES = "section5_names";
 	public static final String SECTION5_SEX = "section5_sex";
