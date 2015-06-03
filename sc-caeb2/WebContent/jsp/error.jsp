@@ -23,7 +23,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#returnBtn').on('click', function() {
-			window.location.href = 'main.jsp';
+			window.location.href = '/sc-caeb2/index.jsp';
 		});
 	});
 </script>

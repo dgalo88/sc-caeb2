@@ -12,6 +12,7 @@ public class Constants {
 	public static final String ATT_ERROR = "error";
 	public static final String ATT_SECTION = "section";
 	public static final String ATT_PAGE_NUMBER = "pageNumber";
+	public static final String ATT_USER = "user";
 
 	// Messages
 	public static final String FORWARD = "[REENVIAR] ";
@@ -44,6 +45,7 @@ public class Constants {
 	public static final String JSP_NEW_POLL = "Nueva Encuesta";
 	public static final String JSP_PROFILE = "Perfil";
 	public static final String JSP_EXIT = "Salir";
+	public static final String JSP_SEARCH = "Buscar";
 
 	// Properties and ids
 	public static final String SECTION1_IDENTIFYING_STRUCTURE = "section1_identifying_structure";

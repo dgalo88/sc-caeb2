@@ -1,3 +1,4 @@
+<%@page import="com.caeb2.util.Constants"%>
 <%@page import="com.caeb2.util.Parameters"%>
 
 <div class="container-fluid">
@@ -20,15 +21,15 @@
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							Menú
+							<%=Constants.JSP_MENU%>
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Nueva encuesta</a></li>
-							<li><a href="#">Buscar</a></li>
+							<li><a href="#"><%=Constants.JSP_NEW_POLL%></a></li>
+							<li><a href="#"><%=Constants.JSP_SEARCH%></a></li>
 							<li class="divider"></li>
-							<li><a href="#">Perfil</a></li>
-							<li><a href="#">Salir</a></li>
+							<li><a href="#"><%=Constants.JSP_PROFILE%></a></li>
+							<li><a href="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=logout"><%=Constants.JSP_EXIT%></a></li>
 						</ul>
 					</li>
 				</ul>

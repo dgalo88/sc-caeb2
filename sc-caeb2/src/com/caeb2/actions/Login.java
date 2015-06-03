@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
@@ -19,10 +20,12 @@ public class Login {
 		Connection connection = null;
 		Statement statement = null;
 
-		String user = request.getParameter("user");
-		String pass = request.getParameter("pass");
-
 		try {
+
+			String user = request.getParameter("user");
+			String pass = request.getParameter("pass");
+
+			HttpSession session = request.getSession();
 
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
@@ -34,6 +37,8 @@ public class Login {
 
 				Controller.getLogger().info(MessageFormat.format( //
 						Constants.USER_LOGIN, new Object[] { user }));
+
+				session.setAttribute(Constants.ATT_USER, user);
 
 				Controller.forward(request, response, "jsp/main.jsp");
 
@@ -72,6 +77,15 @@ public class Login {
 			}
 
 		}
+
+	}
+
+	public static void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		HttpSession session = request.getSession();
+		session.removeAttribute(Constants.ATT_USER);
+
+		Controller.forward(request, response, "index.jsp");
 
 	}
 
