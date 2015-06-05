@@ -359,4 +359,9 @@
 		<url-pattern>/startup</url-pattern>
 	</servlet-mapping>
 
+	<servlet-mapping>
+		<servlet-name>Startup</servlet-name>
+		<url-pattern>/jsp/startup</url-pattern>
+	</servlet-mapping>
+
 </web-app>

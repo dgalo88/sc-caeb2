@@ -6,6 +6,9 @@ public class Constants {
 
 	public static final String EXECUTE = "startup";
 	public static final String ACTION = "action";
+	public static final String PROJECT_DIR = "/sc-caeb2";
+	public static final String PATH_JSP = PROJECT_DIR + "/jsp";
+	public static final String PATH_CSS = PROJECT_DIR + "/css";
 
 	// Attributes
 	public static final String ATT_MESSAGE = "message";
@@ -46,6 +49,8 @@ public class Constants {
 	public static final String JSP_PROFILE = "Perfil";
 	public static final String JSP_EXIT = "Salir";
 	public static final String JSP_SEARCH = "Buscar";
+	public static final String JSP_PASSPORT = "Pasaporte";
+	public static final String JSP_BIRTH_CERTIFICATE = "Partida de nacimiento";
 
 	// Properties and ids
 	public static final String SECTION1_IDENTIFYING_STRUCTURE = "section1_identifying_structure";
@@ -103,6 +108,10 @@ public class Constants {
 	public static final String SECTION5_RELATIONSHIP = "section5_relationship";
 	public static final String SECTION5_CEDULA_TYPE = "section5_cedula_type";
 	public static final String SECTION5_CEDULA_NUM = "section5_cedula_num";
+	public static final String SECTION5_ID_DOCS = "section5_id_docs";
+	public static final String SECTION5_HAS_PASSPORT = "section5_has_passport";
+	public static final String SECTION5_PASSPORT_NUM = "section5_passport_num";
+	public static final String SECTION5_HAS_BIRTH_CERTIFICATE = "section5_has_birth_certificate";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
 

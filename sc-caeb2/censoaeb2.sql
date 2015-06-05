@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `nombre` varchar(100) DEFAULT NULL,
   `fechaNacimiento` datetime DEFAULT NULL,
   `sexo` char(1) NOT NULL,
+  `tienePartidaNacimiento` bit(1) NOT NULL,
   `aisteEstablecimientoEducacion` bit(1) NOT NULL,
   `asisteControlMedicoParental` bit(1) NOT NULL,
   `beneficioEstablecimientoEducacion` varchar(255) DEFAULT NULL,

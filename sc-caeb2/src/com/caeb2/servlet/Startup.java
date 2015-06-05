@@ -64,7 +64,7 @@ public class Startup extends HttpServlet {
 			Controller.putLogger(Level.SEVERE, Constants.ACTION_ERROR, e);
 
 			try {
-				Controller.forward(request, response, "jsp/error.jsp", Constants.ACTION_ERROR);
+				Controller.forward(request, response, "error.jsp", Constants.ACTION_ERROR);
 			} catch (Exception e1) {
 				Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e1);
 			}
@@ -80,7 +80,7 @@ public class Startup extends HttpServlet {
 			Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
 
 			try {
-				Controller.forward(request, response, "jsp/error.jsp", Constants.GENERAL_ERROR);
+				Controller.forward(request, response, "error.jsp", Constants.GENERAL_ERROR);
 			} catch (Exception e1) {
 				Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e1);
 			}

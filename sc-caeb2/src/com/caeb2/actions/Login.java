@@ -40,12 +40,12 @@ public class Login {
 
 				session.setAttribute(Constants.ATT_USER, user);
 
-				Controller.forward(request, response, "jsp/main.jsp");
+				Controller.forward(request, response, "main.jsp");
 
 			} else {
 
 				Controller.getLogger().severe(Constants.LOGIN_ERROR);
-				Controller.forward(request, response, "jsp/error.jsp", Constants.LOGIN_ERROR);
+				Controller.forward(request, response, "error.jsp", Constants.LOGIN_ERROR);
 
 			}
 

@@ -9,7 +9,7 @@
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
-			action="http://localhost:8080/sc-caeb2/<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveIndividualCharacteristics" method="POST">
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveIndividualCharacteristics" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -156,16 +156,21 @@
 										<label for="tieneDI">¿Tiene?</label>
 										<div class="checkbox" id="tieneDI">
 											<label>
-												<input type="checkbox" name="docId" id="pasaporte" value="pasaporte">
+												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
+														id="<%=Constants.SECTION5_HAS_PASSPORT%>"
+														value="<%=Constants.JSP_PASSPORT%>">
 												Pasaporte
 											</label>
 											<label>
-												<input type="checkbox" name="docId" id="partidaNacimiento" value="partidaNacimiento">
+												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
+														id="<%=Constants.SECTION5_HAS_BIRTH_CERTIFICATE%>"
+														value="<%=Constants.JSP_BIRTH_CERTIFICATE%>">
 												Partida de nacimiento
 											</label>
 											<br><br>
 											<input type="text" class="form-control hidden" placeholder="Ej. 12340989"
-													id="numeroPasaporte" name="numeroPasaporte">
+													id="<%=Constants.SECTION5_PASSPORT_NUM%>"
+													name="<%=Constants.SECTION5_PASSPORT_NUM%>">
 										</div>
 									</div>
 								</td>
@@ -200,11 +205,11 @@
 
 		$('#fecha input').datepicker();
 
-		$('#pasaporte').on("click", function() {
+		$('#<%=Constants.SECTION5_HAS_PASSPORT%>').on("click", function() {
 			if ($(this).is(":checked")) {
-				$("#numeroPasaporte").removeClass('hidden').addClass('show');
+				$("#<%=Constants.SECTION5_PASSPORT_NUM%>").removeClass('hidden').addClass('show');
 			} else {
-				$("#numeroPasaporte").removeClass('show').addClass('hidden');
+				$("#<%=Constants.SECTION5_PASSPORT_NUM%>").removeClass('show').addClass('hidden');
 			}
 		});
 
