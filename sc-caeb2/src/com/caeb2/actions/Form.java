@@ -10,6 +10,10 @@ import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+
 import com.caeb2.sections.IdentifyingStructure;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
@@ -87,4 +91,15 @@ public class Form {
        
 		
 	}
+	public static void openProcessPage2(HttpServletRequest request, HttpServletResponse response){
+//		Configuration configuration = new PropertiesConfiguration(filename);
+		try {
+			Configuration config = new PropertiesConfiguration("prop.properties");
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
