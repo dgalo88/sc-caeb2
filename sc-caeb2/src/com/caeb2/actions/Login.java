@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.caeb2.servlet.Startup;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 
@@ -52,7 +53,7 @@ public class Login {
 		} catch (ClassNotFoundException e) {
 
 			Controller.putLogger(Level.SEVERE, //
-					Constants.DRIVER_ERROR + Constants.CONTACT_ADMIN, e);
+					Constants.DRIVER_ERROR + " " + Constants.CONTACT_ADMIN, e);
 
 			throw new Exception(e);
 
@@ -84,6 +85,9 @@ public class Login {
 
 		HttpSession session = request.getSession();
 		session.removeAttribute(Constants.ATT_USER);
+		session.invalidate();
+
+		Startup.invalidateSession();
 
 		Controller.forward(request, response, "index.jsp");
 

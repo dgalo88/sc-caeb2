@@ -1,14 +1,20 @@
 package com.caeb2.util;
 
-import java.text.MessageFormat;
-
 public class Constants {
 
+	// General constants
 	public static final String EXECUTE = "startup";
 	public static final String ACTION = "action";
-	public static final String PROJECT_DIR = "/sc-caeb2";
-	public static final String PATH_JSP = PROJECT_DIR + "/jsp";
-	public static final String PATH_CSS = PROJECT_DIR + "/css";
+	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
+	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";
+	public static final String PATH_CSS = PATH_SC_CAEB2 + "/css";
+	public static final String PATH_REAL_PROJECT = System.getProperty("user.dir");
+	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
+	// Properties files names
+	public static final String PROP_FILE_DWELLING = "dwelling.prop";
+	public static final String PROP_FILE_HOME = "home.prop";
+	public static final String PROP_FILE_PERSON = "person.prop";
 
 	// Attributes
 	public static final String ATT_MESSAGE = "message";
@@ -16,10 +22,14 @@ public class Constants {
 	public static final String ATT_SECTION = "section";
 	public static final String ATT_PAGE_NUMBER = "pageNumber";
 	public static final String ATT_USER = "user";
+	public static final String ATT_ADMIN_PROFILE = "adminProfile";
 
 	// Messages
 	public static final String FORWARD = "[REENVIAR] ";
 	public static final String USER_LOGIN = "El usuario ''{0}'' ha iniciado sesión";
+	public static final String SAVE_DATA_TO = "Guardando datos en el archivo \"{0}\"";
+	public static final String LOAD_DATA_FROM = "Cargando datos desde el archivo \"{0}\"";
+	public static final String PASS_CHANGED = "Contraseña cambiada con éxito";
 
 	// Errors Messages
 	public static final String ERROR = "Error";
@@ -30,6 +40,10 @@ public class Constants {
 	public static final String ACTION_ERROR = "La acción solicitada no existe.";
 	public static final String LOGIN_ERROR = "Combinación usuario/contraseña inválida.";
 	public static final String DRIVER_ERROR = "Driver JDBC no encontrado.";
+	public static final String LOAD_PROP_ERROR = "No se puede cargar el archivo de propiedades.";
+	public static final String CHANGE_PASS_ERROR = "No se pudo cambiar la contraseña.";
+	public static final String CONFIRM_PASS_ERROR = "Debe confirmar su nueva contraseña.";
+	public static final String EQUALS_PASS_ERROR = "Debe elegir una contraseña diferente a la actual.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -75,36 +89,36 @@ public class Constants {
 	public static final String SECTION2_GARBAGE_COLLECTION = "section2_garbage_collection";
 	public static final String SECTION2_HOUSING_RISK = "section2_housing_risk";
 	public static final String SECTION2_URGENT_HOUSING_IMPROVEMENTS = "section2_urgent_housing_improvements";
-	
+
 	public static final String SECTION2_COOKING = "section2_cooking"; 
 	public static final String SECTION2_DINING_ROOM = "section2_dining_room";
 	public static final String SECTION2_BEDROOM = "section2_bedroom";
 	public static final String SECTION2_BATH = "section2_bath"; 
 	public static final String SECTION2_PART_OTHER = "section2_part_other"; 
-	
+
 	public static final String SECTION2_CEILING = "section2_ceiling"; 
 	public static final String SECTION2_FLAT = "section2_flat";
 	public static final String SECTION2_WALLS = "section2_walls";
 	public static final String SECTION2_ELECTRIC_SYSTEM = "section2_electric_system"; 
 	public static final String SECTION2_REQUIRED_OTHER = "section2_required_other";
-	
+
 	public static final String SECTION2_FRIEZE = "section2_frieze"; 
 	public static final String SECTION2_EXTENSION = "section2_extension";
 	public static final String SECTION2_RESHUFFLE = "section2_reshuffle";
 	public static final String SECTION2_REPAIR = "section2_repair";
 	public static final String SECTION2_WORK_NEEDS_OTHER = "section2_work_needs_other";
-	
-	
 
-	
+
+
+
 	public static final String SECTION5_LASTNAMES = "section5_lastnames";
 	public static final String SECTION5_NAMES = "section5_names";
 	public static final String SECTION5_SEX = "section5_sex";
 	public static final String SECTION5_BIRTHDATE = "section5_birthdate";
 	public static final String SECTION5_PHONE_COD = "section5_phone_cod";
 	public static final String SECTION5_PHONE_NUM = "section5_phone_num";
-	public static final String SECTION5_PHONE_OPTIONAL_COD = "section5_phone_optional_cod";
-	public static final String SECTION5_PHONE_OPTIONAL_NUM = "section5_phone_optional_num";
+	public static final String SECTION5_PHONE_COD_OPTIONAL = "section5_phone_cod_optional";
+	public static final String SECTION5_PHONE_NUM_OPTIONAL = "section5_phone_num_optional";
 	public static final String SECTION5_RELATIONSHIP = "section5_relationship";
 	public static final String SECTION5_CEDULA_TYPE = "section5_cedula_type";
 	public static final String SECTION5_CEDULA_NUM = "section5_cedula_num";
@@ -118,17 +132,5 @@ public class Constants {
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";
 	public static final String PROFILE_NEW_PASS = "profile_new_pass";
 	public static final String PROFILE_CONFIRM_PASS = "profile_confirm_pass";
-
-	public static String getFormattedMessage(String message, Object[] params) {
-		return MessageFormat.format(message, params);
-	}
-
-	public static void main(String[] args) {
-
-		System.out.println(MessageFormat.format(USER_LOGIN, new Object[] { new String("user") }));
-
-		System.out.println(getFormattedMessage(USER_LOGIN, new Object[] { new String("otro") }));
-
-	}
 
 }

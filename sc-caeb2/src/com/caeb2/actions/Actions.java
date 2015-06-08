@@ -17,6 +17,8 @@ public class Actions {
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 
 		actionsMapping.put("saveIndividualCharacteristics", "com.caeb2.actions.IndividualCharacteristics");
+		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.AdminProfile");
+		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
 
 	}
 
@@ -28,12 +30,16 @@ public class Actions {
 		this.actionsMapping = actionsMapping;
 	}
 
-	public void addActionMapping(String methodName, String className) {
-		actionsMapping.put(methodName, className);
+	public void addActionMapping(String actionName, String className) {
+		actionsMapping.put(actionName, className);
 	}
 
-	public String getActionClass(String methodName) {
-		return actionsMapping.get(methodName);
+	public String getActionClassName(String actionName) {
+		return actionsMapping.get(actionName);
+	}
+
+	public Class<?> getActionClass(String actionName) throws ClassNotFoundException {
+		return Class.forName(actionsMapping.get(actionName));
 	}
 
 }

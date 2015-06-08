@@ -1,24 +1,16 @@
-package com.caeb2.actions;
+package com.caeb2.actions.bean;
 
 public class IdentificationDocument {
 
-	private int number;
 	private String type;
+	private int number;
 
 	public IdentificationDocument() {
-		this(0, null);
+		this("V", 0);
 	}
 
-	public IdentificationDocument(int number, String type) {
-		this.number = number;
+	public IdentificationDocument(String type, int number) {
 		this.type = type;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
 		this.number = number;
 	}
 
@@ -28,6 +20,14 @@ public class IdentificationDocument {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	@Override

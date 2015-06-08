@@ -34,6 +34,8 @@
 
 	<script src="/sc-caeb2/js/bootstrap-datepicker.js"></script>
 
+	<script src="/sc-caeb2/js/notifications.js"></script>
+
 	<div class="container-fluid">
 		<table class="table" style="margin-bottom: 0px;">
 		<tbody>
@@ -57,3 +59,5 @@
 		</tbody>
 		</table>
 	</div>
+
+	<div class="alert alert-dismissible notification hidden" role="alert" id="notification"></div>

@@ -5,42 +5,13 @@ CREATE DATABASE IF NOT EXISTS `censoaeb2` DEFAULT CHARACTER SET utf8;
 USE `censoaeb2`;
 
 --
--- Estructura de la tabla `administrador`
---
-CREATE TABLE IF NOT EXISTS `administrador` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `usuario` varchar(40) NOT NULL,
-  `clave` varchar(40) NOT NULL
-) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Insertar en la tabla `administrador` el administrador por defecto
---
-INSERT INTO `administrador` (`id`, `usuario`, `clave`) VALUES ('1', 'admin', SHA1('1234'));
-
---
 -- Estructura de la tabla `documentoIdentificacion`
 --
 CREATE TABLE IF NOT EXISTS `documentoIdentificacion` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `numero` int(11) NOT NULL,
-  `tipo` char(1) NOT NULL
+  `tipo` char(1) NOT NULL,
+  `numero` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `directivaCC`
---
-CREATE TABLE IF NOT EXISTS `directivaCC` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `apellido` varchar(100) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `documentoIdentificacionId` int(11) DEFAULT NULL,
-  `administradorId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`documentoIdentificacionId`) REFERENCES `documentoIdentificacion` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`administradorId`) REFERENCES `administrador` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Estructura de la tabla `credito`
@@ -131,11 +102,14 @@ CREATE TABLE IF NOT EXISTS `empleo` (
 --
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `apellido` varchar(100) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
+  `apellidos` varchar(100) DEFAULT NULL,
+  `nombres` varchar(100) DEFAULT NULL,
   `fechaNacimiento` datetime DEFAULT NULL,
   `sexo` char(1) NOT NULL,
+  `cedulaId` int(11) DEFAULT NULL,
+  `pasaporteId` int(11) DEFAULT NULL,
   `tienePartidaNacimiento` bit(1) NOT NULL,
+  `correoElectronico` varchar(100) DEFAULT NULL,
   `aisteEstablecimientoEducacion` bit(1) NOT NULL,
   `asisteControlMedicoParental` bit(1) NOT NULL,
   `beneficioEstablecimientoEducacion` varchar(255) DEFAULT NULL,
@@ -156,21 +130,52 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `tienePareja` bit(1) NOT NULL,
   `ultimoGradoAprobado` int(11) NOT NULL,
   `creditoId` int(11) DEFAULT NULL,
-  `documentoIdentificacionId` int(11) DEFAULT NULL,
   `empleoId` int(11) DEFAULT NULL,
   `hogarId` int(11) DEFAULT NULL,
-  `telefonoId` int(11) DEFAULT NULL,
+  `celularId` int(11) DEFAULT NULL,
+  `celularOpcionalId` int(11) DEFAULT NULL,
   FOREIGN KEY (`creditoId`) REFERENCES `credito` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`documentoIdentificacionId`) REFERENCES `documentoIdentificacion` (`id`)
+  FOREIGN KEY (`cedulaId`) REFERENCES `documentoIdentificacion` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`pasaporteId`) REFERENCES `documentoIdentificacion` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`empleoId`) REFERENCES `empleo` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`telefonoId`) REFERENCES `telefono` (`id`)
+  FOREIGN KEY (`celularId`) REFERENCES `telefono` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`celularOpcionalId`) REFERENCES `telefono` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `directivaCC`
+--
+CREATE TABLE IF NOT EXISTS `directivaCC` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `administrador`
+--
+CREATE TABLE IF NOT EXISTS `administrador` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `usuario` varchar(40) NOT NULL,
+  `clave` varchar(40) NOT NULL,
+  `directivaCCId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`directivaCCId`) REFERENCES `directivaCC` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Insertar en la tabla `administrador` el administrador por defecto
+--
+INSERT INTO `administrador` (`id`, `usuario`, `clave`) VALUES ('1', 'admin', SHA1('1234'));
 
 --
 -- Estructura de la tabla `aparatoMedico`

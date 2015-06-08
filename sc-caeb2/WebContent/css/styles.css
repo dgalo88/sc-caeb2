@@ -55,3 +55,11 @@ body {
 	margin: 0 auto;
 	margin-top: 4%;
 }
+
+.notification {
+	position: fixed;
+	top: 10%;
+	right: 2%;
+	width: 450px;
+	z-index: 9999;
+}

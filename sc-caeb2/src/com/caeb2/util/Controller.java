@@ -1,9 +1,12 @@
 package com.caeb2.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +15,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+
 public class Controller {
+
+	public enum PropFileRole {
+		SAVE, LOAD
+	}
+
+	public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String dbHost = "localhost";
@@ -117,6 +129,26 @@ public class Controller {
 		request.setAttribute(Constants.ATT_MESSAGE, message);
 
 		forward(request, response, page + "?" + params);
+
+	}
+
+	public static PropertiesConfiguration getPropertiesFile( //
+			String propFileName, PropFileRole propFileType) //
+					throws ConfigurationException, IOException {
+
+		switch (propFileType) {
+		case SAVE:
+			Controller.getLogger().info(MessageFormat.format( //
+					Constants.SAVE_DATA_TO, new Object[] { propFileName }));
+			break;
+		case LOAD:
+			Controller.getLogger().info(MessageFormat.format( //
+					Constants.LOAD_DATA_FROM, new Object[] { propFileName }));
+		default:
+			break;
+		}
+
+		return new PropertiesConfiguration(new File(propFileName));
 
 	}
 
