@@ -63,3 +63,49 @@ body {
 	width: 450px;
 	z-index: 9999;
 }
+
+.main-panel {
+	width: 50% !important;
+	margin-top: 2.5% !important;
+}
+
+.btn-panel {
+	background-repeat: no-repeat;
+	background-position: center;
+	height:170px;
+	width:170px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-panel-profile {
+	background-image: url(/sc-caeb2/images/userBlack.png);
+}
+
+.btn-panel-newPoll {
+	background-image: url(/sc-caeb2/images/newPoll.png);
+}
+
+.btn-panel-search {
+	background-image: url(/sc-caeb2/images/search.png);
+}
+
+.btn-panel-exit {
+	background-image: url(/sc-caeb2/images/exit.png);
+}
+
+/* .btn-panel-profile:active { */
+/*     background-image: url(/sc-caeb2/images/userBlack.png); */
+/* } */
+
+/* .btn-panel-newPoll:active { */
+/*     background-image: url(/sc-caeb2/images/newPoll.png); */
+/* } */
+
+/* .btn-panel-search:active { */
+/*     background-image: url(/sc-caeb2/images/search.png); */
+/* } */
+
+/* .btn-panel-exit:active { */
+/* 	background-image: url(/sc-caeb2/images/exit.png); */
+/* } */

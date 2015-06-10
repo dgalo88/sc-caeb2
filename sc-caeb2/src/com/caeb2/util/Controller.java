@@ -132,6 +132,57 @@ public class Controller {
 
 	}
 
+	public static void sendResponse(HttpServletResponse response, //
+			int status, String text, String contentType) throws Exception {
+
+		try {
+
+			getLogger().info(Constants.RESPONSE + text);
+
+			response.setContentType(contentType);
+			response.setStatus(status);
+			response.getWriter().print(text);
+
+		} catch (Exception e) {
+
+			putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
+
+			throw new Exception(e);
+
+		}
+
+	}
+
+	public static void sendTextResponse(HttpServletResponse response, //
+			int status, String text) throws Exception {
+
+		sendResponse(response, status, text, "text/html;charset=UTF-8");
+
+	}
+
+	public static void sendTextResponse(HttpServletResponse response, //
+			String text) throws Exception {
+
+		sendResponse(response, HttpServletResponse.SC_OK, //
+				text, "text/html;charset=UTF-8");
+
+	}
+
+	public static void sendJSONResponse(HttpServletResponse response, //
+			int status, String text) throws Exception {
+
+		sendResponse(response, status, text, "application/json;charset=UTF-8");
+
+	}
+
+	public static void sendErrorResponse(HttpServletResponse response, //
+			String text) throws Exception {
+
+		sendResponse(response, HttpServletResponse.SC_BAD_REQUEST, //
+				text, "text/html;charset=UTF-8");
+
+	}
+
 	public static PropertiesConfiguration getPropertiesFile( //
 			String propFileName, PropFileRole propFileType) //
 					throws ConfigurationException, IOException {

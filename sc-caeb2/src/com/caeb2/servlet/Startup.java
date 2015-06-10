@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.caeb2.actions.Actions;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
+import com.caeb2.util.TextUtils;
 
 /**
  * Servlet implementation class Startup
@@ -75,6 +76,12 @@ public class Startup extends HttpServlet {
 		try {
 
 			String actionName = request.getParameter(Constants.ACTION);
+
+			if (TextUtils.isEmptyOrNull(actionName)) {
+				Controller.getLogger().severe(Constants.IT_CANNOT_ERROR);
+				Controller.forward(request, response, "error.jsp", Constants.ACTION_ERROR);
+				return;
+			}
 
 			actionClass = actions.getActionClass(actionName);
 

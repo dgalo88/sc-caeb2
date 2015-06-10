@@ -20,6 +20,8 @@ public class Actions {
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.AdminProfile");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
 
+		actionsMapping.put("loadFormalityData", "com.caeb2.actions.FormalityData");
+
 	}
 
 	public Map<String, String> getActionsMapping() {

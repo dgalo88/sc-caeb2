@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.caeb2.util.Constants"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 
@@ -8,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Censo Comunitario - Consejo Comunal Andrés Eloy Blanco II</title>
+	<title><%=Constants.CENSO_COMUNITARIO%> - <%=Constants.CCAEB2%></title>
 
 	<!-- Bootstrap -->
 	<link href="/sc-caeb2/css/bootstrap.min.css" rel="stylesheet">
@@ -42,14 +43,14 @@
 			<tr>
 				<td class="text-left">
 					<a href="#">
-						<img src="/sc-caeb2/images/logoccaeb2.png" width="70px" height="70px"
-								class="img-responsive text-left" alt="logoccaeb2">
+						<img src="/sc-caeb2/images/logoccaeb2New.png" width="70px" height="70px"
+								class="img-responsive text-left" alt="logoccaeb2New">
 					</a>
 				</td>
 				<td class="text-center">
-					<h4>CENSO COMUNITARIO
+					<h4><%=Constants.CENSO_COMUNITARIO%>
 						<br>
-						<small>Consejo Comunal Andrés Eloy Blanco II</small>
+						<small><%=Constants.CCAEB2%></small>
 					</h4>
 				</td>
 				<td class="text-right">

@@ -62,6 +62,7 @@ public class AdminProfile {
 		ResultSet resultSet = statement.getResultSet();
 
 		if (!resultSet.first()) {
+			resultSet.close();
 			statement.close();
 			connection.close();
 			return null;
@@ -172,15 +173,12 @@ public class AdminProfile {
 		String newPass = request.getParameter(Constants.PROFILE_NEW_PASS);
 		String confirmPass = request.getParameter(Constants.PROFILE_CONFIRM_PASS);
 
-		response.setContentType("text/html;charset=UTF-8");
-
 		if ((TextUtils.isEmptyOrNull(currPass)) //
 				|| (TextUtils.isEmptyOrNull(newPass)) //
 				|| (TextUtils.isEmptyOrNull(confirmPass)) //
 				|| (!newPass.equals(confirmPass))) {
 
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			response.getWriter().print(Constants.CHANGE_PASS_ERROR);
+			Controller.sendErrorResponse(response, Constants.CHANGE_PASS_ERROR);
 
 		}
 
@@ -279,8 +277,7 @@ public class AdminProfile {
 				// ignore
 			}
 
-			response.setStatus(status);
-			response.getWriter().print(msg);
+			Controller.sendTextResponse(response, status, msg);
 
 		}
 

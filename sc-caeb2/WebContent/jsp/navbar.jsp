@@ -1,4 +1,4 @@
-<%@ include file="sessionValidator.jsp"%>
+<%@include file="sessionValidator.jsp"%>
 
 <%@page import="com.caeb2.util.Parameters"%>
 
@@ -24,17 +24,17 @@
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><%=Constants.JSP_NEW_POLL%></a></li>
-							<li><a href="#"><%=Constants.JSP_SEARCH%></a></li>
+							<li><a href="<%=Constants.ACTION_NEW_POLL%>"><%=Constants.JSP_NEW_POLL%></a></li>
+							<li><a href="<%=Constants.ACTION_SEARCH%>"><%=Constants.JSP_SEARCH%></a></li>
 							<li class="divider"></li>
-							<li><a href="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=loadAdminProfile"><%=Constants.JSP_PROFILE%></a></li>
-							<li><a href="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=logout"><%=Constants.JSP_EXIT%></a></li>
+							<li><a href="<%=Constants.ACTION_PROFILE%>"><%=Constants.JSP_PROFILE%></a></li>
+							<li><a href="<%=Constants.ACTION_EXIT%>"><%=Constants.JSP_EXIT%></a></li>
 						</ul>
 					</li>
 				</ul>
 				<p class="navbar-text">
 					<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-					<%= Parameters.getTitle() %>
+					<%=Parameters.getTitle()%>
 				</p>
 			</div><!-- /.navbar-collapse -->
 		</nav>

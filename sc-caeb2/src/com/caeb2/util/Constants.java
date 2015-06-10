@@ -3,8 +3,20 @@ package com.caeb2.util;
 public class Constants {
 
 	// General constants
+	public static final String CENSO_COMUNITARIO = "CENSO COMUNITARIO";
+	public static final String CCAEB2 = "Consejo Comunal Andrés Eloy Blanco 2";
+	public static final String SECTOR_AEB = "Sector Andrés Eloy Blanco";
+	public static final String DIR_CCAEB2 = "Dirección del Consejo Comunal: calle principal, casa 2-32. Telf.: 0426-8288651 / 0416-3705229.";
+
 	public static final String EXECUTE = "startup";
 	public static final String ACTION = "action";
+	public static final String EXEC_ACTION = EXECUTE + "?" + ACTION + "=";
+
+	public static final String ACTION_EXIT = EXEC_ACTION + "logout";
+	public static final String ACTION_PROFILE = EXEC_ACTION + "loadAdminProfile";
+	public static final String ACTION_NEW_POLL = "#";
+	public static final String ACTION_SEARCH = "#";
+
 	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
 	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";
 	public static final String PATH_CSS = PATH_SC_CAEB2 + "/css";
@@ -26,6 +38,7 @@ public class Constants {
 
 	// Messages
 	public static final String FORWARD = "[REENVIAR] ";
+	public static final String RESPONSE = "[RESPUESTA] ";
 	public static final String USER_LOGIN = "El usuario ''{0}'' ha iniciado sesión";
 	public static final String SAVE_DATA_TO = "Guardando datos en el archivo \"{0}\"";
 	public static final String LOAD_DATA_FROM = "Cargando datos desde el archivo \"{0}\"";
@@ -44,6 +57,10 @@ public class Constants {
 	public static final String CHANGE_PASS_ERROR = "No se pudo cambiar la contraseña.";
 	public static final String CONFIRM_PASS_ERROR = "Debe confirmar su nueva contraseña.";
 	public static final String EQUALS_PASS_ERROR = "Debe elegir una contraseña diferente a la actual.";
+	public static final String NOT_FOUND_ERROR = "La persona con la cédula \"{0}\" no ha sido encuestada.";
+	public static final String READING_DATA_ERROR = "No se pueden obtener los datos solicitados.";
+	public static final String EMPTY_FIELD_ERROR = "El campo \"{0}\" no puede estar vacío.";
+	public static final String EMPTY_CEDULA_ERROR = "La cédula no puede estar vacía.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -65,6 +82,10 @@ public class Constants {
 	public static final String JSP_SEARCH = "Buscar";
 	public static final String JSP_PASSPORT = "Pasaporte";
 	public static final String JSP_BIRTH_CERTIFICATE = "Partida de nacimiento";
+
+	// Documents types
+	public static final String JSP_RES_PROOF = "Constancia de Residencia";
+	public static final String JSP_RES_PROOF_LOW_INCOME = "Constancia de Residencia y Bajos Recursos Económicos";
 
 	// Properties and ids
 	public static final String SECTION1_IDENTIFYING_STRUCTURE = "section1_identifying_structure";

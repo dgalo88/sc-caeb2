@@ -18,6 +18,7 @@ function showNotification(message, type) {
 	$('#notification').removeClass('hidden')
 						.addClass('show')
 						.addClass(type);
+	$('#notification #messageDiv').remove();
 	$('#notification').append('<div id="messageDiv">' + message + '</div>');
 }
 
