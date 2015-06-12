@@ -111,7 +111,7 @@
 			</tbody>
 			</table>
 
-			<div class="container">
+			<div class="container text-center" style="width: 60%;">
 				<h4 class="text-center">Cambiar contraseña</h4>
 				<div class="form-group" id="changePassword">
 					<div class="form-group">

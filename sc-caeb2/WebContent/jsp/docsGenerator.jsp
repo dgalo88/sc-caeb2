@@ -31,10 +31,10 @@
 						<div class="form-group">
 							<label for="formlalityType">Seleccione el tipo de trámite</label>
 							<select class="form-control" id="formlalityType" name="formlalityType">
-								<option>Legal</option>
+								<option>Social</option>
 								<option>Bancario</option>
-								<option>Bla bla bla</option>
-								<option>Ble ble ble</option>
+								<option>Personal</option>
+								<option>Legal</option>
 							</select>
 						</div>
 					</div>
@@ -45,8 +45,8 @@
 					<div class="form-group">
 						<div class="form-group">
 							<label for="docType">Seleccione quien firma</label>
-							<select class="form-control" id="docSignature" name="docSignature">
-								<option>Anni SinApellido</option>
+							<select class="form-control" id="docSigner" name="docSigner">
+								<option>Ani Villarreal</option>
 								<option>José Ivan González</option>
 							</select>
 						</div>
@@ -123,25 +123,32 @@
 					<tr>
 						<td class="text-justify" colspan="4" id="docContent">
 							<br>
+							_NAC, mayor de edad, _POR de la Cédula de Identidad Nº _CED,
+							damos fe de que _LO conocemos de vista, trato y comunicación;
+							y por el conocimiento hacia _EL nos consta que tiene su residencia en la siguiente dirección: _DIR,
+							<%=Constants.SECTOR_AEB%>, que pertenece al ámbito geográfico del "<%=Constants.CCAEB2%>".
 						</td>
 					</tr>
 					<tr>
-						<td class="text-justify" colspan="4" id="docDate"></td>
+						<td class="text-justify" colspan="4" id="docDate">
+							Constancia que se expide a solicitud de la parte interesada,
+							para trámite _FTY, en la ciudad de Mérida, el día
+						</td>
 					</tr>
 					<tr>
 						<td class="text-left" colspan="2">
 							<br><br>
 							__________________
 							<br>
-							Angela Maldonado<br>
-							Unidad Administrativa
+							<h5>Angela Maldonado</h5>
+							Unidad Administrativa y Financiera
 						</td>
 						<td class="text-right" colspan="2">
 							<br><br>
 							__________________
 							<br>
-							José Iván González<br>
-							Unidad Administrativa
+							<h5 id="signer"></h5>
+							Unidad Administrativa y Financiera
 						</td>
 					</tr>
 					<tr>
@@ -149,7 +156,7 @@
 					</tr>
 					<tr>
 						<td class="footer text-center text-muted" colspan="4">
-							<br><%=Constants.DIR_CCAEB2%>
+							<br><br><h6><%=Constants.DIR_CCAEB2%></h6>
 						</td>
 					</tr>
 				</table>
@@ -225,17 +232,16 @@
 
 		var date = new Date();
 
-		var content = '_NAC, mayor de edad, _POR de la Cédula de Identidad Nº _CED,'
-			+ ' damos fe de que _LO conocemos de vista, trato y comunicación;'
-			+ ' y por el conocimiento hacia _EL nos consta que tiene su residencia en la siguiente dirección: _DIR,'
-			+ ' <%=Constants.SECTOR_AEB%>, que pertenece al ámbito geográfico del "<%=Constants.CCAEB2%>".'
+		var content = $('#docContent').text();
 
 		if ($('#docType').val() == '<%=Constants.JSP_RES_PROOF_LOW_INCOME%>') {
 			content += ' Nos consta además que es una persona de bajos recursos económicos.';
 		}
 
-		var date = 'Constancia que se expide a solicitud de la parte interesada, para trámite _FTY, '
-			+ 'en la ciudad de Mérida, el día ' + date.getDate() + ' de ' + month[date.getMonth()] + ' de ' + date.getFullYear() + '.';
+		var date = $('#docDate').text() 
+					+ date.getDate()
+					+ ' de ' + month[date.getMonth()]
+					+ ' de ' + date.getFullYear() + '.';
 
 		date = date.replace('_FTY', $('#formlalityType').val().toLowerCase());
 
@@ -271,8 +277,9 @@
 
 		}
 
-		$('#docContent').append(content);
-		$('#docDate').append(date);
+		$('#docContent').text(content);
+		$('#docDate').text(date);
+		$('#signer').text($('#docSigner').val());
 
 	}
 </script>
