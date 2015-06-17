@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `pasaporteId` int(11) DEFAULT NULL,
   `tienePartidaNacimiento` bit(1) NOT NULL,
   `correoElectronico` varchar(100) DEFAULT NULL,
+  `nacionalidad` varchar(100) DEFAULT NULL,
   `aisteEstablecimientoEducacion` bit(1) NOT NULL,
   `asisteControlMedicoParental` bit(1) NOT NULL,
   `beneficioEstablecimientoEducacion` varchar(255) DEFAULT NULL,

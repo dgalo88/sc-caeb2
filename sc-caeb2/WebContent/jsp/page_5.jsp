@@ -1,3 +1,4 @@
+<%@page import="com.caeb2.actions.bean.PersonBasicData"%>
 <%@page import="com.caeb2.actions.IndividualCharacteristics"%>
 <%@ include file="header.jsp"%>
 
@@ -5,14 +6,14 @@
 	Parameters.setPageNumber(5);
 	Parameters.setTitle("Sección 5: Características individuales");
 
-	IndividualCharacteristics characteristics = IndividualCharacteristics.loadIndividualCharacteristics();
+	PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
-			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveIndividualCharacteristics" method="POST">
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=savePersonBasicData" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -25,7 +26,7 @@
 										<label for="<%=Constants.SECTION5_LASTNAMES%>">Apellidos</label>
 										<input type="text" class="form-control" placeholder="Ej. Blanco Meaño"
 												id="<%=Constants.SECTION5_LASTNAMES%>" name="<%=Constants.SECTION5_LASTNAMES%>"
-												value="<%=characteristics.getLastnames()%>" required autofocus>
+												value="<%=personBasicData.getLastnames()%>" required autofocus>
 									</div>
 								</td>
 								<td class="td-right-control">
@@ -33,7 +34,7 @@
 										<label for="<%=Constants.SECTION5_NAMES%>">Nombres</label>
 										<input type="text" class="form-control" placeholder="Ej. Andrés Eloy"
 												id="<%=Constants.SECTION5_NAMES%>" name="<%=Constants.SECTION5_NAMES%>"
-												value="<%=characteristics.getNames()%>" required>
+												value="<%=personBasicData.getNames()%>" required>
 									</div>
 								</td>
 							</tr>
@@ -48,12 +49,12 @@
 										<div class="radio">
 											<label>
 												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="masculino" value="M"
-														<%if (characteristics.getSex().equals("M")) {%> checked <%}%>>
+														<%if (personBasicData.getSex().equals("M")) {%> checked <%}%>>
 												Masculino
 											</label>
 											<label>
 												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="femenino" value="F"
-														<%if (characteristics.getSex().equals("F")) {%> checked <%}%>>
+														<%if (personBasicData.getSex().equals("F")) {%> checked <%}%>>
 												Femenino
 											</label>
 										</div>
@@ -65,7 +66,7 @@
 										<div class="input-group date">
 											<input type="text" class="form-control" placeholder="Ej. 15/02/1980"
 													id="<%=Constants.SECTION5_BIRTHDATE%>" name="<%=Constants.SECTION5_BIRTHDATE%>"
-													value="<%=characteristics.getBirthdate()%>" required>
+													value="<%=personBasicData.getBirthdate()%>" required>
 											<span class="input-group-addon" id="fechaNacIcon">
 												<i class="glyphicon glyphicon-calendar" aria-label="calendar" aria-hidden="true"></i>
 											</span>
@@ -85,15 +86,15 @@
 										<div class="form-inline" id="celular">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD%>"
 													name="<%=Constants.SECTION5_PHONE_COD%>">
-												<option <%if (characteristics.getPhoneCod() == 0416) {%> selected <%}%>>0416</option>
-												<option <%if (characteristics.getPhoneCod() == 0426) {%> selected <%}%>>0426</option>
-												<option <%if (characteristics.getPhoneCod() == 0416) {%> selected <%}%>>0414</option>
-												<option <%if (characteristics.getPhoneCod() == 0426) {%> selected <%}%>>0424</option>
-												<option <%if (characteristics.getPhoneCod() == 0412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getPhoneCod() == 0416) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getPhoneCod() == 0426) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getPhoneCod() == 0416) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getPhoneCod() == 0426) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getPhoneCod() == 0412) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM%>" name="<%=Constants.SECTION5_PHONE_NUM%>"
-													value="<%=characteristics.getPhoneNum()%>" required>
+													value="<%=personBasicData.getPhoneNum()%>" required>
 										</div>
 									</div>
 								</td>
@@ -103,17 +104,17 @@
 										<div class="form-inline" id="otroTelefono">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>"
 													name="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>">
-												<option <%if (characteristics.getPhoneCodOptional() == 0416) {%> selected <%}%>>0416</option>
-												<option <%if (characteristics.getPhoneCodOptional() == 0426) {%> selected <%}%>>0426</option>
-												<option <%if (characteristics.getPhoneCodOptional() == 0416) {%> selected <%}%>>0414</option>
-												<option <%if (characteristics.getPhoneCodOptional() == 0426) {%> selected <%}%>>0424</option>
-												<option <%if (characteristics.getPhoneCodOptional() == 0412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 0416) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 0426) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 0416) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 0426) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 0412) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
 													name="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
-													<%if (characteristics.getPhoneNumOptional() != 0) {%>
-														value="<%=characteristics.getPhoneNumOptional()%>" <%}%>>
+													<%if (personBasicData.getPhoneNumOptional() != 0) {%>
+														value="<%=personBasicData.getPhoneNumOptional()%>" <%}%>>
 										</div>
 									</div>
 								</td>
@@ -125,17 +126,17 @@
 							<label for="<%=Constants.SECTION5_RELATIONSHIP%>">Parentesco con Jefe(a) del Hogar</label>
 							<select class="form-control" id="<%=Constants.SECTION5_RELATIONSHIP%>"
 									name="<%=Constants.SECTION5_RELATIONSHIP%>">
-								<option <%if (characteristics.getRelationship().equals("Jefe o jefa del Hogar")) {%> selected <%}%>>Jefe o jefa del Hogar</option>
-								<option <%if (characteristics.getRelationship().equals("Esposa(o) o compañera(o)")) {%> selected <%}%>>Esposa(o) o compañera(o)</option>
-								<option <%if (characteristics.getRelationship().equals("Hijo(a) o hijastro(a)")) {%> selected <%}%>>Hijo(a) o hijastro(a)</option>
-								<option <%if (characteristics.getRelationship().equals("Nieto o nieta")) {%> selected <%}%>>Nieto o nieta</option>
-								<option <%if (characteristics.getRelationship().equals("Yerno o nuera")) {%> selected <%}%>>Yerno o nuera</option>
-								<option <%if (characteristics.getRelationship().equals("Padre, madre o suegro(a)")) {%> selected <%}%>>Padre, madre o suegro(a)</option>
-								<option <%if (characteristics.getRelationship().equals("Hermano(a) o cuñado(a)")) {%> selected <%}%>>Hermano(a) o cuñado(a)</option>
-								<option <%if (characteristics.getRelationship().equals("Sobrino(a)")) {%> selected <%}%>>Sobrino(a)</option>
-								<option <%if (characteristics.getRelationship().equals("Otro pariente")) {%> selected <%}%>>Otro pariente</option>
-								<option <%if (characteristics.getRelationship().equals("No pariente")) {%> selected <%}%>>No pariente</option>
-								<option <%if (characteristics.getRelationship().equals("Inquilino")) {%> selected <%}%>>Inquilino</option>
+								<option <%if (personBasicData.getRelationship().equals("Jefe o jefa del Hogar")) {%> selected <%}%>>Jefe o jefa del Hogar</option>
+								<option <%if (personBasicData.getRelationship().equals("Esposa(o) o compañera(o)")) {%> selected <%}%>>Esposa(o) o compañera(o)</option>
+								<option <%if (personBasicData.getRelationship().equals("Hijo(a) o hijastro(a)")) {%> selected <%}%>>Hijo(a) o hijastro(a)</option>
+								<option <%if (personBasicData.getRelationship().equals("Nieto o nieta")) {%> selected <%}%>>Nieto o nieta</option>
+								<option <%if (personBasicData.getRelationship().equals("Yerno o nuera")) {%> selected <%}%>>Yerno o nuera</option>
+								<option <%if (personBasicData.getRelationship().equals("Padre, madre o suegro(a)")) {%> selected <%}%>>Padre, madre o suegro(a)</option>
+								<option <%if (personBasicData.getRelationship().equals("Hermano(a) o cuñado(a)")) {%> selected <%}%>>Hermano(a) o cuñado(a)</option>
+								<option <%if (personBasicData.getRelationship().equals("Sobrino(a)")) {%> selected <%}%>>Sobrino(a)</option>
+								<option <%if (personBasicData.getRelationship().equals("Otro pariente")) {%> selected <%}%>>Otro pariente</option>
+								<option <%if (personBasicData.getRelationship().equals("No pariente")) {%> selected <%}%>>No pariente</option>
+								<option <%if (personBasicData.getRelationship().equals("Inquilino")) {%> selected <%}%>>Inquilino</option>
 							</select>
 						</div>
 
@@ -152,12 +153,12 @@
 										<div class="form-inline" id="cedula">
 											<select class="form-control" id="<%=Constants.SECTION5_CEDULA_TYPE%>"
 													name="<%=Constants.SECTION5_CEDULA_TYPE%>">
-												<option <%if (characteristics.getCedula().getType().equals("V")) {%> selected <%}%>>V</option>
-												<option <%if (characteristics.getCedula().getType().equals("E")) {%> selected <%}%>>E</option>
+												<option <%if (personBasicData.getCedula().getType().equals("V")) {%> selected <%}%>>V</option>
+												<option <%if (personBasicData.getCedula().getType().equals("E")) {%> selected <%}%>>E</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 16465123" min="1"
 													id="<%=Constants.SECTION5_CEDULA_NUM%>" name="<%=Constants.SECTION5_CEDULA_NUM%>"
-													value="<%=characteristics.getCedula().getNumber()%>" required>
+													value="<%=personBasicData.getCedula().getNumber()%>" required>
 										</div>
 									</div>
 								</td>
@@ -169,22 +170,22 @@
 												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
 														id="<%=Constants.SECTION5_HAS_PASSPORT%>"
 														value="<%=Constants.JSP_PASSPORT%>"
-														<%if (characteristics.getPassport().getNumber() != 0) {%> checked <%}%>>
+														<%if (personBasicData.getPassport().getNumber() != 0) {%> checked <%}%>>
 												Pasaporte
 											</label>
 											<label>
 												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
 														id="<%=Constants.SECTION5_HAS_BIRTH_CERTIFICATE%>"
 														value="<%=Constants.JSP_BIRTH_CERTIFICATE%>"
-														<%if (characteristics.hasBirthCertificate()) {%> checked <%}%>>
+														<%if (personBasicData.hasBirthCertificate()) {%> checked <%}%>>
 												Partida de nacimiento
 											</label>
 											<br><br>
 											<input type="number" class="form-control hidden" placeholder="Ej. 12340989" min="1"
 													id="<%=Constants.SECTION5_PASSPORT_NUM%>"
 													name="<%=Constants.SECTION5_PASSPORT_NUM%>"
-													<%if (characteristics.getPassport().getNumber() != 0) {%>
-														value="<%=characteristics.getPassport().getNumber()%>" <%}%>>
+													<%if (personBasicData.getPassport().getNumber() != 0) {%>
+														value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
 										</div>
 									</div>
 								</td>
@@ -196,14 +197,14 @@
 							<label for="<%=Constants.SECTION5_NATIONALITY%>">Nacionalidad</label>
 							<input type="text" class="form-control" placeholder="Ej. Venezolano"
 									id="<%=Constants.SECTION5_NATIONALITY%>" name="<%=Constants.SECTION5_NATIONALITY%>"
-									value="<%=characteristics.getNationality()%>" required>
+									value="<%=personBasicData.getNationality()%>" required>
 						</div>
 	
 						<div class="form-group">
 							<label for="<%=Constants.SECTION5_EMAIL%>">Indique su correo electrónico</label>
 							<input type="email" class="form-control" placeholder="Ej. andres@mail.com"
 									id="<%=Constants.SECTION5_EMAIL%>" name="<%=Constants.SECTION5_EMAIL%>"
-									value="<%=characteristics.getEmail()%>" required>
+									value="<%=personBasicData.getEmail()%>" required>
 						</div>
 					</div>
 				</td>

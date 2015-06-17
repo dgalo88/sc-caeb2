@@ -26,6 +26,7 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="<%=Constants.ACTION_NEW_POLL%>"><%=Constants.JSP_NEW_POLL%></a></li>
 							<li><a href="<%=Constants.ACTION_SEARCH%>"><%=Constants.JSP_SEARCH%></a></li>
+							<li><a href="<%=Constants.ACTION_GEN_FORMALITY%>"><%=Constants.JSP_GEN_FORMALITY%></a></li>
 							<li class="divider"></li>
 							<li><a href="<%=Constants.ACTION_PROFILE%>"><%=Constants.JSP_PROFILE%></a></li>
 							<li><a href="<%=Constants.ACTION_EXIT%>"><%=Constants.JSP_EXIT%></a></li>

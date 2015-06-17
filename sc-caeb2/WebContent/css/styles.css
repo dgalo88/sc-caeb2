@@ -65,17 +65,18 @@ body {
 }
 
 .main-panel {
-	width: 50% !important;
-	margin-top: 2.5% !important;
+	width: 98% !important;
+	margin: 1% !important;
 }
 
 .btn-panel {
 	background-repeat: no-repeat;
 	background-position: center;
-	height: 150px;
-	width: 150px;
+	height: 130px;
+	width: 130px;
     cursor: pointer;
     border: none;
+    background-size: 100px 100px;
 }
 
 .btn-panel-profile {
@@ -92,6 +93,10 @@ body {
 
 .btn-panel-exit {
 	background-image: url(/sc-caeb2/images/exit.png);
+}
+
+.btn-panel-genFormality {
+	background-image: url(/sc-caeb2/images/genFormality.png);
 }
 
 /* .btn-panel-profile:active { */

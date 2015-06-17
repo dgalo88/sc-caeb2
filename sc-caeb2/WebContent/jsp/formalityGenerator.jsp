@@ -1,8 +1,13 @@
+<%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.TextUtils"%>
 <%@ include file="header.jsp"%>
 
+<%
+	Parameters.setTitle(Constants.JSP_GEN_FORMALITY);
+%>
+
 <%@page import="com.caeb2.util.Constants"%>
-<%-- <%@ include file="navbar.jsp"%> --%>
+<%@ include file="navbar.jsp"%>
 
 <script src="/sc-caeb2/js/jquery.print.js"></script>
 
@@ -232,10 +237,10 @@
 
 		var date = new Date();
 
-		var content = $('#docContent').text();
+		var contentText = $('#docContent').text();
 
 		if ($('#docType').val() == '<%=Constants.JSP_RES_PROOF_LOW_INCOME%>') {
-			content += ' Nos consta además que es una persona de bajos recursos económicos.';
+			contentText += ' Nos consta además que es una persona de bajos recursos económicos.';
 		}
 
 		var date = $('#docDate').text() 
@@ -245,41 +250,47 @@
 
 		date = date.replace('_FTY', $('#formlalityType').val().toLowerCase());
 
-		content = content.replace('_CED', $('#<%=Constants.SECTION5_CEDULA_NUM%>').val());
-		content = content.replace('_DIR', data.direction);
+		var first = data.nationality.charAt(0);
+	    var nationality = first.toUpperCase() + data.nationality.substr(1, data.nationality.length - 1);
 
-		if (data.sex == 'F') {
+		contentText = contentText.replace('_CED', $('#<%=Constants.SECTION5_CEDULA_NUM%>').val());
+		contentText = contentText.replace('_DIR', data.direction);
+		contentText = contentText.replace('_NAC', nationality);
+		contentText = replaceContentData(contentText, data.sex);
+
+		$('#docContent').text(contentText);
+		$('#docDate').text(date);
+		$('#signer').text($('#docSigner').val());
+
+	}
+
+	function replaceContentData(contentText, sex) {
+
+		if (sex == 'F') {
 
 			$("#docIntro").append(' la ciudadana,');
 
-			content = content.replace('_NAC', 'Venezolana')
-							 .replace('_POR', 'portadora')
-							 .replace('_LO', 'la')
-							 .replace('_EL', 'ella');
+			return contentText.replace('_POR', 'portadora')
+							  .replace('_LO', 'la')
+							  .replace('_EL', 'ella');
 
-		} else if (data.sex == 'M') {
+		} else if (sex == 'M') {
 
 			$('#docIntro').append(' el ciudadano,');
 
-			content = content.replace('_NAC', 'Venezolano')
-							 .replace('_POR', 'portador')
-							 .replace('_LO', 'lo')
-							 .replace('_EL', 'él');
+			return contentText.replace('_POR', 'portador')
+							  .replace('_LO', 'lo')
+							  .replace('_EL', 'él');
 
 		} else {
 
-			$('#docIntro').append(' el ciudadano (a),');
+			$('#docIntro').append(' el (la) ciudadano (a),');
 
-			content = content.replace('_NAC', 'Venezolano (a)')
-							 .replace('_POR', 'portador (a)')
-							 .replace('_LO', 'lo (a)')
-							 .replace('_EL', 'él (ella)');
+			return contentText.replace('_POR', 'portador (a)')
+							  .replace('_LO', 'lo (a)')
+							  .replace('_EL', 'él (ella)');
 
 		}
-
-		$('#docContent').text(content);
-		$('#docDate').text(date);
-		$('#signer').text($('#docSigner').val());
 
 	}
 </script>

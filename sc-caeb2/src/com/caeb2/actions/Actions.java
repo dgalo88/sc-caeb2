@@ -15,12 +15,11 @@ public class Actions {
 		actionsMapping.put("logout", "com.caeb2.actions.Login");
 		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
-
-		actionsMapping.put("saveIndividualCharacteristics", "com.caeb2.actions.IndividualCharacteristics");
+		actionsMapping.put("savePersonBasicData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.AdminProfile");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
-
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.FormalityData");
+		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
 
 	}
 
