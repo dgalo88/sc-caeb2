@@ -28,7 +28,7 @@
 				</td>
 				<td class="text-left">
 					<div class="form-group">
-						<a href="docsGenerator.jsp">
+						<a href="<%=Constants.ACTION_GEN_FORMALITY%>">
 						<button type="button" class="btn btn-primary btn-panel btn-panel-genFormality"
 								id="genFormality"
 								name="genFormality"
@@ -41,6 +41,16 @@
 			<tr>
 				<td class="text-right">
 					<div class="form-group">
+						<a href="<%=Constants.ACTION_HOME%>">
+						<button type="button" class="btn btn-primary btn-panel btn-panel-home"
+								id="home" name="home"
+								data-toggle="tooltip" data-placement="bottom"
+								title="<%=Constants.JSP_HOME%>">
+						</button></a>
+					</div>
+				</td>
+				<td width="130px">
+					<div class="form-group">
 						<a href="<%=Constants.ACTION_PROFILE%>">
 						<button type="button" class="btn btn-primary btn-panel btn-panel-profile"
 								id="profile" name="profile"
@@ -49,7 +59,6 @@
 						</button></a>
 					</div>
 				</td>
-				<td width="130px"></td>
 				<td class="text-left">
 					<div class="form-group">
 						<a href="<%=Constants.ACTION_EXIT%>">

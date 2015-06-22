@@ -42,7 +42,7 @@
 		<tbody>
 			<tr>
 				<td class="text-left">
-					<a href="index.jsp">
+					<a href="<%=Constants.ACTION_HOME%>">
 						<img src="/sc-caeb2/images/logoccaeb2New.png" width="70px" height="70px"
 								class="img-responsive text-left" alt="logoccaeb2New">
 					</a>

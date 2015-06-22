@@ -16,7 +16,7 @@ public class Constants {
 	public static final String ACTION_PROFILE = EXEC_ACTION + "loadAdminProfile";
 	public static final String ACTION_NEW_POLL = EXEC_ACTION + "newPoll";
 	public static final String ACTION_SEARCH = "#";
-
+	public static final String ACTION_HOME = "index.jsp";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
 
 	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
@@ -85,6 +85,10 @@ public class Constants {
 	public static final String JSP_PASSPORT = "Pasaporte";
 	public static final String JSP_BIRTH_CERTIFICATE = "Partida de nacimiento";
 	public static final String JSP_GEN_FORMALITY = "Generar Constancias";
+	public static final String JSP_HOME = "Inicio";
+	public static final String JSP_BACKUP = "Respaldo de datos";
+	public static final String JSP_IMPORT = "Importar";
+	public static final String JSP_EXPORT = "Exportar";
 
 	// Documents types
 	public static final String JSP_RES_PROOF = "Constancia de Residencia";

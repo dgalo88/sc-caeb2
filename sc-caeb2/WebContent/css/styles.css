@@ -99,18 +99,6 @@ body {
 	background-image: url(/sc-caeb2/images/genFormality.png);
 }
 
-/* .btn-panel-profile:active { */
-/*     background-image: url(/sc-caeb2/images/userBlack.png); */
-/* } */
-
-/* .btn-panel-newPoll:active { */
-/*     background-image: url(/sc-caeb2/images/newPoll.png); */
-/* } */
-
-/* .btn-panel-search:active { */
-/*     background-image: url(/sc-caeb2/images/search.png); */
-/* } */
-
-/* .btn-panel-exit:active { */
-/* 	background-image: url(/sc-caeb2/images/exit.png); */
-/* } */
+.btn-panel-home {
+	background-image: url(/sc-caeb2/images/home.png);
+}
