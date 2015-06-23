@@ -99,6 +99,8 @@ public class Constants {
 	public static final String SECTION1_STREET = "section1_street";
 	public static final String SECTION1_NAME_HOUSING = "section1_name_housing";
 	public static final String SECTION1_HOME_PHONE = "section1_home_phone";
+	
+	
 
 	public static final String SECTION2_STRUCTURE_TYPE = "section2_structure_type";
 	public static final String SECTION2_HOLDING = "section2_holding";
@@ -123,21 +125,41 @@ public class Constants {
 	public static final String SECTION2_BEDROOM = "section2_bedroom";
 	public static final String SECTION2_BATH = "section2_bath"; 
 	public static final String SECTION2_PART_OTHER = "section2_part_other"; 
-
+	public static final String SECTION2_PART = "section2_part"; 
 	public static final String SECTION2_CEILING = "section2_ceiling"; 
 	public static final String SECTION2_FLAT = "section2_flat";
 	public static final String SECTION2_WALLS = "section2_walls";
 	public static final String SECTION2_ELECTRIC_SYSTEM = "section2_electric_system"; 
 	public static final String SECTION2_REQUIRED_OTHER = "section2_required_other";
-
+	public static final String SECTION2_REQUIRED = "section2_required";
 	public static final String SECTION2_FRIEZE = "section2_frieze"; 
 	public static final String SECTION2_EXTENSION = "section2_extension";
 	public static final String SECTION2_RESHUFFLE = "section2_reshuffle";
 	public static final String SECTION2_REPAIR = "section2_repair";
 	public static final String SECTION2_WORK_NEEDS_OTHER = "section2_work_needs_other";
-
-
-
+	public static final String SECTION2_WORK_NEEDS = "section2_work_needs";
+	public static final String SECTION2_PART_OTHER_RESPONSE = "section2_part_other_response";
+	public static final String SECTION2_REQUIRED_OTHER_RESPONSE = "section2_required_other_response";
+	public static final String SECTION2_WORK_NEEDS_OTHER_RESPONSE = "section2_work_needs_other_response";
+	
+	public static final String SECTION4_HOME = "section4_home";
+	public static final String SECTION4_TO = "section4_to";
+	public static final String SECTION4_ROOMS = "section4_rooms";
+	public static final String SECTION4_CHIEF_COUPLE = "section4_chief_couple";
+	public static final String SECTION4_USED_MERCAL = "section4_used_mercal";
+	public static final String SECTION4_USED_MERCAL_SELECTED = "section4_used_mercal_selected";
+	public static final String SECTION4_FOOD_MARKETS = "section4_food_markets";
+	public static final String SECTION4_FOOD_MARKETS_RESPONSE = "section4_food_markets_response";
+	public static final String SECTION4_NUMBER_BATHROOMS = "section4_number_bathrooms";
+	public static final String SECTION4_TOTAL_PERSONS = "section4_total_persons";
+	public static final String SECTION4_SLEEPS_3_OR_MORE = "section4_sleeps_3_or_more";
+	public static final String SECTION4_USED_PDVAL = "section4_used_pdval";
+	public static final String SECTION4_USED_PDVALL_SELECTED = "section4_used_pdval_selected";
+	public static final String SECTION4_COMMUNITY_ORGANIZATIO = "section4_community_organization";
+	public static final String SECTION4_COMMUNITY_ORGANIZATION_WHICH = "section4_community_organization_which";
+	public static final String SECTION4_COMMUNITY_PROBLEMS = "section4_community_problems";
+	public static final String SECTION4_COMMUNITY_PROBLEMS_OTHER = "section4_community_problems_other";
+	
 
 	public static final String SECTION5_LASTNAMES = "section5_lastnames";
 	public static final String SECTION5_NAMES = "section5_names";
@@ -156,6 +178,29 @@ public class Constants {
 	public static final String SECTION5_HAS_BIRTH_CERTIFICATE = "section5_has_birth_certificate";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
+	
+	public static final String SECTION8_DISABILITIES = "section8_disabilities";
+	public static final String SECTION8_SECURITY_SYSTEMS = "section8_security_systems";
+	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";
+	public static final String SECTION8_MEDICAL_EQUIPMENT_WHICH = "section8_medical_equipment_which";
+	public static final String SECTION8_MEDICAL_ASSISTANCE_HAS = "section8_medical_assistance_has";
+	public static final String SECTION8_PREGNANT = "section8_pregnant";
+	
+	public static final String SECTION8_COVERED = "section8_covered";
+	public static final String SECTION8_DISEASES = "section8_diseases";
+	public static final String SECTION8_DISEASES_OTHER = "section8_diseases_other";
+	
+	public static final String SECTION8_VACCINES_BCG = "section8_vaccines_BCG";
+	public static final String SECTION8_VACCINES_TRIPLE = "section8_vaccines_Triple";
+	public static final String SECTION8_VACCINES_TRIVALENTE = "section8_vaccines_Trivalente";
+	public static final String SECTION8_VACCINES_POLIO = "section8_vaccines_Polio";
+	public static final String SECTION8_VACCINES_HEPATITISA = "section8_vaccines_HepatitisA";
+	public static final String SECTION8_VACCINES_HEPATITISB = "section8_vaccines_HepatitisB";
+	public static final String SECTION8_VACCINES_MENINGITIS = "section8_vaccines_Meningitis";
+	public static final String SECTION8_VACCINES_SARAMPION = "section8_vaccines_Sarampion";
+	
+	public static final String SECTION8_PRENATAL = "section8_prenatal";
+	
 
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";
 	public static final String PROFILE_NEW_PASS = "profile_new_pass";
