@@ -6,7 +6,6 @@ public class PersonBasicData {
 	private String names;
 	private IdentificationDocument cedula;
 	private IdentificationDocument passport;
-	private boolean _hasBirthCertificate;
 	private String sex;
 	private String birthdate;
 	private String nationality;
@@ -18,9 +17,8 @@ public class PersonBasicData {
 	private String relationship;
 
 	public PersonBasicData(String lastnames, String names, //
-			IdentificationDocument cedula, IdentificationDocument passport, //
-			boolean _hasBirthCertificate, String sex, //
-			String birthdate, String nationality, //
+			IdentificationDocument cedula, IdentificationDocument passport, 
+			String sex, String birthdate, String nationality, //
 			int phoneCod, int phoneNum, int phoneCodOptional, int phoneNumOptional, //
 			String email, String relationship) {
 
@@ -28,7 +26,6 @@ public class PersonBasicData {
 		this.names = names;
 		this.cedula = cedula;
 		this.passport = passport;
-		this._hasBirthCertificate = _hasBirthCertificate;
 		this.sex = sex;
 		this.birthdate = birthdate;
 		this.nationality = nationality;
@@ -43,21 +40,19 @@ public class PersonBasicData {
 
 	public PersonBasicData(String lastnames, String names, //
 			IdentificationDocument cedula, //
-			boolean _hasBirthCertificate, String sex, //
-			String birthdate, String nationality, //
+			String sex, String birthdate, String nationality, //
 			int phoneCod, int phoneNum, //
 			String email, String relationship) {
 
 		this(lastnames, names, cedula, new IdentificationDocument("P", 0), //
-				_hasBirthCertificate, sex, birthdate, nationality, //
-				phoneCod, phoneNum, 0, 0, email, relationship);
+				sex, birthdate, nationality, phoneCod, phoneNum, 0, 0, email, relationship);
 
 	}
 
 	public PersonBasicData() {
 
 		this("", "", new IdentificationDocument(), new IdentificationDocument("P", 0), //
-				false, "", "", "", 0, 0, 0, 0, "", "");
+				"", "", "", 0, 0, 0, 0, "", "");
 
 	}
 
@@ -91,14 +86,6 @@ public class PersonBasicData {
 
 	public void setPassport(IdentificationDocument passport) {
 		this.passport = passport;
-	}
-
-	public boolean hasBirthCertificate() {
-		return _hasBirthCertificate;
-	}
-
-	public void setHasBirthCertificate(boolean hasBirthCertificate) {
-		this._hasBirthCertificate = hasBirthCertificate;
 	}
 
 	public String getSex() {
@@ -188,9 +175,7 @@ public class PersonBasicData {
 			ret += "  Pasaporte = " + passport.toString() + "\n";
 		}
 
-		ret += (_hasBirthCertificate ? "  " : "  No ") //
-				+ "Tiene Partida Nacimiento" + "\n" //
-				+ "  Sexo = " + sex + "\n" //
+		ret += "  Sexo = " + sex + "\n" //
 				+ "  Fecha de nacimiento = " + birthdate + "\n" //
 				+ "  Nacionalidad = " + nationality + "\n" //
 				+ "  Teléfono celular = " + phoneCod + "-" + phoneNum + "\n";

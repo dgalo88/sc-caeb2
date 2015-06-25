@@ -14,15 +14,6 @@ CREATE TABLE IF NOT EXISTS `documentoIdentificacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `credito`
---
-CREATE TABLE IF NOT EXISTS `credito` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `institucion` varchar(255) DEFAULT NULL,
-  `usoCredito` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
 -- Estructura de la tabla `telefono`
 --
 CREATE TABLE IF NOT EXISTS `telefono` (
@@ -36,30 +27,41 @@ CREATE TABLE IF NOT EXISTS `telefono` (
 --
 CREATE TABLE IF NOT EXISTS `vivienda` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `cantidadPersonas` int(11) NOT NULL,
-  `combustibleCocina` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `gastosSeparados` bit(1) DEFAULT NULL,
-  `gruposGastosPersonas` int(11) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `telefonoId` int(11) DEFAULT NULL,
+  `tipoEstructura` varchar(100) DEFAULT NULL,
   `materialParedes` varchar(255) DEFAULT NULL,
   `materialPiso` varchar(255) DEFAULT NULL,
   `materialTecho` varchar(255) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `numero` varchar(255) DEFAULT NULL,
+  `tenencia` varchar(100) DEFAULT NULL,
+  `ubicacionCocina` varchar(20) DEFAULT NULL,
   `numeroCuartos` int(11) NOT NULL,
-  `posibilidadAmpliacion` bit(1) NOT NULL,
-  `seAjustaGrupoFamiliar` bit(1) NOT NULL,
-  `servicioAgua` varchar(255) DEFAULT NULL,
+  `servicioAgua` varchar(100) DEFAULT NULL,
+  `servicioSanitario` varchar(100) DEFAULT NULL,
   `servicioElectrico` bit(1) NOT NULL,
   `servicioRecoleccionBasura` varchar(255) DEFAULT NULL,
-  `servicioSanitario` varchar(255) DEFAULT NULL,
-  `tenencia` varchar(255) DEFAULT NULL,
-  `tipoEstructura` varchar(255) DEFAULT NULL,
-  `tipoSector` varchar(255) DEFAULT NULL,
-  `ubicacionCocina` varchar(255) DEFAULT NULL,
-  `zonaRiesgo` varchar(255) DEFAULT NULL,
-  `telefonoId` int(11) DEFAULT NULL,
+  `seAjustaGrupoFamiliar` bit(1) NOT NULL,
+  `tipoSector` varchar(20) DEFAULT NULL,
+  `zonaRiesgo` varchar(20) DEFAULT NULL,
+  `posibilidadAmpliacion` bit(1) NOT NULL,
+  `cantidadPersonas` int(11) NOT NULL,
+  `gastosSeparados` bit(1) DEFAULT NULL,
+  `gruposGastosPersonas` int(11) DEFAULT NULL,
   FOREIGN KEY (`telefonoId`) REFERENCES `telefono` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `mejora`
+--
+CREATE TABLE IF NOT EXISTS `mejora` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `parte` varchar(255) DEFAULT NULL,
+  `queMejorar` varchar(255) DEFAULT NULL,
+  `trabajo` varchar(255) DEFAULT NULL,
+  `viviendaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -68,20 +70,28 @@ CREATE TABLE IF NOT EXISTS `vivienda` (
 --
 CREATE TABLE IF NOT EXISTS `hogar` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `beneficioMercado` varchar(255) DEFAULT NULL,
-  `dormitorioTresOMas` bit(1) NOT NULL,
-  `jefeTienePareja` bit(1) NOT NULL,
-  `miembroParticipaOrganizacionComunitaria` varchar(255) DEFAULT NULL,
-  `numeroBanos` int(11) NOT NULL,
-  `numeroComidas` int(11) NOT NULL,
-  `numeroCuartos` int(11) NOT NULL,
   `numeroPersonas` int(11) NOT NULL,
-  `principalProblemaComunidad` varchar(255) DEFAULT NULL,
-  `utilizaMercal` varchar(255) DEFAULT NULL,
-  `utilizaPdval` varchar(255) DEFAULT NULL,
-  `vigilanciaPolicial` varchar(255) DEFAULT NULL,
+  `numeroCuartos` int(11) NOT NULL,
+  `numeroBanos` int(11) NOT NULL,
+  `jefeTienePareja` bit(1) NOT NULL,
+  `dormitorioTresOMas` bit(1) NOT NULL,
+  `utilizaMercal` varchar(20) DEFAULT NULL,
+  `utilizaPdval` varchar(20) DEFAULT NULL,
+  `beneficioMercado` varchar(20) DEFAULT NULL,
+  `miembroParticipaOrganizacionComunitaria` varchar(255) DEFAULT NULL,
   `viviendaId` int(11) DEFAULT NULL,
   FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `principalesProblemasComunidad`
+--
+CREATE TABLE IF NOT EXISTS `principalesProblemasComunidad` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `hogarId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -90,12 +100,20 @@ CREATE TABLE IF NOT EXISTS `hogar` (
 --
 CREATE TABLE IF NOT EXISTS `empleo` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `lugarTrabajo` varchar(255) DEFAULT NULL,
-  `oficio` varchar(255) DEFAULT NULL,
   `situacion` varchar(255) DEFAULT NULL,
+  `oficio` varchar(255) DEFAULT NULL,
   `tipo` varchar(255) DEFAULT NULL,
-  `tipoNegocio` varchar(255) DEFAULT NULL
+  `tipoNegocio` varchar(20) DEFAULT NULL,
+  `lugarTrabajo` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `credito`
+--
+CREATE TABLE IF NOT EXISTS `credito` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `institucion` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Estructura de la tabla `persona`
@@ -104,39 +122,30 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `apellidos` varchar(100) DEFAULT NULL,
   `nombres` varchar(100) DEFAULT NULL,
-  `fechaNacimiento` datetime DEFAULT NULL,
+  `parentescoJefeHogar` varchar(100) DEFAULT NULL,
   `sexo` char(1) NOT NULL,
+  `fechaNacimiento` datetime DEFAULT NULL,
+  `nacionalidad` varchar(100) DEFAULT NULL,
   `cedulaId` int(11) DEFAULT NULL,
   `pasaporteId` int(11) DEFAULT NULL,
-  `tienePartidaNacimiento` bit(1) NOT NULL,
   `correoElectronico` varchar(100) DEFAULT NULL,
-  `nacionalidad` varchar(100) DEFAULT NULL,
-  `aisteEstablecimientoEducacion` bit(1) NOT NULL,
-  `asisteControlMedicoParental` bit(1) NOT NULL,
-  `beneficioEstablecimientoEducacion` varchar(255) DEFAULT NULL,
-  `cursoCapacitacion` varchar(255) DEFAULT NULL,
-  `edadNacimientoPrimerHijo` int(11) NOT NULL,
-  `esAnalfabeta` bit(1) NOT NULL,
-  `haAsistidoServicioSalud` bit(1) NOT NULL,
-  `ingresoMensual` varchar(255) DEFAULT NULL,
-  `nivelEducativo` varchar(255) DEFAULT NULL,
-  `numeroHijosAunViven` int(11) NOT NULL,
-  `numeroHijosNacidosVivos` int(11) NOT NULL,
-  `otrasHabilidades` varchar(255) DEFAULT NULL,
-  `parentescoJefeHogar` varchar(255) DEFAULT NULL,
-  `profesion` varchar(255) DEFAULT NULL,
-  `respEstablecimientoEducacion` varchar(255) DEFAULT NULL,
-  `seEncuentraEmbarazada` bit(1) NOT NULL,
-  `situacionConyugal` varchar(255) DEFAULT NULL,
-  `tienePareja` bit(1) NOT NULL,
-  `ultimoGradoAprobado` int(11) NOT NULL,
-  `creditoId` int(11) DEFAULT NULL,
-  `empleoId` int(11) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
   `celularId` int(11) DEFAULT NULL,
   `celularOpcionalId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`creditoId`) REFERENCES `credito` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
+  `esAnalfabeta` bit(1) NOT NULL,
+  `aisteEstablecimientoEducacion` bit(1) NOT NULL,
+  `respEstablecimientoEducacion` varchar(255) DEFAULT NULL,
+  `recibeBeca` varchar(255) DEFAULT NULL,
+  `cursoCapacitacion` varchar(255) DEFAULT NULL,
+  `nivelEducativo` varchar(255) DEFAULT NULL,
+  `ultimoGradoAprobado` int(11) NOT NULL,
+  `profesion` varchar(255) DEFAULT NULL,
+  `ingresoMensual` varchar(100) DEFAULT NULL,
+  `otrasHabilidades` varchar(255) DEFAULT NULL,
+  `credito` varchar(100) DEFAULT NULL,
+  `seEncuentraEmbarazada` bit(1) NOT NULL,
+  `asisteControlMedicoParental` bit(1) NOT NULL,
+  `empleoId` int(11) DEFAULT NULL,
+  `hogarId` int(11) DEFAULT NULL,
   FOREIGN KEY (`cedulaId`) REFERENCES `documentoIdentificacion` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`pasaporteId`) REFERENCES `documentoIdentificacion` (`id`)
@@ -174,78 +183,25 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 ) ENGINE=InnoDB ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Insertar en la tabla `administrador` el administrador por defecto
+-- Estructura de la tabla `observaciones`
 --
-INSERT INTO `administrador` (`id`, `usuario`, `clave`) VALUES ('1', 'admin', SHA1('1234'));
-
---
--- Estructura de la tabla `aparatoMedico`
---
-CREATE TABLE IF NOT EXISTS `aparatoMedico` (
+CREATE TABLE IF NOT EXISTS `observaciones` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
+  `observacion` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `casosViolencia`
+-- Estructura de la tabla `encuesta`
 --
-CREATE TABLE IF NOT EXISTS `casosViolencia` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `denunciado` bit(1) NOT NULL,
-  `violenciaMujer` varchar(255) DEFAULT NULL,
-  `violenciaNinos` varchar(255) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `hogarCasosViolencia`
---
-CREATE TABLE IF NOT EXISTS `hogarCasosViolencia` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `hogarId` int(11) DEFAULT NULL,
-  `casosViolenciaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
+CREATE TABLE IF NOT EXISTS `encuesta` (
+  `numeroPlanilla` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `fechaEntrevista` datetime DEFAULT NULL,
+  `nombreEmpadronador` varchar(100) DEFAULT NULL,
+  `observacionesId` int(11) DEFAULT NULL,
+  `viviendaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`observacionesId`) REFERENCES `observaciones` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`casosViolenciaId`) REFERENCES `casosViolencia` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `delito`
---
-CREATE TABLE IF NOT EXISTS `delito` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `denuncio` bit(1) NOT NULL,
-  `haSidoVictima` bit(1) NOT NULL,
-  `tipo` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `delitoHogar`
---
-CREATE TABLE IF NOT EXISTS `delitoHogar` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `delitoId` int(11) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`delitoId`) REFERENCES `delito` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `deporte`
---
-CREATE TABLE IF NOT EXISTS `deporte` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -261,37 +217,25 @@ CREATE TABLE IF NOT EXISTS `discapacidad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `electrodomestico`
+-- Estructura de la tabla `sistemaPrevencionSocial`
 --
-CREATE TABLE IF NOT EXISTS `electrodomestico` (
+CREATE TABLE IF NOT EXISTS `sistemaPrevencionSocial` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
+  `descripcion` varchar(255) DEFAULT NULL,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `observaciones`
+-- Estructura de la tabla `lugarAsistenciaMedica`
 --
-CREATE TABLE IF NOT EXISTS `observaciones` (
+CREATE TABLE IF NOT EXISTS `lugarAsistenciaMedica` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `observacion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `encuesta`
---
-CREATE TABLE IF NOT EXISTS `encuesta` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `fechaEntrevista` datetime DEFAULT NULL,
-  `nombreEmpadronador` varchar(255) DEFAULT NULL,
-  `numeroPlanilla` int(11) NOT NULL,
-  `observacionesId` int(11) DEFAULT NULL,
-  `viviendaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`observacionesId`) REFERENCES `observaciones` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
+  `descripcion` varchar(255) DEFAULT NULL,
+  `razonAcudir` varchar(255) DEFAULT NULL,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -307,59 +251,56 @@ CREATE TABLE IF NOT EXISTS `enfermedadPadecida` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Estructura de la tabla `aparatoMedico`
+--
+CREATE TABLE IF NOT EXISTS `aparatoMedico` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100) DEFAULT NULL,
+  `loTiene` bit(1) NOT NULL,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `vacuna`
+--
+CREATE TABLE IF NOT EXISTS `vacuna` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100) DEFAULT NULL,
+  `numeroDosis` int(11) NOT NULL,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
 -- Estructura de la tabla `habilidadArtisticaManual`
+--
+-- participacion: N = No / E = Estudiante / I = Instructor
+--
 --
 CREATE TABLE IF NOT EXISTS `habilidadArtisticaManual` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `participacion` varchar(1) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `lugarAsistenciaMedica`
+-- Estructura de la tabla `deporte`
 --
-CREATE TABLE IF NOT EXISTS `lugarAsistenciaMedica` (
+-- participacion: N = No / E = Estudiante / I = Instructor
+--
+--
+CREATE TABLE IF NOT EXISTS `deporte` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `participacion` varchar(1) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `mejora`
---
-CREATE TABLE IF NOT EXISTS `mejora` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `parte` varchar(255) DEFAULT NULL,
-  `queMejorar` varchar(255) DEFAULT NULL,
-  `requiereMejora` bit(1) NOT NULL,
-  `trabajo` varchar(255) DEFAULT NULL,
-  `viviendaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `idioma`
---
-CREATE TABLE IF NOT EXISTS `idioma` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `personaIdioma`
---
-CREATE TABLE IF NOT EXISTS `personaIdioma` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `personaId` int(11) DEFAULT NULL,
-  `idiomaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`idiomaId`) REFERENCES `idioma` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -408,84 +349,6 @@ CREATE TABLE IF NOT EXISTS `personaProgramaMision` (
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Estructura de la tabla `recursoTareaEducativa`
---
-CREATE TABLE IF NOT EXISTS `recursoTareaEducativa` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `recurso` varchar(255) DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `personaRecursoTareaEducativa`
---
-CREATE TABLE IF NOT EXISTS `personaRecursoTareaEducativa` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `personaId` int(11) DEFAULT NULL,
-  `recursoTareaEducativaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`recursoTareaEducativaId`) REFERENCES `recursoTareaEducativa` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `planificacionFamiliar`
---
-CREATE TABLE IF NOT EXISTS `planificacionFamiliar` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `tieneInformacion` varchar(255) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `razonAcudirEstablecimientoSalud`
---
-CREATE TABLE IF NOT EXISTS `razonAcudirEstablecimientoSalud` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `sistemaPrevencionSocial`
---
-CREATE TABLE IF NOT EXISTS `sistemaPrevencionSocial` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `vacuna`
---
-CREATE TABLE IF NOT EXISTS `vacuna` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `numeroDosis` int(11) NOT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `vehiculo`
---
-CREATE TABLE IF NOT EXISTS `vehiculo` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `cantidad` int(11) NOT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Estructura de la tabla `mision`

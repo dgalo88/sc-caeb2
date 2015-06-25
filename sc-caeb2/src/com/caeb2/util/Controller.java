@@ -175,6 +175,14 @@ public class Controller {
 
 	}
 
+	public static void sendJSONResponse(HttpServletResponse response, //
+			String text) throws Exception {
+
+		sendResponse(response, HttpServletResponse.SC_OK, //
+				text, "application/json;charset=UTF-8");
+
+	}
+
 	public static void sendErrorResponse(HttpServletResponse response, //
 			String text) throws Exception {
 

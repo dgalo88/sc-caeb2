@@ -2,7 +2,7 @@
 
 <%
 	Parameters.setPageNumber(3);
-	Parameters.setTitle("Sección 3: Numero de Hogares");
+	Parameters.setTitle("Sección 3: Número de Hogares");
 %>
 
 <%@ include file="navbar.jsp"%>

@@ -158,35 +158,18 @@
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 16465123" min="1"
 													id="<%=Constants.SECTION5_CEDULA_NUM%>" name="<%=Constants.SECTION5_CEDULA_NUM%>"
-													value="<%=personBasicData.getCedula().getNumber()%>" required>
+													value="<%=personBasicData.getCedula().getNumber()%>">
 										</div>
 									</div>
 								</td>
 								<td class="td-right-control">
 									<div class="form-group">
-										<label for="tieneDI">¿Tiene?</label>
-										<div class="checkbox" id="tieneDI">
-											<label>
-												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
-														id="<%=Constants.SECTION5_HAS_PASSPORT%>"
-														value="<%=Constants.JSP_PASSPORT%>"
-														<%if (personBasicData.getPassport().getNumber() != 0) {%> checked <%}%>>
-												Pasaporte
-											</label>
-											<label>
-												<input type="checkbox" name="<%=Constants.SECTION5_ID_DOCS%>"
-														id="<%=Constants.SECTION5_HAS_BIRTH_CERTIFICATE%>"
-														value="<%=Constants.JSP_BIRTH_CERTIFICATE%>"
-														<%if (personBasicData.hasBirthCertificate()) {%> checked <%}%>>
-												Partida de nacimiento
-											</label>
-											<br><br>
-											<input type="number" class="form-control hidden" placeholder="Ej. 12340989" min="1"
-													id="<%=Constants.SECTION5_PASSPORT_NUM%>"
-													name="<%=Constants.SECTION5_PASSPORT_NUM%>"
-													<%if (personBasicData.getPassport().getNumber() != 0) {%>
-														value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
-										</div>
+										<label for="<%=Constants.SECTION5_PASSPORT_NUM%>">Pasaporte</label>
+										<input type="number" class="form-control" placeholder="Ej. 12340989" min="1"
+												id="<%=Constants.SECTION5_PASSPORT_NUM%>"
+												name="<%=Constants.SECTION5_PASSPORT_NUM%>"
+												<%if (personBasicData.getPassport().getNumber() != 0) {%>
+													value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
 									</div>
 								</td>
 							</tr>
@@ -217,21 +200,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
 		$('#fecha input').datepicker();
-
-		$('#<%=Constants.SECTION5_HAS_PASSPORT%>').on("click", function() {
-			if ($(this).is(":checked")) {
-				$("#<%=Constants.SECTION5_PASSPORT_NUM%>")
-					.removeClass('hidden').addClass('show')
-					.attr('required', 'required');
-			} else {
-				$("#<%=Constants.SECTION5_PASSPORT_NUM%>")
-					.removeClass('show').addClass('hidden')
-					.removeAttr('required');
-			}
-		});
-
 	});
 </script>
 

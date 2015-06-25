@@ -25,6 +25,11 @@ public class InitDatabase {
 
 		try {
 			createDatabaseUser("censoaeb2", "123456");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		try {
 			createDatabase("censoaeb2");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -32,8 +37,7 @@ public class InitDatabase {
 
 	}
 
-	private void readSqlFile(String fileName) //
-			throws IOException, SQLException, ClassNotFoundException {
+	private void init(String fileName) throws IOException, SQLException, ClassNotFoundException {
 
 		File file = new File(fileName);
 		FileReader fileReader = new FileReader(file);
@@ -75,10 +79,11 @@ public class InitDatabase {
 
 		connection.close();
 
+		createSuperAdmin();
+
 	}
 
-	public static void createDatabaseUser(String user, String pass) //
-			throws SQLException {
+	public void createDatabaseUser(String user, String pass) throws SQLException {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
@@ -102,7 +107,7 @@ public class InitDatabase {
 
 	}
 
-	public static void createDatabase(String dbName) throws SQLException {
+	public void createDatabase(String dbName) throws SQLException {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
@@ -122,12 +127,26 @@ public class InitDatabase {
 
 	}
 
+	public void createSuperAdmin() throws ClassNotFoundException, SQLException {
+
+		Connection connection = Controller.getConnection();
+
+		String sql = "INSERT INTO administrador (id, usuario, clave) VALUES ('1', 'admin', SHA1('1234'))";
+
+		Statement statement = connection.createStatement();
+		statement.execute(sql);
+
+		statement.close();
+		connection.close();
+
+	}
+
 	public static void main(String[] args) {
 
 		InitDatabase initDatabase = new InitDatabase();
 
 		try {
-			initDatabase.readSqlFile("censoaeb2.sql");
+			initDatabase.init("censoaeb2.sql");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

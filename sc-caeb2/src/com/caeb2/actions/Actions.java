@@ -20,6 +20,7 @@ public class Actions {
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.FormalityData");
 		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
+		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.bean.DwellingBasicData");
 
 	}
 

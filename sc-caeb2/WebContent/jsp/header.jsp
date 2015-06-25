@@ -9,10 +9,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title><%=Constants.CENSO_COMUNITARIO%> - <%=Constants.CCAEB2%></title>
 
+	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/normalize.css"/>
+
 	<!-- Bootstrap -->
-	<link href="/sc-caeb2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/bootstrap.min.css">
 
 	<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +24,7 @@
 		<script src="/sc-caeb2/js/respond.min.js"></script>
 	<![endif]-->
 
-	<link href="/sc-caeb2/css/styles.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/styles.css">
 
 	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/datepicker.css"/>
 

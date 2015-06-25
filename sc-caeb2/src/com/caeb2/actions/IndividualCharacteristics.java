@@ -14,6 +14,7 @@ import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
+import com.caeb2.util.TextUtils;
 
 public class IndividualCharacteristics {
 
@@ -30,35 +31,18 @@ public class IndividualCharacteristics {
 		prop.setProperty(Constants.SECTION5_NAMES, names);
 
 		String cedType = request.getParameter(Constants.SECTION5_CEDULA_TYPE);
-		int cedNumber = Integer.valueOf(request.getParameter(Constants.SECTION5_CEDULA_NUM));
+		String cedNumber = request.getParameter(Constants.SECTION5_CEDULA_NUM);
 
-		prop.setProperty(Constants.SECTION5_CEDULA_NUM, cedNumber);
-		prop.setProperty(Constants.SECTION5_CEDULA_TYPE, cedType);
-
-		String[] idDocs = request.getParameterValues(Constants.SECTION5_ID_DOCS);
-
-		boolean _hasBirthCertificate = false;
-
-		if (idDocs != null) {
-
-			for (String idDoc : idDocs) {
-
-				if (idDoc.equals(Constants.JSP_PASSPORT)) {
-
-					int passportNumber = Integer.valueOf( //
-							request.getParameter(Constants.SECTION5_PASSPORT_NUM));
-
-					prop.setProperty(Constants.SECTION5_PASSPORT_NUM, passportNumber);
-
-				} else if (idDoc.equals(Constants.JSP_BIRTH_CERTIFICATE)) {
-					_hasBirthCertificate = true;
-				}
-
-			}
-
+		if (TextUtils.isEmptyOrNull(cedNumber)) {
+			prop.setProperty(Constants.SECTION5_CEDULA_TYPE, cedType);
+			prop.setProperty(Constants.SECTION5_CEDULA_NUM, Integer.valueOf(cedNumber));
 		}
 
-		prop.setProperty(Constants.SECTION5_HAS_BIRTH_CERTIFICATE, _hasBirthCertificate);
+		String passportNumber = request.getParameter(Constants.SECTION5_PASSPORT_NUM);
+
+		if (TextUtils.isEmptyOrNull(passportNumber)) {
+			prop.setProperty(Constants.SECTION5_PASSPORT_NUM, Integer.valueOf(passportNumber));
+		}
 
 		String sex = request.getParameter(Constants.SECTION5_SEX);
 
@@ -135,10 +119,6 @@ public class IndividualCharacteristics {
 			IdentificationDocument passport = new IdentificationDocument("P", passportNumber);
 			personBasicData.setPassport(passport);
 		}
-
-		boolean _hasBirthCertificate = prop.getBoolean(Constants.SECTION5_HAS_BIRTH_CERTIFICATE, false);
-
-		personBasicData.setHasBirthCertificate(_hasBirthCertificate);
 
 		String sex = prop.getString(Constants.SECTION5_SEX, "M");
 

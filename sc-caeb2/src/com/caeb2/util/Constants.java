@@ -82,8 +82,6 @@ public class Constants {
 	public static final String JSP_PROFILE = "Perfil";
 	public static final String JSP_EXIT = "Salir";
 	public static final String JSP_SEARCH = "Buscar";
-	public static final String JSP_PASSPORT = "Pasaporte";
-	public static final String JSP_BIRTH_CERTIFICATE = "Partida de nacimiento";
 	public static final String JSP_GEN_FORMALITY = "Generar Constancias";
 	public static final String JSP_HOME = "Inicio";
 	public static final String JSP_BACKUP = "Respaldo de datos";
@@ -94,14 +92,13 @@ public class Constants {
 	public static final String JSP_RES_PROOF = "Constancia de Residencia";
 	public static final String JSP_RES_PROOF_LOW_INCOME = "Constancia de Residencia y Bajos Recursos Económicos";
 
-	// Properties and ids
+	// Properties and ids Section 1
 	public static final String SECTION1_IDENTIFYING_STRUCTURE = "section1_identifying_structure";
 	public static final String SECTION1_STREET = "section1_street";
 	public static final String SECTION1_NAME_HOUSING = "section1_name_housing";
 	public static final String SECTION1_HOME_PHONE = "section1_home_phone";
-	
-	
 
+	// Properties and ids Section 2
 	public static final String SECTION2_STRUCTURE_TYPE = "section2_structure_type";
 	public static final String SECTION2_HOLDING = "section2_holding";
 	public static final String SECTION2_TOTAL_ROOMS = "section2_total_rooms";
@@ -141,7 +138,8 @@ public class Constants {
 	public static final String SECTION2_PART_OTHER_RESPONSE = "section2_part_other_response";
 	public static final String SECTION2_REQUIRED_OTHER_RESPONSE = "section2_required_other_response";
 	public static final String SECTION2_WORK_NEEDS_OTHER_RESPONSE = "section2_work_needs_other_response";
-	
+
+	// Properties and ids Section 4
 	public static final String SECTION4_HOME = "section4_home";
 	public static final String SECTION4_TO = "section4_to";
 	public static final String SECTION4_ROOMS = "section4_rooms";
@@ -159,8 +157,8 @@ public class Constants {
 	public static final String SECTION4_COMMUNITY_ORGANIZATION_WHICH = "section4_community_organization_which";
 	public static final String SECTION4_COMMUNITY_PROBLEMS = "section4_community_problems";
 	public static final String SECTION4_COMMUNITY_PROBLEMS_OTHER = "section4_community_problems_other";
-	
 
+	// Properties and ids Section 5
 	public static final String SECTION5_LASTNAMES = "section5_lastnames";
 	public static final String SECTION5_NAMES = "section5_names";
 	public static final String SECTION5_SEX = "section5_sex";
@@ -172,13 +170,11 @@ public class Constants {
 	public static final String SECTION5_RELATIONSHIP = "section5_relationship";
 	public static final String SECTION5_CEDULA_TYPE = "section5_cedula_type";
 	public static final String SECTION5_CEDULA_NUM = "section5_cedula_num";
-	public static final String SECTION5_ID_DOCS = "section5_id_docs";
-	public static final String SECTION5_HAS_PASSPORT = "section5_has_passport";
 	public static final String SECTION5_PASSPORT_NUM = "section5_passport_num";
-	public static final String SECTION5_HAS_BIRTH_CERTIFICATE = "section5_has_birth_certificate";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
-	
+
+	// Properties and ids Section 8
 	public static final String SECTION8_DISABILITIES = "section8_disabilities";
 	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";
 	public static final String SECTION8_MEDICAL_EQUIPMENT_REQUIRED = "section8_medical_equipment_required";
@@ -187,11 +183,11 @@ public class Constants {
 	public static final String SECTION8_MEDICAL_EQUIPMENT_OTHER = "section8_medical_equipment_other";
 	public static final String SECTION8_MEDICAL_ASSISTANCE_HAS = "section8_medical_assistance_has";
 	public static final String SECTION8_PREGNANT = "section8_pregnant";
-	
+
 	public static final String SECTION8_SECURITY_SYSTEMS = "section8_security_systems";
 	public static final String SECTION8_DISEASES = "section8_diseases";
 	public static final String SECTION8_DISEASES_OTHER = "section8_diseases_other";
-	
+
 	public static final String SECTION8_VACCINES_BCG = "section8_vaccines_BCG";
 	public static final String SECTION8_VACCINES_TRIPLE = "section8_vaccines_Triple";
 	public static final String SECTION8_VACCINES_TRIVALENTE = "section8_vaccines_Trivalente";
@@ -200,9 +196,10 @@ public class Constants {
 	public static final String SECTION8_VACCINES_HEPATITISB = "section8_vaccines_HepatitisB";
 	public static final String SECTION8_VACCINES_MENINGITIS = "section8_vaccines_Meningitis";
 	public static final String SECTION8_VACCINES_SARAMPION = "section8_vaccines_Sarampion";
-	
+
 	public static final String SECTION8_PRENATAL = "section8_prenatal";
-	
+
+	// Properties and ids Section 9
 	public static final String SECTION9_ARTISTIC_ABILITY = "section9_artistic_ability";
 	public static final String SECTION9_ARTISTIC_ABILITY_OTHER = "section9_artistic_ability_other";
 	public static final String SECTION9_TRAINING_COURSES = "section9_training_courses";
@@ -212,9 +209,8 @@ public class Constants {
 	public static final String SECTION9_PLAY_SPORTS_OTHER = "section9_play_sports_other";
 	public static final String SECTION9_PARTICIPATE_ATHLETICALLY = "section9_participate_athletically";
 	public static final String SECTION9_PARTICIPATE_WHICH = "section9_participate_which";
-	
-	
 
+	// Properties and ids Profile
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";
 	public static final String PROFILE_NEW_PASS = "profile_new_pass";
 	public static final String PROFILE_CONFIRM_PASS = "profile_confirm_pass";
