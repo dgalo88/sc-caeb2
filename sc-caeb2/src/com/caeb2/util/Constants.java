@@ -180,13 +180,15 @@ public class Constants {
 	public static final String SECTION5_EMAIL = "section5_email";
 	
 	public static final String SECTION8_DISABILITIES = "section8_disabilities";
-	public static final String SECTION8_SECURITY_SYSTEMS = "section8_security_systems";
 	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";
+	public static final String SECTION8_MEDICAL_EQUIPMENT_REQUIRED = "section8_medical_equipment_required";
 	public static final String SECTION8_MEDICAL_EQUIPMENT_WHICH = "section8_medical_equipment_which";
+	public static final String SECTION8_MEDICAL_EQUIPMENT_HAS = "section8_medical_equipment_has";
+	public static final String SECTION8_MEDICAL_EQUIPMENT_OTHER = "section8_medical_equipment_other";
 	public static final String SECTION8_MEDICAL_ASSISTANCE_HAS = "section8_medical_assistance_has";
 	public static final String SECTION8_PREGNANT = "section8_pregnant";
 	
-	public static final String SECTION8_COVERED = "section8_covered";
+	public static final String SECTION8_SECURITY_SYSTEMS = "section8_security_systems";
 	public static final String SECTION8_DISEASES = "section8_diseases";
 	public static final String SECTION8_DISEASES_OTHER = "section8_diseases_other";
 	
@@ -200,6 +202,17 @@ public class Constants {
 	public static final String SECTION8_VACCINES_SARAMPION = "section8_vaccines_Sarampion";
 	
 	public static final String SECTION8_PRENATAL = "section8_prenatal";
+	
+	public static final String SECTION9_ARTISTIC_ABILITY = "section9_artistic_ability";
+	public static final String SECTION9_ARTISTIC_ABILITY_OTHER = "section9_artistic_ability_other";
+	public static final String SECTION9_TRAINING_COURSES = "section9_training_courses";
+	public static final String SECTION9_TRAINING_COURSES_WHICH = "section9_training_courses_which";
+	public static final String SECTION9_TRAINING_COURSES_OPTIONS = "section9_training_courses_options";
+	public static final String SECTION9_PLAY_SPORTS = "section9_play_sports";
+	public static final String SECTION9_PLAY_SPORTS_OTHER = "section9_play_sports_other";
+	public static final String SECTION9_PARTICIPATE_ATHLETICALLY = "section9_participate_athletically";
+	public static final String SECTION9_PARTICIPATE_WHICH = "section9_participate_which";
+	
 	
 
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";
