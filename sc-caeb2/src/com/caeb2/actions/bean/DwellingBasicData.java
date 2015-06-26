@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.caeb2.util.Controller;
-import com.caeb2.util.TextUtils;
 import com.google.gson.Gson;
 
 public class DwellingBasicData {
@@ -19,15 +18,17 @@ public class DwellingBasicData {
 	private int id;
 	private String name;
 	private String address;
+	private int pollNumber;
 
-	public DwellingBasicData(int id, String name, String address) {
+	public DwellingBasicData(int id, String name, String address, int pollNumber) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
+		this.pollNumber = pollNumber;
 	}
 
 	public DwellingBasicData() {
-		this(0, "", "");
+		this(0, "", "", 0);
 	}
 
 	public static void main(String[] args) {
@@ -49,11 +50,7 @@ public class DwellingBasicData {
 		List<DwellingBasicData> dwellings = DwellingBasicData.getAllDwellings();
 		String dwellingsJSON = getAllDwellingsJSON(dwellings);
 
-		if (TextUtils.isEmptyOrNull(dwellingsJSON)) {
-			Controller.sendErrorResponse(response, null);
-		} else {
-			Controller.sendJSONResponse(response, dwellingsJSON);
-		}
+		Controller.sendTextResponse(response, dwellingsJSON);
 
 	}
 
@@ -64,7 +61,7 @@ public class DwellingBasicData {
 		Connection connection = Controller.getConnection();
 		Statement statement = connection.createStatement();
 
-		String sql = "SELECT id, nombre, direccion FROM vivienda";
+		String sql = "SELECT v.id, v.nombre, v.direccion, e.viviendaId FROM vivienda v, encuesta e WHERE v.id=e.viviendaId";
 		statement.executeQuery(sql);
 
 		ResultSet resultSet = statement.getResultSet();
@@ -74,8 +71,9 @@ public class DwellingBasicData {
 			int dwellingId = resultSet.getInt(1);
 			String dwellingName = resultSet.getString(2);
 			String dwellingAddress = resultSet.getString(3);
+			int dwellingPollNumber = resultSet.getInt(4);
 
-			dwellings.add(new DwellingBasicData(dwellingId, dwellingName, dwellingAddress));
+			dwellings.add(new DwellingBasicData(dwellingId, dwellingName, dwellingAddress, dwellingPollNumber));
 
 		}
 
@@ -90,13 +88,13 @@ public class DwellingBasicData {
 	public static String getAllDwellingsJSON(List<DwellingBasicData> dwellings) {
 
 		if (dwellings.isEmpty()) {
-			return null;
+			return "{\"data\":[{\"id\":\"\",\"name\":\"\",\"address\":\"\",\"pollNumber\":\"\"}]}";
 		}
 
 		StringBuilder json = new StringBuilder();
 		Gson gson = new Gson();
 
-		json.append("\"data\": [\n");
+		json.append("{\"data\":[\n");
 
 		for (int i = 0; i < dwellings.size(); i++) {
 
@@ -108,13 +106,13 @@ public class DwellingBasicData {
 
 		}
 
-		json.append("\n],");
+		json.append("\n]}");
 
-		json.append("\n\"columns\": [" //
-				+ "\n{ \"data\": \"id\", \"title\": \"Id\"}," //
-				+ "\n{ \"data\": \"name\", \"title\": \"Nombre o número\"}," //
-				+ "\n{ \"data\": \"address\", \"title\": \"Dirección\"}" //
-				+ "\n]");
+		//		json.append("\n\"columns\":[" //
+		//				+ "\n{ \"data\": \"id\", \"title\": \"Id\"}," //
+		//				+ "\n{ \"data\": \"name\", \"title\": \"Nombre o número\"}," //
+		//				+ "\n{ \"data\": \"address\", \"title\": \"Dirección\"}" //
+		//				+ "\n]}");
 
 		return json.toString();
 
@@ -142,6 +140,14 @@ public class DwellingBasicData {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getPollNumber() {
+		return pollNumber;
+	}
+
+	public void setPollNumber(int pollNumber) {
+		this.pollNumber = pollNumber;
 	}
 
 }
