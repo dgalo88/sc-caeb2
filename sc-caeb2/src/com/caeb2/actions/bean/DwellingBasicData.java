@@ -31,64 +31,83 @@ public class DwellingBasicData {
 		this(0, "", "", 0);
 	}
 
-	public static void main(String[] args) {
-
-		try {
-
-			List<DwellingBasicData> dwellings = DwellingBasicData.getAllDwellings();
-			System.out.println(getAllDwellingsJSON(dwellings));
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	public static void loadAllDwellings( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		List<DwellingBasicData> dwellings = DwellingBasicData.getAllDwellings();
-		String dwellingsJSON = getAllDwellingsJSON(dwellings);
+		String dwellingsJSON = dwellingsToJSON(dwellings);
 
-		Controller.sendTextResponse(response, dwellingsJSON);
+		if (dwellingsJSON == null) {
+			Controller.sendErrorResponse(response, null);
+		} else {
+			Controller.sendTextResponse(response, dwellingsJSON);
+		}
 
 	}
 
-	public static List<DwellingBasicData> getAllDwellings() throws ClassNotFoundException, SQLException {
+	public static List<DwellingBasicData> getAllDwellings() {
 
 		List<DwellingBasicData> dwellings = new ArrayList<DwellingBasicData>();
 
-		Connection connection = Controller.getConnection();
-		Statement statement = connection.createStatement();
+		Connection connection = null;
+		Statement statement = null;
 
-		String sql = "SELECT v.id, v.nombre, v.direccion, e.viviendaId FROM vivienda v, encuesta e WHERE v.id=e.viviendaId";
-		statement.executeQuery(sql);
+		try {
 
-		ResultSet resultSet = statement.getResultSet();
+			connection = Controller.getConnection();
+			statement = connection.createStatement();
 
-		while (resultSet.next()) {
+			String sql = "SELECT v.id, v.nombre, v.direccion, e.viviendaId FROM vivienda v, encuesta e WHERE v.id=e.viviendaId";
+			statement.executeQuery(sql);
 
-			int dwellingId = resultSet.getInt(1);
-			String dwellingName = resultSet.getString(2);
-			String dwellingAddress = resultSet.getString(3);
-			int dwellingPollNumber = resultSet.getInt(4);
+			ResultSet resultSet = statement.getResultSet();
 
-			dwellings.add(new DwellingBasicData(dwellingId, dwellingName, dwellingAddress, dwellingPollNumber));
+			while (resultSet.next()) {
+
+				int dwellingId = resultSet.getInt(1);
+				String dwellingName = resultSet.getString(2);
+				String dwellingAddress = resultSet.getString(3);
+				int dwellingPollNumber = resultSet.getInt(4);
+
+				dwellings.add(new DwellingBasicData(dwellingId, dwellingName, dwellingAddress, dwellingPollNumber));
+
+			}
+
+			resultSet.close();
+
+		} catch (ClassNotFoundException | SQLException e) {
+
+//			Controller.putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
+			System.out.println("dwellings size = " + dwellings.size());
+
+		} finally {
+
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
 
 		}
-
-		resultSet.close();
-		statement.close();
-		connection.close();
 
 		return dwellings;
 
 	}
 
-	public static String getAllDwellingsJSON(List<DwellingBasicData> dwellings) {
+	public static String dwellingsToJSON(List<DwellingBasicData> dwellings) {
 
 		if (dwellings.isEmpty()) {
-			return "{\"data\":[{\"id\":\"\",\"name\":\"\",\"address\":\"\",\"pollNumber\":\"\"}]}";
+			return null;
 		}
 
 		StringBuilder json = new StringBuilder();
@@ -106,13 +125,14 @@ public class DwellingBasicData {
 
 		}
 
-		json.append("\n]}");
+		json.append("\n]");
 
-		//		json.append("\n\"columns\":[" //
-		//				+ "\n{ \"data\": \"id\", \"title\": \"Id\"}," //
-		//				+ "\n{ \"data\": \"name\", \"title\": \"Nombre o número\"}," //
-		//				+ "\n{ \"data\": \"address\", \"title\": \"Dirección\"}" //
-		//				+ "\n]}");
+		json.append(",\n\"columns\":[" //
+				+ "\n{ \"data\": \"id\", \"title\": \"Id\"}," //
+				+ "\n{ \"data\": \"name\", \"title\": \"Nombre o número\"}," //
+				+ "\n{ \"data\": \"address\", \"title\": \"Dirección\"}," //
+				+ "\n{ \"data\": \"pollNumber\", \"title\": \"Número de encuesta\"}" //
+				+ "\n]}");
 
 		return json.toString();
 

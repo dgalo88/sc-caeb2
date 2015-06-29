@@ -15,9 +15,10 @@ public class Constants {
 	public static final String ACTION_EXIT = EXEC_ACTION + "logout";
 	public static final String ACTION_PROFILE = EXEC_ACTION + "loadAdminProfile";
 	public static final String ACTION_NEW_POLL = EXEC_ACTION + "newPoll";
-	public static final String ACTION_SEARCH = "#";
+	public static final String ACTION_SEARCH = "dwellingBoard.jsp";
 	public static final String ACTION_HOME = "index.jsp";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
+	public static final String ACTION_BACKUP = "#";
 
 	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
 	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";

@@ -108,3 +108,7 @@ body {
 .btn-panel-home {
 	background-image: url(/sc-caeb2/images/home.png);
 }
+
+.btn-panel-backup {
+	background-image: url(/sc-caeb2/images/backup.png);
+}

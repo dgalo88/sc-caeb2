@@ -41,11 +41,11 @@
 			<tr>
 				<td class="text-right">
 					<div class="form-group">
-						<a href="<%=Constants.ACTION_HOME%>">
-						<button type="button" class="btn btn-primary btn-panel btn-panel-home"
-								id="home" name="home"
+						<a href="<%=Constants.ACTION_BACKUP%>">
+						<button type="button" class="btn btn-primary btn-panel btn-panel-backup"
+								id="backup" name="backup"
 								data-toggle="tooltip" data-placement="bottom"
-								title="<%=Constants.JSP_HOME%>">
+								title="<%=Constants.JSP_BACKUP%>">
 						</button></a>
 					</div>
 				</td>
