@@ -175,6 +175,18 @@ public class Constants {
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
 
+	// Properties and ids Section 6
+	public static final String SECTION6_ILLITERATE = "section6_illiterate";
+	public static final String SECTION6_ATTEND_EDUC_ESTABLISHMENT = "section6_attend_educ_establishment";
+	public static final String SECTION6_WHICH_EDUC_ESTABLISHMENT = "section6_which_educ_establishment";
+	public static final String SECTION6_WHYNOT_EDUC_ESTABLISHMENT = "section6_whynot_educ_establishment";
+	public static final String SECTION6_TRAINING_COURSE = "section6_training_course";
+	public static final String SECTION6_WHICH_TRAINING_COURSE = "section6_which_training_course";
+	public static final String SECTION6_RECEIVES_SCHOLARSHIP = "section6_receives_scholarship";
+	public static final String SECTION6_SCHOLARSHIP_DESCRIPTION = "section6_scholarship_description";
+	public static final String SECTION6_NONE_MISION = "section6_none_mision";
+	public static final String SECTION6_EDUCATIONAL_MISIONS = "section6_educational_misions";
+
 	// Properties and ids Section 8
 	public static final String SECTION8_DISABILITIES = "section8_disabilities";
 	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";

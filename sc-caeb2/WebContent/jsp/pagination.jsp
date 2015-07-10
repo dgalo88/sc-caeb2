@@ -37,27 +37,27 @@
 		if (pageNum == 1) {
 			$('#prev').parent().addClass('disabled');
 			$('#prev').attr('href', '#');
-			$('#next').attr('href', '/sc-caeb2/jsp/page_' + (pageNum + 1) + '.jsp');
+// 			$('#next').attr('href', '/sc-caeb2/jsp/page_' + (pageNum + 1) + '.jsp');
 		} else if (pageNum == 9) {
 			$('#next').parent().addClass('disabled');
-			$('#next').attr('href', '#');
+// 			$('#next').attr('href', '#');
 			$('#prev').attr('href', '/sc-caeb2/jsp/page_' + (pageNum - 1) + '.jsp');
 		} else {
 			$('#prev').attr('href', '/sc-caeb2/jsp/page_' + (pageNum - 1) + '.jsp');
-			$('#next').attr('href', '/sc-caeb2/jsp/page_' + (pageNum + 1) + '.jsp');
+// 			$('#next').attr('href', '/sc-caeb2/jsp/page_' + (pageNum + 1) + '.jsp');
 		}
 
 		$(pageId).attr('href', '#').append('<span class="sr-only">(current)</span>');
 		$(pageId).parent().addClass('active');
 
-// 		$('#next').on('click', function() {
-// 			nextPage(formId);
-// 			return false;
-// 		});
+		$('#next').on('click', function() {
+			nextPage(formId);
+			return false;
+		});
 
 	});
 
 	function nextPage(formId) {
-		$(formId).submit();
+		$('#submitBtn<%=Parameters.getPageNumber()%>').trigger('click');
 	}
 </script>

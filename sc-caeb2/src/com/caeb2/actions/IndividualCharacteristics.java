@@ -33,14 +33,14 @@ public class IndividualCharacteristics {
 		String cedType = request.getParameter(Constants.SECTION5_CEDULA_TYPE);
 		String cedNumber = request.getParameter(Constants.SECTION5_CEDULA_NUM);
 
-		if (TextUtils.isEmptyOrNull(cedNumber)) {
+		if (!TextUtils.isEmptyOrNull(cedNumber)) {
 			prop.setProperty(Constants.SECTION5_CEDULA_TYPE, cedType);
 			prop.setProperty(Constants.SECTION5_CEDULA_NUM, Integer.valueOf(cedNumber));
 		}
 
 		String passportNumber = request.getParameter(Constants.SECTION5_PASSPORT_NUM);
 
-		if (TextUtils.isEmptyOrNull(passportNumber)) {
+		if (!TextUtils.isEmptyOrNull(passportNumber)) {
 			prop.setProperty(Constants.SECTION5_PASSPORT_NUM, Integer.valueOf(passportNumber));
 		}
 
@@ -64,7 +64,7 @@ public class IndividualCharacteristics {
 
 		String phoneNumOptional = request.getParameter(Constants.SECTION5_PHONE_NUM_OPTIONAL);
 
-		if ((phoneNumOptional != null) && (!phoneNumOptional.isEmpty())) {
+		if (!TextUtils.isEmptyOrNull(phoneNumOptional)) {
 
 			String phoneCodOptional = request.getParameter(Constants.SECTION5_PHONE_COD_OPTIONAL);
 
