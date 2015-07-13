@@ -28,9 +28,6 @@
 
 	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/datepicker.css"/>
 
-</head>
-
-<body>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/sc-caeb2/js/jquery-2.1.3.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -39,6 +36,11 @@
 	<script src="/sc-caeb2/js/bootstrap-datepicker.js"></script>
 
 	<script src="/sc-caeb2/js/notifications.js"></script>
+</head>
+
+<body>
+
+	<%@ include file="about.jsp"%>
 
 	<div class="container-fluid">
 		<table class="table" style="margin-bottom: 0px;">
@@ -57,7 +59,9 @@
 					</h4>
 				</td>
 				<td class="text-right">
-					<a href="#" onclick="about();">Acerca de</a>
+					<button type="button" class="btn btn-link" data-toggle="modal" data-target="#aboutModal">
+						<%=Constants.JSP_ABOUT%>
+					</button>
 				</td>
 			</tr>
 		</tbody>

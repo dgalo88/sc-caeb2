@@ -58,9 +58,10 @@ body {
 
 .notification {
 	position: fixed;
-	top: 10%;
+	top: 20%;
 	right: 2%;
-	width: 450px;
+	min-width: 300px;
+	width: 30%;
 	z-index: 9999;
 }
 
@@ -86,7 +87,7 @@ body {
 }
 
 .btn-panel-profile {
-	background-image: url(/sc-caeb2/images/userBlack.png);
+	background-image: url(/sc-caeb2/images/profile.png);
 }
 
 .btn-panel-newPoll {

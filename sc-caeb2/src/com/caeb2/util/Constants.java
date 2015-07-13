@@ -88,6 +88,7 @@ public class Constants {
 	public static final String JSP_BACKUP = "Respaldo de datos";
 	public static final String JSP_IMPORT = "Importar";
 	public static final String JSP_EXPORT = "Exportar";
+	public static final String JSP_ABOUT = "Acerca de";
 
 	// Documents types
 	public static final String JSP_RES_PROOF = "Constancia de Residencia";

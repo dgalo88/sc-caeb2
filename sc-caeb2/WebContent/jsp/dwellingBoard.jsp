@@ -7,7 +7,7 @@
 	Parameters.setTitle("Viviendas");
 %>
 
-<%-- <%@ include file="navbar.jsp"%> --%>
+<%@ include file="navbar.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/sc-caeb2/css/dataTables.bootstrap.css"/>
 
@@ -16,7 +16,9 @@
 
 <div class="container-fluid">
 	<div class="container table-responsive">
+
 		<table id="dwellingsData" class="table table-striped table-bordered"></table>
+
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
 				<button type="button" class="btn btn-default" id="backBtn">Volver</button>

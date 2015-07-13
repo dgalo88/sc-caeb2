@@ -1,5 +1,9 @@
 <%@ include file="header.jsp"%>
 
+<%
+	Parameters.setTitle("Inicio");
+%>
+
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -45,7 +49,7 @@
 						<button type="button" class="btn btn-primary btn-panel btn-panel-backup"
 								id="backup" name="backup"
 								data-toggle="tooltip" data-placement="bottom"
-								title="<%=Constants.JSP_BACKUP%>">
+								title="<%=Constants.JSP_BACKUP%>" disabled>
 						</button></a>
 					</div>
 				</td>
