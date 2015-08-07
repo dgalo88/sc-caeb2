@@ -164,10 +164,10 @@
 								</td>
 								<td class="td-right-control">
 									<div class="form-group">
-										<label for="<%=Constants.SECTION5_PASSPORT_NUM%>">Pasaporte</label>
+										<label for="<%=Constants.SECTION5_PASSPORT%>">Pasaporte</label>
 										<input type="number" class="form-control" placeholder="Ej. 12340989" min="1"
-												id="<%=Constants.SECTION5_PASSPORT_NUM%>"
-												name="<%=Constants.SECTION5_PASSPORT_NUM%>"
+												id="<%=Constants.SECTION5_PASSPORT%>"
+												name="<%=Constants.SECTION5_PASSPORT%>"
 												<%if (personBasicData.getPassport().getNumber() != 0) {%>
 													value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
 									</div>

@@ -16,6 +16,7 @@ public class Actions {
 		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 		actionsMapping.put("savePersonBasicData", "com.caeb2.actions.IndividualCharacteristics");
+		actionsMapping.put("savePersonEducationData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.AdminProfile");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.FormalityData");

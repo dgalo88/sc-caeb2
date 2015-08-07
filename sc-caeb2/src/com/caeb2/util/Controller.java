@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -208,6 +209,20 @@ public class Controller {
 		}
 
 		return new PropertiesConfiguration(new File(propFileName));
+
+	}
+
+	public static HashMap<String, String> arrayToHashMap(PropertiesConfiguration prop, String filter) {
+
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		String[] data = prop.getStringArray(filter);
+
+		for (String string : data) {
+			result.put(string, string);
+		}
+
+		return result;
 
 	}
 

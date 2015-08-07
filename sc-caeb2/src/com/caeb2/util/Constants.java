@@ -167,18 +167,22 @@ public class Constants {
 	public static final String SECTION5_BIRTHDATE = "section5_birthdate";
 	public static final String SECTION5_PHONE_COD = "section5_phone_cod";
 	public static final String SECTION5_PHONE_NUM = "section5_phone_num";
+	public static final String SECTION5_PHONE = "section5_phone";
 	public static final String SECTION5_PHONE_COD_OPTIONAL = "section5_phone_cod_optional";
 	public static final String SECTION5_PHONE_NUM_OPTIONAL = "section5_phone_num_optional";
+	public static final String SECTION5_PHONE_OPTIONAL = "section5_phone_optional";
 	public static final String SECTION5_RELATIONSHIP = "section5_relationship";
 	public static final String SECTION5_CEDULA_TYPE = "section5_cedula_type";
 	public static final String SECTION5_CEDULA_NUM = "section5_cedula_num";
-	public static final String SECTION5_PASSPORT_NUM = "section5_passport_num";
+	public static final String SECTION5_CEDULA = "section5_cedula";
+	public static final String SECTION5_PASSPORT = "section5_passport";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
 
 	// Properties and ids Section 6
 	public static final String SECTION6_ILLITERATE = "section6_illiterate";
 	public static final String SECTION6_ATTEND_EDUC_ESTABLISHMENT = "section6_attend_educ_establishment";
+	public static final String SECTION6_ANSWER_EDUC_ESTABLISHMENT = "section6_answer_educ_establishment";
 	public static final String SECTION6_WHICH_EDUC_ESTABLISHMENT = "section6_which_educ_establishment";
 	public static final String SECTION6_WHYNOT_EDUC_ESTABLISHMENT = "section6_whynot_educ_establishment";
 	public static final String SECTION6_TRAINING_COURSE = "section6_training_course";
