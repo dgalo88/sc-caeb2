@@ -278,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `personaDeporte` (
 --
 CREATE TABLE IF NOT EXISTS `mision` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL
+  `nombre` varchar(255) DEFAULT NULL,
   `tipo` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
