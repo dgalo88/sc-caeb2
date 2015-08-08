@@ -1,14 +1,19 @@
+<%@page import="com.caeb2.actions.IndividualCharacteristics"%>
+<%@page import="com.caeb2.actions.bean.PersonEducationData"%>
 <%@ include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(6);
 	Parameters.setTitle("Sección 5: Características individuales - Educación");
+
+	PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
 %>
 
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=savePersonEducationData" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -17,12 +22,14 @@
 						<div class="radio">
 							<label>
 								<input type="radio" name="<%=Constants.SECTION6_ILLITERATE%>"
-										id="<%=Constants.SECTION6_ILLITERATE%>_si" value="Sí">
+										id="<%=Constants.SECTION6_ILLITERATE%>_si" value="Sí"
+										<%if (personEducationData.isIlliterate()) {%> checked <%}%>>
 								Sí
 							</label>
 							<label>
 								<input type="radio" name="<%=Constants.SECTION6_ILLITERATE%>"
-										id="<%=Constants.SECTION6_ILLITERATE%>_no" value="No" checked>
+										id="<%=Constants.SECTION6_ILLITERATE%>_no" value="No"
+										<%if (!personEducationData.isIlliterate()) {%> checked <%}%>>
 								No
 							</label>
 						</div>
@@ -30,43 +37,31 @@
 				</td>
 				<td width="50%">
 					<div class="form-group">
-						<label for="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>">
-							¿Asiste actualmente en calidad de estudiante a algún establecimiento de educación?
+						<label for="<%=Constants.SECTION6_TRAINING_COURSE%>">
+							¿Está realizando algún curso de capacitación?
 						</label>
 						<div class="radio">
 							<label>
-								<input type="radio" name="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>"
-										id="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_si" value="Sí">
+								<input type="radio" name="<%=Constants.SECTION6_TRAINING_COURSE%>"
+										id="<%=Constants.SECTION6_TRAINING_COURSE%>_si" value="Sí"
+										<%if (!personEducationData.getTrainingCourse().equalsIgnoreCase("No")) {%> checked <%}%>>
 								Sí
 							</label>
 							<label>
-								<input type="radio" name="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>"
-										id="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_no" value="No">
+								<input type="radio" name="<%=Constants.SECTION6_TRAINING_COURSE%>"
+										id="<%=Constants.SECTION6_TRAINING_COURSE%>_no" value="No"
+										<%if (personEducationData.getTrainingCourse().equalsIgnoreCase("No")) {%> checked <%}%>>
 								No
 							</label>
 						</div>
-						<div class="form-group hidden" id="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>_div">
-							<label for="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>">¿Cuál?</label>
-							<div class="radio">
-								<label>
-									<input type="radio" name="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>"
-											id="oficial" value="Oficial">
-									Oficial
-								</label>
-								<label>
-									<input type="radio" name="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>"
-											id="privado" value="Privado">
-									Privado
-								</label>
-							</div>
-						</div>
-						<div class="form-group hidden" id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>_div">
-							<label for="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>">
-								¿Por qué razón no asiste a un establecimiento de educación?
-							</label>
-							<input type="text" class="form-control" placeholder="Ej. Falta de recursos económicos"
-									id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
-									name="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>">
+						<div class="form-group <%if (personEducationData.getTrainingCourse().equalsIgnoreCase("No")) {%> hidden <%}%>"
+								id="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div">
+							<label for="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>">¿Cuál?</label>
+							<input type="text" class="form-control" placeholder="Ej. Reparación de computadoras"
+									name="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>"
+									id="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>"
+									<%if (!personEducationData.getTrainingCourse().equalsIgnoreCase("No")) {%>
+										value="<%=personEducationData.getTrainingCourse()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -74,26 +69,53 @@
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="<%=Constants.SECTION6_TRAINING_COURSE%>">
-							¿Está realizando algún curso de capacitación?
+						<label for="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>">
+							¿Asiste actualmente en calidad de estudiante a algún establecimiento de educación?
 						</label>
 						<div class="radio">
 							<label>
-								<input type="radio" name="<%=Constants.SECTION6_TRAINING_COURSE%>"
-										id="<%=Constants.SECTION6_TRAINING_COURSE%>_si" value="Sí">
+								<input type="radio" name="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>"
+										id="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_si" value="Sí"
+										<%if (personEducationData.hasAttendEducEstablishment()) {%> checked <%}%>>
 								Sí
 							</label>
 							<label>
-								<input type="radio" name="<%=Constants.SECTION6_TRAINING_COURSE%>"
-										id="<%=Constants.SECTION6_TRAINING_COURSE%>_no" value="No">
+								<input type="radio" name="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>"
+										id="<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_no" value="No"
+										<%if (!personEducationData.hasAttendEducEstablishment()) {%> checked <%}%>>
 								No
 							</label>
 						</div>
-						<div class="form-group hidden" id="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div">
-							<label for="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>">¿Cuál?</label>
-							<input type="text" class="form-control" placeholder="Ej. Reparación de computadoras"
-									name="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>"
-									id="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>">
+						<div class="form-group <%if (!personEducationData.hasAttendEducEstablishment()) {%> hidden <%}%>"
+								id="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>_div">
+							<label for="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>">¿Cuál?</label>
+							<div class="radio">
+								<label>
+									<input type="radio" name="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>"
+											id="oficial" value="Oficial"
+											<%if (personEducationData.getAnswerEducEstablishment().equalsIgnoreCase("Oficial")) {%>
+												checked <%}%>>
+									Oficial
+								</label>
+								<label>
+									<input type="radio" name="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>"
+											id="privado" value="Privado"
+											<%if (personEducationData.getAnswerEducEstablishment().equalsIgnoreCase("Privado")) {%>
+												checked <%}%>>
+									Privado
+								</label>
+							</div>
+						</div>
+						<div class="form-group <%if (personEducationData.hasAttendEducEstablishment()) {%> hidden <%}%>"
+								id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>_div">
+							<label for="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>">
+								¿Por qué razón no asiste a un establecimiento de educación?
+							</label>
+							<input type="text" class="form-control" placeholder="Ej. Falta de recursos económicos"
+									id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
+									name="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
+									<%if (personEducationData.hasAttendEducEstablishment()) {%> 
+										value="<%=personEducationData.getAnswerEducEstablishment()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -103,20 +125,25 @@
 						<div class="radio">
 							<label>
 								<input type="radio" name="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>"
-										id="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_si" value="Sí">
+										id="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_si" value="Sí"
+										<%if (!personEducationData.getScholarshipDescription().equalsIgnoreCase("No")) {%> checked <%}%>>
 								Sí
 							</label>
 							<label>
 								<input type="radio" name="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>"
-										id="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_no" value="No">
+										id="<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_no" value="No"
+										<%if (personEducationData.getScholarshipDescription().equalsIgnoreCase("No")) {%> checked <%}%>>
 								No
 							</label>
 						</div>
-						<div class="form-group hidden" id="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>_div">
+						<div class="form-group <%if (personEducationData.getScholarshipDescription().equalsIgnoreCase("No")) {%> hidden <%}%>"
+								id="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>_div">
 							<label for="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>">Especifique:</label>
 							<input type="text" class="form-control" placeholder="Ej. Fundayacucho"
 									name="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>"
-									id="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>">
+									id="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>"
+									<%if (!personEducationData.getScholarshipDescription().equalsIgnoreCase("No")) {%>
+										value="<%=personEducationData.getScholarshipDescription()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -130,27 +157,32 @@
 						<div class="checkbox" id="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>_div">
 							<label>
 								<input type="checkbox" name="<%=Constants.SECTION6_NONE_MISION%>"
-										id="<%=Constants.SECTION6_NONE_MISION%>" value="No">
+										id="<%=Constants.SECTION6_NONE_MISION%>" value="No"
+										<%if (personEducationData.getEducationalMisions().containsKey("No")) {%> checked <%}%>>
 								No
 							</label><br>
 							<label>
 								<input type="checkbox" name="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>"
-										id="misionRobinsonI" value="Misión Robinson I">
+										id="misionRobinsonI" value="Misión Robinson I"
+										<%if (personEducationData.getEducationalMisions().containsKey("Misión Robinson I")) {%> checked <%}%>>
 								Misión Robinson I
 							</label><br>
 							<label>
 								<input type="checkbox" name="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>"
-										id="misionRobinsonII" value="Misión Robinson II">
+										id="misionRobinsonII" value="Misión Robinson II"
+										<%if (personEducationData.getEducationalMisions().containsKey("Misión Robinson II")) {%> checked <%}%>>
 								Misión Robinson II
 							</label><br>
 							<label>
 								<input type="checkbox" name="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>"
-										id="misionRibas" value="Misión Ribas">
+										id="misionRibas" value="Misión Ribas"
+										<%if (personEducationData.getEducationalMisions().containsKey("Misión Ribas")) {%> checked <%}%>>
 								Misión Ribas
 							</label><br>
 							<label>
 								<input type="checkbox" name="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>"
-										id="misionSucre" value="Misión Sucre">
+										id="misionSucre" value="Misión Sucre"
+										<%if (personEducationData.getEducationalMisions().containsKey("Misión Sucre")) {%> checked <%}%>>
 								Misión Sucre
 							</label><br>
 						</div>
@@ -180,11 +212,11 @@
 		});
 
 		$('#<%=Constants.SECTION6_TRAINING_COURSE%>_si').on('click', function() {
-			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>').removeClass('hidden').addClass('show');
+			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div').removeClass('hidden').addClass('show');
 		});
 
 		$('#<%=Constants.SECTION6_TRAINING_COURSE%>_no').on('click', function() {
-			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>').removeClass('show').addClass('hidden');
+			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div').removeClass('show').addClass('hidden');
 		});
 
 		$('#<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_si').on('click', function() {
