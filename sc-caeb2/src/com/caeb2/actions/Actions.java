@@ -16,6 +16,7 @@ public class Actions {
 		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage2", "com.caeb2.actions.Form");
+		actionsMapping.put("saveProcessPage3", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage4", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage7", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage8", "com.caeb2.actions.Form");

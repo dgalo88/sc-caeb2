@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="form-group">
 							<label for="urbanizacion">Urbanización o barrio</label> 
-							<input type="text" class="form-control" placeholder="Andrés Eloy Blanco 2" value="Andrés Eloy Blanco 2"
+							<input type="text" class="form-control" placeholder="Andrés Eloy Blanco 2" value="Andrés Eloy Blanco"
 									id="urbanizacion" name="urbanizacion" required disabled>
 						</div>
 						<div class="form-group">
@@ -44,7 +44,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

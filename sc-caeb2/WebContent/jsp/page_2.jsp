@@ -113,7 +113,7 @@
 							<label for="ubicacion_cocina">Ubicación de la Cocina</label>
 							<select class="form-control" name="<%=Constants.SECTION2_LOCATION_KITCHEN%>" id="<%=Constants.SECTION2_LOCATION_KITCHEN%>">
 								<option value="Cuarto solo" <%= housingData.getLocation_kitchen().equals("Cuarto solo") ? "selected": ""%>>Cuarto solo</option>
-								<option value="Sala, comedor" <%= housingData.getLocation_kitchen().equals("Sala, comedor") ? "selected": ""%>>Sala, comedor</option>
+								<option value="Comedor" <%= housingData.getLocation_kitchen().equals("Comedor") ? "selected": ""%>>Comedor</option>
 								<option value="Otro sitio" <%= housingData.getLocation_kitchen().equals("Otro sitio") ? "selected": ""%>>Otro sitio</option>
 							</select>
 						</div>
@@ -165,7 +165,7 @@
 							</table>
 						</div>
 						<div class="form-group">
-							<label for="vivienda_alturadar">¿La vivienda esta alturada en una zona de riesgo?</label>
+							<label for="vivienda_alturadar">¿La vivienda esta situada en una zona de riesgo?</label>
 							<select class="form-control" name="<%=Constants.SECTION2_HOUSING_RISK%>" id="<%=Constants.SECTION2_HOUSING_RISK%>">
 								<option value="Ninguna" <%= housingData.getHousing_risk().equals("Ninguna") ? "selected": ""%>>Ninguna</option>
 								<option value="Inundación" <%= housingData.getHousing_risk().equals("Inundación") ? "selected": ""%>>Inundación</option>
@@ -232,7 +232,7 @@
 				</td>
 			</tr>
 		</table>
-		 <input type="submit" value="Submit">
+		 <input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

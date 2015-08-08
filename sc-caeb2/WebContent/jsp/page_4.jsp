@@ -140,7 +140,7 @@
 				</td>
 			</tr>
 		</table>
-				 <input type="submit" value="Submit">
+		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

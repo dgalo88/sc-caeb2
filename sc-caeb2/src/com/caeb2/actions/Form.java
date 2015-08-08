@@ -121,6 +121,20 @@ public class Form {
 		}
 	}
 	
+	public static void saveProcessPage3(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("+ saveProcessPage3");
+		
+
+		System.out.println("- saveProcessPage3");
+		
+		try {
+			Controller.forward(request, response, "page_4.jsp");
+		} catch (Exception e) {
+			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
+			throw new Exception(e);
+		}
+	}
+	
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("+ saveProcessPage4");
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
@@ -168,7 +182,7 @@ public class Form {
 		System.out.println("- saveProcessPage4");
 		
 		try {
-			Controller.forward(request, response, "page_4.jsp");
+			Controller.forward(request, response, "page_5.jsp");
 		} catch (Exception e) {
 			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
 			throw new Exception(e);
@@ -219,7 +233,7 @@ public class Form {
 		System.out.println("- saveProcessPage7");
 		
 		try {
-			Controller.forward(request, response, "page_7.jsp");
+			Controller.forward(request, response, "page_8.jsp");
 		} catch (Exception e) {
 			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
 			throw new Exception(e);
@@ -282,7 +296,7 @@ public class Form {
 		
 		prop.save();
 
-		System.out.println("- saveProcessPage8");
+		System.out.println("- saveProcessPage9");
 		
 		try {
 			Controller.forward(request, response, "page_8.jsp");
@@ -323,7 +337,7 @@ public class Form {
 		System.out.println("- saveProcessPage9");
 		
 		try {
-			Controller.forward(request, response, "page_9.jsp");
+			Controller.forward(request, response, "dwellingBoard.jsp");
 		} catch (Exception e) {
 			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
 			throw new Exception(e);
