@@ -16,25 +16,25 @@ public class Test {
 
 			//		     config.save("C:\\Users\\Jose Hidalgo\\Desktop\\fichero1.prop");
 			ArrayList<String> test=new ArrayList<String>();
-			test.add("m1");
-			test.add("m2");
-			test.add("m3");
+//			test.add("m1");
+//			test.add("m2");
+//			test.add("m3");
 			//			config.load("C:\\Users\\Jose Hidalgo\\Desktop\\fichero1.prop");
-			config.setProperty("demo3", "m1");
-			config.setProperty("demo5", "m2");
-			config.setProperty("demo6", test);
+			config.setProperty("demo3", "Acueducto o tubería");
+//			config.setProperty("demo5", "m2");
+//			config.setProperty("demo6", test);
 
 			config.save();
 
 //			config.load("C:\\Users\\Jose Hidalgo\\Desktop\\fichero1.prop");
 			//			List<Object> colorList=config.getList("pie");
 
-			String[] colors = config.getStringArray("demo4");
+//			String[] colors = config.getStringArray("demo4");
 //			List<Object> colorList = config.getList("demo4");
 
 
 			//	        String background = (String) config.getProperty("demo");
-			System.out.println(colors.length);
+			System.out.println(config.getString("demo3"));
 		} catch (ConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -44,6 +44,7 @@ public class HousingData {
 	public HousingData() {
 		try {
 			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop.setEncoding("UTF-8");
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);
@@ -63,6 +64,7 @@ public class HousingData {
 		flat_type=prop.getString(Constants.SECTION2_FLAT_TYPE,"");
 		location_kitchen=prop.getString(Constants.SECTION2_LOCATION_KITCHEN,"");
 		housing_water=prop.getString(Constants.SECTION2_HOUSING_WATER,"");
+
 		other_housing_water=prop.getString(Constants.SECTION2_OTHER_HOUSING_WATER,""); 
 		sanitary_service=prop.getString(Constants.SECTION2_SANITARY_SERVICE,"");
 		electrical_service=prop.getString(Constants.SECTION2_ELECTRICAL_SERVICE,"");
@@ -77,7 +79,6 @@ public class HousingData {
 		part_other_response=prop.getString(Constants.SECTION2_PART_OTHER_RESPONSE,"");
 		required_other_response=prop.getString(Constants.SECTION2_REQUIRED_OTHER_RESPONSE,"");
 		work_needs_other_response=prop.getString(Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE,"");
-		
 		
 	}
 	

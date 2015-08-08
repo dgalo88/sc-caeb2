@@ -5,7 +5,7 @@
 	Parameters.setPageNumber(1);
 	Parameters.setTitle("Sección 1: Identificación de la estructura");
 // 	IdentifyingStructure identifyingStructure=new IdentifyingStructure();
-	IdentifyingStructure identifyingStructure=(IdentifyingStructure)request.getAttribute(Constants.SECTION1_IDENTIFYING_STRUCTURE);
+	IdentifyingStructure identifyingStructure= new IdentifyingStructure();
 %>
 
 <%@ include file="navbar.jsp"%>

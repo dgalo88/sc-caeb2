@@ -19,14 +19,14 @@
 						<div class="form-group">
 							<label for="tipo_estructura">Tipo de Estructura</label> 
 							<select class="form-control" name="<%=Constants.SECTION2_STRUCTURE_TYPE%>" id="<%=Constants.SECTION2_STRUCTURE_TYPE%>">
-								<option value="Casa" <%= housingData.getSanitary_service().equals("Casa") ? "selected": ""%>>Casa</option>
-								<option value="Apartamento en edificio" <%= housingData.getSanitary_service().equals("Apartamento en edificio") ? "selected": ""%>>Apartamento en edificio</option>
-								<option value="Apartamento en quinta, casa quinta" <%= housingData.getSanitary_service().equals("Apartamento en quinta, casa quinta") ? "selected": ""%>>Apartamento en quinta, casa quinta</option>
-								<option value="Casa de vecindad" <%= housingData.getSanitary_service().equals("Casa de vecindad") ? "selected": ""%>>Casa de vecindad</option>
-								<option value="Rancho" <%= housingData.getSanitary_service().equals("Rancho") ? "selected": ""%>>Rancho</option>
-								<option value="Depósito" <%= housingData.getSanitary_service().equals("Depósito") ? "selected": ""%>>Depósito</option>
-								<option value="Taller" <%= housingData.getSanitary_service().equals("Taller") ? "selected": ""%>>Taller</option>
-								<option value="Comercio" <%= housingData.getSanitary_service().equals("Comercio") ? "selected": ""%>>Comercio</option>
+								<option value="Casa" <%= housingData.getStructure_type().equals("Casa") ? "selected": ""%>>Casa</option>
+								<option value="Apartamento en edificio" <%= housingData.getStructure_type().equals("Apartamento en edificio") ? "selected": ""%>>Apartamento en edificio</option>
+								<option value="Apartamento en quinta, casa quinta" <%= housingData.getStructure_type().equals("Apartamento en quinta, casa quinta") ? "selected": ""%>>Apartamento en quinta, casa quinta</option>
+								<option value="Casa de vecindad" <%= housingData.getStructure_type().equals("Casa de vecindad") ? "selected": ""%>>Casa de vecindad</option>
+								<option value="Rancho" <%= housingData.getStructure_type().equals("Rancho") ? "selected": ""%>>Rancho</option>
+								<option value="Depósito" <%= housingData.getStructure_type().equals("Depósito") ? "selected": ""%>>Depósito</option>
+								<option value="Taller" <%= housingData.getStructure_type().equals("Taller") ? "selected": ""%>>Taller</option>
+								<option value="Comercio" <%= housingData.getStructure_type().equals("Comercio") ? "selected": ""%>>Comercio</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -61,7 +61,7 @@
 						<div class="form-group">
 							<label for="la_vivienda_PA">¿La vivienda tiene posibilidad de ampliación?</label> 
 							<div class="radio">
-								<label><input type="radio" name="<%=Constants.SECTION2_HOUSE_SCALABILITY%>" <%= (housingData.getHouse_scalability().equals("Sí")||housingData.getHouse_scalability().equals("")) ? "checked": ""%> value="Si">Sí</label>
+								<label><input type="radio" name="<%=Constants.SECTION2_HOUSE_SCALABILITY%>" <%= (housingData.getHouse_scalability().equals("Sí")||housingData.getHouse_scalability().equals("")) ? "checked": ""%> value="Sí">Sí</label>
 								<label><input type="radio" name="<%=Constants.SECTION2_HOUSE_SCALABILITY%>" <%= (housingData.getHouse_scalability().equals("No")) ? "checked": ""%> value="No">No</label>
 							</div>
 						</div>
@@ -217,13 +217,13 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%; padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" placeholder="Respuesta" <%= !housingData.getPart_other_response().equals("") ? "value='"+housingData.getPart_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getPart().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getPart_other_response()+"'": "style='display: none'"%>>
 									</td>
 									<td style="padding-right: 1%; padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" placeholder="Respuesta" <%= !housingData.getRequired_other_response().equals("") ? "value='"+housingData.getRequired_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getRequired().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getRequired_other_response()+"'": "style='display: none'"%>>
 									</td>
 									<td style="padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" placeholder="Respuesta" <%= !housingData.getWork_needs_other_response().equals("") ? "value='"+housingData.getWork_needs_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getWorkNeeds().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getWork_needs_other_response()+"'": "style='display: none'"%>>
 									</td>
 								</tr>
 							</table>

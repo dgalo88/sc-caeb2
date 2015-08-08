@@ -10,7 +10,9 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
+<%-- 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"> --%>
+<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage8" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -78,7 +80,7 @@
 								<label><input type="radio" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_REQUIRED%>" id="requiere_UDAOEM_si" <%=(medicalData.getMedical_equipment_required().equals("Sí")) ? "checked": ""%> value="Sí">Sí</label>
 								<label><input type="radio" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_REQUIRED%>" id="requiere_UDAOEM_no" <%=(medicalData.getMedical_equipment_required().equals("No")||medicalData.getMedical_equipment_required().equals("")) ? "checked": ""%> value="No">No</label>
 							</div>
-							<div class="form-group" id="requiere_UDAOEM_div" <%=medicalData.getMedical_equipment_which().equals("") ? "style=\"display: none\"": ""%>>
+							<div class="form-group" id="requiere_UDAOEM_div" <%=!medicalData.getMedical_equipment_required().equals("Sí") ? "style=\"display: none\"": ""%>>
 								<table class="table table-control">
 									<tr>
 										<td class="td-left-control">
@@ -96,7 +98,7 @@
 											</div>
 											<div class="form-group">
 												<div class="radio">
-													<input type="text" required class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%=medicalData.getMedical_equipment_other().equals("") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
+													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%=medicalData.getMedical_equipment_other().equals("") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
 												</div>
 											</div>
 										</td>
@@ -156,7 +158,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<input type="text" required class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=medicalData.getDiseases_other().equals("") ? "style=\"display: none\"": ""%> value="<%=medicalData.getDiseases_other()%>">
+							<input type="text" class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=!medicalData.getDiseases().equals("Otra ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getDiseases_other()%>">
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
@@ -280,6 +282,7 @@
 				</td>
 			</tr>
 		</table>
+		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

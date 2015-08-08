@@ -29,7 +29,7 @@ public class Constants {
 	// Properties files names
 	public static final String PROP_FILE_DWELLING = "dwelling.prop";
 	public static final String PROP_FILE_HOME = "home.prop";
-	public static final String PROP_FILE_PERSON = "person.prop";
+	public static final String PROP_FILE_PERSON = "C:\\Users\\Jose Hidalgo\\Desktop\\person.prop";
 
 	// Attributes
 	public static final String ATT_MESSAGE = "message";
@@ -167,18 +167,22 @@ public class Constants {
 	public static final String SECTION5_BIRTHDATE = "section5_birthdate";
 	public static final String SECTION5_PHONE_COD = "section5_phone_cod";
 	public static final String SECTION5_PHONE_NUM = "section5_phone_num";
+	public static final String SECTION5_PHONE = "section5_phone";
 	public static final String SECTION5_PHONE_COD_OPTIONAL = "section5_phone_cod_optional";
 	public static final String SECTION5_PHONE_NUM_OPTIONAL = "section5_phone_num_optional";
+	public static final String SECTION5_PHONE_OPTIONAL = "section5_phone_optional";
 	public static final String SECTION5_RELATIONSHIP = "section5_relationship";
 	public static final String SECTION5_CEDULA_TYPE = "section5_cedula_type";
 	public static final String SECTION5_CEDULA_NUM = "section5_cedula_num";
-	public static final String SECTION5_PASSPORT_NUM = "section5_passport_num";
+	public static final String SECTION5_CEDULA = "section5_cedula";
+	public static final String SECTION5_PASSPORT = "section5_passport";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
-
+		
 	// Properties and ids Section 6
 	public static final String SECTION6_ILLITERATE = "section6_illiterate";
 	public static final String SECTION6_ATTEND_EDUC_ESTABLISHMENT = "section6_attend_educ_establishment";
+	public static final String SECTION6_ANSWER_EDUC_ESTABLISHMENT = "section6_answer_educ_establishment";
 	public static final String SECTION6_WHICH_EDUC_ESTABLISHMENT = "section6_which_educ_establishment";
 	public static final String SECTION6_WHYNOT_EDUC_ESTABLISHMENT = "section6_whynot_educ_establishment";
 	public static final String SECTION6_TRAINING_COURSE = "section6_training_course";
@@ -188,6 +192,24 @@ public class Constants {
 	public static final String SECTION6_NONE_MISION = "section6_none_mision";
 	public static final String SECTION6_EDUCATIONAL_MISIONS = "section6_educational_misions";
 
+	// Properties and ids Section 7
+	public static final String SECTION7_DEGREE_APPROVED_TEXT = "section7_degree_approved_text";
+	public static final String SECTION7_DEGREE_APPROVED_LEVEL = "section7_degree_approved_level";
+	public static final String SECTION7_YOU_ARE = "section7_you_are";
+	public static final String SECTION7_OCCUPATION = "section7_occupation";
+	public static final String SECTION7_OCCUPATION_VALUE = "section7_occupation_value";
+	public static final String SECTION7_WORK_PERFORMED = "section7_work_performed";
+	public static final String SECTION7_SKILLS_ACTIVITY = "section7_skills_activity";
+	public static final String SECTION7_SKILLS_ACTIVITY_OPTION = "section7_skills_activity_option";
+	
+	public static final String SECTION7_PROFESSION = "section7_profession";
+	public static final String SECTION7_MAIN_JOB = "section7_main_job";
+	public static final String SECTION7_BODY_WORKS = "section7_body_works";
+	public static final String SECTION7_MONTHLY_INCOME = "section7_monthly_income";
+	public static final String SECTION7_RECEIVED_CREDIT = "section7_received_credit";
+	public static final String SECTION7_RECEIVED_CREDIT_VALUE = "section7_received_credit_value";
+	public static final String SECTION7_RECEIVED_CREDIT_VALUE_OTHER = "section7_received_credit_value_other";
+	
 	// Properties and ids Section 8
 	public static final String SECTION8_DISABILITIES = "section8_disabilities";
 	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";

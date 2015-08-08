@@ -10,7 +10,9 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
+<%-- 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"> --%>
+<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage4" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -40,12 +42,12 @@
 							<label><input type="radio" name="<%=Constants.SECTION4_USED_MERCAL%>" id="hogar_UM_si" <%=(homeData.getUsed_mercal().equals("Sí")) ? "checked": ""%> value="Sí">Sí</label>
 							<label><input type="radio" name="<%=Constants.SECTION4_USED_MERCAL%>" id="hogar_UM_no" <%=(homeData.getUsed_mercal().equals("No")||homeData.getUsed_mercal().equals("")) ? "checked": ""%> value="No">No</label>
 						</div>
-						<select class="form-control" name="<%=Constants.SECTION4_USED_MERCAL_SELECTED%>" id="<%=Constants.SECTION4_USED_MERCAL_SELECTED%>" <%=homeData.getUsed_mercal_selected().equals("") ? "style=\"display: none\"": ""%>>
-							<option value="Diariamente" <%= homeData.getUsed_mercal().equals("Diariamente") ? "selected": ""%>>Diariamente</option>
-							<option value="Semanalmente" <%= homeData.getUsed_mercal().equals("Semanalmente") ? "selected": ""%>>Semanalmente</option>
-							<option value="Quincenalmente" <%= homeData.getUsed_mercal().equals("Quincenalmente") ? "selected": ""%>>Quincenalmente</option>
-							<option value="Mensualmente" <%= homeData.getUsed_mercal().equals("Mensualmente") ? "selected": ""%>>Mensualmente</option>
-							<option value="Esporádicamente" <%= homeData.getUsed_mercal().equals("Esporádicamente") ? "selected": ""%>>Esporádicamente</option>
+						<select class="form-control" name="<%=Constants.SECTION4_USED_MERCAL_SELECTED%>" id="<%=Constants.SECTION4_USED_MERCAL_SELECTED%>" <%= homeData.getUsed_mercal().equals("Sí") ? "": "style='display: none'"%>>
+							<option value="Diariamente" <%= homeData.getUsed_mercal_selected().equals("Diariamente") ? "selected": ""%>>Diariamente</option>
+							<option value="Semanalmente" <%= homeData.getUsed_mercal_selected().equals("Semanalmente") ? "selected": ""%>>Semanalmente</option>
+							<option value="Quincenalmente" <%= homeData.getUsed_mercal_selected().equals("Quincenalmente") ? "selected": ""%>>Quincenalmente</option>
+							<option value="Mensualmente" <%= homeData.getUsed_mercal_selected().equals("Mensualmente") ? "selected": ""%>>Mensualmente</option>
+							<option value="Esporádicamente" <%= homeData.getUsed_mercal_selected().equals("Esporádicamente") ? "selected": ""%>>Esporádicamente</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -54,7 +56,7 @@
 							<label><input type="radio" name="<%=Constants.SECTION4_FOOD_MARKETS%>" id="hogar_HSBCMDA_si" <%=(homeData.getFood_markets().equals("Sí")) ? "checked": ""%> value="Sí">Sí ¿Cuál?</label>
 							<label><input type="radio" name="<%=Constants.SECTION4_FOOD_MARKETS%>" id="hogar_HSBCMDA_no" <%=(homeData.getFood_markets().equals("No")||homeData.getFood_markets().equals("")) ? "checked": ""%> value="No">No</label>
 						</div> 
-						<div class="radio" id="hogar_HSBCMDA_grupo" <%=homeData.getFood_markets_response().equals("") ? "style=\"display: none\"": ""%>>
+						<div class="radio" id="hogar_HSBCMDA_grupo" <%= homeData.getFood_markets().equals("Sí") ? "": "style='display: none'"%>>
 							<label><input type="radio" name="<%=Constants.SECTION4_FOOD_MARKETS_RESPONSE%>" <%=(homeData.getFood_markets_response().equals("Mercado completo")) ? "checked": ""%> value="Mercado completo">Mercado completo</label>
 							<label><input type="radio" name="<%=Constants.SECTION4_FOOD_MARKETS_RESPONSE%>" <%=(homeData.getFood_markets_response().equals("Mercado 50%")||homeData.getFood_markets_response().equals("")) ? "checked": ""%> value="Mercado 50%">Mercado 50%</label>
 						</div>
@@ -92,7 +94,7 @@
 								</td>
 							</tr>
 						</table>
-						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=homeData.getCommunity_problems_other().equals("") ? "style=\"display: none\"": ""%>>
+						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=!(homeData.getCommunity_problems().containsKey("Otra ¿Cuál?")) ? "style=\"display: none\"": ""%>>
 					</div>
 				</td>
 				<td width="50%">
@@ -118,7 +120,7 @@
 								<label><input type="radio" name="<%=Constants.SECTION4_USED_PDVAL%>" id="hogar_U_PDVAL_si" <%=(homeData.getUsed_pdval().equals("Sí")) ? "checked": ""%> value="Sí">Sí</label>
 								<label><input type="radio" name="<%=Constants.SECTION4_USED_PDVAL%>" id="hogar_U_PDVAL_no" <%=(homeData.getUsed_pdval().equals("No")||homeData.getUsed_pdval().equals("")) ? "checked": ""%> value="No">No</label>
 							</div>
-							<select class="form-control" name="<%=Constants.SECTION4_USED_PDVALL_SELECTED%>" <%=homeData.getUsed_pdval_selected().equals("") ? "style=\"display: none\"": ""%>>
+							<select class="form-control" id="<%=Constants.SECTION4_USED_PDVALL_SELECTED%>" name="<%=Constants.SECTION4_USED_PDVALL_SELECTED%>" <%= homeData.getUsed_pdval().equals("Sí") ? "": "style='display: none'"%>>
 								<option value="Diariamente" <%= homeData.getUsed_pdval_selected().equals("Diariamente") ? "selected": ""%>>Diariamente</option>
 								<option value="Semanalmente" <%= homeData.getUsed_pdval_selected().equals("Semanalmente") ? "selected": ""%>>Semanalmente</option>
 								<option value="Quincenalmente" <%= homeData.getUsed_pdval_selected().equals("Quincenalmente") ? "selected": ""%>>Quincenalmente</option>
@@ -132,12 +134,13 @@
 								<label><input type="radio" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATIO%>" id="algun_MDHPEUOC_si" <%=(homeData.getCommunity_organization().equals("Sí")) ? "checked": ""%> value="Sí">Sí ¿Cuál?</label>
 								<label><input type="radio" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATIO%>" id="algun_MDHPEUOC_no" <%=(homeData.getCommunity_organization().equals("No")||homeData.getCommunity_organization().equals("")) ? "checked": ""%> value="No">No</label>
 							</div> 
-							<input type="text" class="form-control" id="algun_MDHPEUOC_opcion" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH%>" placeholder="¿Cuál?" <%=homeData.getCommunity_organization_which().equals("") ? "style=\"display: none\"": "value=\""+homeData.getCommunity_organization_which()+"\""%>>
+							<input type="text" class="form-control" id="algun_MDHPEUOC_opcion" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH%>" placeholder="¿Cuál?" <%=!homeData.getCommunity_organization().equals("Sí") ? "style=\"display: none\"": "value=\""+homeData.getCommunity_organization_which()+"\""%>>
 						</div>
 					</div>
 				</td>
 			</tr>
 		</table>
+				 <input type="submit" value="Submit">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>
@@ -160,10 +163,10 @@
 		});
 		
 		$('#hogar_U_PDVAL_si').change(function() {
-			$('#hogar_U_PDVAL_select').show();
+			$('#<%=Constants.SECTION4_USED_PDVALL_SELECTED%>').show();
 		});
 		$('#hogar_U_PDVAL_no').change(function() {
-			$('#hogar_U_PDVAL_select').hide();
+			$('#<%=Constants.SECTION4_USED_PDVALL_SELECTED%>').hide();
 		});
 		
 		$('#algun_MDHPEUOC_si').change(function() {

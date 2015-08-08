@@ -10,7 +10,9 @@
 <%@ include file="navbar.jsp"%>
 
 <div class="container-fluid">
-	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>">
+<%-- 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"> --%>
+<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage9" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
@@ -53,7 +55,7 @@
 								</td>
 							</tr>
 						</table>
-						<input type="text" required class="form-control" id="que_HAOMD_text" name="<%=Constants.SECTION9_ARTISTIC_ABILITY_OTHER%>" placeholder="¿Cuál?" <%=ability.getArtistic_ability_other().equals("") ? "style=\"display: none\"": ""%> value="<%=ability.getArtistic_ability_other()%>">
+						<input type="text" class="form-control" id="que_HAOMD_text" name="<%=Constants.SECTION9_ARTISTIC_ABILITY_OTHER%>" placeholder="¿Cuál?" <%=ability.getArtistic_ability_other().equals("") ? "style=\"display: none\"": ""%> value="<%=ability.getArtistic_ability_other()%>">
 					</div>
 					
 					<div class="form-group">
@@ -62,7 +64,7 @@
 							<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES%>" id="estaria_DAPECDF_si" <%=(ability.getTraining_courses().equals("Sí ¿Cuál de los anteriores?")) ? "checked": ""%> value="Sí ¿Cuál de los anteriores?">Sí ¿Cuál de los anteriores?</label>
 							<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES%>" id="estaria_DAPECDF_no" <%=(ability.getTraining_courses().equals("No")||ability.getTraining_courses().equals("")) ? "checked": ""%> value="No">No</label>
 						</div>
-						<div class="form-group" id="requiere_UDAOEM_div" <%=ability.getTraining_courses_which().equals("") ? "style=\"display: none\"": ""%>>
+						<div class="form-group" id="requiere_UDAOEM_div" <%=!(ability.getTraining_courses().equals("Sí ¿Cuál de los anteriores?")) ? "style=\"display: none\"": ""%>>
 							<div class="radio">
 								<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES_WHICH%>" id="estaria_DAPECDF_cual_instructor" <%=(ability.getTraining_courses_which().equals("Como instructor o facilitador")) ? "checked": ""%> value="Como instructor o facilitador">Como instructor o facilitador</label>
 								<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES_WHICH%>" id="estaria_DAPECDF_cual_estudiante" <%=(ability.getTraining_courses_which().equals("Como estudiante o practicante")||ability.getTraining_courses_which().equals("")) ? "checked": ""%> value="Como estudiante o practicante">Como estudiante o practicante</label>
@@ -121,7 +123,7 @@
 								</td>
 							</tr>
 						</table>
-						<input type="text" required class="form-control" id="cual_DLSDP_text" name="<%=Constants.SECTION9_PLAY_SPORTS_OTHER%>" placeholder="¿Cuál?" <%=ability.getPlay_sports_other().equals("") ? "style=\"display: none\"": ""%> value="<%=ability.getPlay_sports_other()%>">
+						<input type="text" class="form-control" id="cual_DLSDP_text" name="<%=Constants.SECTION9_PLAY_SPORTS_OTHER%>" placeholder="¿Cuál?" <%=!(ability.getPlay_sports().containsKey("Otro ¿Cuál?")) ? "style=\"display: none\"": ""%> value="<%=ability.getPlay_sports_other()%>">
 					</div>
 					
 					<div class="form-group">
@@ -131,20 +133,21 @@
 							<label><input type="radio" name="<%=Constants.SECTION9_PARTICIPATE_ATHLETICALLY%>" id="bajo_QCLGPDELC_cual_estudiante" <%=(ability.getParticipate_athletically().equals("Como estudiante o practicante")||ability.getParticipate_athletically().equals("")) ? "checked": ""%> value="Como estudiante o practicante">Como estudiante o practicante</label>
 						</div>
 						<select class="form-control" name="<%=Constants.SECTION9_PARTICIPATE_WHICH%>" id="bajo_QCLGPDELC_cual_select">
-							<option value="Fútbol campo" <%= ability.getTraining_courses_options().equals("Fútbol campo") ? "selected": ""%>>Fútbol campo</option>
-							<option value="Fútbol sala" <%= ability.getTraining_courses_options().equals("Fútbol sala") ? "selected": ""%>>Fútbol sala</option>
-							<option value="Basketbol" <%= ability.getTraining_courses_options().equals("Basketbol") ? "selected": ""%>>Basketbol</option>
-							<option value="Voleibol" <%= ability.getTraining_courses_options().equals("Voleibol") ? "selected": ""%>>Voleibol</option>
-							<option value="Softbol" <%= ability.getTraining_courses_options().equals("Softbol") ? "selected": ""%>>Softbol</option>
-							<option value="Beisbol" <%= ability.getTraining_courses_options().equals("Beisbol") ? "selected": ""%>>Beisbol</option>
-							<option value="Natación" <%= ability.getTraining_courses_options().equals("Natación") ? "selected": ""%>>Natación</option>
-							<option value="Atletismo" <%= ability.getTraining_courses_options().equals("Atletismo") ? "selected": ""%>>Atletismo</option>
-							<option value="Otra" <%= ability.getTraining_courses_options().equals("Otra") ? "selected": ""%>>Otra</option>
+							<option value="Fútbol campo" <%= ability.getParticipate_which().equals("Fútbol campo") ? "selected": ""%>>Fútbol campo</option>
+							<option value="Fútbol sala" <%= ability.getParticipate_which().equals("Fútbol sala") ? "selected": ""%>>Fútbol sala</option>
+							<option value="Basketbol" <%= ability.getParticipate_which().equals("Basketbol") ? "selected": ""%>>Basketbol</option>
+							<option value="Voleibol" <%= ability.getParticipate_which().equals("Voleibol") ? "selected": ""%>>Voleibol</option>
+							<option value="Softbol" <%= ability.getParticipate_which().equals("Softbol") ? "selected": ""%>>Softbol</option>
+							<option value="Beisbol" <%= ability.getParticipate_which().equals("Beisbol") ? "selected": ""%>>Beisbol</option>
+							<option value="Natación" <%= ability.getParticipate_which().equals("Natación") ? "selected": ""%>>Natación</option>
+							<option value="Atletismo" <%= ability.getParticipate_which().equals("Atletismo") ? "selected": ""%>>Atletismo</option>
+							<option value="Otra" <%= ability.getParticipate_which().equals("Otra") ? "selected": ""%>>Otra</option>
 						</select>
 					</div>
 				</td>
 			</tr>
 		</table>
+		<input type="submit" value="Submit">
 	</form>
 	<%@ include file="pagination.jsp"%>
 </div>

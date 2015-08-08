@@ -36,7 +36,7 @@ public class Ability {
 		}
 	}
 	
-private void loadData(){
+	private void loadData(){
 		
 		setArtistic_ability(processArray(Constants.SECTION9_ARTISTIC_ABILITY));
 		
