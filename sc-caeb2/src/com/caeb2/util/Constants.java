@@ -15,21 +15,24 @@ public class Constants {
 	public static final String ACTION_EXIT = EXEC_ACTION + "logout";
 	public static final String ACTION_PROFILE = EXEC_ACTION + "loadAdminProfile";
 	public static final String ACTION_NEW_POLL = EXEC_ACTION + "newPoll";
-	public static final String ACTION_SEARCH = "dwellingBoard.jsp";
-	public static final String ACTION_HOME = "index.jsp";
+	public static final String ACTION_SEARCH = EXEC_ACTION + "loadAllDwellings";
+	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
 	public static final String ACTION_BACKUP = "#";
 
 	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
 	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";
 	public static final String PATH_CSS = PATH_SC_CAEB2 + "/css";
+	public static final String PATH_IMAGES = PATH_SC_CAEB2 + "/images";
 	public static final String PATH_REAL_PROJECT = System.getProperty("user.dir");
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
+	public static final String LOGO_CCAEB2 = PATH_IMAGES + "/logoccaeb2.png";
 
 	// Properties files names
 	public static final String PROP_FILE_DWELLING = "dwelling.prop";
 	public static final String PROP_FILE_HOME = "home.prop";
-	public static final String PROP_FILE_PERSON = "C:\\Users\\Jose Hidalgo\\Desktop\\person.prop";
+	public static final String PROP_FILE_PERSON = "person.prop";
 
 	// Attributes
 	public static final String ATT_MESSAGE = "message";
@@ -64,6 +67,7 @@ public class Constants {
 	public static final String READING_DATA_ERROR = "No se pueden obtener los datos solicitados.";
 	public static final String EMPTY_FIELD_ERROR = "El campo \"{0}\" no puede estar vacío.";
 	public static final String EMPTY_CEDULA_ERROR = "La cédula no puede estar vacía.";
+	public static final String NO_DATA_ERROR = "No existen datos para su solicitud.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -178,7 +182,7 @@ public class Constants {
 	public static final String SECTION5_PASSPORT = "section5_passport";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
-		
+
 	// Properties and ids Section 6
 	public static final String SECTION6_ILLITERATE = "section6_illiterate";
 	public static final String SECTION6_ATTEND_EDUC_ESTABLISHMENT = "section6_attend_educ_establishment";
@@ -201,7 +205,7 @@ public class Constants {
 	public static final String SECTION7_WORK_PERFORMED = "section7_work_performed";
 	public static final String SECTION7_SKILLS_ACTIVITY = "section7_skills_activity";
 	public static final String SECTION7_SKILLS_ACTIVITY_OPTION = "section7_skills_activity_option";
-	
+
 	public static final String SECTION7_PROFESSION = "section7_profession";
 	public static final String SECTION7_MAIN_JOB = "section7_main_job";
 	public static final String SECTION7_BODY_WORKS = "section7_body_works";
@@ -209,7 +213,7 @@ public class Constants {
 	public static final String SECTION7_RECEIVED_CREDIT = "section7_received_credit";
 	public static final String SECTION7_RECEIVED_CREDIT_VALUE = "section7_received_credit_value";
 	public static final String SECTION7_RECEIVED_CREDIT_VALUE_OTHER = "section7_received_credit_value_other";
-	
+
 	// Properties and ids Section 8
 	public static final String SECTION8_DISABILITIES = "section8_disabilities";
 	public static final String SECTION8_MEDICAL_ASSISTANCE = "section8_medical_assistance";

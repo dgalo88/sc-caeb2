@@ -1,4 +1,4 @@
-<%@page import="com.caeb2.actions.AdminProfile"%>
+<%@page import="com.caeb2.actions.bean.AdminProfile"%>
 <%@page import="com.caeb2.util.Constants"%>
 <%@ include file="header.jsp"%>
 

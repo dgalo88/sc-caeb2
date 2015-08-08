@@ -38,9 +38,15 @@
 	<script src="/sc-caeb2/js/notifications.js"></script>
 </head>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+
 <body>
 
-	<%@ include file="about.jsp"%>
+	<%@include file="about.jsp"%>
 
 	<div class="container-fluid">
 		<table class="table" style="margin-bottom: 0px;">

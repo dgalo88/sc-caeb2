@@ -78,10 +78,4 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('[data-toggle="tooltip"]').tooltip()
-	});
-</script>
-
 <%@ include file="footer.jsp"%>

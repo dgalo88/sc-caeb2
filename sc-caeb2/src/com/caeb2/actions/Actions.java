@@ -11,9 +11,9 @@ public class Actions {
 
 		actionsMapping = new HashMap<String, String>();
 
-		actionsMapping.put("login", "com.caeb2.actions.Login");
-		actionsMapping.put("logout", "com.caeb2.actions.Login");
-		actionsMapping.put("identifyingStructure", "com.caeb2.actions.ActVivienda");
+		actionsMapping.put("index", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("login", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("logout", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage2", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage3", "com.caeb2.actions.Form");
@@ -23,11 +23,11 @@ public class Actions {
 		actionsMapping.put("saveProcessPage9", "com.caeb2.actions.Form");
 		actionsMapping.put("savePersonBasicData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("savePersonEducationData", "com.caeb2.actions.IndividualCharacteristics");
-		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.AdminProfile");
-		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.AdminProfile");
-		actionsMapping.put("loadFormalityData", "com.caeb2.actions.FormalityData");
+		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
-		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.bean.DwellingBasicData");
+		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.BoardsManager");
 
 	}
 

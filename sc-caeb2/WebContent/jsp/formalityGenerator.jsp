@@ -119,7 +119,7 @@
 							<br>
 							Quienes suscriben miembros del "<%=Constants.CCAEB2%>"
 							de la Parroquia Milla, Municipio Libertador del Estado Mérida,
-							hacemos constar que
+							hacemos constar que _CIU,
 						</td>
 					</tr>
 					<tr>
@@ -256,6 +256,7 @@
 		contentText = contentText.replace('_CED', $('#<%=Constants.SECTION5_CEDULA_NUM%>').val());
 		contentText = contentText.replace('_DIR', data.direction);
 		contentText = contentText.replace('_NAC', nationality);
+
 		contentText = replaceContentData(contentText, data.sex);
 
 		$('#docContent').text(contentText);
@@ -268,7 +269,7 @@
 
 		if (sex == 'F') {
 
-			$("#docIntro").append(' la ciudadana,');
+			$('#docIntro').text($('#docIntro').text().replace('_CIU', 'la ciudadana'));
 
 			return contentText.replace('_POR', 'portadora')
 							  .replace('_LO', 'la')
@@ -276,7 +277,7 @@
 
 		} else if (sex == 'M') {
 
-			$('#docIntro').append(' el ciudadano,');
+			$('#docIntro').text($('#docIntro').text().replace('_CIU', 'el ciudadano'));
 
 			return contentText.replace('_POR', 'portador')
 							  .replace('_LO', 'lo')
@@ -284,7 +285,7 @@
 
 		} else {
 
-			$('#docIntro').append(' el (la) ciudadano (a),');
+			$('#docIntro').text($('#docIntro').text().replace('_CIU', 'el (la) ciudadano (a)'));
 
 			return contentText.replace('_POR', 'portador (a)')
 							  .replace('_LO', 'lo (a)')
