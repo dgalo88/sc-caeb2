@@ -43,7 +43,7 @@ public class HousingData {
 	
 	public HousingData() {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 			prop.setEncoding("UTF-8");
 			loadData();
 		} catch (ConfigurationException | IOException e) {
@@ -79,6 +79,15 @@ public class HousingData {
 		part_other_response=prop.getString(Constants.SECTION2_PART_OTHER_RESPONSE,"");
 		required_other_response=prop.getString(Constants.SECTION2_REQUIRED_OTHER_RESPONSE,"");
 		work_needs_other_response=prop.getString(Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE,"");
+		
+		if(part.containsKey("Otra ¿Cuál?"))
+			part.put("Otra ¿Cuál?", part_other_response);
+		
+		if(required.containsKey("Otra ¿Cuál?"))
+			required.put("Otra ¿Cuál?", required_other_response);
+		
+		if(workNeeds.containsKey("Otra ¿Cuál?"))
+			workNeeds.put("Otra ¿Cuál?", work_needs_other_response);
 		
 	}
 	

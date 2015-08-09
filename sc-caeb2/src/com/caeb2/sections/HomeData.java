@@ -34,7 +34,7 @@ public class HomeData {
 	
 	public HomeData() {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);
@@ -61,6 +61,9 @@ public class HomeData {
 		community_organization_which = prop.getString(Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH,"");
 		community_problems=processArray(Constants.SECTION4_COMMUNITY_PROBLEMS);
 		community_problems_other = prop.getString(Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER,"");
+		
+		if(community_problems.containsKey("Otra ¿Cuál?"))
+			community_problems.put("Otra ¿Cuál?", community_problems_other);
 		
 	}
 	

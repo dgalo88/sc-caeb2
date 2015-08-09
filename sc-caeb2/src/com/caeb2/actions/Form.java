@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -30,7 +31,7 @@ public class Form {
 	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("+ saveProcessPage1");
 		
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 		String street =request.getParameter(Constants.SECTION1_STREET);
 		String name_housing =request.getParameter(Constants.SECTION1_NAME_HOUSING);
 		String home_phone=request.getParameter(Constants.SECTION1_HOME_PHONE);
@@ -54,7 +55,7 @@ public class Form {
 	public static void saveProcessPage2(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("+ saveProcessPage2");
 		
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 
 
 		String structure_type=TextUtils.escaparString(request.getParameter(Constants.SECTION2_STRUCTURE_TYPE));
@@ -137,10 +138,10 @@ public class Form {
 	
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("+ saveProcessPage4");
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
 		
-		String section4_home=TextUtils.escaparString(request.getParameter(Constants.SECTION4_HOME));
-		String section4_to=TextUtils.escaparString(request.getParameter(Constants.SECTION4_TO));
+//		String section4_home=TextUtils.escaparString(request.getParameter(Constants.SECTION4_HOME));
+//		String section4_to=TextUtils.escaparString(request.getParameter(Constants.SECTION4_TO));
 		String section4_rooms=TextUtils.escaparString(request.getParameter(Constants.SECTION4_ROOMS));
 		String section4_chief_couple=TextUtils.escaparString(request.getParameter(Constants.SECTION4_CHIEF_COUPLE));
 		String section4_used_mercal=TextUtils.escaparString(request.getParameter(Constants.SECTION4_USED_MERCAL));
@@ -148,7 +149,7 @@ public class Form {
 		String section4_food_markets=TextUtils.escaparString(request.getParameter(Constants.SECTION4_FOOD_MARKETS));
 		String section4_food_markets_response=TextUtils.escaparString(request.getParameter(Constants.SECTION4_FOOD_MARKETS_RESPONSE));
 		String section4_number_bathrooms=TextUtils.escaparString(request.getParameter(Constants.SECTION4_NUMBER_BATHROOMS));
-		String section4_total_persons=TextUtils.escaparString(request.getParameter(Constants.SECTION4_TOTAL_PERSONS));
+//		String section4_total_persons=TextUtils.escaparString(request.getParameter(Constants.SECTION4_TOTAL_PERSONS));
 		String section4_sleeps_3_or_more=TextUtils.escaparString(request.getParameter(Constants.SECTION4_SLEEPS_3_OR_MORE));
 		String section4_used_pdval=TextUtils.escaparString(request.getParameter(Constants.SECTION4_USED_PDVAL));
 		String section4_used_pdval_selected=TextUtils.escaparString(request.getParameter(Constants.SECTION4_USED_PDVALL_SELECTED));
@@ -158,9 +159,8 @@ public class Form {
 		
 		String section4_community_problems[]=TextUtils.escaparArray(request.getParameterValues(Constants.SECTION4_COMMUNITY_PROBLEMS));
 		
-		System.out.println(section4_used_mercal_selected);
-		prop.setProperty(Constants.SECTION4_HOME,section4_home);
-		prop.setProperty(Constants.SECTION4_TO,section4_to);
+//		prop.setProperty(Constants.SECTION4_HOME,section4_home);
+//		prop.setProperty(Constants.SECTION4_TO,section4_to);
 		prop.setProperty(Constants.SECTION4_ROOMS,section4_rooms);
 		prop.setProperty(Constants.SECTION4_CHIEF_COUPLE,section4_chief_couple);
 		prop.setProperty(Constants.SECTION4_USED_MERCAL,section4_used_mercal);
@@ -168,7 +168,7 @@ public class Form {
 		prop.setProperty(Constants.SECTION4_FOOD_MARKETS,section4_food_markets);
 		prop.setProperty(Constants.SECTION4_FOOD_MARKETS_RESPONSE,section4_food_markets_response);
 		prop.setProperty(Constants.SECTION4_NUMBER_BATHROOMS,section4_number_bathrooms);
-		prop.setProperty(Constants.SECTION4_TOTAL_PERSONS,section4_total_persons);
+//		prop.setProperty(Constants.SECTION4_TOTAL_PERSONS,section4_total_persons);
 		prop.setProperty(Constants.SECTION4_SLEEPS_3_OR_MORE,section4_sleeps_3_or_more);
 		prop.setProperty(Constants.SECTION4_USED_PDVAL,section4_used_pdval);
 		prop.setProperty(Constants.SECTION4_USED_PDVALL_SELECTED,section4_used_pdval_selected);
@@ -180,6 +180,9 @@ public class Form {
 		prop.save();
 
 		System.out.println("- saveProcessPage4");
+		
+		long id=SaveDataBase.saveDwelling();
+		SaveDataBase.saveHome(id);
 		
 		try {
 			Controller.forward(request, response, "page_5.jsp");

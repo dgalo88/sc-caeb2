@@ -34,11 +34,21 @@ CREATE TABLE IF NOT EXISTS `vivienda` (
 --
 CREATE TABLE IF NOT EXISTS `mejora` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `parte` varchar(255) DEFAULT NULL,
-  `queMejorar` varchar(255) DEFAULT NULL,
-  `trabajo` varchar(255) DEFAULT NULL,
   `viviendaId` int(11) DEFAULT NULL,
   FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `mejoraInfo`
+--
+CREATE TABLE IF NOT EXISTS `mejoraInfo` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `tipo` varchar(255) DEFAULT NULL,
+  `clave` varchar(255) DEFAULT NULL,
+  `valor` varchar(255) DEFAULT NULL,
+  `mejoraId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`mejoraId`) REFERENCES `mejora` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -47,7 +57,6 @@ CREATE TABLE IF NOT EXISTS `mejora` (
 --
 CREATE TABLE IF NOT EXISTS `hogar` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `numeroPersonas` int(11) NOT NULL,
   `numeroCuartos` int(11) NOT NULL,
   `numeroBanos` int(11) NOT NULL,
   `jefeTienePareja` bit(1) NOT NULL,
@@ -67,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `hogar` (
 CREATE TABLE IF NOT EXISTS `principalesProblemasComunidad` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `descripcion` varchar(100) DEFAULT NULL,
+  `valor` varchar(100) DEFAULT NULL,
   `hogarId` int(11) DEFAULT NULL,
   FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE

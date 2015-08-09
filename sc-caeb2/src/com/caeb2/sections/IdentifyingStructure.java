@@ -19,7 +19,7 @@ public class IdentifyingStructure {
 	
 	public IdentifyingStructure() {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);

@@ -17,15 +17,6 @@
 			<tr>
 				<td width="50%">
 					<div class="form-group">
-						<label for="hogares_EEV">Hogares en esta vivienda</label> 
-						<div class="form-inline">
-							<div class="radio">
-								<label>Hogar: <input type="text" class="form-control" id="<%=Constants.SECTION4_HOME%>" name="<%=Constants.SECTION4_HOME%>" value="<%= !homeData.getHome().equals("") ? homeData.getHome(): ""%>"></label>
-								<label>De: <input type="text" class="form-control" id="<%=Constants.SECTION4_TO%>" name="<%=Constants.SECTION4_TO%>" value="<%= !homeData.getTo().equals("") ? homeData.getTo(): ""%>" ></label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="numero_DCPD">Número de cuartos para dormir</label> 
 						<input type="number" class="form-control" id="<%=Constants.SECTION4_ROOMS%>" name="<%=Constants.SECTION4_ROOMS%>" min="0" value="<%= !homeData.getRooms().equals("") ? homeData.getRooms(): ""%>">
 					</div>
@@ -99,10 +90,6 @@
 				</td>
 				<td width="50%">
 					<div>
-						<div class="form-group">
-							<label for="numero_TDPEEH">Número total de personas en el hogar</label> 
-							<input type="number" class="form-control" id="numero_TDPEEH" name="<%=Constants.SECTION4_TOTAL_PERSONS%>" value="<%= !homeData.getTotal_persons().equals("") ? homeData.getTotal_persons(): ""%>" min="1">
-						</div>
 						<div class="form-group">
 							<label for="numero_DB">Número de baños</label> 
 							<input type="number" class="form-control" id="numero_DB" name="<%=Constants.SECTION4_NUMBER_BATHROOMS%>" value="<%= !homeData.getNumber_bathrooms().equals("") ? homeData.getNumber_bathrooms(): ""%>" min="0">
