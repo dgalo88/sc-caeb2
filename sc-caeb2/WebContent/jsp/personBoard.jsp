@@ -3,18 +3,22 @@
 <%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.Constants"%>
 
-<%@ include file="header.jsp"%>
+<%@include file="header.jsp"%>
 
 <%
-	Parameters.setTitle("Viviendas");
+	Parameters.setTitle("Personas");
 
-	String dwellingsJSON = BoardsManager.loadAllDwellings();
+	String homeIdStr = (String) request.getAttribute("homeId");
+
+	int homeId = TextUtils.isEmptyOrNull(homeIdStr) ? -1 : Integer.valueOf(homeIdStr);
+
+	String personsJSON = BoardsManager.loadAllPersons(homeId);
 %>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		<%if (TextUtils.isEmptyOrNull(dwellingsJSON)) {%>
+		<%if (TextUtils.isEmptyOrNull(personsJSON)) {%>
 			showError('<%=Constants.NO_DATA_ERROR%>');
 		<%} else {%>
 			loadDatatable();
@@ -24,9 +28,9 @@
 
 	function loadDatatable() {
 
-		var jsonData = JSON.parse('<%=dwellingsJSON%>');
+		var jsonData = JSON.parse('<%=personsJSON%>');
 
-		$('#dwellingsData').on('draw.dt', function () {
+		$('#personsData').on('draw.dt', function () {
 			init();
 		}).dataTable({
 			'scrollY': '450px',
@@ -44,27 +48,22 @@
 
 		$('[data-toggle="tooltip"]').tooltip();
 
-		$('.viewDwellingBtn').on('click', function() {
-
-			console.log('viewDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
-
-			window.location.href = '<%=Constants.EXEC_ACTION + "loadAllHomes"%>&dwellingId='
-										+ $(this).attr('data-dwelling-id');
-
+		$('.viewPersonBtn').on('click', function() {
+			console.log('viewPersonBtn on click = ' + $(this).attr('data-person-id'));
 		});
 
-		$('.editDwellingBtn').on('click', function() {
-			console.log('editDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
+		$('.editPersonBtn').on('click', function() {
+			console.log('editPersonBtn on click = ' + $(this).attr('data-person-id'));
 		});
 
-		$('.deleteDwellingBtn').on('click', function() {
-			console.log('deleteDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
+		$('.deletePersonBtn').on('click', function() {
+			console.log('deletePersonBtn on click = ' + $(this).attr('data-person-id'));
 		});
 
 	}
 </script>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/sc-caeb2/css/dataTables.bootstrap.css"/>
 
@@ -75,7 +74,7 @@
 	<div class="container table-responsive">
 
 		<br>
-		<table id="dwellingsData" class="table table-striped table-bordered"></table>
+		<table id="personsData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
@@ -88,4 +87,4 @@
 	</div>
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

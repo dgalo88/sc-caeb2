@@ -14,6 +14,11 @@ public class IdentificationDocument {
 		this.number = number;
 	}
 
+	public IdentificationDocument(String identificationDocument) {
+		this.type = identificationDocument.substring(0, 1);
+		this.number = Integer.valueOf(identificationDocument.substring(2, identificationDocument.length()));
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -28,6 +33,15 @@ public class IdentificationDocument {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public void setIdentificationDocument(String document) {
+		this.type = document.substring(0, 1);
+		this.number = Integer.valueOf(document.substring(2, document.length()));
+	}
+
+	public IdentificationDocument fromString(String document) {
+		return new IdentificationDocument(document);
 	}
 
 	@Override

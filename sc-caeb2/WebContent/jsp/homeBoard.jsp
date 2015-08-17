@@ -3,18 +3,22 @@
 <%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.Constants"%>
 
-<%@ include file="header.jsp"%>
+<%@include file="header.jsp"%>
 
 <%
-	Parameters.setTitle("Viviendas");
+	Parameters.setTitle("Hogares");
 
-	String dwellingsJSON = BoardsManager.loadAllDwellings();
+	String dwellingIdStr = (String) request.getAttribute("dwellingId");
+
+	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
+
+	String homesJSON = BoardsManager.loadAllHomes(dwellingId);
 %>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		<%if (TextUtils.isEmptyOrNull(dwellingsJSON)) {%>
+		<%if (TextUtils.isEmptyOrNull(homesJSON)) {%>
 			showError('<%=Constants.NO_DATA_ERROR%>');
 		<%} else {%>
 			loadDatatable();
@@ -24,9 +28,9 @@
 
 	function loadDatatable() {
 
-		var jsonData = JSON.parse('<%=dwellingsJSON%>');
+		var jsonData = JSON.parse('<%=homesJSON%>');
 
-		$('#dwellingsData').on('draw.dt', function () {
+		$('#homesData').on('draw.dt', function () {
 			init();
 		}).dataTable({
 			'scrollY': '450px',
@@ -44,27 +48,25 @@
 
 		$('[data-toggle="tooltip"]').tooltip();
 
-		$('.viewDwellingBtn').on('click', function() {
+		$('.viewHomeBtn').on('click', function() {
+			console.log('viewHomeBtn on click = ' + $(this).attr('data-home-id'));
 
-			console.log('viewDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
-
-			window.location.href = '<%=Constants.EXEC_ACTION + "loadAllHomes"%>&dwellingId='
-										+ $(this).attr('data-dwelling-id');
-
+			window.location.href = '<%=Constants.EXEC_ACTION + "loadAllPersons"%>&homeId='
+				+ $(this).attr('data-home-id');
 		});
 
-		$('.editDwellingBtn').on('click', function() {
-			console.log('editDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
+		$('.editHomeBtn').on('click', function() {
+			console.log('editHomeBtn on click = ' + $(this).attr('data-home-id'));
 		});
 
-		$('.deleteDwellingBtn').on('click', function() {
-			console.log('deleteDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
+		$('.deleteHomeBtn').on('click', function() {
+			console.log('deleteHomeBtn on click = ' + $(this).attr('data-home-id'));
 		});
 
 	}
 </script>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/sc-caeb2/css/dataTables.bootstrap.css"/>
 
@@ -75,7 +77,7 @@
 	<div class="container table-responsive">
 
 		<br>
-		<table id="dwellingsData" class="table table-striped table-bordered"></table>
+		<table id="homesData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
@@ -88,4 +90,4 @@
 	</div>
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

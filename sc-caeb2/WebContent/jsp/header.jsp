@@ -12,6 +12,8 @@
 
 	<title><%=Constants.CENSO_COMUNITARIO%> - <%=Constants.CCAEB2%></title>
 
+	<link rel="shortcut icon" href="/sc-caeb2/images/favicon.ico">
+
 	<link rel="stylesheet" type="text/css" href="/sc-caeb2/css/normalize.css"/>
 
 	<!-- Bootstrap -->
@@ -54,8 +56,8 @@
 			<tr>
 				<td class="text-left">
 					<a href="<%=Constants.ACTION_HOME%>">
-						<img src="/sc-caeb2/images/logoccaeb2New.png" width="70px" height="70px"
-								class="img-responsive text-left" alt="logoccaeb2New">
+						<img src="<%=Constants.LOGO_CCAEB2%>" width="70px" height="70px"
+								class="img-responsive text-left" alt="logoccaeb2">
 					</a>
 				</td>
 				<td class="text-center">

@@ -28,6 +28,8 @@ public class Actions {
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
 		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("loadAllHomes", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("loadAllPersons", "com.caeb2.actions.BoardsManager");
 
 	}
 
