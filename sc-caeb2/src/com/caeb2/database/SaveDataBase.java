@@ -54,7 +54,9 @@ public class SaveDataBase {
             {
                  last_inserted_id = rs.getLong(1);
             }
-			
+
+            rs.close();
+
 			String sql2 = "INSERT INTO mejora (id, viviendaId) VALUES (NULL, ?)";
 			pstmt2 = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
 			pstmt2.setLong(1, last_inserted_id);
@@ -82,6 +84,11 @@ public class SaveDataBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 			try {
 				pstmt.close();
 			} catch (Exception e2) {
@@ -206,6 +213,11 @@ public class SaveDataBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
 			try {
 				pstmt.close();
 			} catch (Exception e2) {
