@@ -19,9 +19,9 @@
 					<div>
 						<div class="form-group">
 							<label for="ultimo_GA">Último grado aprobado</label> 
-							<table width="100%">
+							<table class="table table-control">
   								<tr>
-   					 				<td>
+   					 				<td class="td-left-control">
 										<select class="form-control" name="<%=Constants.SECTION7_DEGREE_APPROVED_TEXT%>" id="<%=Constants.SECTION7_DEGREE_APPROVED_TEXT%>">
 											<option value="Ninguno" <%=educationLevel.getDegree_approved_text().equals("Ninguno") ? "selected": ""%>>Ninguno</option>
 											<option value="Preescolar" <%=educationLevel.getDegree_approved_text().equals("Preescolar") ? "selected": ""%>>Preescolar</option>
@@ -33,7 +33,7 @@
 											<option value="Universitario" <%=educationLevel.getDegree_approved_text().equals("Universitario") ? "selected": ""%>>Universitario</option>
 										</select>
 									</td>
-    								<td>
+    								<td class="td-right-control">
     									<input type="number" required class="form-control" <%=educationLevel.getDegree_approved_text().equals("Ninguno")||educationLevel.getDegree_approved_text().equals("") ? "disabled" : "value='"+educationLevel.getDegree_approved_level()+"'"%> id="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" name="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" placeholder="Grado, semestre o año" >
     								</td>
   								</tr>

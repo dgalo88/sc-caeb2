@@ -144,7 +144,10 @@
 				</div>
 			</div>
 
-			<div class="form-group text-center">
+			<div class="form-group text-center btn-footer">
+				<a href="<%=Constants.ACTION_HOME%>">
+					<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+				</a>
 				<button type="submit" class="btn btn-primary" id="save" name="save"><%=Constants.JSP_SAVE%></button>
 			</div>
 

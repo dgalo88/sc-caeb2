@@ -71,10 +71,11 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary" id="generateBtn">
-							Generar
-						</button>
+					<div class="form-group text-center btn-footer">
+						<a href="<%=Constants.ACTION_HOME%>">
+							<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+						</a>
+						<button type="submit" class="btn btn-primary" id="generateBtn">Generar</button>
 					</div>
 				</td>
 			</tr>
@@ -96,8 +97,8 @@
 				<table class="table table-control" id="residenceCard">
 					<tr>
 						<th class="td-left-control" width="20%">
-							<img src="/sc-caeb2/images/logoccaeb2New.png" width="100px" height="100px"
-									class="img-responsive text-left" alt="logoccaeb2New">
+							<img src="<%=Constants.LOGO_CCAEB2%>" width="100px" height="100px"
+									class="img-responsive text-left" alt="logoccaeb2">
 						</th>
 						<th class="td-right-control text-center" width="60%" colspan="2">
 							República Bolivariana de Venezuela<br>
