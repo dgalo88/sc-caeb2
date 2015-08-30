@@ -102,6 +102,9 @@ public class EducationLevel extends DataBase{
 	}
 
 	public String getSkills_activity_option() {
+		if(skills_activity.equals("No")){
+			return "No";
+		}
 		return skills_activity_option;
 	}
 
@@ -150,6 +153,9 @@ public class EducationLevel extends DataBase{
 	}
 
 	public String getReceived_credit_value() {
+		if(received_credit.equals("No")){
+			return "No";
+		}
 		return received_credit_value;
 	}
 

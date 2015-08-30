@@ -127,6 +127,8 @@ public class MedicalData {
 	}
 
 	public String getMedical_equipment_which() {
+		if(medical_equipment_required.equals("No"))
+			return "No";
 		return medical_equipment_which;
 	}
 
@@ -239,11 +241,27 @@ public class MedicalData {
 	}
 
 	public String getMedical_equipment_other() {
+		if(!medical_equipment_which.equals("Otro ¿Cuál?"))
+			return medical_equipment_which;
 		return medical_equipment_other;
 	}
 
 	public void setMedical_equipment_other(String medical_equipment_other) {
 		this.medical_equipment_other = medical_equipment_other;
+	}
+	
+	public HashMap<String, String> getVaccines(){
+		HashMap<String, String> vaccines = new HashMap<String, String>();
+		vaccines.put("BCG", vaccines_BCG);
+		vaccines.put("HepatitisA", vaccines_HepatitisA);
+		vaccines.put("HepatitisB", vaccines_HepatitisB);
+		vaccines.put("Meningitis", vaccines_Meningitis);
+		vaccines.put("Polio", vaccines_Polio);
+		vaccines.put("Sarampion", vaccines_Sarampion);
+		vaccines.put("Triple", vaccines_Triple);
+		vaccines.put("Trivalente", vaccines_Trivalente);
+		return vaccines;
+		
 	}
 	
 
