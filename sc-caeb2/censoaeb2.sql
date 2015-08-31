@@ -30,16 +30,6 @@ CREATE TABLE IF NOT EXISTS `vivienda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `mejora`
---
-CREATE TABLE IF NOT EXISTS `mejora` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `viviendaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
 -- Estructura de la tabla `mejoraInfo`
 --
 CREATE TABLE IF NOT EXISTS `mejoraInfo` (
@@ -47,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `mejoraInfo` (
   `tipo` varchar(255) DEFAULT NULL,
   `clave` varchar(255) DEFAULT NULL,
   `valor` varchar(255) DEFAULT NULL,
-  `mejoraId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`mejoraId`) REFERENCES `mejora` (`id`)
+  `viviendaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

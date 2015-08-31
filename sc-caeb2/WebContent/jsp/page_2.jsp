@@ -159,7 +159,7 @@
 								</tr>
 								<tr>
 									<td style="padding-top: 1%" colspan="4">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" name="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" placeholder="Otros medios de servicio de agua" <%= !housingData.getOther_housing_water().equals("") ? "value='"+housingData.getOther_housing_water()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" name="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" placeholder="Otros medios de servicio de agua" <%= housingData.getHousing_water().equals("Otros medios, especifique") ? "value='"+housingData.getOther_housing_water()+"'": "style='display: none'"%>>
 									</td>
 								</tr>
 							</table>

@@ -189,6 +189,8 @@ public class HousingData {
 	}
 
 	public String getOther_housing_water() {
+		if(!housing_water.equals("Otros medios, especifique"))
+			return housing_water;
 		return other_housing_water;
 	}
 

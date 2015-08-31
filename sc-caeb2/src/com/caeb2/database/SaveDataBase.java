@@ -29,12 +29,13 @@ public class SaveDataBase {
 		HousingData housingData= new HousingData();
 		Connection connection = null;
 		PreparedStatement pstmt= null;
-		PreparedStatement pstmt2= null;
 		PreparedStatement pstmt3= null;
 		ResultSet rs = null;
 		try {
 			connection = Controller.getConnection();
-			String sql = "INSERT INTO vivienda (id, callePasaje, nombre, telefono, tipoEstructura, materialParedes, materialPiso, materialTecho, tenencia, ubicacionCocina, numeroCuartos, servicioAgua, servicioSanitario, servicioElectrico, servicioRecoleccionBasura, seAjustaGrupoFamiliar, tipoSector, zonaRiesgo, posibilidadAmpliacion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO vivienda (id, callePasaje, nombre, telefono, tipoEstructura, materialParedes, materialPiso, "
+					+ "materialTecho, tenencia, ubicacionCocina, numeroCuartos, servicioAgua, servicioSanitario, servicioElectrico, "
+					+ "servicioRecoleccionBasura, seAjustaGrupoFamiliar, tipoSector, zonaRiesgo, posibilidadAmpliacion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1,identifyingStructure.getStreet());
 			pstmt.setString(2,identifyingStructure.getNameHousing());
@@ -46,7 +47,7 @@ public class SaveDataBase {
 			pstmt.setString(8,housingData.getHolding());
 			pstmt.setString(9,housingData.getLocation_kitchen());
 			pstmt.setLong(10, Long.parseLong(housingData.getTotal_rooms()));
-			pstmt.setString(11,housingData.getHousing_water());
+			pstmt.setString(11,housingData.getOther_housing_water());
 			pstmt.setString(12,housingData.getSanitary_service());
 			pstmt.setByte(13,parseByte(housingData.getElectrical_service()));
 			pstmt.setString(14,housingData.getGarbage_collection());
@@ -65,23 +66,14 @@ public class SaveDataBase {
 
             rs.close();
 
-			String sql2 = "INSERT INTO mejora (id, viviendaId) VALUES (NULL, ?)";
-			pstmt2 = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-			pstmt2.setLong(1, last_inserted_id);
-			pstmt2.executeUpdate();
-			
-			rs = pstmt2.getGeneratedKeys();
-			long idMejora=0;
-            if(rs.next())
-            {
-            	idMejora = rs.getLong(1);
-            }
-			
-			String sql3 = "INSERT INTO mejorainfo (id, tipo, clave, valor, mejoraId) VALUES (NULL,?,?,?,?)";
+            if(housingData.getUrgent_housing_improvements().equals("No"))
+            	return last_inserted_id;
+            
+			String sql3 = "INSERT INTO mejorainfo (id, tipo, clave, valor, viviendaId) VALUES (NULL,?,?,?,?)";
 			pstmt3 = connection.prepareStatement(sql3);
-			processMap(housingData.getPart(), pstmt3, "parte", idMejora);
-			processMap(housingData.getRequired(), pstmt3, "queMejorar", idMejora);
-			processMap(housingData.getWorkNeeds(), pstmt3, "trabajo", idMejora);
+			processMap(housingData.getPart(), pstmt3, "parte", last_inserted_id);
+			processMap(housingData.getRequired(), pstmt3, "queMejorar", last_inserted_id);
+			processMap(housingData.getWorkNeeds(), pstmt3, "trabajo", last_inserted_id);
 			pstmt3.executeBatch();
 
 			return last_inserted_id;
@@ -99,11 +91,6 @@ public class SaveDataBase {
 			}
 			try {
 				pstmt.close();
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
-			try {
-				pstmt2.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
@@ -344,7 +331,7 @@ public class SaveDataBase {
             {
             	employee_id = rs.getLong(1);
             }
-			
+            rs.close();
             pstmt.setDate(27,new java.sql.Date(new Date().getTime()));
             pstmt.setLong(28, employee_id);
             pstmt.setLong(29, homeId);
@@ -361,16 +348,19 @@ public class SaveDataBase {
 			processIndividualMap(personEducationData.getEducationalMisions(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
+			pstmt2.close();
 			String sqlDisabilities = "INSERT INTO discapacidad ('id', 'descripcion', 'personaId') VALUES (NULL,?,?)";
 			pstmt2 = connection.prepareStatement(sqlDisabilities);
 			processIndividualMap(medicalData.getDisabilities(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
+			pstmt2.close();
 			String sqlSecuritySystems = "INSERT INTO sistemaprevencionsocial ('id', 'descripcion', 'personaId') VALUES (NULL,?,?)";
 			pstmt2 = connection.prepareStatement(sqlSecuritySystems);
 			processIndividualMap(medicalData.getSecurity_systems(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
+			pstmt2.close();
 			String sqlMedicalEquipment = "INSERT INTO aparatomedico ('id', 'nombre', 'descripcion', 'loTiene', 'personaId') VALUES (NULL,?,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlMedicalEquipment);
 			pstmtEmployee.setString(1,medicalData.getMedical_equipment_which());
@@ -379,6 +369,7 @@ public class SaveDataBase {
 			pstmt.setLong(4, last_inserted_id);
 			pstmt2.execute();
 			
+			pstmt2.close();
 			String sqlVaccines = "INSERT INTO vacuna ('id', 'nombre', 'numeroDosis', 'personaId') VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlVaccines);
 			HashMap<String, String> vaccines=medicalData.getVaccines();
@@ -418,6 +409,11 @@ public class SaveDataBase {
 			}
 			try {
 				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				rs.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
