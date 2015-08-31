@@ -97,9 +97,6 @@ public class LoadDataBase {
                 			work_needs_other_response=TextUtils.escaparString(value);
                 		}
                 	}
-                	
-                	
-                	
                 	urgent_housing_improvements=TextUtils.escaparString("Sí");
                 }
         		 
@@ -109,11 +106,7 @@ public class LoadDataBase {
         		String part[]=TextUtils.escaparArray((String[])partList.toArray());
         		String required[]=TextUtils.escaparArray((String[])requiredList.toArray());
         		String workNeeds[]=TextUtils.escaparArray((String[])workNeedsList.toArray());
-//        		
-//        		String part_other_response=TextUtils.escaparString(request.getParameter(Constants.SECTION2_PART_OTHER_RESPONSE));
-//        		String required_other_response=TextUtils.escaparString(request.getParameter(Constants.SECTION2_REQUIRED_OTHER_RESPONSE));
-//        		String work_needs_other_response=TextUtils.escaparString(request.getParameter(Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE));
-//        		
+
         		prop.setProperty(Constants.SECTION2_STRUCTURE_TYPE,structure_type);
         		prop.setProperty(Constants.SECTION2_HOLDING,holding);
         		prop.setProperty(Constants.SECTION2_TOTAL_ROOMS,total_rooms);
@@ -139,7 +132,6 @@ public class LoadDataBase {
         		prop.setProperty(Constants.SECTION2_PART_OTHER_RESPONSE,part_other_response);
         		prop.setProperty(Constants.SECTION2_REQUIRED_OTHER_RESPONSE,required_other_response);
         		prop.setProperty(Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE,work_needs_other_response);
-//   
         		
         		prop.save();
             }

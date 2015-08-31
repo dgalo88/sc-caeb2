@@ -26,7 +26,7 @@ public class MedicalData {
 	private String medical_assistance_has = "";
 	private String pregnant = "";
 	
-	private String diseases = "";
+	private HashMap<String, String> diseases = new HashMap<String, String>();
 	private String diseases_other = "";
 	
 	private String vaccines_BCG = "";
@@ -62,7 +62,7 @@ public class MedicalData {
 		setMedical_assistance_has(prop.getString(Constants.SECTION8_MEDICAL_ASSISTANCE_HAS,""));
 		setPregnant(prop.getString(Constants.SECTION8_PREGNANT,""));
 		
-		setDiseases(prop.getString(Constants.SECTION8_DISEASES,""));
+		setDiseases(processArray(Constants.SECTION8_DISEASES));
 		setDiseases_other(prop.getString(Constants.SECTION8_DISEASES_OTHER,""));
 		
 		setVaccines_BCG(prop.getString(Constants.SECTION8_VACCINES_BCG,""));
@@ -184,11 +184,11 @@ public class MedicalData {
 		this.diseases_other = diseases_other;
 	}
 
-	public String getDiseases() {
+	public HashMap<String, String> getDiseases() {
 		return diseases;
 	}
 
-	public void setDiseases(String diseases) {
+	public void setDiseases(HashMap<String, String> diseases) {
 		this.diseases = diseases;
 	}
 

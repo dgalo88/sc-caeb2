@@ -145,20 +145,41 @@
 						</div>
 						<div class="form-group">
 							<label for="padecido_OHSDPADLSE">¿Ha padecido o ha sido diagnosticado por alguna de las siguientes enfermedades?</label> 
-							<select class="form-control" name="<%=Constants.SECTION8_DISEASES%>" id="padecido_OHSDPADLSE_select">
-								<option value="Ninguno" <%= medicalData.getDiseases().equals("Ninguno") ? "selected": ""%>>Ninguno</option>
-								<option value="Asma bronquial" <%= medicalData.getDiseases().equals("Asma bronquial") ? "selected": ""%>>Asma bronquial</option>
-								<option value="Cáncer o tumores malignos" <%= medicalData.getDiseases().equals("Cáncer o tumores malignos") ? "selected": ""%>>Cáncer o tumores malignos</option>
-								<option value="Enfermedades congénitas o adquiridas" <%= medicalData.getDiseases().equals("Enfermedades congénitas o adquiridas") ? "selected": ""%>>Enfermedades congénitas o adquiridas</option>
-								<option value="Enfermedades del corazón" <%= medicalData.getDiseases().equals("Enfermedades del corazón") ? "selected": ""%>>Enfermedades del corazón</option>
-								<option value="Enfermedades de la piel" <%= medicalData.getDiseases().equals("Enfermedades de la piel") ? "selected": ""%>>Enfermedades de la piel</option>
-								<option value="Hipertensión arterial" <%= medicalData.getDiseases().equals("Hipertensión arterial") ? "selected": ""%>>Hipertensión arterial</option>
-								<option value="Diabetes mellitus" <%= medicalData.getDiseases().equals("Diabetes mellitus") ? "selected": ""%>>Diabetes mellitus</option>
-								<option value="Otra ¿Cuál?" <%= medicalData.getDiseases().equals("Otra ¿Cuál?") ? "selected": ""%>>Otra ¿Cuál?</option>
-							</select>
+							<table class="table table-control">
+								<tr>
+									<td class="td-left-control">
+										<div class="form-group">
+											<div class="checkbox">
+												<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
+												<label><input type="checkbox" value="Asma bronquial" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Asma bronquial")) ? "checked": ""%>>Asma bronquial</label><br>
+												<label><input type="checkbox" value="Cáncer o tumores malignos" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Cáncer o tumores malignos")) ? "checked": ""%>>Cáncer o tumores malignos</label><br>
+											</div>
+										</div>
+									</td>
+									<td class="td-center-control">
+										<div class="form-group">
+											<div class="checkbox">
+												<label><input type="checkbox" value="Enfermedades congénitas o adquiridas" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Enfermedades congénitas o adquiridas")) ? "checked": ""%>>Enfermedades congénitas o adquiridas</label><br>
+												<label><input type="checkbox" value="Enfermedades del corazón" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Enfermedades del corazón")) ? "checked": ""%>>Enfermedades del corazón</label><br>
+												<label><input type="checkbox" value="Enfermedades de la piel" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Enfermedades de la piel")) ? "checked": ""%>>Enfermedades de la piel</label>
+											</div>
+										</div>
+									</td>
+									<td class="td-right-control">
+										<div class="form-group">
+											<div class="checkbox">
+												<label><input type="checkbox" value="Hipertensión arterial" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Hipertensión arterial")) ? "checked": ""%>>Hipertensión arterial</label><br>
+												<label><input type="checkbox" value="Diabetes mellitus" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Diabetes mellitus")) ? "checked": ""%>>Diabetes mellitus</label><br>
+												<label><input type="checkbox" value="Otra ¿Cuál?" name="<%=Constants.SECTION8_DISEASES%>" id="padecido_OHSDPADLSE_select" <%= (medicalData.getDiseases().containsKey("Otra ¿Cuál?")) ? "checked": ""%>>Otra ¿Cuál?</label>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=!medicalData.getDiseases().equals("Otra ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getDiseases_other()%>">
+							<input type="text" class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=!medicalData.getDiseases().containsKey("Otra ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getDiseases_other()%>">
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
@@ -308,8 +329,8 @@
 		});
 		
 		$('#padecido_OHSDPADLSE_select').on('change', function (e) {
-		    var valueSelected = this.value;
-		    if(valueSelected=='Otra ¿Cuál?'){
+			
+			if($(this).is(':checked')){
 		    	$('#padecido_OHSDPADLSE_text').show();	
 		    }else{
 		    	$('#padecido_OHSDPADLSE_text').hide()

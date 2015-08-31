@@ -259,7 +259,7 @@ public class Form {
 		String medical_assistance_has =TextUtils.escaparString(request.getParameter(Constants.SECTION8_MEDICAL_ASSISTANCE_HAS));
 		String pregnant =TextUtils.escaparString(request.getParameter(Constants.SECTION8_PREGNANT));
 		
-		String diseases =TextUtils.escaparString(request.getParameter(Constants.SECTION8_DISEASES));
+		String diseases[] =TextUtils.escaparArray(request.getParameterValues(Constants.SECTION8_DISEASES));
 		String diseases_other =TextUtils.escaparString(request.getParameter(Constants.SECTION8_DISEASES_OTHER));
 		
 		String vaccines_BCG =TextUtils.escaparString(request.getParameter(Constants.SECTION8_VACCINES_BCG));
