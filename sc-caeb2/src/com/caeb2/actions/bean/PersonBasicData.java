@@ -15,12 +15,13 @@ public class PersonBasicData {
 	private int phoneNumOptional;
 	private String email;
 	private String relationship;
+	private String arrivalDate;
 
 	public PersonBasicData(String lastnames, String names, //
 			IdentificationDocument cedula, IdentificationDocument passport, 
 			String sex, String birthdate, String nationality, //
 			int phoneCod, int phoneNum, int phoneCodOptional, int phoneNumOptional, //
-			String email, String relationship) {
+			String email, String relationship, String arrivalDate) {
 
 		this.lastnames = lastnames;
 		this.names = names;
@@ -35,6 +36,7 @@ public class PersonBasicData {
 		this.phoneNumOptional = phoneNumOptional;
 		this.email = email;
 		this.relationship = relationship;
+		this.arrivalDate = arrivalDate;
 
 	}
 
@@ -42,17 +44,18 @@ public class PersonBasicData {
 			IdentificationDocument cedula, //
 			String sex, String birthdate, String nationality, //
 			int phoneCod, int phoneNum, //
-			String email, String relationship) {
+			String email, String relationship, String arrivalDate) {
 
 		this(lastnames, names, cedula, new IdentificationDocument("P", 0), //
-				sex, birthdate, nationality, phoneCod, phoneNum, 0, 0, email, relationship);
+				sex, birthdate, nationality, phoneCod, phoneNum, 0, 0, email, //
+				relationship, arrivalDate);
 
 	}
 
 	public PersonBasicData() {
 
 		this("", "", new IdentificationDocument(), new IdentificationDocument("P", 0), //
-				"", "", "", 0, 0, 0, 0, "", "");
+				"", "", "", 0, 0, 0, 0, "", "", "");
 
 	}
 
@@ -160,6 +163,14 @@ public class PersonBasicData {
 		this.relationship = relationship;
 	}
 
+	public String getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(String arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
 	@Override
 	public String toString() {
 
@@ -186,6 +197,7 @@ public class PersonBasicData {
 
 		ret += "  Correo electrónico = " + email + "\n" //
 				+ "  Relación con el jefe del hogar = " + relationship + "\n" //
+				+ "  Fecha de llegada a la comunidad = " + arrivalDate + "\n" //
 				+ "}";
 
 		return ret;

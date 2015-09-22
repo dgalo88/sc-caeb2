@@ -10,7 +10,7 @@
 				</a>
 			</li>
 			<%
-				for (int i = 1; i < 10; i++) {
+				for (int i = 1; i < 11; i++) {
 					out.print("<li><a href=\"/sc-caeb2/jsp/page_"
 						+ i + ".jsp\" id=\"page_" + i + "\">" + i + "</a></li>");
 				}
@@ -44,7 +44,7 @@
 			$('#prev').parent().addClass('disabled');
 			$('#prev').attr('href', '#');
 // 			$('#next').attr('href', '/sc-caeb2/jsp/page_' + (pageNum + 1) + '.jsp');
-		} else if (pageNum == 9) {
+		} else if (pageNum == 10) {
 			$('#next').parent().addClass('disabled');
 // 			$('#next').attr('href', '#');
 			$('#prev').attr('href', '/sc-caeb2/jsp/page_' + (pageNum - 1) + '.jsp');

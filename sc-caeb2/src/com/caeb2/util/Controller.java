@@ -212,7 +212,8 @@ public class Controller {
 
 	}
 
-	public static HashMap<String, String> arrayToHashMap(PropertiesConfiguration prop, String filter) {
+	public static HashMap<String, String> arrayToHashMap( //
+			PropertiesConfiguration prop, String filter) {
 
 		HashMap<String, String> result = new HashMap<String, String>();
 
@@ -220,6 +221,22 @@ public class Controller {
 
 		for (String string : data) {
 			result.put(string, string);
+		}
+
+		return result;
+
+	}
+
+	public static HashMap<String, Boolean> arrayToBooleanHashMap( //
+			PropertiesConfiguration prop, String filter, String keysFilter) {
+
+		HashMap<String, Boolean> result = new HashMap<String, Boolean>();
+
+		String[] data = prop.getStringArray(filter);
+		String[] keys = prop.getStringArray(keysFilter);
+
+		for (int i = 0; i < keys.length; i++) {
+			result.put(keys[i], Boolean.parseBoolean(data[i]));
 		}
 
 		return result;

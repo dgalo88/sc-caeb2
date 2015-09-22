@@ -62,12 +62,12 @@
 								</td>
 								<td class="td-right-control" width="50%">
 									<label for="<%=Constants.SECTION5_BIRTHDATE%>">Fecha de nacimiento</label>
-									<div class="form-group" id="fecha">	<!-- fecha -->
+									<div class="form-group" id="<%=Constants.SECTION5_BIRTHDATE%>">	<!-- fecha -->
 										<div class="input-group date">
 											<input type="text" class="form-control" placeholder="Ej. 15/02/1980"
 													id="<%=Constants.SECTION5_BIRTHDATE%>" name="<%=Constants.SECTION5_BIRTHDATE%>"
 													value="<%=personBasicData.getBirthdate()%>" required>
-											<span class="input-group-addon" id="fechaNacIcon">
+											<span class="input-group-addon" id="<%=Constants.SECTION5_BIRTHDATE%>_icon">
 												<i class="glyphicon glyphicon-calendar" aria-label="calendar" aria-hidden="true"></i>
 											</span>
 											<div class="date"></div>
@@ -189,6 +189,21 @@
 									id="<%=Constants.SECTION5_EMAIL%>" name="<%=Constants.SECTION5_EMAIL%>"
 									value="<%=personBasicData.getEmail()%>" required>
 						</div>
+
+						<div class="form-group">
+							<label for="<%=Constants.SECTION5_ARRIVAL_DATE%>">Fecha de llegada a la comunidad</label>
+							<div class="form-group" id="<%=Constants.SECTION5_ARRIVAL_DATE%>">	<!-- fecha -->
+								<div class="input-group date">
+									<input type="text" class="form-control" placeholder="Ej. 15/02/1980"
+											id="<%=Constants.SECTION5_ARRIVAL_DATE%>" name="<%=Constants.SECTION5_ARRIVAL_DATE%>"
+											value="<%=personBasicData.getArrivalDate()%>" required>
+									<span class="input-group-addon" id="<%=Constants.SECTION5_ARRIVAL_DATE%>_icon">
+										<i class="glyphicon glyphicon-calendar" aria-label="calendar" aria-hidden="true"></i>
+									</span>
+									<div class="date"></div>
+								</div>
+							</div>	<!-- /fecha -->
+						</div>
 					</div>
 				</td>
 			</tr>
@@ -201,7 +216,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#fecha input').datepicker();
+		$('#<%=Constants.SECTION5_BIRTHDATE%> input').datepicker();
+		$('#<%=Constants.SECTION5_ARRIVAL_DATE%> input').datepicker();
 	});
 </script>
 

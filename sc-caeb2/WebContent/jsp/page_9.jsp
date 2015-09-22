@@ -1,185 +1,419 @@
+<%@page import="com.caeb2.actions.IndividualCharacteristics"%>
+<%@page import="com.caeb2.util.TextUtils"%>
 <%@page import="com.caeb2.actions.bean.Ability"%>
-<%@ include file="header.jsp"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(9);
-	Parameters.setTitle("Sección 5: Características individuales");
-	Ability ability=new Ability();
+	Parameters.setTitle("Sección 5: Características individuales - Habilidades");
+
+	Ability ability = IndividualCharacteristics.loadAbilitiesData();
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
-<%-- 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"> --%>
-<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
-			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage9" method="POST">
+	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
+			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveAbilitiesData" method="POST">
 		<table class="table">
 			<tr>
 				<td width="50%">
 					<div class="form-group">
-						<label for="que_HAOMD">¿Qué habilidad artística o manual domina?</label> 
 						<table class="table table-control">
 							<tr>
-								<td class="td-left-control">
+								<td class="td-left-control" width="35%">
+									<label>¿Qué habilidad artística o manual domina?</label>
+								</td>
+								<td class="td-right-control hidden" width="65%" id="artisticInstructorQuestion">
+									<label>¿Le gustaría participar como instructor o facilitador en cursos de capacitación?</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-left-control withoutMargin">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
-											<label><input type="checkbox" value="Instrumentos de cuerda" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Instrumentos de cuerda")) ? "checked": ""%>>Instrumentos de cuerda</label><br>
-											<label><input type="checkbox" value="Cocina" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Cocina")) ? "checked": ""%>>Cocina</label><br>
-											<label><input type="checkbox" value="Corte y costure" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Corte y costure")) ? "checked": ""%>>Corte y costure</label><br>
-											<label><input type="checkbox" value="Repostería" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Repostería")) ? "checked": ""%>>Repostería</label>
+											<label>
+												<input type="checkbox" value="<%=Ability.NONE%>"
+														name="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>"
+														id="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>">
+												<%=Ability.NONE%>
+											</label>
 										</div>
 									</div>
 								</td>
-								<td class="td-center-control">
-									<div class="form-group">
-										<div class="checkbox">
-											<label><input type="checkbox" value="Pintura" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Pintura")) ? "checked": ""%>>Pintura</label><br>
-											<label><input type="checkbox" value="Teatro" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Teatro")) ? "checked": ""%>>Teatro</label><br>
-											<label><input type="checkbox" value="Bordado" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Bordado")) ? "checked": ""%>>Bordado</label><br>
-											<label><input type="checkbox" value="Peluquería" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Peluquería")) ? "checked": ""%>>Peluquería</label><br>
-											<label><input type="checkbox" value="Computación" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Computación")) ? "checked": ""%>>Computación</label>
-										</div>
-									</div>
+								<td class="td-right-control withoutMargin">
 								</td>
-								<td class="td-right-control">
+							</tr>
+
+							<%for (int i = 0; i < Ability.ARTISTIC_ABILITIES_OPTIONS.size(); i++) {
+
+								String artisticAbility = Ability.ARTISTIC_ABILITIES_OPTIONS.get(i);%>
+
+								<tr>
+									<td class="td-left-control withoutMargin">
+										<div class="form-group">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" value="<%=artisticAbility%>"
+															name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>"
+															id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+																+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>"
+															<%=(ability.getArtisticAbilities().containsKey(artisticAbility)) ? "checked": ""%>>
+													<%=artisticAbility%>
+												</label>
+												<%if (artisticAbility.equals(Ability.OTHER)) {%>
+													<input type="text" class="form-control <%=ability.getArtisticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
+															name="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
+															id="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
+															placeholder="¿Cuál?" value="<%=ability.getArtisticAbilitiesInstructorOther()%>">
+												<%}%>
+											</div>
+										</div>
+									</td>
+									<td class="td-right-control withoutMargin">
+										<div class="radio hidden" id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+																		+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>_opt">
+											<label>
+												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>"
+														id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+															+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>_si" value="Si"
+														<%=(ability.getAbility(ability.getArtisticAbilitiesInstructor(), artisticAbility)) ? "checked": ""%>>
+												Sí
+											</label>
+											<label>
+												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>"
+														id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+															+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>_no" value="No"
+														<%=(!ability.getAbility(ability.getArtisticAbilitiesInstructor(), artisticAbility)) ? "checked": ""%>>
+												No
+											</label>
+										</div>
+									</td>
+								</tr>
+
+							<%}%>
+						</table>
+					</div>
+					
+					<div class="form-group">
+						<label for="estaria_DAPECDF">¿Estaría dispuesto a participar como estudiante en alguno de los siguientes cursos de formación?</label>
+						<table class="table table-control">
+							<tr>
+								<td class="td-left-control" width="33%">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox" value="Danza" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Danza")) ? "checked": ""%>>Danza</label><br>
-											<label><input type="checkbox" value="Artesanía" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Artesanía")) ? "checked": ""%>>Artesanía</label><br>
-											<label><input type="checkbox" value="Canto" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Canto")) ? "checked": ""%>>Canto</label><br>
-											<label><input type="checkbox" value="Manicure y pedicure" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Manicure y pedicure")) ? "checked": ""%>>Manicure y pedicure</label><br>
-											<label><input type="checkbox" id="que_HAOMD_cual"  value="Otra ¿Cuál?" name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>" <%= (ability.getArtistic_ability().containsKey("Otra ¿Cuál?")) ? "checked": ""%>>Otra ¿Cuál?</label>
+
+											<label>
+												<input type="checkbox" value="<%=Ability.NONE%>"
+														name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>"
+														id="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>">
+												<%=Ability.NONE%>
+											</label><br>
+
+											<%for (int i = 0; i < Ability.ARTISTIC_ABILITIES_OPTIONS.size(); i++) {
+			
+												String artisticAbilityStudent = Ability.ARTISTIC_ABILITIES_OPTIONS.get(i);
+
+												if ((i + 1) % ((Ability.ARTISTIC_ABILITIES_OPTIONS.size() + 1) / 3) == 0) {%>
+															</div>
+														</div>
+													</td>
+													<td class="td-left-control" width="33%">
+														<div class="form-group">
+															<div class="checkbox">
+												<%}%>
+
+												<label>
+													<input type="checkbox" value="<%=artisticAbilityStudent%>"
+															name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT%>"
+															id="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT + "_"
+																+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbilityStudent)%>"
+															<%=(ability.getArtisticAbilitiesStudent().containsKey(artisticAbilityStudent)) ? "checked": ""%>>
+													<%=artisticAbilityStudent%>
+												</label>
+
+												<%if (i < Ability.ARTISTIC_ABILITIES_OPTIONS.size()) {%>
+													<br>
+												<%}
+											}%>
+			
 										</div>
 									</div>
 								</td>
 							</tr>
 						</table>
-						<input type="text" class="form-control" id="que_HAOMD_text" name="<%=Constants.SECTION9_ARTISTIC_ABILITY_OTHER%>" placeholder="¿Cuál?" <%=ability.getArtistic_ability_other().equals("") ? "style=\"display: none\"": ""%> value="<%=ability.getArtistic_ability_other()%>">
-					</div>
-					
-					<div class="form-group">
-						<label for="estaria_DAPECDF">¿Estaría dispuesto a participar en cursos de formación?</label> 
-						<div class="radio">
-							<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES%>" id="estaria_DAPECDF_si" <%=(ability.getTraining_courses().equals("Sí ¿Cuál de los anteriores?")) ? "checked": ""%> value="Sí ¿Cuál de los anteriores?">Sí ¿Cuál de los anteriores?</label>
-							<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES%>" id="estaria_DAPECDF_no" <%=(ability.getTraining_courses().equals("No")||ability.getTraining_courses().equals("")) ? "checked": ""%> value="No">No</label>
-						</div>
-						<div class="form-group" id="requiere_UDAOEM_div" <%=!(ability.getTraining_courses().equals("Sí ¿Cuál de los anteriores?")) ? "style=\"display: none\"": ""%>>
-							<div class="radio">
-								<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES_WHICH%>" id="estaria_DAPECDF_cual_instructor" <%=(ability.getTraining_courses_which().equals("Como instructor o facilitador")) ? "checked": ""%> value="Como instructor o facilitador">Como instructor o facilitador</label>
-								<label><input type="radio" name="<%=Constants.SECTION9_TRAINING_COURSES_WHICH%>" id="estaria_DAPECDF_cual_estudiante" <%=(ability.getTraining_courses_which().equals("Como estudiante o practicante")||ability.getTraining_courses_which().equals("")) ? "checked": ""%> value="Como estudiante o practicante">Como estudiante o practicante</label>
-							</div>
-							<select class="form-control" name="<%=Constants.SECTION9_TRAINING_COURSES_OPTIONS%>" id="estaria_DAPECDF_cual_select">
-								<option value="Pintura" <%= ability.getTraining_courses_options().equals("Pintura") ? "selected": ""%>>Pintura</option>
-								<option value="Danza" <%= ability.getTraining_courses_options().equals("Danza") ? "selected": ""%>>Danza</option>
-								<option value="Instrumentos de cuerda" <%= ability.getTraining_courses_options().equals("Instrumentos de cuerda") ? "selected": ""%>>Instrumentos de cuerda</option>
-								<option value="Teatro" <%= ability.getTraining_courses_options().equals("Teatro") ? "selected": ""%>>Teatro</option>
-								<option value="Artesanía" <%= ability.getTraining_courses_options().equals("Artesanía") ? "selected": ""%>>Artesanía</option>
-								<option value="Cocina" <%= ability.getTraining_courses_options().equals("Cocina") ? "selected": ""%>>Cocina</option>
-								<option value="Bordado" <%= ability.getTraining_courses_options().equals("Bordado") ? "selected": ""%>>Bordado</option>
-								<option value="Canto" <%= ability.getTraining_courses_options().equals("Canto") ? "selected": ""%>>Canto</option>
-								<option value="Corte y costure" <%= ability.getTraining_courses_options().equals("Corte y costure") ? "selected": ""%>>Corte y costure</option>
-								<option value="Peluquería" <%= ability.getTraining_courses_options().equals("Peluquería") ? "selected": ""%>>Peluquería </option>
-								<option value="Manicure y pedicure" <%= ability.getTraining_courses_options().equals("Manicure y pedicure") ? "selected": ""%>>Manicure y pedicure</option>
-								<option value="Repostería" <%= ability.getTraining_courses_options().equals("Repostería") ? "selected": ""%>>Repostería</option>
-								<option value="Computación" <%= ability.getTraining_courses_options().equals("Computación") ? "selected": ""%>>Computación</option>
-								<option value="Otra ¿Cuál?" <%= ability.getTraining_courses_options().equals("Otra ¿Cuál?") ? "selected": ""%>>Otra ¿Cuál?</option>
-							</select>
-						</div>
+						<input type="text" class="form-control <%=ability.getArtisticAbilitiesStudentOther().isEmpty() ? "hidden": ""%>"
+								name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>"
+								id="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>"
+								placeholder="¿Cuál?" value="<%=ability.getArtisticAbilitiesStudentOther()%>">
 					</div>
 				</td>
 				<td width="50%">
 					<div class="form-group">
-						<label for="cual_DLSDP">¿Cuál de los siguientes deportes practica?</label> 
 						<table class="table table-control">
 							<tr>
-								<td class="td-left-control">
+								<td class="td-left-control" width="35%">
+									<label>¿Cuál de los siguientes deportes practica?</label>
+								</td>
+								<td class="td-right-control hidden" width="65%" id="athleticInstructorQuestion">
+									<label>¿Le gustaría participar como instructor o facilitador en cursos de capacitación?</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="td-left-control withoutMargin">
 									<div class="form-group">
 										<div class="checkbox">
-											<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
-											<label><input type="checkbox" value="Basketbol" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Basketbol")) ? "checked": ""%>>Basketbol</label><br>
-											<label><input type="checkbox" value="Beisbol" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Beisbol")) ? "checked": ""%>>Beisbol</label><br>
-											<label><input type="checkbox" id="cual_DLSDP_cual" value="Otro ¿Cuál?" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Otro ¿Cuál?")) ? "checked": ""%>>Otro ¿Cuál?</label>
+											<label>
+												<input type="checkbox" value="<%=Ability.NONE%>"
+														name="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>"
+														id="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>">
+												<%=Ability.NONE%>
+											</label>
 										</div>
 									</div>
 								</td>
-								<td class="td-center-control">
-									<div class="form-group">
-										<div class="checkbox">
-											<label> <input type="checkbox" value="Fútbol campo" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Fútbol campo")) ? "checked": ""%>>Fútbol campo</label><br>
-											<label> <input type="checkbox" value="Voleibol" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Voleibol")) ? "checked": ""%>>Voleibol</label><br>
-											<label> <input type="checkbox" value="Natación" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Natación")) ? "checked": ""%>>Natación</label>
-										</div>
-									</div>
+								<td class="td-right-control withoutMargin">
 								</td>
-								<td class="td-right-control">
+							</tr>
+
+							<%for (int i = 0; i < Ability.ATHLETIC_ABILITIES_OPTIONS.size(); i++) {
+
+								String athleticAbility = Ability.ATHLETIC_ABILITIES_OPTIONS.get(i);%>
+
+								<tr>
+									<td class="td-left-control withoutMargin">
+										<div class="form-group">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" value="<%=athleticAbility%>"
+															name="<%=Constants.SECTION9_ATHLETIC_ABILITY%>"
+															id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+																+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>"
+															<%=(ability.getAthleticAbilities().containsKey(athleticAbility)) ? "checked": ""%>>
+													<%=athleticAbility%>
+												</label>
+												<%if (athleticAbility.equals(Ability.OTHER)) {%>
+													<input type="text" class="form-control <%=ability.getAthleticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
+															name="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
+															id="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
+															placeholder="¿Cuál?" value="<%=ability.getAthleticAbilitiesInstructorOther()%>">
+												<%}%>
+											</div>
+										</div>
+									</td>
+									<td class="td-right-control withoutMargin">
+										<div class="radio hidden" id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+																		+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>_opt">
+											<label>
+												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>"
+														id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+															+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>_si" value="Si"
+														<%=(ability.getAbility(ability.getAthleticAbilitiesInstructor(), athleticAbility)) ? "checked": ""%>>
+												Sí
+											</label>
+											<label>
+												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>"
+														id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+															+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>_no" value="No"
+														<%=(!ability.getAbility(ability.getAthleticAbilitiesInstructor(), athleticAbility)) ? "checked": ""%>>
+												No
+											</label>
+										</div>
+									</td>
+								</tr>
+
+							<%}%>
+						</table>
+					</div>
+					
+					<div class="form-group">
+						<label for="bajo_QCLGPDELC">¿En cuál de los siguientes deportes le gustaría participar en la comunidad?</label>
+						<table class="table table-control">
+							<tr>
+								<td class="td-left-control" width="33%">
 									<div class="form-group">
 										<div class="checkbox">
-											<label> <input type="checkbox" value="Fútbol sala" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Fútbol sala")) ? "checked": ""%>>Fútbol sala</label><br>
-											<label> <input type="checkbox" value="Softbol" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Softbol")) ? "checked": ""%>>Softbol</label><br>
-											<label> <input type="checkbox" value="Atletismo" name="<%=Constants.SECTION9_PLAY_SPORTS%>" <%= (ability.getPlay_sports().containsKey("Atletismo")) ? "checked": ""%>>Atletismo</label>
+
+											<label>
+												<input type="checkbox" value="<%=Ability.NONE%>"
+														name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>"
+														id="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>">
+												<%=Ability.NONE%>
+											</label><br>
+
+											<%for (int i = 0; i < Ability.ATHLETIC_ABILITIES_OPTIONS.size(); i++) {
+			
+												String athleticAbilityStudent = Ability.ATHLETIC_ABILITIES_OPTIONS.get(i);
+
+												if ((i + 1) % ((Ability.ATHLETIC_ABILITIES_OPTIONS.size() + 1) / 3) == 0) {%>
+															</div>
+														</div>
+													</td>
+													<td class="td-left-control" width="33%">
+														<div class="form-group">
+															<div class="checkbox">
+												<%}%>
+
+												<label>
+													<input type="checkbox" value="<%=athleticAbilityStudent%>"
+															name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT%>"
+															id="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT + "_"
+																+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbilityStudent)%>"
+															<%=(ability.getAthleticAbilitiesStudent().containsKey(athleticAbilityStudent)) ? "checked": ""%>>
+													<%=athleticAbilityStudent%>
+												</label>
+
+												<%if (i < Ability.ATHLETIC_ABILITIES_OPTIONS.size()) {%>
+													<br>
+												<%}
+											}%>
+			
 										</div>
 									</div>
 								</td>
 							</tr>
 						</table>
-						<input type="text" class="form-control" id="cual_DLSDP_text" name="<%=Constants.SECTION9_PLAY_SPORTS_OTHER%>" placeholder="¿Cuál?" <%=!(ability.getPlay_sports().containsKey("Otro ¿Cuál?")) ? "style=\"display: none\"": ""%> value="<%=ability.getPlay_sports_other()%>">
-					</div>
-					
-					<div class="form-group">
-						<label for="bajo_QCLGPDELC">¿Bajo qué condiciones le gustaría participar deportivamente en la comunidad?</label> 
-						<div class="radio">
-							<label><input type="radio" name="<%=Constants.SECTION9_PARTICIPATE_ATHLETICALLY%>" id="bajo_QCLGPDELC_cual_instructor" <%=(ability.getParticipate_athletically().equals("Como instructor o facilitador")) ? "checked": ""%> value="Como instructor o facilitador">Como instructor o facilitador</label>
-							<label><input type="radio" name="<%=Constants.SECTION9_PARTICIPATE_ATHLETICALLY%>" id="bajo_QCLGPDELC_cual_estudiante" <%=(ability.getParticipate_athletically().equals("Como estudiante o practicante")||ability.getParticipate_athletically().equals("")) ? "checked": ""%> value="Como estudiante o practicante">Como estudiante o practicante</label>
-						</div>
-						<select class="form-control" name="<%=Constants.SECTION9_PARTICIPATE_WHICH%>" id="bajo_QCLGPDELC_cual_select">
-							<option value="Fútbol campo" <%= ability.getParticipate_which().equals("Fútbol campo") ? "selected": ""%>>Fútbol campo</option>
-							<option value="Fútbol sala" <%= ability.getParticipate_which().equals("Fútbol sala") ? "selected": ""%>>Fútbol sala</option>
-							<option value="Basketbol" <%= ability.getParticipate_which().equals("Basketbol") ? "selected": ""%>>Basketbol</option>
-							<option value="Voleibol" <%= ability.getParticipate_which().equals("Voleibol") ? "selected": ""%>>Voleibol</option>
-							<option value="Softbol" <%= ability.getParticipate_which().equals("Softbol") ? "selected": ""%>>Softbol</option>
-							<option value="Beisbol" <%= ability.getParticipate_which().equals("Beisbol") ? "selected": ""%>>Beisbol</option>
-							<option value="Natación" <%= ability.getParticipate_which().equals("Natación") ? "selected": ""%>>Natación</option>
-							<option value="Atletismo" <%= ability.getParticipate_which().equals("Atletismo") ? "selected": ""%>>Atletismo</option>
-							<option value="Otra" <%= ability.getParticipate_which().equals("Otra") ? "selected": ""%>>Otra</option>
-						</select>
+						<input type="text" class="form-control <%=ability.getAthleticAbilitiesStudentOther().isEmpty() ? "hidden": ""%>"
+								name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>"
+								id="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>"
+								placeholder="¿Cuál?" value="<%=ability.getAthleticAbilitiesStudentOther()%>">
 					</div>
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="Finalizar">
+		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		$('#que_HAOMD_cual').on('change', function (e) {
-		    if($(this).is(':checked')){
-		    	$('#que_HAOMD_text').show();	
-		    }else{
-		    	$('#que_HAOMD_text').hide()
+
+		$('label #<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>, #<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>').on(
+				'change', function() {
+
+			$('input[name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>"]').each(function(index) {
+				if (!$("#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>").is(':checked')) {
+					$(this).removeAttr('disabled');
+				} else {
+					$(this).removeAttr('checked').attr('disabled', 'disabled');
+ 					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 					$('#artisticInstructorQuestion').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+				}
+			});
+
+		});
+
+		$('label #<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>, #<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>').on(
+				'change', function() {
+
+			$('input[name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT%>"]').each(function(index) {
+				if (!$("#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>").is(':checked')) {
+					$(this).removeAttr('disabled');
+				} else {
+					$(this).removeAttr('checked').attr('disabled', 'disabled');
+ 					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+				}
+			});
+
+		});
+
+		$('label #<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>, #<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>').on(
+				'change', function() {
+
+			$('input[name="<%=Constants.SECTION9_ATHLETIC_ABILITY%>"]').each(function(index) {
+				if (!$("#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>").is(':checked')) {
+					$(this).removeAttr('disabled');
+				} else {
+					$(this).removeAttr('checked').attr('disabled', 'disabled');
+ 					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+ 					$('#athleticInstructorQuestion').addClass('hidden');
+				}
+			});
+
+		});
+
+		$('label #<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>, #<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>').on(
+				'change', function() {
+
+			$('input[name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT%>"]').each(function(index) {
+				if (!$("#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>").is(':checked')) {
+					$(this).removeAttr('disabled');
+				} else {
+					$(this).removeAttr('checked').attr('disabled', 'disabled');
+ 					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+				}
+			});
+
+		});
+
+		$('input[name="<%=Constants.SECTION9_ARTISTIC_ABILITY%>"]').on('change', function (e) {
+			if ($(this).is(':checked')) {
+ 		    	$('#' + $(this).attr('id') + '_opt').removeClass('hidden');
+ 		    	$('#artisticInstructorQuestion').removeClass('hidden');
+ 		    } else {
+ 		    	$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 		    }
+		});
+
+		$('input[name="<%=Constants.SECTION9_ATHLETIC_ABILITY%>"]').on('change', function (e) {
+			if ($(this).is(':checked')) {
+ 		    	$('#' + $(this).attr('id') + '_opt').removeClass('hidden');
+ 		    	$('#athleticInstructorQuestion').removeClass('hidden');
+ 		    } else {
+ 		    	$('#' + $(this).attr('id') + '_opt').addClass('hidden');
+ 		    }
+		});
+
+		$('#<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+
+			if ($(this).is(':checked')) {
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
+		    } else {
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
 		    }
+
 		});
-			
-		$('#cual_DLSDP_cual').on('change', function (e) {
-		    if($(this).is(':checked')){
-		    	$('#cual_DLSDP_text').show();	
-		    }else{
-		    	$('#cual_DLSDP_text').hide()
+
+		$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT + "_"
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+
+			if ($(this).is(':checked')) {
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
+		    } else {
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
 		    }
+
 		});
-		
-		
-		$('#estaria_DAPECDF_si').change(function() {
-			$('#requiere_UDAOEM_div').show();
+
+		$('#<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+
+			if ($(this).is(':checked')) {
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
+		    } else {
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+		    }
+
 		});
-		$('#estaria_DAPECDF_no').change(function() {
-			$('#requiere_UDAOEM_div').hide();
+
+		$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT + "_"
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+
+		    if ($(this).is(':checked')) {
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
+		    } else {
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+		    }
+
 		});
-		
-		
+
 	});
 </script>
 

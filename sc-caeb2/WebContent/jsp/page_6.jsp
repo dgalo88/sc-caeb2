@@ -1,6 +1,7 @@
 <%@page import="com.caeb2.actions.IndividualCharacteristics"%>
 <%@page import="com.caeb2.actions.bean.PersonEducationData"%>
-<%@ include file="header.jsp"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(6);
@@ -9,7 +10,7 @@
 	PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
@@ -152,7 +153,7 @@
 				<td>
 					<div class="form-group">
 						<label for="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>">
-							¿Ha asistido a alguna de las misiones educativas?
+							¿Ha asistido o asiste a alguna de las misiones educativas?
 						</label>
 						<div class="checkbox" id="<%=Constants.SECTION6_EDUCATIONAL_MISIONS%>_div">
 							<label>
@@ -195,7 +196,7 @@
 		<input type="submit" value="Submit" class="btn btn-primary hidden"
 				id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
 <script type="text/javascript">

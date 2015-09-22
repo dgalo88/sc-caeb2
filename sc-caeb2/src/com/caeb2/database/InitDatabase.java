@@ -21,16 +21,20 @@ public class InitDatabase {
 	private static final String COMMENT1 = "--";
 	private static final String COMMENT2 = "/*";
 
+	private static final String DB_ROOT_PASS = "123456";
+	private static final String DB_NAME = "censoaeb2";
+	private static final String DB_PASS = "123456";
+
 	public InitDatabase() {
 
 		try {
-			createDatabaseUser("censoaeb2", "123456");
+			createDatabaseUser(DB_NAME, DB_PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			createDatabase("censoaeb2");
+			createDatabase(DB_NAME);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,7 +92,7 @@ public class InitDatabase {
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
 		Connection connection = DriverManager.getConnection( //
-				url, "root", "");
+				url, "root", DB_ROOT_PASS);
 		Statement statement = connection.createStatement();
 
 		String sql = "CREATE USER " + user + "@localhost IDENTIFIED BY '" + pass + "'";

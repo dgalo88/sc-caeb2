@@ -26,7 +26,7 @@ public class TextUtils {
 
 	public static String[] escaparArray(String[] data) throws UnsupportedEncodingException {
 
-		if (data == null){
+		if (data == null) {
 			return null;
 		}
 
@@ -38,6 +38,54 @@ public class TextUtils {
 		}
 
 		return newData;
+	}
+
+	public static String replaceBlankSpaces(String text) {
+		return text.replace(" ", "_");
+	}
+
+	/**
+	 * Función que elimina acentos y caracteres especiales de una cadena de texto.
+	 *
+	 * Tomada de:
+	 * <a href="http://www.v3rgu1.com/blog/231/2010/programacion/eliminar-acentos-y-caracteres-especiales-en-java">
+	 *   http://www.v3rgu1.com/blog/231/2010/programacion/eliminar-acentos-y-caracteres-especiales-en-java
+	 * </a>
+	 *
+	 * @param text
+	 * @return cadena de texto limpia de acentos y caracteres especiales.
+	 */
+	public static String replaceRareSymbols(String text) {
+
+		// Cadena de caracteres original a sustituir.
+		String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ¡!¿?";
+
+		// Cadena de caracteres ASCII que reemplazarán los originales.
+		String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC____";
+
+		String output = text;
+
+		for (int i = 0; i < original.length(); i++) {
+			// Reemplazamos los caracteres especiales.
+			output = output.replace(original.charAt(i), ascii.charAt(i));
+		}
+
+		return output;
+
+	}
+
+	public static String replaceRareSymbolsAndBlankSpaces(String text) {
+		return replaceBlankSpaces(replaceRareSymbols(text));
+	}
+
+	public static boolean stringToBoolean(String text) {
+		return ((text != null) && (text.equalsIgnoreCase("true") //
+				|| text.equalsIgnoreCase("si") || text.equalsIgnoreCase("sí")));
+	}
+
+	public static String getBooleanString(String text) {
+		return Boolean.toString(((text != null) && (text.equalsIgnoreCase("true") //
+				|| text.equalsIgnoreCase("si") || text.equalsIgnoreCase("sí"))));
 	}
 
 }

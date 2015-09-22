@@ -182,6 +182,7 @@ public class Constants {
 	public static final String SECTION5_PASSPORT = "section5_passport";
 	public static final String SECTION5_NATIONALITY = "section5_nationality";
 	public static final String SECTION5_EMAIL = "section5_email";
+	public static final String SECTION5_ARRIVAL_DATE = "section5_arrival_date";
 
 	// Properties and ids Section 6
 	public static final String SECTION6_ILLITERATE = "section6_illiterate";
@@ -241,14 +242,20 @@ public class Constants {
 
 	// Properties and ids Section 9
 	public static final String SECTION9_ARTISTIC_ABILITY = "section9_artistic_ability";
-	public static final String SECTION9_ARTISTIC_ABILITY_OTHER = "section9_artistic_ability_other";
-	public static final String SECTION9_TRAINING_COURSES = "section9_training_courses";
-	public static final String SECTION9_TRAINING_COURSES_WHICH = "section9_training_courses_which";
-	public static final String SECTION9_TRAINING_COURSES_OPTIONS = "section9_training_courses_options";
-	public static final String SECTION9_PLAY_SPORTS = "section9_play_sports";
-	public static final String SECTION9_PLAY_SPORTS_OTHER = "section9_play_sports_other";
-	public static final String SECTION9_PARTICIPATE_ATHLETICALLY = "section9_participate_athletically";
-	public static final String SECTION9_PARTICIPATE_WHICH = "section9_participate_which";
+	public static final String SECTION9_ARTISTIC_ABILITY_INSTRUCTOR = SECTION9_ARTISTIC_ABILITY + "_instructor";
+	public static final String SECTION9_ARTISTIC_ABILITY_STUDENT = SECTION9_ARTISTIC_ABILITY + "_student";
+	public static final String SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE = SECTION9_ARTISTIC_ABILITY_INSTRUCTOR + "_none";
+	public static final String SECTION9_ARTISTIC_ABILITY_STUDENT_NONE = SECTION9_ARTISTIC_ABILITY_STUDENT + "_none";
+	public static final String SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER = SECTION9_ARTISTIC_ABILITY_INSTRUCTOR + "_other";
+	public static final String SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER = SECTION9_ARTISTIC_ABILITY_STUDENT + "_other";
+
+	public static final String SECTION9_ATHLETIC_ABILITY = "section9_athletic_ability";
+	public static final String SECTION9_ATHLETIC_ABILITY_INSTRUCTOR = SECTION9_ATHLETIC_ABILITY + "_instructor";
+	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT = SECTION9_ATHLETIC_ABILITY + "_student";
+	public static final String SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE = SECTION9_ATHLETIC_ABILITY_INSTRUCTOR + "_none";
+	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT_NONE = SECTION9_ATHLETIC_ABILITY_STUDENT + "_none";
+	public static final String SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER = SECTION9_ATHLETIC_ABILITY_INSTRUCTOR + "_other";
+	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER = SECTION9_ATHLETIC_ABILITY_STUDENT + "_other";
 
 	// Properties and ids Profile
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";

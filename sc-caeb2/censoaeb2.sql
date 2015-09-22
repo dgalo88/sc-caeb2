@@ -245,11 +245,8 @@ CREATE TABLE IF NOT EXISTS `personaHabilidadArtisticaManual` (
 --
 CREATE TABLE IF NOT EXISTS `deporte` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `participacion` varchar(15) DEFAULT NULL,
-  `personaId` int(11) DEFAULT NULL,
-  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE
+  `nombre` varchar(100) DEFAULT NULL,
+  `participacion` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -281,7 +278,9 @@ CREATE TABLE IF NOT EXISTS `mision` (
 CREATE TABLE IF NOT EXISTS `personaMision` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `personaId` int(11) DEFAULT NULL,
-  `mision` varchar(255) DEFAULT NULL,
+  `misionId` varchar(255) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`misionId`) REFERENCES `mision` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
