@@ -14,6 +14,7 @@ import com.caeb2.actions.bean.Ability;
 import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
+import com.caeb2.actions.bean.PersonMissions;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -26,8 +27,15 @@ public class IndividualCharacteristics {
 	public static void savePersonBasicData( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		PropertiesConfiguration prop = Controller.getPropertiesFile( //
-				Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			return;
+		}
 
 		String lastnames = request.getParameter(Constants.SECTION5_LASTNAMES);
 		String names = request.getParameter(Constants.SECTION5_NAMES);
@@ -95,6 +103,8 @@ public class IndividualCharacteristics {
 		Controller.forward(request, response, "page_6.jsp");
 
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public static PersonBasicData loadPersonBasicData() {
 
@@ -179,8 +189,15 @@ public class IndividualCharacteristics {
 	public static void savePersonEducationData( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		PropertiesConfiguration prop = Controller.getPropertiesFile( //
-				Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			return;
+		}
 
 		String illiterate = TextUtils.escaparString( //
 				request.getParameter(Constants.SECTION6_ILLITERATE));
@@ -227,6 +244,8 @@ public class IndividualCharacteristics {
 		Controller.forward(request, response, "page_6.jsp");
 
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public static PersonEducationData loadPersonEducationData() {
 
@@ -279,8 +298,15 @@ public class IndividualCharacteristics {
 	public static void saveAbilitiesData( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		PropertiesConfiguration prop = Controller.getPropertiesFile( //
-				Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			return;
+		}
 
 		String[] artisticAbilities = TextUtils.escaparArray( //
 				request.getParameterValues(Constants.SECTION9_ARTISTIC_ABILITY));
@@ -293,7 +319,7 @@ public class IndividualCharacteristics {
 
 			for (int i = 0; i < artisticAbilities.length; i++) {
 
-				if (artisticAbilities[i].equals(Ability.OTHER)) {
+				if (artisticAbilities[i].equals(Constants.OTHER)) {
 
 					prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER, //
 							request.getParameter(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER));
@@ -317,7 +343,7 @@ public class IndividualCharacteristics {
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, artisticAbilitiesStudent);
 
 			for (String curr : artisticAbilitiesStudent) {
-				if (curr.equals(Ability.OTHER)) {
+				if (curr.equals(Constants.OTHER)) {
 					prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER, //
 							request.getParameter(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER));
 				}
@@ -336,7 +362,7 @@ public class IndividualCharacteristics {
 
 			for (int i = 0; i < athleticAbilities.length; i++) {
 
-				if (athleticAbilities[i].equals(Ability.OTHER)) {
+				if (athleticAbilities[i].equals(Constants.OTHER)) {
 
 					prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER, //
 							request.getParameter(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER));
@@ -360,7 +386,7 @@ public class IndividualCharacteristics {
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, athleticAbilitiesStudent);
 
 			for (String curr : athleticAbilitiesStudent) {
-				if (curr.equals(Ability.OTHER)) {
+				if (curr.equals(Constants.OTHER)) {
 					prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER, //
 							request.getParameter(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER));
 				}
@@ -373,6 +399,8 @@ public class IndividualCharacteristics {
 		Controller.forward(request, response, "page_10.jsp");
 
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public static Ability loadAbilitiesData() {
 
@@ -442,4 +470,53 @@ public class IndividualCharacteristics {
 	}
 
 	//--------------------------------------------------------------------------------
+
+	public static void saveMissions( //
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			return;
+		}
+
+		String[] missions = TextUtils.escaparArray( //
+				request.getParameterValues(Constants.SECTION10_MISSIONS));
+
+		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
+
+		prop.save();
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static PersonMissions loadMissions() {
+
+		PersonMissions personMissions = new PersonMissions();
+
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			return personMissions;
+		}
+
+		HashMap<String, String> missions = Controller.arrayToHashMap( //
+				prop, Constants.SECTION10_MISSIONS);
+
+		personMissions.setMissions(missions);
+
+		return personMissions;
+
+	}
+
+	//--------------------------------------------------------------------------------
+
 }

@@ -3,32 +3,9 @@ package com.caeb2.actions.bean;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.caeb2.util.Constants;
+
 public class Ability {
-
-	public static final String NONE = "Ninguna";
-	public static final String OTHER = "Otra ¿Cuál?";
-
-	public static final String CHORDS_INSTRUMENTS = "Instrumentos de cuerda";
-	public static final String KITCHEN = "Cocina";
-	public static final String CUTTING_SEWING = "Corte y costura";
-	public static final String CONFECTIONERY = "Repostería";
-	public static final String PAINTING = "Pintura";
-	public static final String THEATRE = "Teatro";
-	public static final String EMBROIDERY = "Bordado";
-	public static final String BARBER = "Peluquería";
-	public static final String COMPUTING = "Computación";
-	public static final String DANCE = "Danza";
-	public static final String CRAFTS = "Artesanía";
-	public static final String SINGING = "Canto";
-	public static final String MANICURE_PEDICURE = "Manicura y pedicura";
-
-	public static final String BASKETBALL = "Básquetbol";
-	public static final String BASEBALL = "Béisbol";
-	public static final String SOFTBALL = "Softbol";
-	public static final String FOOTBALL = "Fútbol";
-	public static final String VOLLEYBALL = "Voleibol";
-	public static final String SWIMMING = "Natación";
-	public static final String ATHLETICS = "Atletismo";
 
 	public static final ArrayList<String> ARTISTIC_ABILITIES_OPTIONS;
 	public static final ArrayList<String> ATHLETIC_ABILITIES_OPTIONS;
@@ -37,31 +14,31 @@ public class Ability {
 
 		ARTISTIC_ABILITIES_OPTIONS = new ArrayList<String>();
 
-		ARTISTIC_ABILITIES_OPTIONS.add(CHORDS_INSTRUMENTS);
-		ARTISTIC_ABILITIES_OPTIONS.add(KITCHEN);
-		ARTISTIC_ABILITIES_OPTIONS.add(CUTTING_SEWING);
-		ARTISTIC_ABILITIES_OPTIONS.add(CONFECTIONERY);
-		ARTISTIC_ABILITIES_OPTIONS.add(PAINTING);
-		ARTISTIC_ABILITIES_OPTIONS.add(THEATRE);
-		ARTISTIC_ABILITIES_OPTIONS.add(EMBROIDERY);
-		ARTISTIC_ABILITIES_OPTIONS.add(BARBER);
-		ARTISTIC_ABILITIES_OPTIONS.add(COMPUTING);
-		ARTISTIC_ABILITIES_OPTIONS.add(DANCE);
-		ARTISTIC_ABILITIES_OPTIONS.add(CRAFTS);
-		ARTISTIC_ABILITIES_OPTIONS.add(SINGING);
-		ARTISTIC_ABILITIES_OPTIONS.add(MANICURE_PEDICURE);
-		ARTISTIC_ABILITIES_OPTIONS.add(OTHER);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.CHORDS_INSTRUMENTS);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.KITCHEN);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.CUTTING_SEWING);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.CONFECTIONERY);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.PAINTING);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.THEATRE);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.EMBROIDERY);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.BARBER);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.COMPUTING);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.DANCE);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.CRAFTS);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.SINGING);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.MANICURE_PEDICURE);
+		ARTISTIC_ABILITIES_OPTIONS.add(Constants.OTHER);
 
 		ATHLETIC_ABILITIES_OPTIONS = new ArrayList<String>();
 
-		ATHLETIC_ABILITIES_OPTIONS.add(BASKETBALL);
-		ATHLETIC_ABILITIES_OPTIONS.add(BASEBALL);
-		ATHLETIC_ABILITIES_OPTIONS.add(SOFTBALL);
-		ATHLETIC_ABILITIES_OPTIONS.add(FOOTBALL);
-		ATHLETIC_ABILITIES_OPTIONS.add(VOLLEYBALL);
-		ATHLETIC_ABILITIES_OPTIONS.add(SWIMMING);
-		ATHLETIC_ABILITIES_OPTIONS.add(ATHLETICS);
-		ATHLETIC_ABILITIES_OPTIONS.add(OTHER);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.BASKETBALL);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.BASEBALL);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.SOFTBALL);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.FOOTBALL);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.VOLLEYBALL);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.SWIMMING);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.ATHLETICS);
+		ATHLETIC_ABILITIES_OPTIONS.add(Constants.OTHER);
 
 	}
 

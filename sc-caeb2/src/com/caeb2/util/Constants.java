@@ -68,6 +68,7 @@ public class Constants {
 	public static final String EMPTY_FIELD_ERROR = "El campo \"{0}\" no puede estar vacío.";
 	public static final String EMPTY_CEDULA_ERROR = "La cédula no puede estar vacía.";
 	public static final String NO_DATA_ERROR = "No existen datos para su solicitud.";
+	public static final String LOAD_DATA_ERROR = "No se pueden cargar los datos.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -93,6 +94,60 @@ public class Constants {
 	public static final String JSP_IMPORT = "Importar";
 	public static final String JSP_EXPORT = "Exportar";
 	public static final String JSP_ABOUT = "Acerca de";
+	public static final String JSP_FINISH = "Finalizar";
+
+	public static final String NONE = "Ninguna";
+	public static final String OTHER = "Otra ¿Cuál?";
+
+	// Abilities
+	public static final String CHORDS_INSTRUMENTS = "Instrumentos de cuerda";
+	public static final String KITCHEN = "Cocina";
+	public static final String CUTTING_SEWING = "Corte y costura";
+	public static final String CONFECTIONERY = "Repostería";
+	public static final String PAINTING = "Pintura";
+	public static final String THEATRE = "Teatro";
+	public static final String EMBROIDERY = "Bordado";
+	public static final String BARBER = "Peluquería";
+	public static final String COMPUTING = "Computación";
+	public static final String DANCE = "Danza";
+	public static final String CRAFTS = "Artesanía";
+	public static final String SINGING = "Canto";
+	public static final String MANICURE_PEDICURE = "Manicura y pedicura";
+
+	public static final String BASKETBALL = "Básquetbol";
+	public static final String BASEBALL = "Béisbol";
+	public static final String SOFTBALL = "Softbol";
+	public static final String FOOTBALL = "Fútbol";
+	public static final String VOLLEYBALL = "Voleibol";
+	public static final String SWIMMING = "Natación";
+	public static final String ATHLETICS = "Atletismo";
+
+	// Missions
+	public static final String MISION_VUELVAN_CARAS = "Misión Vuelvan Caras";
+	public static final String MISION_BARRIO_ADENTRO_I = "Misión Barrio Adentro I";
+	public static final String MISION_BARRIO_ADENTRO_II = "Misión Barrio Adentro II";
+	public static final String MERCAL_TIPO_I = "Mercal Tipo I";
+	public static final String MERCAL_TIPO_II = "Mercal Tipo II";
+	public static final String SUPER_MERCAL = "Super Mercal";
+	public static final String MERCALITOS = "Mercalitos";
+	public static final String COMEDOR_POPULAR = "Comedor Popular";
+	public static final String COMEDOR_ESCOLAR = "Comedor Escolar";
+	public static final String COCINA_COMUNITARIA = "Cocina Comunitaria";
+	public static final String FOGON_COMUNITARIO = "Fogón Comunitario";
+	public static final String CASA_DE_ALIMENTACION = "Casa de Alimentación";
+	public static final String CASA_COMUNITARIA = "Casa Comunitaria";
+	public static final String BOTICAS_POPULARES = "Boticas Populares";
+	public static final String MISION_CULTURA = "Misión Cultura";
+	public static final String MISION_HABITAT = "Misión Hábitat";
+	public static final String MISION_DEPORTE_ADENTRO = "Misión Deporte Adentro";
+	public static final String MISION_ZAMORA = "Misión Zamora";
+	public static final String MISION_GUAICAIPURO = "Misión Guaicaipuro";
+	public static final String MISION_IDENTIDAD = "Misión Identidad";
+	public static final String MISION_PIAR = "Misión Piar";
+	public static final String MISION_MIRANDA = "Misión Miranda";
+	public static final String MISION_MILAGRO = "Misión Milagro";
+	public static final String MISION_NEGRA_HIPOLITA = "Misión Negra Hipólita";
+	public static final String MISION_SIMONCITO = "Misión Simoncito";
 
 	// Documents types
 	public static final String JSP_RES_PROOF = "Constancia de Residencia";
@@ -256,6 +311,9 @@ public class Constants {
 	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT_NONE = SECTION9_ATHLETIC_ABILITY_STUDENT + "_none";
 	public static final String SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER = SECTION9_ATHLETIC_ABILITY_INSTRUCTOR + "_other";
 	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER = SECTION9_ATHLETIC_ABILITY_STUDENT + "_other";
+
+	// Properties and ids Section 9
+	public static final String SECTION10_MISSIONS = "section10_missions";
 
 	// Properties and ids Profile
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";

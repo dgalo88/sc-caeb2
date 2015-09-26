@@ -23,6 +23,7 @@ public class Actions {
 		actionsMapping.put("savePersonBasicData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("savePersonEducationData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("saveAbilitiesData", "com.caeb2.actions.IndividualCharacteristics");
+		actionsMapping.put("saveMissions", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");

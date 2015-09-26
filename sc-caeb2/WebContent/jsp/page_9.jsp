@@ -34,10 +34,10 @@
 									<div class="form-group">
 										<div class="checkbox">
 											<label>
-												<input type="checkbox" value="<%=Ability.NONE%>"
+												<input type="checkbox" value="<%=Constants.NONE%>"
 														name="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>"
 														id="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_NONE%>">
-												<%=Ability.NONE%>
+												<%=Constants.NONE%>
 											</label>
 										</div>
 									</div>
@@ -62,7 +62,7 @@
 															<%=(ability.getArtisticAbilities().containsKey(artisticAbility)) ? "checked": ""%>>
 													<%=artisticAbility%>
 												</label>
-												<%if (artisticAbility.equals(Ability.OTHER)) {%>
+												<%if (artisticAbility.equals(Constants.OTHER)) {%>
 													<input type="text" class="form-control <%=ability.getArtisticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
 															name="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
 															id="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
@@ -105,10 +105,10 @@
 										<div class="checkbox">
 
 											<label>
-												<input type="checkbox" value="<%=Ability.NONE%>"
+												<input type="checkbox" value="<%=Constants.NONE%>"
 														name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>"
 														id="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_NONE%>">
-												<%=Ability.NONE%>
+												<%=Constants.NONE%>
 											</label><br>
 
 											<%for (int i = 0; i < Ability.ARTISTIC_ABILITIES_OPTIONS.size(); i++) {
@@ -165,10 +165,10 @@
 									<div class="form-group">
 										<div class="checkbox">
 											<label>
-												<input type="checkbox" value="<%=Ability.NONE%>"
+												<input type="checkbox" value="<%=Constants.NONE%>"
 														name="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>"
 														id="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_NONE%>">
-												<%=Ability.NONE%>
+												<%=Constants.NONE%>
 											</label>
 										</div>
 									</div>
@@ -193,7 +193,7 @@
 															<%=(ability.getAthleticAbilities().containsKey(athleticAbility)) ? "checked": ""%>>
 													<%=athleticAbility%>
 												</label>
-												<%if (athleticAbility.equals(Ability.OTHER)) {%>
+												<%if (athleticAbility.equals(Constants.OTHER)) {%>
 													<input type="text" class="form-control <%=ability.getAthleticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
 															name="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
 															id="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
@@ -236,10 +236,10 @@
 										<div class="checkbox">
 
 											<label>
-												<input type="checkbox" value="<%=Ability.NONE%>"
+												<input type="checkbox" value="<%=Constants.NONE%>"
 														name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>"
 														id="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_NONE%>">
-												<%=Ability.NONE%>
+												<%=Constants.NONE%>
 											</label><br>
 
 											<%for (int i = 0; i < Ability.ATHLETIC_ABILITIES_OPTIONS.size(); i++) {
@@ -371,7 +371,7 @@
 		});
 
 		$('#<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
-			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
 		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
@@ -382,7 +382,7 @@
 		});
 
 		$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT + "_"
-			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
 		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
@@ -393,7 +393,7 @@
 		});
 
 		$('#<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
-			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
 		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
@@ -404,7 +404,7 @@
 		});
 
 		$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT + "_"
-			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Ability.OTHER)%>').on('change', function (e) {
+			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 		    if ($(this).is(':checked')) {
 		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
