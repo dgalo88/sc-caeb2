@@ -178,7 +178,7 @@ public class IndividualCharacteristics {
 
 		String arrivalDate = prop.getString(Constants.SECTION5_ARRIVAL_DATE, "");
 
-		personBasicData.setBirthdate(arrivalDate);
+		personBasicData.setArrivalDate(arrivalDate);
 
 		return personBasicData;
 

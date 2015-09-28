@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 import com.caeb2.actions.IndividualCharacteristics;
+import com.caeb2.actions.bean.Ability;
 import com.caeb2.actions.bean.MedicalData;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
+import com.caeb2.actions.bean.PersonMissions;
 import com.caeb2.sections.EducationLevel;
 import com.caeb2.sections.HomeData;
 import com.caeb2.sections.HousingData;
@@ -131,9 +133,24 @@ public class SaveDataBase {
 		Set<String> set=value.keySet();
 		
 		for (String string : set) {
-			pstmt.setString(1, type);
+			pstmt.setString(1, 	type);
 			pstmt.setString(2, string);
 			pstmt.setString(3,value.get(string));
+			pstmt.setLong(4, idReference);
+			pstmt.addBatch();
+		}
+	}
+	
+	private static void processMapAbility(HashMap<String, String> abilities,HashMap<String, Boolean> abilitiesInstructor,PreparedStatement pstmt, long idReference) throws SQLException{
+		Set<String> abilitiesSet=abilities.keySet();
+		for (String key : abilitiesSet) {
+			if(abilitiesInstructor.containsKey(key)&&abilitiesInstructor.get(key)){
+				pstmt.setString(1, "I"); 
+			}else{
+				pstmt.setString(1, "N"); 
+			}
+			pstmt.setString(2, key);
+			pstmt.setString(3, abilities.get(key));
 			pstmt.setLong(4, idReference);
 			pstmt.addBatch();
 		}
@@ -162,8 +179,21 @@ public class SaveDataBase {
 		}
 	}
 	
+	private static void processIndividualMap(HashMap<String, String> value,PreparedStatement pstmt, long idReference, String type) throws SQLException{
+		
+		Set<String> set=value.keySet();
+		
+		for (String string : set) {
+			pstmt.setString(1, string);
+			pstmt.setString(2, type);
+			pstmt.setLong(3, idReference);
+			pstmt.addBatch();
+		}
+	}
 	
-	public static boolean saveHome(long dwellingId){
+	
+	
+	public static Long saveHome(long dwellingId){
 		
 		HomeData homeData=new HomeData();
 		Connection connection = null;
@@ -221,7 +251,7 @@ public class SaveDataBase {
 			processMap(homeData.getCommunity_problems(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 
-			return true;
+			return last_inserted_id;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -250,7 +280,7 @@ public class SaveDataBase {
 				// TODO: handle exception
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public static Long savePerson(long homeId) throws ParseException{
@@ -261,12 +291,19 @@ public class SaveDataBase {
 		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
 		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
 		
-		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, sexo, "
-				+ "fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
+//		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, sexo, "
+//				+ "fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
+//				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
+//				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
+//				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, empleoId, hogarId) "
+//				+ "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
+				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
 				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
 				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
-				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, empleoId, hogarId) "
-				+ "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
+				+ "razonAsistenciaMedica, fechaLlegada, empleoId, hogarId) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -281,10 +318,8 @@ public class SaveDataBase {
 			pstmt.setString(3,personBasicData.getRelationship());
 			pstmt.setString(4,personBasicData.getSex());
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-yyyy");
-			String strDate = personBasicData.getBirthdate();
-			Date date = null;
-			date = sdf.parse(strDate);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date date = sdf.parse(personBasicData.getBirthdate());
 			
 			pstmt.setDate(5,new java.sql.Date(date.getTime()));
 			pstmt.setString(6,personBasicData.getNationality());
@@ -316,7 +351,8 @@ public class SaveDataBase {
 			pstmt.setString(25,medicalData.getMedical_assistance());
 			pstmt.setString(26,medicalData.getMedical_assistance_has());
 			
-			String sqlEmployee = "INSERT INTO empleo ('id', 'situacion', 'oficio', 'tipo', 'tipo_seleccion', 'tipoNegocio', 'lugarTrabajo') VALUES (NULL, ?,?,?,?,?,?);";
+			//..........Procesando Empleo
+			String sqlEmployee = "INSERT INTO empleo (id, situacion, oficio, tipo, tipo_seleccion, tipoNegocio, lugarTrabajo) VALUES (NULL, ?,?,?,?,?,?)";
 			pstmtEmployee = connection.prepareStatement(sqlEmployee, Statement.RETURN_GENERATED_KEYS);
 			pstmtEmployee.setString(1,educationLevel.getYou_are());
 			pstmtEmployee.setString(2,educationLevel.getMain_job());
@@ -324,7 +360,7 @@ public class SaveDataBase {
 			pstmtEmployee.setString(4,educationLevel.getOccupation_value());
 			pstmtEmployee.setString(5,educationLevel.getBody_works());
 			pstmtEmployee.setString(6,educationLevel.getWork_performed());
-			
+			pstmtEmployee.executeUpdate();
 			rs = pstmtEmployee.getGeneratedKeys();
 			long employee_id=0;
             if(rs.next())
@@ -332,10 +368,12 @@ public class SaveDataBase {
             	employee_id = rs.getLong(1);
             }
             rs.close();
-            pstmt.setDate(27,new java.sql.Date(new Date().getTime()));
+            date = sdf.parse(personBasicData.getArrivalDate());
+            
+            pstmt.setDate(27,new java.sql.Date(date.getTime()));
             pstmt.setLong(28, employee_id);
             pstmt.setLong(29, homeId);
-            
+            pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys();
 			long last_inserted_id=0;
             if(rs.next())
@@ -343,34 +381,39 @@ public class SaveDataBase {
                  last_inserted_id = rs.getLong(1);
             }
             
-			String sql2 = "INSERT INTO personamision ('id','mision', 'personaId') VALUES (NULL,?,?)";
+            //..........Procesar Misiones del tipo educativas 
+			String sql2 = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sql2);
-			processIndividualMap(personEducationData.getEducationalMisions(), pstmt2, last_inserted_id);
+			processIndividualMap(personEducationData.getEducationalMisions(), pstmt2, last_inserted_id, "E");
 			pstmt2.executeBatch();
 			
+			//..........Procesar Discapacidades
 			pstmt2.close();
-			String sqlDisabilities = "INSERT INTO discapacidad ('id', 'descripcion', 'personaId') VALUES (NULL,?,?)";
+			String sqlDisabilities = "INSERT INTO discapacidad (id, descripcion, personaId) VALUES (NULL,?,?)";
 			pstmt2 = connection.prepareStatement(sqlDisabilities);
 			processIndividualMap(medicalData.getDisabilities(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
+			//..........Procesar sistemas de previsión social
 			pstmt2.close();
-			String sqlSecuritySystems = "INSERT INTO sistemaprevencionsocial ('id', 'descripcion', 'personaId') VALUES (NULL,?,?)";
+			String sqlSecuritySystems = "INSERT INTO sistemaprevencionsocial (id, descripcion, personaId) VALUES (NULL,?,?)";
 			pstmt2 = connection.prepareStatement(sqlSecuritySystems);
 			processIndividualMap(medicalData.getSecurity_systems(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
+			//..........Procesar sistemas de previsión social
 			pstmt2.close();
-			String sqlMedicalEquipment = "INSERT INTO aparatomedico ('id', 'nombre', 'descripcion', 'loTiene', 'personaId') VALUES (NULL,?,?,?,?)";
+			String sqlMedicalEquipment = "INSERT INTO aparatomedico (id, nombre, descripcion, loTiene, personaId) VALUES (NULL,?,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlMedicalEquipment);
-			pstmtEmployee.setString(1,medicalData.getMedical_equipment_which());
-			pstmtEmployee.setString(2,medicalData.getMedical_equipment_other());
-			pstmt.setByte(3,parseByte(medicalData.getMedical_equipment_has()));
-			pstmt.setLong(4, last_inserted_id);
+			pstmt2.setString(1,medicalData.getMedical_equipment_which());
+			pstmt2.setString(2,medicalData.getMedical_equipment_other());
+			pstmt2.setByte(3,parseByte(medicalData.getMedical_equipment_has()));
+			pstmt2.setLong(4, last_inserted_id);
 			pstmt2.execute();
 			
+			//..........Procesar Vacunas
 			pstmt2.close();
-			String sqlVaccines = "INSERT INTO vacuna ('id', 'nombre', 'numeroDosis', 'personaId') VALUES (NULL,?,?,?)";
+			String sqlVaccines = "INSERT INTO vacuna (id, nombre, numeroDosis, personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlVaccines);
 			HashMap<String, String> vaccines=medicalData.getVaccines();
 			Set<String> vaccinesSet=vaccines.keySet();
@@ -382,8 +425,42 @@ public class SaveDataBase {
 			}
 			pstmt2.executeBatch();
 			
+			//..........Procesando habilidades artística
+			pstmt2.close();
+			String sqlArtisticAbilities = "INSERT INTO habilidadartisticamanual (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
+			pstmt2 = connection.prepareStatement(sqlArtisticAbilities);
+			Ability ability = IndividualCharacteristics.loadAbilitiesData();
+			HashMap<String, String> artisticAbilities=ability.getArtisticAbilities();
+			HashMap<String, Boolean> artisticAbilitiesInstructor=ability.getArtisticAbilitiesInstructor();
+			processMapAbility(artisticAbilities, artisticAbilitiesInstructor, pstmt2, last_inserted_id);
+			HashMap<String, String> artisticAbilitiesStudent=ability.getArtisticAbilitiesStudent();
+			processMap(artisticAbilitiesStudent, pstmt2, "E", last_inserted_id);
+			pstmt2.executeBatch();
 			
-
+		
+			//..........Procesando habilidades deportivas 
+			
+			pstmt2.close();
+			String sqlAthleticAbilities = "INSERT INTO deporte (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
+			pstmt2 = connection.prepareStatement(sqlAthleticAbilities);
+		
+			HashMap<String, String> athleticAbilities=ability.getAthleticAbilities();
+			HashMap<String, Boolean> athleticAbilitiesInstructor=ability.getAthleticAbilitiesInstructor();
+			processMapAbility(athleticAbilities, athleticAbilitiesInstructor, pstmt2, last_inserted_id);
+			
+			HashMap<String, String> athleticAbilitiesStudent=ability.getAthleticAbilitiesStudent();
+			processMap(athleticAbilitiesStudent, pstmt2, "E", last_inserted_id);			
+			pstmt2.executeBatch();
+			
+			//..........Procesar Misiones del tipo Otras 
+			pstmt2.close();
+			PersonMissions personMissions = IndividualCharacteristics.loadMissions();
+			HashMap<String, String> missions = personMissions.getMissions();
+			String sqlMissions = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
+			pstmt2 = connection.prepareStatement(sqlMissions);
+			processIndividualMap(missions, pstmt2, last_inserted_id, "O");
+			pstmt2.executeBatch();
+			
 			return last_inserted_id;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

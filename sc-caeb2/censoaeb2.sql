@@ -223,20 +223,11 @@ CREATE TABLE IF NOT EXISTS `vacuna` (
 --
 CREATE TABLE IF NOT EXISTS `habilidadArtisticaManual` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `participacion` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `personaHabilidadArtisticaManual`
---
-CREATE TABLE IF NOT EXISTS `personaHabilidadArtisticaManual` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `clave` varchar(100) DEFAULT NULL,
+  `valor` varchar(100) DEFAULT NULL,
+  `participacion` varchar(1) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
-  `habilidadArtisticaManualId` int(11) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`habilidadArtisticaManualId`) REFERENCES `habilidadArtisticaManual` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -245,42 +236,22 @@ CREATE TABLE IF NOT EXISTS `personaHabilidadArtisticaManual` (
 --
 CREATE TABLE IF NOT EXISTS `deporte` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100) DEFAULT NULL,
-  `participacion` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `personaDeporte`
---
-CREATE TABLE IF NOT EXISTS `personaDeporte` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `clave` varchar(100) DEFAULT NULL,
+  `valor` varchar(100) DEFAULT NULL,
+  `participacion` varchar(1) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
-  `deporteId` int(11) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`deporteId`) REFERENCES `deporte` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 
 --
 -- Estructura de la tabla `mision`
 --
 CREATE TABLE IF NOT EXISTS `mision` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `tipo` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Estructura de la tabla `personaMision`
---
-CREATE TABLE IF NOT EXISTS `personaMision` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `tipo` varchar(1) DEFAULT NULL,
+  `mision` varchar(255) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
-  `misionId` varchar(255) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`misionId`) REFERENCES `mision` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;

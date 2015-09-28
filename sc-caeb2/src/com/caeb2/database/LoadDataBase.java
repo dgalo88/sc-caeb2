@@ -14,7 +14,7 @@ import com.caeb2.util.Controller.PropFileRole;
 
 public class LoadDataBase {
 
-	public void loadDwelling(long idDwelling) {
+	public static boolean loadDwelling(long idDwelling) {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
@@ -99,9 +99,6 @@ public class LoadDataBase {
                 	}
                 	urgent_housing_improvements=TextUtils.escaparString("Sí");
                 }
-        		 
-        		
-        		
         		
         		String part[]=TextUtils.escaparArray((String[])partList.toArray());
         		String required[]=TextUtils.escaparArray((String[])requiredList.toArray());
@@ -134,10 +131,10 @@ public class LoadDataBase {
         		prop.setProperty(Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE,work_needs_other_response);
         		
         		prop.save();
+        		return true;
             }
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {
@@ -161,5 +158,103 @@ public class LoadDataBase {
 				// TODO: handle exception
 			}
 		}
+		return false;
+	}
+	
+	public static boolean loadHome(long dwellingId){
+		Connection connection = null;
+		PreparedStatement pstmt= null;
+		PreparedStatement pstmt2= null;
+		ResultSet rs = null;
+		try {
+			
+			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			connection = Controller.getConnection();			
+			String sql = "SELECT id, numeroCuartos, numeroBanos, jefeTienePareja, dormitorioTresOMas, utilizaMercal, utilizaPdval,"
+					+ " beneficioMercado, miembroParticipaOrganizacionComunitaria, viviendaId FROM hogar WHERE id=?";
+			
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, dwellingId);
+			rs=pstmt.executeQuery();
+            if(rs.next())
+            {
+            	
+            	String section4_rooms=TextUtils.escaparString(rs.getString("numeroCuartos"));
+            	String section4_number_bathrooms=TextUtils.escaparString(rs.getString("numeroBanos"));
+        		String section4_chief_couple=TextUtils.escaparString(rs.getByte("jefeTienePareja")==0 ? "No" : "Sí");
+        		String section4_sleeps_3_or_more=TextUtils.escaparString(rs.getByte("dormitorioTresOMas")==0 ? "No" : "Sí");
+        		multipleProcessesCases(prop, Constants.SECTION4_USED_MERCAL, Constants.SECTION4_USED_MERCAL_SELECTED, rs.getString("utilizaMercal"));
+        		multipleProcessesCases(prop, Constants.SECTION4_USED_PDVAL, Constants.SECTION4_USED_PDVALL_SELECTED, rs.getString("utilizaPdval"));
+        		multipleProcessesCases(prop, Constants.SECTION4_FOOD_MARKETS, Constants.SECTION4_FOOD_MARKETS_RESPONSE, rs.getString("beneficioMercado"));
+        		multipleProcessesCases(prop, Constants.SECTION4_COMMUNITY_ORGANIZATIO, Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH, rs.getString("beneficioMercado"));
+        		
+        		prop.setProperty(Constants.SECTION4_ROOMS,section4_rooms);
+        		prop.setProperty(Constants.SECTION4_CHIEF_COUPLE,section4_chief_couple);
+        		prop.setProperty(Constants.SECTION4_NUMBER_BATHROOMS,section4_number_bathrooms);
+        		prop.setProperty(Constants.SECTION4_SLEEPS_3_OR_MORE,section4_sleeps_3_or_more);
+        	
+        		rs.close();
+        		
+        		String section4_community_problems_other = null;
+        		
+    			pstmt2 = connection.prepareStatement("SELECT id, descripcion, valor FROM principalesproblemascomunidad WHERE hogarId=?");
+    			pstmt2.setLong(1, dwellingId);
+    			rs=pstmt2.executeQuery();
+    			ArrayList<String> communityProblems=new ArrayList<String>();
+                if(rs.next())
+                {
+                	String clave=rs.getString("clave");
+                	String value=rs.getString("clave");
+                	communityProblems.add(clave);
+                	if(clave.equals("Otra ¿Cuál?")){
+                		section4_community_problems_other=TextUtils.escaparString(value);
+                	}
+                }
+                	
+                String section4_community_problems[]=TextUtils.escaparArray((String[])communityProblems.toArray());
+                
+                prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS,section4_community_problems);
+        		prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER,section4_community_problems_other);
+        		
+        		prop.save();      		
+        		
+        		
+            }
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt2.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		
+		return false;
+	}
+	private static void multipleProcessesCases(PropertiesConfiguration prop,String constants1,String constants2, String key) {
+		if(key.equals("No")){
+			prop.setProperty(constants1,"No");
+		}else{
+			prop.setProperty(constants1,"Sí");
+			prop.setProperty(constants2,key);
+		}
+		
 	}
 }

@@ -80,6 +80,9 @@ public class Ability {
 	}
 
 	public HashMap<String, String> getArtisticAbilities() {
+		if(artisticAbilities.containsKey(Constants.OTHER)){
+			artisticAbilities.put(Constants.OTHER, artisticAbilitiesInstructorOther);
+		}
 		return artisticAbilities;
 	}
 
@@ -96,6 +99,9 @@ public class Ability {
 	}
 
 	public HashMap<String, String> getArtisticAbilitiesStudent() {
+		if(artisticAbilitiesStudent.containsKey(Constants.OTHER)){
+			artisticAbilitiesStudent.put(Constants.OTHER, artisticAbilitiesStudentOther);
+		}
 		return artisticAbilitiesStudent;
 	}
 
@@ -120,6 +126,9 @@ public class Ability {
 	}
 
 	public HashMap<String, String> getAthleticAbilities() {
+		if(athleticAbilities.containsKey(Constants.OTHER)){
+			athleticAbilities.put(Constants.OTHER, athleticAbilitiesInstructorOther);
+		}
 		return athleticAbilities;
 	}
 
@@ -136,6 +145,9 @@ public class Ability {
 	}
 
 	public HashMap<String, String> getAthleticAbilitiesStudent() {
+		if(athleticAbilitiesStudent.containsKey(Constants.OTHER)){
+			athleticAbilitiesStudent.put(Constants.OTHER, athleticAbilitiesStudentOther);
+		}
 		return athleticAbilitiesStudent;
 	}
 
