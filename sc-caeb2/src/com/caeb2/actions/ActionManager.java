@@ -54,6 +54,9 @@ public class ActionManager {
 						Constants.USER_LOGIN, new Object[] { user }));
 
 				session.setAttribute(Constants.ATT_USER, user);
+				session.setAttribute(Constants.ATT_CURR_PAGE, 0);
+
+				Startup.setSession(session);
 
 				Controller.forward(request, response, "main.jsp");
 

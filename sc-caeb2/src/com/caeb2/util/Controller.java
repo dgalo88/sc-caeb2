@@ -100,7 +100,8 @@ public class Controller {
 
 		} catch (ServletException | IOException e) {
 
-			putLogger(Level.SEVERE, Constants.GENERAL_ERROR, e);
+			putLogger(Level.SEVERE, TextUtils.getFormattedMessage(//
+					Constants.FORWARD_ERROR, new Object[] {page}), e);
 
 			throw new Exception(e);
 

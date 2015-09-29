@@ -1,7 +1,11 @@
 <%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.Constants"%>
 
-<%int numPages = 10;%>
+<%
+	int numPages = 10;
+
+	int curr = (int) session.getAttribute(Constants.ATT_CURR_PAGE);
+%>
 
 <div class="container-fluid text-center">
 	<nav>
@@ -13,8 +17,10 @@
 			</li>
 			<%
 				for (int i = 1; i < numPages + 1; i++) {
-					out.print("<li><a href=\"/sc-caeb2/jsp/page_"
-						+ i + ".jsp\" id=\"page_" + i + "\">" + i + "</a></li>");
+					out.print("<li " + (i > curr ? "class=\"disabled\"" : "")
+							+ "><a href=\"/sc-caeb2/jsp/page_"
+							+ i + ".jsp\" id=\"page_" + i + "\""
+							+ ">" + i + "</a></li>");
 				}
 			%>
 			<li>
