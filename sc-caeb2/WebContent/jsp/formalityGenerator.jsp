@@ -1,13 +1,14 @@
 <%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.TextUtils"%>
-<%@ include file="header.jsp"%>
+<%@page import="com.caeb2.util.Constants"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setTitle(Constants.JSP_GEN_FORMALITY);
 %>
 
-<%@page import="com.caeb2.util.Constants"%>
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <script src="/sc-caeb2/js/jquery.print.js"></script>
 
@@ -73,9 +74,13 @@
 				<td colspan="2">
 					<div class="form-group text-center btn-footer">
 						<a href="<%=Constants.ACTION_HOME%>">
-							<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+							<button type="button" class="btn btn-default" id="backBtn">
+								<%=Constants.JSP_COMEBACK%>
+							</button>
 						</a>
-						<button type="submit" class="btn btn-primary" id="generateBtn">Generar</button>
+						<button type="submit" class="btn btn-primary" id="generateBtn">
+							<%=Constants.JSP_GENERATE%>
+						</button>
 					</div>
 				</td>
 			</tr>
@@ -88,7 +93,8 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+				<button type="button" class="close" data-dismiss="modal"
+						aria-label="<%=Constants.JSP_CLOSE%>">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<h4 class="modal-title" id="modalTitle"></h4>
@@ -168,8 +174,12 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalBtn">Cerrar</button>
-				<button type="button" class="btn btn-primary" id="printModalBtn">Imprimir</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalBtn">
+					<%=Constants.JSP_CLOSE%>
+				</button>
+				<button type="button" class="btn btn-primary" id="printModalBtn">
+					<%=Constants.JSP_PRINT%>
+				</button>
 			</div>
 		</div>
 	</div>

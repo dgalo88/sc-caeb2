@@ -97,6 +97,10 @@ public class Constants {
 	public static final String JSP_EXPORT = "Exportar";
 	public static final String JSP_ABOUT = "Acerca de";
 	public static final String JSP_FINISH = "Finalizar";
+	public static final String JSP_PRINT = "Imprimir";
+	public static final String JSP_CLOSE = "Cerrar";
+	public static final String JSP_COMEBACK = "Volver";
+	public static final String JSP_GENERATE = "Generar";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";

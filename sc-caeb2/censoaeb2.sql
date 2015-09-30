@@ -9,8 +9,8 @@ USE `censoaeb2`;
 --
 CREATE TABLE IF NOT EXISTS `vivienda` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `callePasaje` varchar(255) DEFAULT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
+  `callePasaje` varchar(255) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
   `telefono` varchar(100) DEFAULT NULL,
   `tipoEstructura` varchar(100) DEFAULT NULL,
   `materialParedes` varchar(255) DEFAULT NULL,
@@ -18,15 +18,15 @@ CREATE TABLE IF NOT EXISTS `vivienda` (
   `materialTecho` varchar(255) DEFAULT NULL,
   `tenencia` varchar(100) DEFAULT NULL,
   `ubicacionCocina` varchar(20) DEFAULT NULL,
-  `numeroCuartos` int(11) NOT NULL,
+  `numeroCuartos` int(11),
   `servicioAgua` varchar(100) DEFAULT NULL,
   `servicioSanitario` varchar(100) DEFAULT NULL,
-  `servicioElectrico` bit(1) NOT NULL,
+  `servicioElectrico` bit(1),
   `servicioRecoleccionBasura` varchar(255) DEFAULT NULL,
-  `seAjustaGrupoFamiliar` bit(1) NOT NULL,
+  `seAjustaGrupoFamiliar` bit(1),
   `tipoSector` varchar(20) DEFAULT NULL,
   `zonaRiesgo` varchar(20) DEFAULT NULL,
-  `posibilidadAmpliacion` bit(1) NOT NULL
+  `posibilidadAmpliacion` bit(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `hogar` (
   `utilizaPdval` varchar(20) DEFAULT NULL,
   `beneficioMercado` varchar(20) DEFAULT NULL,
   `miembroParticipaOrganizacionComunitaria` varchar(255) DEFAULT NULL,
-  `viviendaId` int(11) DEFAULT NULL,
+  `viviendaId` int(11) NOT NULL,
   FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -90,13 +90,13 @@ CREATE TABLE IF NOT EXISTS `empleo` (
 --
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `apellidos` varchar(100) DEFAULT NULL,
-  `nombres` varchar(100) DEFAULT NULL,
+  `apellidos` varchar(100) NOT NULL,
+  `nombres` varchar(100) NOT NULL,
   `parentescoJefeHogar` varchar(100) DEFAULT NULL,
   `sexo` char(1) NOT NULL,
-  `fechaNacimiento` datetime DEFAULT NULL,
-  `nacionalidad` varchar(100) DEFAULT NULL,
-  `cedula` varchar(100) DEFAULT NULL,
+  `fechaNacimiento` datetime NOT NULL,
+  `nacionalidad` varchar(100) NOT NULL,
+  `cedula` varchar(100) NOT NULL,
   `pasaporte` varchar(100) DEFAULT NULL,
   `correoElectronico` varchar(100) DEFAULT NULL,
   `celular` varchar(100) DEFAULT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `razonAsistenciaMedica` varchar(255) DEFAULT NULL,
   `fechaLlegada` datetime DEFAULT NULL,
   `empleoId` int(11) DEFAULT NULL,
-  `hogarId` int(11) DEFAULT NULL,
+  `hogarId` int(11) NOT NULL,
   FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`empleoId`) REFERENCES `empleo` (`id`)
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `encuesta` (
   `fechaEntrevista` datetime DEFAULT NULL,
   `nombreEmpadronador` varchar(100) DEFAULT NULL,
   `observaciones` LONGTEXT DEFAULT NULL,
-  `viviendaId` int(11) DEFAULT NULL,
+  `viviendaId` int(11) NOT NULL,
   FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;

@@ -3,7 +3,7 @@
 <%@page import="com.caeb2.util.Parameters"%>
 <%@page import="com.caeb2.util.Constants"%>
 
-<%@ include file="header.jsp"%>
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setTitle("Viviendas");
@@ -64,7 +64,7 @@
 	}
 </script>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="/sc-caeb2/css/dataTables.bootstrap.css"/>
 
@@ -79,13 +79,13 @@
 
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
-				<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+				<button type="button" class="btn btn-default" id="backBtn"><%=Constants.JSP_COMEBACK%></button>
 			</a>
 			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn">Nueva encuesta</button>
+				<button type="button" class="btn btn-primary" id="newPollBtn"><%=Constants.JSP_NEW_POLL%></button>
 			</a>
 		</div>
 	</div>
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

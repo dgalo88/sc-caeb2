@@ -21,21 +21,30 @@ public class InitDatabase {
 	private static final String COMMENT1 = "--";
 	private static final String COMMENT2 = "/*";
 
+	private static final String DB_CONFIG_FILE = "censoaeb2.sql";
+	private static final String DB_HOST = "localhost";
+
 	private static final String DB_ROOT_PASS = "123456";
+	private static final String DB_ROOT_USER = "root";
 	private static final String DB_NAME = "censoaeb2";
 	private static final String DB_PASS = "123456";
+
+	private static final String SUPER_ADMIN_NAME = "admin";
+	private static final String SUPER_ADMIN_PASS = "1234";
 
 	public InitDatabase() {
 
 		try {
 			createDatabaseUser(DB_NAME, DB_PASS);
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
 		try {
 			createDatabase(DB_NAME);
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -92,14 +101,14 @@ public class InitDatabase {
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
 		Connection connection = DriverManager.getConnection( //
-				url, "root", DB_ROOT_PASS);
+				url, DB_ROOT_USER, DB_ROOT_PASS);
 		Statement statement = connection.createStatement();
 
-		String sql = "CREATE USER " + user + "@localhost IDENTIFIED BY '" + pass + "'";
+		String sql = "CREATE USER " + user + "@" + DB_HOST + " IDENTIFIED BY '" + pass + "'";
 
 		statement.execute(sql);
 
-		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@localhost";
+		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + DB_HOST + "";
 
 		statement.execute(sql);
 
@@ -135,7 +144,8 @@ public class InitDatabase {
 
 		Connection connection = Controller.getConnection();
 
-		String sql = "INSERT INTO administrador (id, usuario, clave) VALUES ('1', 'admin', SHA1('1234'))";
+		String sql = "INSERT INTO administrador (usuario, clave) VALUES ('" //
+				+ SUPER_ADMIN_NAME + "', SHA1('" + SUPER_ADMIN_PASS + "'))";
 
 		Statement statement = connection.createStatement();
 		statement.execute(sql);
@@ -150,12 +160,9 @@ public class InitDatabase {
 		InitDatabase initDatabase = new InitDatabase();
 
 		try {
-			initDatabase.init("censoaeb2.sql");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			initDatabase.init(DB_CONFIG_FILE);
+		} catch (IOException | SQLException | ClassNotFoundException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 

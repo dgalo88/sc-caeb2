@@ -22,8 +22,8 @@ public class BoardsManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void loadAllDwellings( //
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void loadAllDwellings(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		String dwellingsJSON = loadAllDwellings();
 
@@ -53,7 +53,8 @@ public class BoardsManager {
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
 
-			String sql = "SELECT v.id, v.callePasaje, v.nombre, e.viviendaId FROM vivienda v, encuesta e WHERE v.id=e.viviendaId";
+			String sql = "SELECT v.id, v.callePasaje, v.nombre, e.viviendaId " //
+					+ " FROM vivienda v, encuesta e WHERE v.id=e.viviendaId";
 			statement.executeQuery(sql);
 
 			ResultSet resultSet = statement.getResultSet();
@@ -67,7 +68,8 @@ public class BoardsManager {
 
 				String crud = getButtonsCrud("Dwelling", dwellingId);
 
-				dwellings.add(new DwellingBasicData(dwellingId, dwellingName, dwellingAddress, dwellingPollNumber, crud));
+				dwellings.add(new DwellingBasicData(dwellingId, dwellingName, //
+						dwellingAddress, dwellingPollNumber, crud));
 
 			}
 
@@ -173,8 +175,8 @@ public class BoardsManager {
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
 
-			String sql = "SELECT p.id, p.apellidos, p.nombres, p.cedula, p.celular, p.parentescoJefeHogar FROM persona p " //
-					+ "WHERE p.hogarId = '" + String.valueOf(homeId) + "'";
+			String sql = "SELECT p.id, p.apellidos, p.nombres, p.cedula, p.celular, p.parentescoJefeHogar " //
+					+ " FROM persona p WHERE p.hogarId = '" + String.valueOf(homeId) + "'";
 			statement.executeQuery(sql);
 
 			ResultSet resultSet = statement.getResultSet();
@@ -190,7 +192,8 @@ public class BoardsManager {
 
 				String crud = getButtonsCrud("Person", personId);
 
-				homes.add(new PersonBasicDataMin(personId, lastnames, names, cedula, phone, relationship, crud));
+				homes.add(new PersonBasicDataMin(personId, lastnames, //
+						names, cedula, phone, relationship, crud));
 
 			}
 
@@ -221,17 +224,6 @@ public class BoardsManager {
 		}
 
 		return homes;
-
-	}
-
-	public static void main(String[] args) {
-
-		List<PersonBasicDataMin> homes = new ArrayList<PersonBasicDataMin>();
-
-		homes.add(new PersonBasicDataMin(1, "a", "a", "V-1", "0424565", "a", "a"));
-		homes.add(new PersonBasicDataMin(1, "b", "b", "V-2", "0416489", "b", "b"));
-
-		System.out.println(personsToJSON(homes));
 
 	}
 
@@ -309,8 +301,8 @@ public class BoardsManager {
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
 
-			String sql = "SELECT h.id, p.apellidos, p.nombres, h.numeroPersonas FROM hogar h, persona p " //
-					+ "WHERE h.id = '" + String.valueOf(dwellingId) //
+			String sql = "SELECT h.id, p.apellidos, p.nombres, h.numeroPersonas " //
+					+ " FROM hogar h, persona p WHERE h.id = '" + String.valueOf(dwellingId) //
 					+ "' AND h.id = p.hogarId AND p.parentescoJefeHogar like 'Jefe o jefa del Hogar'";
 			statement.executeQuery(sql);
 
