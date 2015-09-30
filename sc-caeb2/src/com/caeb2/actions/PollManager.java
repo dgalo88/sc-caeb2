@@ -18,18 +18,22 @@ import com.caeb2.util.Controller.PropFileRole;
 public class PollManager {
 
 	public static void setCurrentPage(HttpServletRequest request, //
-			HttpServletResponse response, int currPage) throws Exception {
+			int currPage) throws Exception {
 
 		HttpSession session = Startup.getSession();
 
-		session.setAttribute(Constants.ATT_CURR_PAGE, currPage);
+		int prevPage = (int) session.getAttribute(Constants.ATT_CURR_PAGE);
+
+		if (currPage > prevPage) {
+			session.setAttribute(Constants.ATT_CURR_PAGE, currPage);
+		}
 
 	}
 
 	public static void newPoll( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		PollManager.setCurrentPage(request, response, 1);
+		PollManager.setCurrentPage(request, 1);
 
 		Controller.forward(request, response, "page_1.jsp");
 

@@ -46,7 +46,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage1");
 
-		PollManager.setCurrentPage(request, response, 2);
+		PollManager.setCurrentPage(request, 2);
 
 		Controller.forward(request, response, "page_2.jsp");
 
@@ -114,7 +114,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage2");
 
-		PollManager.setCurrentPage(request, response, 3);
+		PollManager.setCurrentPage(request, 3);
 
 		Controller.forward(request, response, "page_3.jsp");
 
@@ -142,7 +142,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage3");
 
-		PollManager.setCurrentPage(request, response, 4);
+		PollManager.setCurrentPage(request, 4);
 
 		Controller.forward(request, response, "page_4.jsp");
 
@@ -196,7 +196,7 @@ public class Form {
 		long id=SaveDataBase.saveDwelling();
 		SaveDataBase.saveHome(id);
 
-		PollManager.setCurrentPage(request, response, 5);
+		PollManager.setCurrentPage(request, 5);
 
 		Controller.forward(request, response, "page_5.jsp");
 
@@ -245,7 +245,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage7");
 
-		PollManager.setCurrentPage(request, response, 8);
+		PollManager.setCurrentPage(request, 8);
 
 		Controller.forward(request, response, "page_8.jsp");
 
@@ -309,7 +309,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage8");
 
-		PollManager.setCurrentPage(request, response, 9);
+		PollManager.setCurrentPage(request, 9);
 
 		Controller.forward(request, response, "page_9.jsp");
 

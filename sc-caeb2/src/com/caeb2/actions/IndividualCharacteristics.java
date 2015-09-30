@@ -100,6 +100,8 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
+		PollManager.setCurrentPage(request, 6);
+
 		Controller.forward(request, response, "page_6.jsp");
 
 	}
@@ -241,7 +243,9 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		Controller.forward(request, response, "page_6.jsp");
+		PollManager.setCurrentPage(request, 7);
+
+		Controller.forward(request, response, "page_7.jsp");
 
 	}
 
@@ -395,6 +399,8 @@ public class IndividualCharacteristics {
 		}
 
 		prop.save();
+
+		PollManager.setCurrentPage(request, 10);
 
 		Controller.forward(request, response, "page_10.jsp");
 
