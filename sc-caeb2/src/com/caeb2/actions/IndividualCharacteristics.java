@@ -15,6 +15,7 @@ import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -99,6 +100,8 @@ public class IndividualCharacteristics {
 		prop.setProperty(Constants.SECTION5_ARRIVAL_DATE, arrivalDate);
 
 		prop.save();
+
+		PollManager.setCurrentPage(request, 6);
 
 		Controller.forward(request, response, "page_6.jsp");
 
@@ -241,7 +244,9 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		Controller.forward(request, response, "page_6.jsp");
+		PollManager.setCurrentPage(request, 7);
+
+		Controller.forward(request, response, "page_7.jsp");
 
 	}
 
@@ -396,6 +401,8 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
+		PollManager.setCurrentPage(request, 10);
+
 		Controller.forward(request, response, "page_10.jsp");
 
 	}
@@ -486,6 +493,10 @@ public class IndividualCharacteristics {
 
 		String[] missions = TextUtils.escaparArray( //
 				request.getParameterValues(Constants.SECTION10_MISSIONS));
+		
+		long v=SaveDataBase.saveDwelling();
+		long h=SaveDataBase.saveHome(v);
+		SaveDataBase.savePerson(h);
 
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 

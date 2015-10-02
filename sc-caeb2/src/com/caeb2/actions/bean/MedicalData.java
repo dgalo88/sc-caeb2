@@ -185,6 +185,8 @@ public class MedicalData {
 	}
 
 	public HashMap<String, String> getDiseases() {
+		if(diseases.containsKey("Otra ¿Cuál?"))
+			diseases.put("Otra ¿Cuál?", diseases_other);
 		return diseases;
 	}
 

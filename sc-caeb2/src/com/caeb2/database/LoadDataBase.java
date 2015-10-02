@@ -1,10 +1,43 @@
+//				apellidos
+//				nombres
+//				parentescoJefeHogar
+//				sexo
+//				fechaNacimiento
+//				nacionalidad
+//				cedula
+//				pasaporte
+//				correoElectronico
+//				celular
+//				celularOpcional
+//				esAnalfabeta
+//				asisteEstablecimientoEducacion
+//				respEstablecimientoEducacion
+//				recibeBeca
+//				cursoCapacitacion
+//				nivelEducativo
+//				ultimoGradoAprobado
+//				profesion
+//				ingresoMensual
+//				otrasHabilidades
+//				credito
+//				seEncuentraEmbarazada
+//				asisteControlMedicoParental
+//				lugarAsistenciaMedica
+//				razonAsistenciaMedica
+//				fechaLlegada
+//				empleoId
+//				hogarId
+//				cedulaTipo
+//				pasaporteTipo
 package com.caeb2.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.HashMap;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.caeb2.util.Constants;
@@ -256,5 +289,428 @@ public class LoadDataBase {
 			prop.setProperty(constants2,key);
 		}
 		
+	}
+	
+	public static boolean loadPerson(long personId){
+		
+		Connection connection = null;
+		PreparedStatement pstmt= null;
+		PreparedStatement pstmt2= null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		try {
+			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			connection = Controller.getConnection();			
+			String sql = "SELECT * FROM persona WHERE id= ?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, personId);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+            {
+				String lastnames = rs.getString("apellidos");
+				String names = rs.getString("nombres");
+				prop.setProperty(Constants.SECTION5_LASTNAMES, lastnames);
+				prop.setProperty(Constants.SECTION5_NAMES, names);
+				String cedType = rs.getString("cedulatipo");
+				String cedNumber = rs.getString("cedula");
+				if (!TextUtils.isEmptyOrNull(cedNumber)) {
+					prop.setProperty(Constants.SECTION5_CEDULA_TYPE, cedType);
+					prop.setProperty(Constants.SECTION5_CEDULA_NUM, Integer.valueOf(cedNumber));
+				}
+				String passportNumber = rs.getString("pasaporte");
+				if (!TextUtils.isEmptyOrNull(passportNumber)) {
+					prop.setProperty(Constants.SECTION5_PASSPORT, Integer.valueOf(passportNumber));
+				}
+				String sex = rs.getString("sexo");
+				prop.setProperty(Constants.SECTION5_SEX, sex);
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Date date = rs.getDate("fechaNacimiento");
+				String birthdate = sdf.format(date);
+				prop.setProperty(Constants.SECTION5_BIRTHDATE, birthdate);
+				String nationality = rs.getString("nacionalidad");
+				prop.setProperty(Constants.SECTION5_NATIONALITY, nationality);
+				HashMap<String, String> phoneMap=processPhone(rs.getString("celular"));
+				String phoneCod = phoneMap.get("param1");
+				String phoneNum = phoneMap.get("param2");
+				prop.setProperty(Constants.SECTION5_PHONE_COD, phoneCod);
+				prop.setProperty(Constants.SECTION5_PHONE_NUM, phoneNum);
+				String phoneNumOptional = rs.getString("celularOpcional");
+				if (!TextUtils.isEmptyOrNull(phoneNumOptional)) {
+					HashMap<String, String> phoneMapOptional=processPhone(phoneNumOptional);
+					prop.setProperty(Constants.SECTION5_PHONE_COD_OPTIONAL, phoneMapOptional.get("param1"));
+					prop.setProperty(Constants.SECTION5_PHONE_NUM_OPTIONAL, phoneMapOptional.get("param2"));
+				}
+				String email = rs.getString("correoElectronico");
+				prop.setProperty(Constants.SECTION5_EMAIL, email);
+				String relationship = rs.getString("parentescoJefeHogar");
+				prop.setProperty(Constants.SECTION5_RELATIONSHIP, relationship);
+				date = rs.getDate("fechaLlegada");
+				String arrivalDate = sdf.format(date);
+				prop.setProperty(Constants.SECTION5_ARRIVAL_DATE, arrivalDate);
+				
+				//........... PersonEducationData
+				
+				String illiterate = TextUtils.escaparString(rs.getByte("esAnalfabeta")==0 ? "No" : "Sí");
+				prop.setProperty(Constants.SECTION6_ILLITERATE, illiterate);
+				prop.setProperty(Constants.SECTION6_TRAINING_COURSE, rs.getByte("cursoCapacitacion"));	
+				String attendEducEstablishment = TextUtils.escaparString(rs.getByte("asisteEstablecimientoEducacion")==0 ? "No" : "Sí");
+				prop.setProperty(Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT, attendEducEstablishment);
+				String answerEducEstablishment = TextUtils.escaparString(rs.getString("respEstablecimientoEducacion"));
+				prop.setProperty(Constants.SECTION6_ANSWER_EDUC_ESTABLISHMENT, answerEducEstablishment);
+				String scholarshipDescription = TextUtils.escaparString(rs.getString("recibeBeca"));
+				prop.setProperty(Constants.SECTION6_SCHOLARSHIP_DESCRIPTION, scholarshipDescription);
+
+				ArrayList<String> educationalMisionsList=new ArrayList<String>();
+				ArrayList<String> otherMisionsList=new ArrayList<String>();
+				
+				sql = "SELECT * FROM mision WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				String missionType;
+				String missionName;
+				if(rs2.next())
+	            {
+					missionType=rs2.getString("tipo");
+					missionName=rs2.getString("mision");
+					if(missionType.equals("E")){
+						educationalMisionsList.add(missionName);
+					}else{
+						otherMisionsList.add(missionName);
+					}
+					
+	            }
+				String[] educationalMisions = (String[]) educationalMisionsList.toArray();
+				prop.setProperty(Constants.SECTION6_EDUCATIONAL_MISIONS, educationalMisions);
+				
+				String[] otherMisions = (String[]) otherMisionsList.toArray();
+				prop.setProperty(Constants.SECTION10_MISSIONS, otherMisions);
+				
+				//........... Empleo
+				
+				String degree_approved_text=TextUtils.escaparString(rs.getString("nivelEducativo"));
+				String degree_approved_level=TextUtils.escaparString(rs.getInt("ultimoGradoAprobado")+"");
+				String profession=TextUtils.escaparString(rs.getString("profesion"));
+				String skills_activity=TextUtils.escaparString(rs.getString("otrasHabilidades"));
+				String skills_activity_option = "";
+				
+				if(!skills_activity.equals("No")){
+					skills_activity_option=skills_activity;
+					skills_activity=TextUtils.escaparString("Sí ¿Cuál?");	
+				}
+				
+				
+				pstmt2.close();
+				rs2.close();
+				
+				sql = "SELECT * FROM empleo WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				
+				String you_are = "";
+				String occupation = "";
+				String occupation_value = "";
+				String work_performed = "";
+				String main_job="";
+				String body_works="";
+				
+				if(rs2.next())
+	            {
+					you_are=TextUtils.escaparString(rs.getString("situacion"));
+					occupation=TextUtils.escaparString(rs.getString("tipo"));
+					occupation_value=TextUtils.escaparString(rs.getString("tipo_seleccion"));
+					work_performed=TextUtils.escaparString(rs.getString("lugarTrabajo"));
+					main_job=TextUtils.escaparString(rs.getString("oficio"));
+					body_works=TextUtils.escaparString(rs.getString("tipoNegocio"));
+					
+	            }
+				
+				String monthly_income=TextUtils.escaparString(rs.getString("ingresoMensual"));
+				String received_credit=TextUtils.escaparString(rs.getString("credito"));
+				String received_credit_value = "";
+				String received_credit_value_other = "";
+				
+				if(!received_credit.equals("No")){
+					received_credit_value=received_credit;
+					received_credit="Sí ¿Cuál instituto lo otorgo?";	
+					received_credit_value_other=TextUtils.escaparString(rs.getString("creditoOtros"));
+				}
+
+				prop.setProperty(Constants.SECTION7_DEGREE_APPROVED_LEVEL,degree_approved_text);
+				prop.setProperty(Constants.SECTION7_DEGREE_APPROVED_TEXT,degree_approved_level);
+				prop.setProperty(Constants.SECTION7_YOU_ARE,you_are);
+				prop.setProperty(Constants.SECTION7_OCCUPATION,occupation);
+				prop.setProperty(Constants.SECTION7_OCCUPATION_VALUE,occupation_value);
+				prop.setProperty(Constants.SECTION7_WORK_PERFORMED,work_performed);
+				prop.setProperty(Constants.SECTION7_SKILLS_ACTIVITY,skills_activity);
+				prop.setProperty(Constants.SECTION7_SKILLS_ACTIVITY_OPTION,skills_activity_option);
+
+				prop.setProperty(Constants.SECTION7_PROFESSION,profession);
+				prop.setProperty(Constants.SECTION7_MAIN_JOB,main_job);
+				prop.setProperty(Constants.SECTION7_BODY_WORKS,body_works);
+				prop.setProperty(Constants.SECTION7_MONTHLY_INCOME,monthly_income);
+				prop.setProperty(Constants.SECTION7_RECEIVED_CREDIT,received_credit);
+				prop.setProperty(Constants.SECTION7_RECEIVED_CREDIT_VALUE,received_credit_value);
+				prop.setProperty(Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER,received_credit_value_other);
+				
+				//........... Salu
+				
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM discapacidad WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				ArrayList<String> disabilitiesList=new ArrayList<String>();
+				if(rs2.next())
+	            {
+					disabilitiesList.add(rs2.getString("descripcion"));
+					
+	            }
+				
+				String disabilities[] = TextUtils.escaparArray((String[]) disabilitiesList.toArray());
+				
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM sistemaprevencionsocial WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				ArrayList<String> security_systemsList=new ArrayList<String>();
+				if(rs2.next())
+	            {
+					security_systemsList.add(rs2.getString("descripcion"));
+					
+	            }
+				
+				String security_systems[] = TextUtils.escaparArray((String[]) security_systemsList.toArray());
+				
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM enfermedadPadecida WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				ArrayList<String> diseasesList=new ArrayList<String>();
+				String diseasesText;
+				String diseases_other="";
+				if(rs2.next())
+	            {
+					diseasesText=rs2.getString("descripcion");
+					diseasesList.add(diseasesText);
+					if(diseasesText.equals("Otra ¿Cuál?")){
+						diseases_other=TextUtils.escaparString(rs2.getString("valor"));
+					}
+				}
+					
+				String diseases[] =TextUtils.escaparArray((String[]) diseasesList.toArray());
+					
+					
+				String medical_assistance =TextUtils.escaparString(rs.getString("lugarAsistenciaMedica"));
+				String medical_assistance_has =TextUtils.escaparString(rs.getString("razonAsistenciaMedica"));
+				
+				
+				String medical_equipment_required = "";
+				String medical_equipment_which ="";
+				String medical_equipment_has="";
+				String medical_equipment_other="";
+
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM aparatomedico WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				if(rs2.next())
+	            {
+					medical_equipment_required=rs2.getString("nombre");
+					if(!medical_equipment_required.equals("No")){
+						medical_equipment_which=medical_equipment_required;
+						if(medical_equipment_which.equals("Otra ¿Cuál?")){
+							medical_equipment_other=rs2.getString("descripcion");
+						}
+						medical_equipment_required="Sí";
+						medical_equipment_has=TextUtils.escaparString(rs.getByte("loTiene")==0 ? "No" : "Sí");
+					}				
+					
+				}
+				
+				String pregnant =TextUtils.escaparString(rs.getByte("seEncuentraEmbarazada")==0 ? "No" : "Sí");
+				String prenatal =TextUtils.escaparString(rs.getByte("asisteControlMedicoParental")==0 ? "No" : "Sí");
+
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM vacuna WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				HashMap<String, String> vaccines=new HashMap<String, String>();
+				if(rs2.next())
+	            {
+					vaccines.put(rs2.getString("nombre"), rs.getInt("numeroDosis")+"");
+	
+				}
+				
+				String vaccines_BCG =vaccines.get("BCG");
+				String vaccines_Triple =vaccines.get("Triple");
+				String vaccines_Trivalente =vaccines.get("Trivalente");
+				String vaccines_Polio =vaccines.get("Polio");
+				String vaccines_HepatitisA =vaccines.get("HepatitisA");
+				String vaccines_HepatitisB =vaccines.get("HepatitisB");
+				String vaccines_Meningitis =vaccines.get("Meningitis");
+				String vaccines_Sarampion =vaccines.get("Sarampion");
+
+				prop.setProperty(Constants.SECTION8_DISABILITIES,disabilities);
+				prop.setProperty(Constants.SECTION8_SECURITY_SYSTEMS,security_systems);
+				prop.setProperty(Constants.SECTION8_MEDICAL_ASSISTANCE,medical_assistance);
+				prop.setProperty(Constants.SECTION8_MEDICAL_EQUIPMENT_REQUIRED,medical_equipment_required);
+				prop.setProperty(Constants.SECTION8_MEDICAL_EQUIPMENT_WHICH,medical_equipment_which);
+				prop.setProperty(Constants.SECTION8_MEDICAL_EQUIPMENT_HAS,medical_equipment_has);
+				prop.setProperty(Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER,medical_equipment_other);
+				prop.setProperty(Constants.SECTION8_MEDICAL_ASSISTANCE_HAS,medical_assistance_has);
+
+				prop.setProperty(Constants.SECTION8_PREGNANT,pregnant);
+				prop.setProperty(Constants.SECTION8_DISEASES,diseases);
+				prop.setProperty(Constants.SECTION8_DISEASES_OTHER,diseases_other);
+				prop.setProperty(Constants.SECTION8_VACCINES_BCG,vaccines_BCG);
+				prop.setProperty(Constants.SECTION8_VACCINES_TRIPLE,vaccines_Triple);
+				prop.setProperty(Constants.SECTION8_VACCINES_TRIVALENTE,vaccines_Trivalente);
+				prop.setProperty(Constants.SECTION8_VACCINES_POLIO,vaccines_Polio);
+				prop.setProperty(Constants.SECTION8_VACCINES_HEPATITISA,vaccines_HepatitisA);
+				prop.setProperty(Constants.SECTION8_VACCINES_HEPATITISB,vaccines_HepatitisB);
+				prop.setProperty(Constants.SECTION8_VACCINES_MENINGITIS,vaccines_Meningitis);
+				prop.setProperty(Constants.SECTION8_VACCINES_SARAMPION,vaccines_Sarampion);
+				prop.setProperty(Constants.SECTION8_PRENATAL,prenatal);
+				
+				
+				
+				
+				
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM habilidadartisticamanual WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				ArrayList<String> artisticAbilitiesN=new ArrayList<String>();
+				ArrayList<String> artisticAbilitiesE=new ArrayList<String>();
+				ArrayList<String> artisticAbilitiesI=new ArrayList<String>();
+				String participation;
+				if(rs2.next())
+	            {
+					participation=rs2.getString("participacion");
+					if(participation.equals("E")){
+						artisticAbilitiesE.add(rs2.getString("clave"));
+						if (rs2.getString("clave").equals(Constants.OTHER)) {
+							prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER,rs2.getString("valor"));
+						}
+					}else{
+						artisticAbilitiesN.add(rs2.getString("clave"));
+						if (rs2.getString("clave").equals(Constants.OTHER)) {
+							prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER,rs2.getString("valor"));
+						}
+						if(participation.equals("I")){
+							artisticAbilitiesI.add("true");
+						}else{
+							artisticAbilitiesI.add("false");
+						}
+					}
+	
+				}
+
+				String[] artisticAbilities = TextUtils.escaparArray((String[]) artisticAbilitiesN.toArray());
+				String[] artisticAbilitiesInstructor = TextUtils.escaparArray((String[]) artisticAbilitiesI.toArray());
+				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY, artisticAbilities);
+				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, artisticAbilitiesInstructor);
+				String[] artisticAbilitiesStudent = TextUtils.escaparArray((String[]) artisticAbilitiesE.toArray());
+				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, artisticAbilitiesStudent);
+
+
+				
+				
+				
+				pstmt2.close();
+				rs2.close();
+				sql = "SELECT * FROM deporte WHERE personaId = ?";
+				pstmt2 = connection.prepareStatement(sql);
+				pstmt2.setLong(1, personId);
+				rs2=pstmt.executeQuery();
+				ArrayList<String> athleticAbilitiesN=new ArrayList<String>();
+				ArrayList<String> athleticAbilitiesE=new ArrayList<String>();
+				ArrayList<String> athleticAbilitiesI=new ArrayList<String>();
+				if(rs2.next())
+	            {
+					participation=rs2.getString("participacion");
+					if(participation.equals("E")){
+						athleticAbilitiesE.add(rs2.getString("clave"));
+						if (rs2.getString("clave").equals(Constants.OTHER)) {
+							prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER,rs2.getString("valor"));
+						}
+					}else{
+						athleticAbilitiesN.add(rs2.getString("clave"));
+						if (rs2.getString("clave").equals(Constants.OTHER)) {
+							prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER,rs2.getString("valor"));
+						}
+						if(participation.equals("I")){
+							athleticAbilitiesI.add("true");
+						}else{
+							athleticAbilitiesI.add("false");
+						}
+					}
+	
+				}
+
+				String[] athleticAbilities = TextUtils.escaparArray((String[]) athleticAbilitiesN.toArray());
+				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY, athleticAbilities);
+				String[] athleticAbilitiesInstructor = TextUtils.escaparArray((String[]) athleticAbilitiesI.toArray());
+				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, athleticAbilitiesInstructor);
+				String[] athleticAbilitiesStudent = TextUtils.escaparArray((String[]) athleticAbilitiesE.toArray());
+				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, athleticAbilitiesStudent);
+				
+				prop.save();
+            }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				rs2.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt2.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return false;
+	}
+	
+	private static HashMap<String, String> processPhone(String phone){
+		String phoneArray[]=phone.split("-");
+		HashMap<String, String> mapPhone=new HashMap<String, String>();
+		int i=1;
+		for (String string : phoneArray) {
+			mapPhone.put("param"+i,string);
+			i++;
+		}
+		return mapPhone;
 	}
 }

@@ -285,25 +285,15 @@ public class SaveDataBase {
 	
 	public static Long savePerson(long homeId) throws ParseException{
 		
-//		IdentifyingStructure identifyingStructure= new IdentifyingStructure();
-//		HousingData housingData= new HousingData();
-		
 		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
 		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
-		
-//		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, sexo, "
-//				+ "fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
-//				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
-//				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
-//				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, empleoId, hogarId) "
-//				+ "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
 				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
 				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
 				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
 				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
-				+ "razonAsistenciaMedica, fechaLlegada, empleoId, hogarId) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "razonAsistenciaMedica, fechaLlegada, empleoId, hogarId, cedulaTipo, pasaporteTipo, creditoOtros) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -323,11 +313,11 @@ public class SaveDataBase {
 			
 			pstmt.setDate(5,new java.sql.Date(date.getTime()));
 			pstmt.setString(6,personBasicData.getNationality());
-			pstmt.setString(7,personBasicData.getCedula()+"");
-			pstmt.setString(8,personBasicData.getPassport()+"");
+			pstmt.setString(7,personBasicData.getCedula().getNumber()+"");
+			pstmt.setString(8,personBasicData.getPassport().getNumber()+"");
 			pstmt.setString(9,personBasicData.getEmail());
-			pstmt.setString(10,personBasicData.getPhoneCod()+""+personBasicData.getPhoneNum());
-			pstmt.setString(11,personBasicData.getPhoneCodOptional()+""+personBasicData.getPhoneNumOptional());
+			pstmt.setString(10,personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
+			pstmt.setString(11,personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
 			
 			pstmt.setByte(12,parseByte(personEducationData.isIlliterate()));
 			pstmt.setByte(13,parseByte(personEducationData.hasAttendEducEstablishment()));
@@ -342,7 +332,7 @@ public class SaveDataBase {
 			pstmt.setString(19, educationLevel.getProfession());
 			pstmt.setString(20,educationLevel.getMonthly_income());
 			pstmt.setString(21,educationLevel.getSkills_activity_option());
-			pstmt.setString(22,educationLevel.getReceived_credit_value_other());
+			pstmt.setString(22,educationLevel.getReceived_credit_value());
 			
 			MedicalData medicalData=new MedicalData();
 			pstmt.setByte(23,parseByte(medicalData.getPregnant()));
@@ -373,6 +363,11 @@ public class SaveDataBase {
             pstmt.setDate(27,new java.sql.Date(date.getTime()));
             pstmt.setLong(28, employee_id);
             pstmt.setLong(29, homeId);
+            
+            pstmt.setString(30,personBasicData.getCedula().getType()+"");
+			pstmt.setString(31,personBasicData.getPassport().getType()+"");
+			pstmt.setString(32,educationLevel.getReceived_credit_value_other());
+            
             pstmt.executeUpdate();
 			rs = pstmt.getGeneratedKeys();
 			long last_inserted_id=0;
@@ -459,6 +454,14 @@ public class SaveDataBase {
 			String sqlMissions = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlMissions);
 			processIndividualMap(missions, pstmt2, last_inserted_id, "O");
+			pstmt2.executeBatch();
+			
+			//..........Procesar enfermedad Padecida
+			pstmt2.close();
+			HashMap<String, String> diseases = medicalData.getDiseases();
+			String sqlDiseases = "INSERT INTO enfermedadPadecida (id, descripcion,valor,personaId) VALUES (NULL,?,?,?)";
+			pstmt2 = connection.prepareStatement(sqlDiseases);
+			processIndividualMap(diseases, pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
 			return last_inserted_id;
