@@ -1,10 +1,12 @@
 package com.caeb2.actions;
 
+import java.io.IOException;
 import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.caeb2.database.SaveDataBase;
@@ -29,7 +31,7 @@ public class Form {
 	//	}
 
 	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage1");
+		Controller.getLogger().info("+ saveProcessPage1");
 
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 		String street =request.getParameter(Constants.SECTION1_STREET);
@@ -42,18 +44,16 @@ public class Form {
 
 		prop.save();
 
-		System.out.println("- saveProcessPage1");
+		Controller.getLogger().info("- saveProcessPage1");
 
-		try {
-			Controller.forward(request, response, "page_2.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
-		}
+		PollManager.setCurrentPage(request, 2);
+
+		Controller.forward(request, response, "page_2.jsp");
+
 	}
 
 	public static void saveProcessPage2(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage2");
+		Controller.getLogger().info("+ saveProcessPage2");
 
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
 
@@ -112,32 +112,44 @@ public class Form {
 
 		prop.save();
 
-		System.out.println("- saveProcessPage2");
+		Controller.getLogger().info("- saveProcessPage2");
 
-		try {
-			Controller.forward(request, response, "page_3.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
-		}
+		PollManager.setCurrentPage(request, 3);
+
+		Controller.forward(request, response, "page_3.jsp");
+
 	}
 
 	public static void saveProcessPage3(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage3");
 
+		Controller.getLogger().info("+ saveProcessPage3");
 
-		System.out.println("- saveProcessPage3");
+		String observations = request.getParameter(Constants.SECTION3_OBSERVATIONS);
+
+		PropertiesConfiguration prop = null;
 
 		try {
-			Controller.forward(request, response, "page_4.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			return;
 		}
+
+		prop.setProperty(Constants.SECTION3_OBSERVATIONS, observations);
+
+		prop.save();
+
+		Controller.getLogger().info("- saveProcessPage3");
+
+		PollManager.setCurrentPage(request, 4);
+
+		Controller.forward(request, response, "page_4.jsp");
+
 	}
 
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage4");
+		Controller.getLogger().info("+ saveProcessPage4");
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
 
 		//		String section4_home=TextUtils.escaparString(request.getParameter(Constants.SECTION4_HOME));
@@ -179,21 +191,19 @@ public class Form {
 
 		prop.save();
 
-		System.out.println("- saveProcessPage4");
+		Controller.getLogger().info("- saveProcessPage4");
 
 		long id=SaveDataBase.saveDwelling();
 		SaveDataBase.saveHome(id);
 
-		try {
-			Controller.forward(request, response, "page_5.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
-		}
+		PollManager.setCurrentPage(request, 5);
+
+		Controller.forward(request, response, "page_5.jsp");
+
 	}
 
 	public static void saveProcessPage7(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage7");
+		Controller.getLogger().info("+ saveProcessPage7");
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
 
 
@@ -233,18 +243,16 @@ public class Form {
 
 		prop.save();
 
-		System.out.println("- saveProcessPage7");
+		Controller.getLogger().info("- saveProcessPage7");
 
-		try {
-			Controller.forward(request, response, "page_8.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
-		}
+		PollManager.setCurrentPage(request, 8);
+
+		Controller.forward(request, response, "page_8.jsp");
+
 	}
 
 	public static void saveProcessPage8(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("+ saveProcessPage8");
+		Controller.getLogger().info("+ saveProcessPage8");
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
 
 
@@ -299,14 +307,12 @@ public class Form {
 
 		prop.save();
 
-		System.out.println("- saveProcessPage8");
+		Controller.getLogger().info("- saveProcessPage8");
 
-		try {
-			Controller.forward(request, response, "page_8.jsp");
-		} catch (Exception e) {
-			Controller.putLogger(Level.SEVERE, Constants.ERROR, e);
-			throw new Exception(e);
-		}
+		PollManager.setCurrentPage(request, 9);
+
+		Controller.forward(request, response, "page_9.jsp");
+
 	}
 
 }

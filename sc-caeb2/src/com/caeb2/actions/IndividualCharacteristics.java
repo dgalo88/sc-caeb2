@@ -103,6 +103,8 @@ public class IndividualCharacteristics {
 
 		PollManager.setCurrentPage(request, 6);
 
+		PollManager.setCurrentPage(request, 6);
+
 		Controller.forward(request, response, "page_6.jsp");
 
 	}

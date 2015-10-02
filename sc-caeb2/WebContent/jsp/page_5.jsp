@@ -1,6 +1,7 @@
+<%@include file="header.jsp"%>
+
 <%@page import="com.caeb2.actions.bean.PersonBasicData"%>
 <%@page import="com.caeb2.actions.IndividualCharacteristics"%>
-<%@ include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(5);

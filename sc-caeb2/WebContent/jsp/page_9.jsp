@@ -1,6 +1,6 @@
-<%@page import="com.caeb2.actions.IndividualCharacteristics"%>
 <%@page import="com.caeb2.util.TextUtils"%>
 <%@page import="com.caeb2.actions.bean.Ability"%>
+<%@page import="com.caeb2.actions.IndividualCharacteristics"%>
 
 <%@include file="header.jsp"%>
 
@@ -25,7 +25,8 @@
 								<td class="td-left-control" width="35%">
 									<label>¿Qué habilidad artística o manual domina?</label>
 								</td>
-								<td class="td-right-control hidden" width="65%" id="artisticInstructorQuestion">
+								<td class="td-right-control <%=(ability.getArtisticAbilitiesInstructor().isEmpty()) ? "hidden": ""%>"
+									width="65%" id="artisticInstructorQuestion">
 									<label>¿Le gustaría participar como instructor o facilitador en cursos de capacitación?</label>
 								</td>
 							</tr>
@@ -72,8 +73,9 @@
 										</div>
 									</td>
 									<td class="td-right-control withoutMargin">
-										<div class="radio hidden" id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
-																		+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>_opt">
+										<div class="radio <%=(ability.getArtisticAbilitiesInstructor().get(artisticAbility) == null) ? "hidden": ""%>"
+												id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
+													+ TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>_opt">
 											<label>
 												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(artisticAbility)%>"
 														id="<%=Constants.SECTION9_ARTISTIC_ABILITY + "_"
@@ -156,7 +158,8 @@
 								<td class="td-left-control" width="35%">
 									<label>¿Cuál de los siguientes deportes practica?</label>
 								</td>
-								<td class="td-right-control hidden" width="65%" id="athleticInstructorQuestion">
+								<td class="td-right-control <%=(ability.getArtisticAbilitiesInstructor().isEmpty()) ? "hidden": ""%>"
+									width="65%" id="athleticInstructorQuestion">
 									<label>¿Le gustaría participar como instructor o facilitador en cursos de capacitación?</label>
 								</td>
 							</tr>
@@ -203,8 +206,9 @@
 										</div>
 									</td>
 									<td class="td-right-control withoutMargin">
-										<div class="radio hidden" id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
-																		+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>_opt">
+										<div class="radio <%=(ability.getAthleticAbilitiesInstructor().get(athleticAbility) == null) ? "hidden": ""%>"
+												id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"
+													+ TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>_opt">
 											<label>
 												<input type="radio" name="<%=TextUtils.replaceRareSymbolsAndBlankSpaces(athleticAbility)%>"
 														id="<%=Constants.SECTION9_ATHLETIC_ABILITY + "_"

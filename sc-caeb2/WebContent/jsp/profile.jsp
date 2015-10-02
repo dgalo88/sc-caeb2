@@ -1,6 +1,7 @@
 <%@page import="com.caeb2.actions.bean.AdminProfile"%>
 <%@page import="com.caeb2.util.Constants"%>
-<%@ include file="header.jsp"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setTitle("Perfil");
@@ -8,7 +9,7 @@
 	AdminProfile adminProfile = (AdminProfile) request.getAttribute(Constants.ATT_ADMIN_PROFILE);
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<div class="container">
@@ -56,20 +57,11 @@
 						<div class="form-group">
 							<label for="celular" class="col-sm-4 control-label">Teléfono celular</label>
 							<div class="col-sm-8">
-								<div class="form-inline" id="celular">
-									<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD%>"
-											name="<%=Constants.SECTION5_PHONE_COD%>">
-										<option <%if (adminProfile.getPhoneCod() == 0416) {%> selected <%}%>>0416</option>
-										<option <%if (adminProfile.getPhoneCod() == 0426) {%> selected <%}%>>0426</option>
-										<option <%if (adminProfile.getPhoneCod() == 0416) {%> selected <%}%>>0414</option>
-										<option <%if (adminProfile.getPhoneCod() == 0426) {%> selected <%}%>>0424</option>
-										<option <%if (adminProfile.getPhoneCod() == 0412) {%> selected <%}%>>0412</option>
-									</select>
-									<input type="number" class="form-control"
-											id="<%=Constants.SECTION5_PHONE_NUM%>"
-											name="<%=Constants.SECTION5_PHONE_NUM%>"
-											value="<%=adminProfile.getPhoneNum()%>">
-								</div>
+								<input type="number" class="form-control"
+										id="cedula" name="celular"
+										<%if (adminProfile.getPhoneNum() != 0) {%>
+											value="<%=adminProfile.getPhoneCod() + "-"
+														+ adminProfile.getPhoneNum()%>" <%}%> disabled>
 							</div>
 						</div>
 					</td>
@@ -81,7 +73,7 @@
 							<div class="col-sm-8">
 								<input type="email" class="form-control"
 										id="<%=Constants.SECTION5_EMAIL%>" name="<%=Constants.SECTION5_EMAIL%>"
-										value="<%=adminProfile.getEmail()%>">
+										value="<%=adminProfile.getEmail()%>" disabled>
 							</div>
 						</div>
 					</td>
@@ -89,21 +81,11 @@
 						<div class="form-group">
 							<label for="celularOpcional" class="col-sm-4 control-label">Teléfono celular (opcional)</label>
 							<div class="col-sm-8">
-								<div class="form-inline" id="celularOpcional">
-									<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>"
-											name="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>">
-										<option <%if (adminProfile.getPhoneCodOptional() == 0416) {%> selected <%}%>>0416</option>
-										<option <%if (adminProfile.getPhoneCodOptional() == 0426) {%> selected <%}%>>0426</option>
-										<option <%if (adminProfile.getPhoneCodOptional() == 0416) {%> selected <%}%>>0414</option>
-										<option <%if (adminProfile.getPhoneCodOptional() == 0426) {%> selected <%}%>>0424</option>
-										<option <%if (adminProfile.getPhoneCodOptional() == 0412) {%> selected <%}%>>0412</option>
-									</select>
-									<input type="number" class="form-control"
-											id="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
-											name="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
-											<%if (adminProfile.getPhoneNumOptional() != 0) {%>
-												value="<%=adminProfile.getPhoneNumOptional()%>" <%}%>>
-								</div>
+								<input type="number" class="form-control"
+										id="cedula" name="celular"
+										<%if (adminProfile.getPhoneNumOptional() != 0) {%>
+											value="<%=adminProfile.getPhoneCodOptional() + "-"
+														+ adminProfile.getPhoneNumOptional()%>" <%}%> disabled>
 							</div>
 						</div>
 					</td>
@@ -146,9 +128,13 @@
 
 			<div class="form-group text-center btn-footer">
 				<a href="<%=Constants.ACTION_HOME%>">
-					<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+					<button type="button" class="btn btn-default" id="backBtn">
+						<%=Constants.JSP_COMEBACK%>
+					</button>
 				</a>
-				<button type="submit" class="btn btn-primary" id="save" name="save"><%=Constants.JSP_SAVE%></button>
+				<button type="submit" class="btn btn-primary" id="save" name="save">
+					<%=Constants.JSP_SAVE%>
+				</button>
 			</div>
 
 		</form>

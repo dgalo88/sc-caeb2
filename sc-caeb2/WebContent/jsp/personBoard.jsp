@@ -78,10 +78,14 @@
 
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
-				<button type="button" class="btn btn-default" id="backBtn">Volver</button>
+				<button type="button" class="btn btn-default" id="backBtn">
+					<%=Constants.JSP_COMEBACK%>
+				</button>
 			</a>
 			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn">Nueva encuesta</button>
+				<button type="button" class="btn btn-primary" id="newPollBtn">
+					<%=Constants.JSP_NEW_POLL%>
+				</button>
 			</a>
 		</div>
 	</div>

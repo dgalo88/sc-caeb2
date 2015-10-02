@@ -41,6 +41,7 @@ public class Constants {
 	public static final String ATT_PAGE_NUMBER = "pageNumber";
 	public static final String ATT_USER = "user";
 	public static final String ATT_ADMIN_PROFILE = "adminProfile";
+	public static final String ATT_CURR_PAGE = "currPage";
 
 	// Messages
 	public static final String FORWARD = "[REENVIAR] ";
@@ -69,6 +70,7 @@ public class Constants {
 	public static final String EMPTY_CEDULA_ERROR = "La cédula no puede estar vacía.";
 	public static final String NO_DATA_ERROR = "No existen datos para su solicitud.";
 	public static final String LOAD_DATA_ERROR = "No se pueden cargar los datos.";
+	public static final String FORWARD_ERROR = "Error redirigiendo a la página \"{0}\".";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -95,6 +97,10 @@ public class Constants {
 	public static final String JSP_EXPORT = "Exportar";
 	public static final String JSP_ABOUT = "Acerca de";
 	public static final String JSP_FINISH = "Finalizar";
+	public static final String JSP_PRINT = "Imprimir";
+	public static final String JSP_CLOSE = "Cerrar";
+	public static final String JSP_COMEBACK = "Volver";
+	public static final String JSP_GENERATE = "Generar";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";
@@ -199,6 +205,9 @@ public class Constants {
 	public static final String SECTION2_PART_OTHER_RESPONSE = "section2_part_other_response";
 	public static final String SECTION2_REQUIRED_OTHER_RESPONSE = "section2_required_other_response";
 	public static final String SECTION2_WORK_NEEDS_OTHER_RESPONSE = "section2_work_needs_other_response";
+
+	// Properties and ids Section 3
+	public static final String SECTION3_OBSERVATIONS = "section4_observations";
 
 	// Properties and ids Section 4
 	public static final String SECTION4_HOME = "section4_home";

@@ -24,13 +24,15 @@ public class ActionManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void index(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 		Controller.forward(request, response, "index.jsp");
 	}
 
 	//--------------------------------------------------------------------------------
 
-	public static void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void login(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		Connection connection = null;
 		Statement statement = null;
@@ -54,6 +56,9 @@ public class ActionManager {
 						Constants.USER_LOGIN, new Object[] { user }));
 
 				session.setAttribute(Constants.ATT_USER, user);
+				session.setAttribute(Constants.ATT_CURR_PAGE, 0);
+
+				Startup.setSession(session);
 
 				Controller.forward(request, response, "main.jsp");
 
@@ -95,11 +100,10 @@ public class ActionManager {
 
 	}
 
-	public static void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	//--------------------------------------------------------------------------------
 
-		HttpSession session = request.getSession();
-		session.removeAttribute(Constants.ATT_USER);
-		session.invalidate();
+	public static void logout(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		Startup.invalidateSession();
 
@@ -112,106 +116,87 @@ public class ActionManager {
 	public static void loadFormalityData( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		String cedulaType = request.getParameter(Constants.SECTION5_CEDULA_TYPE);
+		String cedulaNum = request.getParameter(Constants.SECTION5_CEDULA_NUM);
+
+		Connection connection = Controller.getConnection();
+		Statement statement = connection.createStatement();
+
+		if (TextUtils.isEmptyOrNull(cedulaType) || TextUtils.isEmptyOrNull(cedulaNum)) {
+
+			statement.close();
+			connection.close();
+
+			Controller.sendErrorResponse(response, Constants.EMPTY_CEDULA_ERROR);
+
+			return;
+
+		}
+
+		String cedula = cedulaType + cedulaNum;
+
+		String sql = "SELECT apellidos, nombres, sexo, hogarId, nacionalidad " //
+				+ " FROM persona WHERE cedula='" + cedula + "'";
+
+		statement.executeQuery(sql);
+
+		ResultSet resultSet = statement.getResultSet();
+
+		if (!resultSet.first()) {
+
+			resultSet.close();
+			statement.close();
+			connection.close();
+
+			Controller.sendErrorResponse(response, Constants.READING_DATA_ERROR);
+
+			return;
+
+		}
+
+		String lastnames = resultSet.getString(1);
+		String names = resultSet.getString(2);
+		String sex = resultSet.getString(3);
+		String hogarId = resultSet.getString(4);
+		String nationality = resultSet.getString(5);
+
+		resultSet.close();
+
+		//		sql = "SELECT v.direccion FROM vivienda v WHERE v.id IN " //
+		//				+ "(SELECT h.viviendaId FROM hogar h WHERE h.id='" + hogarId + "')";
+		sql = "SELECT v.callePasaje, v.nombre FROM hogar h, vivienda v WHERE h.id='" //
+				+ hogarId + "' AND h.viviendaId=v.id";
+
+		resultSet = statement.getResultSet();
+
+		if (!resultSet.first()) {
+
+			resultSet.close();
+			statement.close();
+			connection.close();
+
+			Controller.sendErrorResponse(response, Constants.READING_DATA_ERROR);
+
+			return;
+
+		}
+
+		String street = resultSet.getString(1);
+		String houseName = resultSet.getString(2);
+
+		String address = street + (TextUtils.isEmptyOrNull(houseName) ? //
+				"" : ", Casa " + houseName);
+
+		FormalityData formalityData = new FormalityData(lastnames, names, sex, address, nationality);
+
 		Gson gson = new Gson();
-		FormalityData formalityData = new FormalityData("Perez", "Pedro", "M", "Casa 2-22", "Venezolano");
 		String jsonResponse = gson.toJson(formalityData);
 
 		Controller.sendTextResponse(response, jsonResponse);
 
-		return;
-
-		//		String cedulaType = request.getParameter(Constants.SECTION5_CEDULA_TYPE);
-		//		String cedulaNum = request.getParameter(Constants.SECTION5_CEDULA_NUM);
-		//
-		//		Connection connection = Controller.getConnection();
-		//		Statement statement = connection.createStatement();
-		//
-		//		String sql = "SELECT id FROM documentoIdentificacion WHERE tipo='" //
-		//				+ cedulaType + "' AND numero='" + cedulaNum + "'";
-		//		statement.executeQuery(sql);
-		//
-		//		ResultSet resultSet = statement.getResultSet();
-		//
-		//		if (!resultSet.first()) {
-		//
-		//			resultSet.close();
-		//			statement.close();
-		//			connection.close();
-		//
-		//			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
-		//					Constants.NOT_FOUND_ERROR, new Object[] { cedulaType + "-" + cedulaNum }));
-		//
-		//			return;
-		//
-		//		}
-		//
-		//		String cedulaId = resultSet.getString(1);
-		//
-		//		resultSet.close();
-		//
-		//		if (TextUtils.isEmptyOrNull(cedulaId)) {
-		//
-		//			statement.close();
-		//			connection.close();
-		//
-		//			Controller.sendErrorResponse(response, Constants.GENERAL_ERROR);
-		//
-		//			return;
-		//
-		//		}
-		//
-		//		sql = "SELECT apellidos, nombres, sexo, hogarId, nacionalidad FROM persona WHERE cedulaId='" + cedulaId + "'";
-		//		statement.executeQuery(sql);
-		//
-		//		resultSet = statement.getResultSet();
-		//
-		//		if (!resultSet.first()) {
-		//
-		//			resultSet.close();
-		//			statement.close();
-		//			connection.close();
-		//
-		//			Controller.sendErrorResponse(response, Constants.READING_DATA_ERROR);
-		//
-		//			return;
-		//
-		//		}
-		//
-		//		String lastnames = resultSet.getString(1);
-		//		String names = resultSet.getString(2);
-		//		String sex = resultSet.getString(3);
-		//		String hogarId = resultSet.getString(4);
-		//		String nationality = resultSet.getString(5);
-		//
-		//		sql = "SELECT v.direccion FROM vivienda v WHERE v.id IN " //
-		//				+ "(SELECT h.viviendaId FROM hogar h WHERE h.id='" + hogarId + "')";
-		//
-		//		resultSet = statement.getResultSet();
-		//
-		//		if (!resultSet.first()) {
-		//
-		//			resultSet.close();
-		//			statement.close();
-		//			connection.close();
-		//
-		//			Controller.sendErrorResponse(response, Constants.READING_DATA_ERROR);
-		//
-		//			return;
-		//
-		//		}
-		//
-		//		String direction = resultSet.getString(1);
-		//
-		//		FormalityData formalityData = new FormalityData(lastnames, names, sex, direction, nationality);
-		//
-		//		Gson gson = new Gson();
-		//		String jsonResponse = gson.toJson(formalityData);
-		//
-		//		Controller.sendTextResponse(response, jsonResponse);
-		//
-		//		resultSet.close();
-		//		statement.close();
-		//		connection.close();
+		resultSet.close();
+		statement.close();
+		connection.close();
 
 	}
 
@@ -242,7 +227,7 @@ public class ActionManager {
 			statement.close();
 			connection.close();
 
-			return new AdminProfile("Vaca", "Super", //
+			return new AdminProfile("Admin", "Super", //
 					new IdentificationDocument(), 0, 0, "");
 
 		}
@@ -255,57 +240,38 @@ public class ActionManager {
 
 		resultSet.close();
 
-		sql = "SELECT apellidos, nombres, cedulaId, celularId, celularOpcionalId, correoElectronico FROM persona WHERE id='" //
-				+ personaId + "'";
+		sql = "SELECT apellidos, nombres, cedula, celular, celularOpcional, correoElectronico " //
+				+ " FROM persona WHERE id='" + personaId + "'";
 
 		statement.executeQuery(sql);
 		resultSet = statement.getResultSet();
 
 		String lastnames = resultSet.getString(1);
 		String names = resultSet.getString(2);
-		String cedulaId = resultSet.getString(3);
-		String phoneId = resultSet.getString(4);
-		String phoneOptionalId = resultSet.getString(5);
+		String cedulaBD = resultSet.getString(3);
+		String phone = resultSet.getString(4);
+		String phoneOptional = resultSet.getString(5);
 		String email = resultSet.getString(6);
 
-		resultSet.close();
-
-		sql = "SELECT tipo, numero FROM documentoIdentificacion WHERE id='" + cedulaId + "'";
-		statement.executeQuery(sql);
-		resultSet = statement.getResultSet();
-
-		String cedType = resultSet.getString(1);
-		int cedNumber = resultSet.getInt(2);
+		String cedType = cedulaBD.substring(0, 1);
+		int cedNumber = Integer.parseInt(cedulaBD.substring(1));
 
 		IdentificationDocument cedula = new IdentificationDocument(cedType, cedNumber);
 
-		resultSet.close();
-
-		sql = "SELECT codigoArea, numero FROM telefono WHERE id='" + phoneId + "'";
-		statement.executeQuery(sql);
-		resultSet = statement.getResultSet();
-
-		int phoneCod = resultSet.getInt(1);
-		int phoneNum = resultSet.getInt(2);
-
-		resultSet.close();
+		int phoneCod = Integer.parseInt(phone.substring(0, 4));
+		int phoneNum = Integer.parseInt(phone.substring(4));
 
 		int phoneCodOptional = 0;
 		int phoneNumOptional = 0;
 
-		if (phoneOptionalId != null) {
+		if (phoneOptional != null) {
 
-			sql = "SELECT codigoArea, numero FROM telefono WHERE id='" + phoneOptionalId + "'";
-			statement.executeQuery(sql);
-			resultSet = statement.getResultSet();
-
-			phoneCodOptional = resultSet.getInt(1);
-			phoneNumOptional = resultSet.getInt(2);
-
-			resultSet.close();
+			phoneCodOptional = Integer.parseInt(phoneOptional.substring(0, 4));
+			phoneNumOptional = Integer.parseInt(phoneOptional.substring(4));
 
 		}
 
+		resultSet.close();
 		statement.close();
 		connection.close();
 
@@ -313,6 +279,8 @@ public class ActionManager {
 				phoneCod, phoneNum, phoneCodOptional, phoneNumOptional, email);
 
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public static void loadAdminProfile( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -330,6 +298,8 @@ public class ActionManager {
 		}
 
 	}
+
+	//--------------------------------------------------------------------------------
 
 	public static void updateAdminProfile( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {

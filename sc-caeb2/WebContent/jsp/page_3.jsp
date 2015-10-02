@@ -1,53 +1,43 @@
-<%@ include file="header.jsp"%>
+<%@include file="header.jsp"%>
+
+<%@page import="com.caeb2.actions.PollManager"%>
 
 <%
 	Parameters.setPageNumber(3);
-	Parameters.setTitle("Sección 3: Número de Hogares");
+	Parameters.setTitle("Sección 3: Observaciones");
+
+	String observations = PollManager.getObservations();
+
+	System.out.println("curr = " + session.getAttribute(Constants.ATT_CURR_PAGE));
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 <%-- 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"> --%>
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
 			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveProcessPage3" method="POST">
 		<br>
-		<div class="container">
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="tipo_estructura">¿Cuántas personas viven en este hogar?</label>  -->
-<!-- 				<div class="radio"> -->
-<!-- 					<label><input type="radio" name="cuantas_PVEEH">Una sola persona (Un hogar censal, pase a la sección IV)</label> -->
-<!-- 					<br> -->
-<!-- 					<label><input type="radio" name="cuantas_PVEEH" checked="checked">Dos o más personas</label> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<br> -->
-<!-- 			<div class="form-inline"> -->
-<!-- 				<label for="tipo_estructura">¿Cuántos grupos de personas mantienen gastos separados para la compra de la comida?</label>  -->
-<!-- 				<input type="number" required class="form-control" id="grupo_PMGPLCDLC" name="grupo_PMGPLCDLC" -->
-<!-- 						placeholder="Cada grupo de personas forma un hogar censal" min="1"> -->
-<!-- 			</div> -->
-<!-- 			<br> -->
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="tipo_estructura">¿Éstas personas mantienen gastos separados para la compra  de la comida?</label> -->
-<!-- 				<div class="radio"> -->
-<!-- 					<label><input type="radio" name="personas_MGSPLCDLC" checked="checked">Sí</label> -->
-<!-- 					<br> -->
-<!-- 					<label><input type="radio" name="personas_MGSPLCDLC">No (Un hogar censal, pase a la sección IV)</label> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<br> -->
-			<label class="text-danger">Nota: Continúe la entrevista para el primer hogar censal en este mismo cuestionario y para el resto de los hogares utilice otro cuestionario</label>
+		<div class="center-block" style="width: 60%">
+			<label class="text-danger text-justify">
+				NOTA: Responda la encuesta para cada hogar en esta vivienda y para las personas que forman parte de cada hogar.
+			</label>
+			<label class="text-justify">
+				Por ejemplo: En una vivienda en la que viven dos familias que mantienen gastos separados, se debe responder la encuesta para dos hogares.
+				Debe responder la encuesta para todos los miembros de un hogar y luego del otro.
+			</label>
+
+			<br><br>
+
+			<label for="<%=Constants.SECTION3_OBSERVATIONS%>">Observaciones:</label>
+			<textarea class="form-control" rows="5"
+						id="<%=Constants.SECTION3_OBSERVATIONS%>" name="<%=Constants.SECTION3_OBSERVATIONS%>"
+						placeholder="Escriba aquí las observaciones sobre la encuesta"><%=observations%></textarea>
 		</div>
 		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
 	
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-	});
-</script>
-
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

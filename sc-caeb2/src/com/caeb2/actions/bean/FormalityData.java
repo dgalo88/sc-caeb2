@@ -5,15 +5,15 @@ public class FormalityData {
 	private String lastnames;
 	private String names;
 	private String sex;
-	private String direction;
+	private String address;
 	private String nationality;
 
 	public FormalityData(String lastnames, String names, //
-			String sex, String direction, String nationality) {
+			String sex, String address, String nationality) {
 		this.lastnames = lastnames;
 		this.names = names;
 		this.sex = sex;
-		this.direction = direction;
+		this.address = address;
 		this.nationality = nationality;
 	}
 
@@ -45,12 +45,12 @@ public class FormalityData {
 		this.sex = sex;
 	}
 
-	public String getDirection() {
-		return direction;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setDirection(String direction) {
-		this.direction = direction;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getNationality() {
