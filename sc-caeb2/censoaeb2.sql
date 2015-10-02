@@ -73,19 +73,6 @@ CREATE TABLE IF NOT EXISTS `principalesProblemasComunidad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Estructura de la tabla `empleo`
---
-CREATE TABLE IF NOT EXISTS `empleo` (
-  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `situacion` varchar(255) DEFAULT NULL,
-  `oficio` varchar(255) DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  `tipo_seleccion` varchar(255) DEFAULT NULL,
-  `tipoNegocio` varchar(20) DEFAULT NULL,
-  `lugarTrabajo` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
 -- Estructura de la tabla `persona`
 --
 CREATE TABLE IF NOT EXISTS `persona` (
@@ -112,16 +99,30 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `ingresoMensual` varchar(100) DEFAULT NULL,
   `otrasHabilidades` varchar(255) DEFAULT NULL,
   `credito` varchar(255) DEFAULT NULL,
+  `creditoOtros` varchar(255) DEFAULT NULL,
   `seEncuentraEmbarazada` bit(1) NOT NULL,
   `asisteControlMedicoParental` bit(1) NOT NULL,
   `lugarAsistenciaMedica` varchar(255) DEFAULT NULL,
   `razonAsistenciaMedica` varchar(255) DEFAULT NULL,
   `fechaLlegada` datetime DEFAULT NULL,
-  `empleoId` int(11) DEFAULT NULL,
   `hogarId` int(11) NOT NULL,
   FOREIGN KEY (`hogarId`) REFERENCES `hogar` (`id`)
-    ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`empleoId`) REFERENCES `empleo` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Estructura de la tabla `empleo`
+--
+CREATE TABLE IF NOT EXISTS `empleo` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `situacion` varchar(255) DEFAULT NULL,
+  `oficio` varchar(255) DEFAULT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `tipo_seleccion` varchar(255) DEFAULT NULL,
+  `tipoNegocio` varchar(20) DEFAULT NULL,
+  `lugarTrabajo` varchar(150) DEFAULT NULL,
+  `personaId` int(11) DEFAULT NULL,
+  FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -188,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `sistemaPrevencionSocial` (
 CREATE TABLE IF NOT EXISTS `enfermedadPadecida` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `descripcion` varchar(255) DEFAULT NULL,
+  `valor` varchar(255) DEFAULT NULL,
   `personaId` int(11) DEFAULT NULL,
   FOREIGN KEY (`personaId`) REFERENCES `persona` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE

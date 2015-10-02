@@ -498,7 +498,7 @@ public class IndividualCharacteristics {
 		
 		long v=SaveDataBase.saveDwelling();
 		long h=SaveDataBase.saveHome(v);
-		SaveDataBase.savePerson(h);
+		SaveDataBase.insertPerson(h);
 
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 

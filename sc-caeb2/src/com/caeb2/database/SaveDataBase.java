@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -282,18 +281,293 @@ public class SaveDataBase {
 		}
 		return null;
 	}
+//	
+//	public static Long savePerson(long homeId) throws ParseException{
+//		
+//		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
+//		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
+//		
+//		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
+//				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
+//				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
+//				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
+//				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
+//				+ "razonAsistenciaMedica, fechaLlegada, hogarId,creditoOtros) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//		
+//		Connection connection = null;
+//		PreparedStatement pstmt= null;
+//		PreparedStatement pstmt2= null;
+//		PreparedStatement pstmtEmployee= null;
+//		ResultSet rs = null;
+//		try {
+//			connection = Controller.getConnection();
+//			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//			pstmt.setString(1,personBasicData.getLastnames());
+//			pstmt.setString(2,personBasicData.getNames());
+//			pstmt.setString(3,personBasicData.getRelationship());
+//			pstmt.setString(4,personBasicData.getSex());
+//			
+//			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//			Date date = sdf.parse(personBasicData.getBirthdate());
+//			
+//			pstmt.setDate(5,new java.sql.Date(date.getTime()));
+//			pstmt.setString(6,personBasicData.getNationality());
+//			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
+//			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
+//			pstmt.setString(9,personBasicData.getEmail());
+//			pstmt.setString(10,personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
+//			pstmt.setString(11,personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
+//			
+//			pstmt.setByte(12,parseByte(personEducationData.isIlliterate()));
+//			pstmt.setByte(13,parseByte(personEducationData.hasAttendEducEstablishment()));
+//			pstmt.setString(14,personEducationData.getAnswerEducEstablishment());
+//			pstmt.setString(15,personEducationData.getScholarshipDescription());
+//			pstmt.setString(16,personEducationData.getTrainingCourse());
+//			
+//			
+//			EducationLevel educationLevel= new EducationLevel();
+//			pstmt.setString(17,educationLevel.getDegree_approved_text());
+//			pstmt.setLong(18, Long.parseLong(educationLevel.getDegree_approved_level()));
+//			pstmt.setString(19, educationLevel.getProfession());
+//			pstmt.setString(20,educationLevel.getMonthly_income());
+//			pstmt.setString(21,educationLevel.getSkills_activity_option());
+//			pstmt.setString(22,educationLevel.getReceived_credit_value());
+//			
+//			MedicalData medicalData=new MedicalData();
+//			pstmt.setByte(23,parseByte(medicalData.getPregnant()));
+//			pstmt.setByte(24,parseByte(medicalData.getPrenatal()));
+//			
+//			pstmt.setString(25,medicalData.getMedical_assistance());
+//			pstmt.setString(26,medicalData.getMedical_assistance_has());
+//            date = sdf.parse(personBasicData.getArrivalDate());
+//            
+//            pstmt.setDate(27,new java.sql.Date(date.getTime()));
+//            pstmt.setLong(28, homeId);
+//            
+////            pstmt.setString(30,personBasicData.getCedula().getType()+"");
+////			pstmt.setString(31,personBasicData.getPassport().getType()+"");
+//			pstmt.setString(29,educationLevel.getReceived_credit_value_other());
+//            
+//            pstmt.executeUpdate();
+//			rs = pstmt.getGeneratedKeys();
+//			long last_inserted_id=0;
+//            if(rs.next())
+//            {
+//                 last_inserted_id = rs.getLong(1);
+//            }
+//            
+//            //..........Procesando Empleo
+//			String sqlEmployee = "INSERT INTO empleo (id, situacion, oficio, tipo, tipo_seleccion, tipoNegocio, lugarTrabajo, personaId) VALUES (NULL, ?,?,?,?,?,?,?)";
+//			pstmtEmployee = connection.prepareStatement(sqlEmployee);
+//			pstmtEmployee.setString(1,educationLevel.getYou_are());
+//			pstmtEmployee.setString(2,educationLevel.getMain_job());
+//			pstmtEmployee.setString(3,educationLevel.getOccupation());
+//			pstmtEmployee.setString(4,educationLevel.getOccupation_value());
+//			pstmtEmployee.setString(5,educationLevel.getBody_works());
+//			pstmtEmployee.setString(6,educationLevel.getWork_performed());
+//			pstmtEmployee.setLong(7, last_inserted_id);
+//			pstmtEmployee.execute();
+//			
+//            //..........Procesar Misiones del tipo educativas 
+//			String sql2 = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sql2);
+//			processIndividualMap(personEducationData.getEducationalMisions(), pstmt2, last_inserted_id, "E");
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesar Discapacidades
+//			pstmt2.close();
+//			String sqlDisabilities = "INSERT INTO discapacidad (id, descripcion, personaId) VALUES (NULL,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlDisabilities);
+//			processIndividualMap(medicalData.getDisabilities(), pstmt2, last_inserted_id);
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesar sistemas de previsión social
+//			pstmt2.close();
+//			String sqlSecuritySystems = "INSERT INTO sistemaprevencionsocial (id, descripcion, personaId) VALUES (NULL,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlSecuritySystems);
+//			processIndividualMap(medicalData.getSecurity_systems(), pstmt2, last_inserted_id);
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesar sistemas de previsión social
+//			pstmt2.close();
+//			String sqlMedicalEquipment = "INSERT INTO aparatomedico (id, nombre, descripcion, loTiene, personaId) VALUES (NULL,?,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlMedicalEquipment);
+//			pstmt2.setString(1,medicalData.getMedical_equipment_which());
+//			pstmt2.setString(2,medicalData.getMedical_equipment_other());
+//			pstmt2.setByte(3,parseByte(medicalData.getMedical_equipment_has()));
+//			pstmt2.setLong(4, last_inserted_id);
+//			pstmt2.execute();
+//			
+//			//..........Procesar Vacunas
+//			pstmt2.close();
+//			String sqlVaccines = "INSERT INTO vacuna (id, nombre, numeroDosis, personaId) VALUES (NULL,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlVaccines);
+//			HashMap<String, String> vaccines=medicalData.getVaccines();
+//			Set<String> vaccinesSet=vaccines.keySet();
+//			for (String key : vaccinesSet) {
+//				pstmt2.setString(1, key);
+//				pstmt2.setLong(2, Long.parseLong(vaccines.get(key)));
+//				pstmt2.setLong(3, last_inserted_id);
+//				pstmt2.addBatch();
+//			}
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesando habilidades artística
+//			pstmt2.close();
+//			String sqlArtisticAbilities = "INSERT INTO habilidadartisticamanual (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlArtisticAbilities);
+//			Ability ability = IndividualCharacteristics.loadAbilitiesData();
+//			HashMap<String, String> artisticAbilities=ability.getArtisticAbilities();
+//			HashMap<String, Boolean> artisticAbilitiesInstructor=ability.getArtisticAbilitiesInstructor();
+//			processMapAbility(artisticAbilities, artisticAbilitiesInstructor, pstmt2, last_inserted_id);
+//			HashMap<String, String> artisticAbilitiesStudent=ability.getArtisticAbilitiesStudent();
+//			processMap(artisticAbilitiesStudent, pstmt2, "E", last_inserted_id);
+//			pstmt2.executeBatch();
+//			
+//		
+//			//..........Procesando habilidades deportivas 
+//			
+//			pstmt2.close();
+//			String sqlAthleticAbilities = "INSERT INTO deporte (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlAthleticAbilities);
+//		
+//			HashMap<String, String> athleticAbilities=ability.getAthleticAbilities();
+//			HashMap<String, Boolean> athleticAbilitiesInstructor=ability.getAthleticAbilitiesInstructor();
+//			processMapAbility(athleticAbilities, athleticAbilitiesInstructor, pstmt2, last_inserted_id);
+//			
+//			HashMap<String, String> athleticAbilitiesStudent=ability.getAthleticAbilitiesStudent();
+//			processMap(athleticAbilitiesStudent, pstmt2, "E", last_inserted_id);			
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesar Misiones del tipo Otras 
+//			pstmt2.close();
+//			PersonMissions personMissions = IndividualCharacteristics.loadMissions();
+//			HashMap<String, String> missions = personMissions.getMissions();
+//			String sqlMissions = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlMissions);
+//			processIndividualMap(missions, pstmt2, last_inserted_id, "O");
+//			pstmt2.executeBatch();
+//			
+//			//..........Procesar enfermedad Padecida
+//			pstmt2.close();
+//			HashMap<String, String> diseases = medicalData.getDiseases();
+//			String sqlDiseases = "INSERT INTO enfermedadPadecida (id, descripcion,valor,personaId) VALUES (NULL,?,?,?)";
+//			pstmt2 = connection.prepareStatement(sqlDiseases);
+//			processMap(diseases, pstmt2, last_inserted_id);
+//			pstmt2.executeBatch();
+//			
+//			return last_inserted_id;
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally{
+//			try {
+//				pstmt.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//			}
+//			try {
+//				pstmt2.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//			}
+//			try {
+//				pstmtEmployee.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//			}
+//			try {
+//				connection.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//			}
+//			try {
+//				rs.close();
+//			} catch (Exception e2) {
+//				// TODO: handle exception
+//			}
+//		}
+//		return null;
+//	}
+//	
+	public static boolean deletePersonComponents(long personId){
 	
-	public static Long savePerson(long homeId) throws ParseException{
-		
+		Connection connection = null;
+		PreparedStatement pstmt= null;
+		try {
+			connection = Controller.getConnection();
+            
+			String sql = "DELETE FROM empleo WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM mision WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM habilidadartisticamanual WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM deporte WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM enfermedadPadecida WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM vacuna WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM aparatomedico WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM sistemaprevencionsocial WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+			pstmt.close();
+			
+			sql = "DELETE FROM discapacidad WHERE personId = "+personId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.execute();
+
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally{
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+	}
+	
+	public static Long updateAndInsertPerson(Long homeId,Long personId,String sql){
+
 		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
 		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
-		
-		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
-				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
-				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
-				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
-				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
-				+ "razonAsistenciaMedica, fechaLlegada, empleoId, hogarId, cedulaTipo, pasaporteTipo, creditoOtros) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -302,7 +576,12 @@ public class SaveDataBase {
 		ResultSet rs = null;
 		try {
 			connection = Controller.getConnection();
-			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			if (personId==null) {
+				pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			} else {
+				pstmt = connection.prepareStatement(sql);
+			}
+			
 			pstmt.setString(1,personBasicData.getLastnames());
 			pstmt.setString(2,personBasicData.getNames());
 			pstmt.setString(3,personBasicData.getRelationship());
@@ -313,8 +592,8 @@ public class SaveDataBase {
 			
 			pstmt.setDate(5,new java.sql.Date(date.getTime()));
 			pstmt.setString(6,personBasicData.getNationality());
-			pstmt.setString(7,personBasicData.getCedula().getNumber()+"");
-			pstmt.setString(8,personBasicData.getPassport().getNumber()+"");
+			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
+			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
 			pstmt.setString(9,personBasicData.getEmail());
 			pstmt.setString(10,personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
 			pstmt.setString(11,personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
@@ -340,42 +619,43 @@ public class SaveDataBase {
 			
 			pstmt.setString(25,medicalData.getMedical_assistance());
 			pstmt.setString(26,medicalData.getMedical_assistance_has());
+            date = sdf.parse(personBasicData.getArrivalDate());
+            
+            pstmt.setDate(27,new java.sql.Date(date.getTime()));
+            pstmt.setString(28,educationLevel.getReceived_credit_value_other());
+            
+//            pstmt.setString(30,personBasicData.getCedula().getType()+"");
+//			pstmt.setString(31,personBasicData.getPassport().getType()+"");
 			
-			//..........Procesando Empleo
-			String sqlEmployee = "INSERT INTO empleo (id, situacion, oficio, tipo, tipo_seleccion, tipoNegocio, lugarTrabajo) VALUES (NULL, ?,?,?,?,?,?)";
-			pstmtEmployee = connection.prepareStatement(sqlEmployee, Statement.RETURN_GENERATED_KEYS);
+			
+			long last_inserted_id=0;
+			
+			if(personId==null){
+				pstmt.setLong(29, homeId);
+				pstmt.executeUpdate();
+				rs = pstmt.getGeneratedKeys();
+				
+	            if(rs.next())
+	            {
+	                 last_inserted_id = rs.getLong(1);
+	            }
+			}else{
+				last_inserted_id=personId;
+				pstmt.execute();
+			}
+
+            //..........Procesando Empleo
+			String sqlEmployee = "INSERT INTO empleo (id, situacion, oficio, tipo, tipo_seleccion, tipoNegocio, lugarTrabajo, personaId) VALUES (NULL, ?,?,?,?,?,?,?)";
+			pstmtEmployee = connection.prepareStatement(sqlEmployee);
 			pstmtEmployee.setString(1,educationLevel.getYou_are());
 			pstmtEmployee.setString(2,educationLevel.getMain_job());
 			pstmtEmployee.setString(3,educationLevel.getOccupation());
 			pstmtEmployee.setString(4,educationLevel.getOccupation_value());
 			pstmtEmployee.setString(5,educationLevel.getBody_works());
 			pstmtEmployee.setString(6,educationLevel.getWork_performed());
-			pstmtEmployee.executeUpdate();
-			rs = pstmtEmployee.getGeneratedKeys();
-			long employee_id=0;
-            if(rs.next())
-            {
-            	employee_id = rs.getLong(1);
-            }
-            rs.close();
-            date = sdf.parse(personBasicData.getArrivalDate());
-            
-            pstmt.setDate(27,new java.sql.Date(date.getTime()));
-            pstmt.setLong(28, employee_id);
-            pstmt.setLong(29, homeId);
-            
-            pstmt.setString(30,personBasicData.getCedula().getType()+"");
-			pstmt.setString(31,personBasicData.getPassport().getType()+"");
-			pstmt.setString(32,educationLevel.getReceived_credit_value_other());
-            
-            pstmt.executeUpdate();
-			rs = pstmt.getGeneratedKeys();
-			long last_inserted_id=0;
-            if(rs.next())
-            {
-                 last_inserted_id = rs.getLong(1);
-            }
-            
+			pstmtEmployee.setLong(7, last_inserted_id);
+			pstmtEmployee.execute();
+			
             //..........Procesar Misiones del tipo educativas 
 			String sql2 = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sql2);
@@ -430,8 +710,7 @@ public class SaveDataBase {
 			processMapAbility(artisticAbilities, artisticAbilitiesInstructor, pstmt2, last_inserted_id);
 			HashMap<String, String> artisticAbilitiesStudent=ability.getArtisticAbilitiesStudent();
 			processMap(artisticAbilitiesStudent, pstmt2, "E", last_inserted_id);
-			pstmt2.executeBatch();
-			
+			pstmt2.executeBatch();			
 		
 			//..........Procesando habilidades deportivas 
 			
@@ -461,14 +740,11 @@ public class SaveDataBase {
 			HashMap<String, String> diseases = medicalData.getDiseases();
 			String sqlDiseases = "INSERT INTO enfermedadPadecida (id, descripcion,valor,personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlDiseases);
-			processIndividualMap(diseases, pstmt2, last_inserted_id);
+			processMap(diseases, pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
 			return last_inserted_id;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
@@ -500,5 +776,27 @@ public class SaveDataBase {
 		}
 		return null;
 	}
+	
+	public static Long updatePerson(Long personId){
+		deletePersonComponents(personId);
+		String sql = "UPDATE persona SET apellidos=?, nombres=?, parentescoJefeHogar=?, "
+				+ "sexo=?, fechaNacimiento=?, nacionalidad=?, cedula=?, pasaporte=?, correoElectronico=?, celular=?, "
+				+ "celularOpcional=?, esAnalfabeta=?, asisteEstablecimientoEducacion=?, respEstablecimientoEducacion=?, "
+				+ "recibeBeca=?, cursoCapacitacion=?, nivelEducativo=?, ultimoGradoAprobado=?, profesion=?, ingresoMensual=?, "
+				+ "otrasHabilidades=?, credito=?, seEncuentraEmbarazada=?, asisteControlMedicoParental=?, lugarAsistenciaMedica=?, "
+				+ "razonAsistenciaMedica=?, fechaLlegada=?, creditoOtros=? WHERE id = "+personId;
+		return updateAndInsertPerson(null,personId,sql);
+	}
+
+	public static Long insertPerson(Long homeId){
+		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
+				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
+				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
+				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
+				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
+				+ "razonAsistenciaMedica, fechaLlegada, creditoOtros,hogarId) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		return updateAndInsertPerson(homeId,null,sql);
+	}
+	
 
 }
