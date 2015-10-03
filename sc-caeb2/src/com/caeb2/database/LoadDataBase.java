@@ -38,8 +38,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.TextUtils;
@@ -311,12 +313,10 @@ public class LoadDataBase {
 				String names = rs.getString("nombres");
 				prop.setProperty(Constants.SECTION5_LASTNAMES, lastnames);
 				prop.setProperty(Constants.SECTION5_NAMES, names);
-				String cedType = rs.getString("cedulatipo");
-				String cedNumber = rs.getString("cedula");
-				if (!TextUtils.isEmptyOrNull(cedNumber)) {
-					prop.setProperty(Constants.SECTION5_CEDULA_TYPE, cedType);
-					prop.setProperty(Constants.SECTION5_CEDULA_NUM, Integer.valueOf(cedNumber));
-				}
+				String document = rs.getString("cedula");
+				IdentificationDocument documentI=new IdentificationDocument(document);
+				prop.setProperty(Constants.SECTION5_CEDULA_TYPE, documentI.getType());
+				prop.setProperty(Constants.SECTION5_CEDULA_NUM, documentI.getNumber());
 				String passportNumber = rs.getString("pasaporte");
 				if (!TextUtils.isEmptyOrNull(passportNumber)) {
 					prop.setProperty(Constants.SECTION5_PASSPORT, Integer.valueOf(passportNumber));

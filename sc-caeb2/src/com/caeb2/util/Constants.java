@@ -207,7 +207,8 @@ public class Constants {
 	public static final String SECTION2_WORK_NEEDS_OTHER_RESPONSE = "section2_work_needs_other_response";
 
 	// Properties and ids Section 3
-	public static final String SECTION3_OBSERVATIONS = "section4_observations";
+	public static final String SECTION3_OBSERVATIONS = "section3_observations";
+	public static final String SECTION3_USER = "section3_user";
 
 	// Properties and ids Section 4
 	public static final String SECTION4_HOME = "section4_home";

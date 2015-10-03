@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -137,6 +136,7 @@ public class Form {
 		}
 
 		prop.setProperty(Constants.SECTION3_OBSERVATIONS, observations);
+		prop.setProperty(Constants.SECTION3_USER, request.getSession(false).getAttribute(Constants.ATT_USER));
 
 		prop.save();
 
@@ -192,9 +192,6 @@ public class Form {
 		prop.save();
 
 		Controller.getLogger().info("- saveProcessPage4");
-
-		long id=SaveDataBase.saveDwelling();
-		SaveDataBase.saveHome(id);
 
 		PollManager.setCurrentPage(request, 5);
 
