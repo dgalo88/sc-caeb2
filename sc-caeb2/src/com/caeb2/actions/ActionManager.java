@@ -25,7 +25,10 @@ public class ActionManager {
 
 	public static void index(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
+
+		PollManager.setCurrentPage(request, 0);
 		Controller.forward(request, response, "index.jsp");
+
 	}
 
 	//--------------------------------------------------------------------------------

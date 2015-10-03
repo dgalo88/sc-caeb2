@@ -50,6 +50,8 @@ public class Constants {
 	public static final String SAVE_DATA_TO = "Guardando datos en el archivo \"{0}\"";
 	public static final String LOAD_DATA_FROM = "Cargando datos desde el archivo \"{0}\"";
 	public static final String PASS_CHANGED = "Contraseña cambiada con éxito";
+	public static final String FILE_DELETED = "El archivo \"{0}\" ha sido eliminado con éxito.";
+	public static final String FILE_NOT_DELETED = "Falló la eliminación del archivo \"{0}\".";
 
 	// Errors Messages
 	public static final String ERROR = "Error";

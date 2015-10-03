@@ -1,5 +1,6 @@
 package com.caeb2.actions;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,6 +18,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
+import com.caeb2.util.TextUtils;
 
 public class PollManager {
 
@@ -146,6 +148,28 @@ public class PollManager {
 		String user = prop.getString(Constants.SECTION3_USER, "");
 
 		return getPollsterName(user);
+
+	}
+
+	public static void cleanPropFiles() {
+
+		cleanPropFile(Constants.PROP_FILE_DWELLING);
+		cleanPropFile(Constants.PROP_FILE_HOME);
+		cleanPropFile(Constants.PROP_FILE_PERSON);
+
+	}
+
+	public static void cleanPropFile(String propFile) {
+
+		File file = new File(propFile);
+
+		if (file.delete()) {
+			Controller.getLogger().info(TextUtils.getFormattedMessage( //
+					Constants.FILE_DELETED, new Object[] {propFile}));
+		} else {
+			Controller.getLogger().info(TextUtils.getFormattedMessage( //
+					Constants.FILE_NOT_DELETED, new Object[] {propFile}));
+		}
 
 	}
 
