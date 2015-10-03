@@ -1,6 +1,6 @@
-<%@include file="header.jsp"%>
-
 <%@page import="com.caeb2.actions.PollManager"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(3);
@@ -10,6 +10,8 @@
 
 	System.out.println("curr = " + session.getAttribute(Constants.ATT_CURR_PAGE));
 %>
+
+<%@include file="validateCurrentPage.jsp"%>
 
 <%@include file="navbar.jsp"%>
 

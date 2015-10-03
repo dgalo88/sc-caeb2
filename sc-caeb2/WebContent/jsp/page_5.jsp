@@ -1,7 +1,7 @@
-<%@include file="header.jsp"%>
-
 <%@page import="com.caeb2.actions.bean.PersonBasicData"%>
 <%@page import="com.caeb2.actions.IndividualCharacteristics"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(5);
@@ -10,7 +10,9 @@
 	PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="validateCurrentPage.jsp"%>
+
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
@@ -212,7 +214,7 @@
 		<input type="submit" value="Submit" class="btn btn-primary hidden"
 				id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
 <script type="text/javascript">
@@ -222,4 +224,4 @@
 	});
 </script>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

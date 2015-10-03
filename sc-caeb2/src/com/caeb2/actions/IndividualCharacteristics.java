@@ -103,8 +103,6 @@ public class IndividualCharacteristics {
 
 		PollManager.setCurrentPage(request, 6);
 
-		PollManager.setCurrentPage(request, 6);
-
 		Controller.forward(request, response, "page_6.jsp");
 
 	}
@@ -496,13 +494,13 @@ public class IndividualCharacteristics {
 		String[] missions = TextUtils.escaparArray( //
 				request.getParameterValues(Constants.SECTION10_MISSIONS));
 		
-		long v=SaveDataBase.saveDwelling();
-		long h=SaveDataBase.saveHome(v);
-		SaveDataBase.insertPerson(h);
-
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 
 		prop.save();
+
+		long v = SaveDataBase.saveDwelling();
+		long h = SaveDataBase.saveHome(v);
+		SaveDataBase.insertPerson(h);
 
 	}
 

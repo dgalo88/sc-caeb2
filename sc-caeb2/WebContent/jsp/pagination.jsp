@@ -4,7 +4,7 @@
 <%
 	int numPages = 10;
 
-	int curr = (int) session.getAttribute(Constants.ATT_CURR_PAGE);
+	Integer curr = (Integer) session.getAttribute(Constants.ATT_CURR_PAGE);
 %>
 
 <div class="container-fluid text-center">
@@ -16,11 +16,10 @@
 				</a>
 			</li>
 			<%
-				for (int i = 1; i < numPages + 1; i++) {
+				for (Integer i = 1; i < numPages + 1; i++) {
 					out.print("<li " + (i > curr ? "class=\"disabled\"" : "")
-							+ "><a href=\"/sc-caeb2/jsp/page_"
-							+ i + ".jsp\" id=\"page_" + i + "\""
-							+ ">" + i + "</a></li>");
+							+ "><a href=" + (i > curr ? "#" : "\"/sc-caeb2/jsp/page_" + i + ".jsp\" ")
+							+ " id=\"page_" + i + "\">" + i + "</a></li>");
 				}
 			%>
 			<li>

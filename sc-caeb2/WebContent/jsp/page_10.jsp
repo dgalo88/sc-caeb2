@@ -13,6 +13,8 @@
 	HashMap<String, String> missions = personMissions.getMissions();
 %>
 
+<%@include file="validateCurrentPage.jsp"%>
+
 <%@include file="navbar.jsp"%>
 
 <div class="container-fluid">

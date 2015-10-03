@@ -1,14 +1,17 @@
 <%@page import="com.caeb2.sections.IdentifyingStructure"%>
-<%@ include file="header.jsp"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(1);
 	Parameters.setTitle("Sección 1: Identificación de la estructura");
-// 	IdentifyingStructure identifyingStructure=new IdentifyingStructure();
+
 	IdentifyingStructure identifyingStructure= new IdentifyingStructure();
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="validateCurrentPage.jsp"%>
+
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
@@ -46,38 +49,7 @@
 		</table>
 		<input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		$('#form_<%=Parameters.getPageNumber()%>').on('submit', function() {
-
-// 			if (!validate()) {
-// 				console.log('!validate');
-// 				return false;
-// 			}
-
-			$('#urbanizacion').removeAttr('disabled');
-
-		});
-
-	});
-
-	function validate() {
-
-		var ret = true;
-
-		$(':input[required]').each(function() {
-			ret = !$.trim($(this).val());
-			console.log('this = ' + $(this).attr('id'));
-			return ret;
-		});
-
-		return ret;
-
-	}
-</script>
-
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>
