@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/opt/tomcat/docs-tomcat8/servletapi/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-configuration-1.10.jar" sourcepath="WebContent/WEB-INF/lib/commons-configuration-1.10-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/sc-caeb2/WebContent/WEB-INF/lib/commons-configuration-1.10-javadoc.jar!/"/>

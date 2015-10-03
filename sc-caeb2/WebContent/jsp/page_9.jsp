@@ -11,6 +11,8 @@
 	Ability ability = IndividualCharacteristics.loadAbilitiesData();
 %>
 
+<%@include file="validateCurrentPage.jsp"%>
+
 <%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
@@ -421,4 +423,4 @@
 	});
 </script>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

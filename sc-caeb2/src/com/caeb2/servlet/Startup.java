@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.caeb2.actions.Actions;
 import com.caeb2.util.Constants;
@@ -26,26 +25,6 @@ public class Startup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private Actions actions;
-	private static HttpSession session;
-
-	public static HttpSession getSession() {
-		return session;
-	}
-
-	public static void setSession(HttpSession session) {
-		Startup.session = session;
-	}
-
-	public static void invalidateSession() {
-
-		if (Startup.session != null) {
-			Startup.session.removeAttribute(Constants.ATT_USER);
-			Startup.session.invalidate();
-		}
-
-		Startup.session = null;
-
-	}
 
 	// Initializes the servlet.
 	public void init(ServletConfig config) throws ServletException {
@@ -53,13 +32,12 @@ public class Startup extends HttpServlet {
 		super.init(config);
 
 		this.actions = new Actions();
-		Startup.session = null;
 
 	}
 
 	// Destroys the servlet.
 	public void destroy() {
-		invalidateSession();
+		// empty
 	}
 
 	/** Processes requests for both HTTP  

@@ -1,5 +1,6 @@
 <%@page import="com.caeb2.sections.HousingData"%>
-<%@ include file="header.jsp"%>
+
+<%@include file="header.jsp"%>
 
 <%
 	Parameters.setPageNumber(2);
@@ -7,7 +8,9 @@
 	HousingData housingData= new HousingData();
 %>
 
-<%@ include file="navbar.jsp"%>
+<%@include file="validateCurrentPage.jsp"%>
+
+<%@include file="navbar.jsp"%>
 
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
@@ -234,7 +237,7 @@
 		</table>
 		 <input type="submit" value="Submit" class="btn btn-primary hidden" id="submitBtn<%=Parameters.getPageNumber()%>">
 	</form>
-	<%@ include file="pagination.jsp"%>
+	<%@include file="pagination.jsp"%>
 </div>
 
 <script type="text/javascript">
@@ -278,4 +281,4 @@
 	});
 </script>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

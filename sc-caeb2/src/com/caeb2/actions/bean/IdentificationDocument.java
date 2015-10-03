@@ -16,7 +16,7 @@ public class IdentificationDocument {
 
 	public IdentificationDocument(String identificationDocument) {
 		this.type = identificationDocument.substring(0, 1);
-		this.number = Integer.valueOf(identificationDocument.substring(2, identificationDocument.length()));
+		this.number = Integer.valueOf(identificationDocument.substring(1));
 	}
 
 	public String getType() {
@@ -37,7 +37,7 @@ public class IdentificationDocument {
 
 	public void setIdentificationDocument(String document) {
 		this.type = document.substring(0, 1);
-		this.number = Integer.valueOf(document.substring(2, document.length()));
+		this.number = Integer.valueOf(document.substring(1));
 	}
 
 	public IdentificationDocument fromString(String document) {
@@ -46,7 +46,7 @@ public class IdentificationDocument {
 
 	@Override
 	public String toString() {
-		return type + "-" + String.valueOf(number);
+		return type + String.valueOf(number);
 	}
 
 }

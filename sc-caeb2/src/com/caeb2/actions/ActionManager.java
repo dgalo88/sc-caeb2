@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import com.caeb2.actions.bean.AdminProfile;
 import com.caeb2.actions.bean.FormalityData;
 import com.caeb2.actions.bean.IdentificationDocument;
-import com.caeb2.servlet.Startup;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.TextUtils;
@@ -56,9 +55,8 @@ public class ActionManager {
 						Constants.USER_LOGIN, new Object[] { user }));
 
 				session.setAttribute(Constants.ATT_USER, user);
-				session.setAttribute(Constants.ATT_CURR_PAGE, 0);
 
-				Startup.setSession(session);
+				PollManager.setCurrentPage(session, 0);
 
 				Controller.forward(request, response, "main.jsp");
 
@@ -105,7 +103,12 @@ public class ActionManager {
 	public static void logout(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		Startup.invalidateSession();
+		HttpSession session = request.getSession();
+
+		session.removeAttribute(Constants.ATT_USER);
+		session.removeAttribute(Constants.ATT_CURR_PAGE);
+
+		session.invalidate();
 
 		Controller.forward(request, response, "index.jsp");
 
@@ -113,8 +116,8 @@ public class ActionManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void loadFormalityData( //
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void loadFormalityData(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		String cedulaType = request.getParameter(Constants.SECTION5_CEDULA_TYPE);
 		String cedulaNum = request.getParameter(Constants.SECTION5_CEDULA_NUM);
@@ -301,8 +304,8 @@ public class ActionManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void updateAdminProfile( //
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void updateAdminProfile(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		String currPass = request.getParameter(Constants.PROFILE_CURR_PASS);
 		String newPass = request.getParameter(Constants.PROFILE_NEW_PASS);
