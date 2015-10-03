@@ -801,8 +801,9 @@ public class SaveDataBase {
 			String sql = "INSERT INTO encuesta (numeroPlanilla, fechaEntrevista, nombreEmpadronador, observaciones, viviendaId) VALUES (NULL,?,?,?,?)";
 			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1,new java.sql.Date(new Date().getTime()));
-			pstmt.setString(2,PollManager.getObservations());
+			pstmt.setString(2,PollManager.getUser());
 			pstmt.setString(3,PollManager.getObservations());
+			pstmt.setLong(4,dwellingId);
 			
 			pstmt.executeUpdate();
 			

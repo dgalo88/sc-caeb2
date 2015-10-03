@@ -15,7 +15,6 @@ import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
-import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -497,10 +496,6 @@ public class IndividualCharacteristics {
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 
 		prop.save();
-
-		long v = SaveDataBase.saveDwelling();
-		long h = SaveDataBase.saveHome(v);
-		SaveDataBase.insertPerson(h);
 
 	}
 

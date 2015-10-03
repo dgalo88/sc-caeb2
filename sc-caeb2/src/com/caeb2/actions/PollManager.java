@@ -131,5 +131,22 @@ public class PollManager {
 		return observations;
 
 	}
+	
+	public static String getUser() {
+
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			return "";
+		}
+
+		String user = prop.getString(Constants.SECTION3_USER, "");
+
+		return getPollsterName(user);
+
+	}
 
 }
