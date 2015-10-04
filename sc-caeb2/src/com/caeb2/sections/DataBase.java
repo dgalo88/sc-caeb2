@@ -19,8 +19,7 @@ public class DataBase {
 		try {
 			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
 		} catch (ConfigurationException | IOException e) {
-			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);
-			e.printStackTrace();
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 		}
 	}
 	

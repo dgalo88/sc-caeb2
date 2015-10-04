@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `recibeBeca` varchar(255) DEFAULT NULL,
   `cursoCapacitacion` varchar(255) DEFAULT NULL,
   `nivelEducativo` varchar(255) DEFAULT NULL,
-  `ultimoGradoAprobado` int(11) NOT NULL,
+  `ultimoGradoAprobado` int(11) DEFAULT NULL,
   `profesion` varchar(255) DEFAULT NULL,
   `ingresoMensual` varchar(100) DEFAULT NULL,
   `otrasHabilidades` varchar(255) DEFAULT NULL,

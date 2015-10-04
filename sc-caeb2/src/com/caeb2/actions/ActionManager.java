@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.caeb2.actions.bean.AdminProfile;
 import com.caeb2.actions.bean.FormalityData;
 import com.caeb2.actions.bean.IdentificationDocument;
+import com.caeb2.database.LoadDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.TextUtils;
@@ -35,7 +36,8 @@ public class ActionManager {
 
 	public static void login(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
-
+		
+		LoadDataBase.loadDwelling(1);
 		Connection connection = null;
 		Statement statement = null;
 
