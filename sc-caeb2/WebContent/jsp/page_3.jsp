@@ -6,7 +6,7 @@
 	Parameters.setPageNumber(3);
 	Parameters.setTitle("Sección 3: Observaciones");
 
-	String observations = PollManager.getObservations();
+	String observations = PollManager.getObservations(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

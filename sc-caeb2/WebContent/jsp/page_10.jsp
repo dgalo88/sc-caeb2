@@ -9,7 +9,7 @@
 	Parameters.setPageNumber(10);
 	Parameters.setTitle("Sección 5: Características individuales - Misiones");
 
-	PersonMissions personMissions = IndividualCharacteristics.loadMissions();
+	PersonMissions personMissions = IndividualCharacteristics.loadMissions(request.getRequestedSessionId());
 	HashMap<String, String> missions = personMissions.getMissions();
 %>
 

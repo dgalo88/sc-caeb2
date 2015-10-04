@@ -8,7 +8,7 @@
 	Parameters.setPageNumber(9);
 	Parameters.setTitle("Sección 5: Características individuales - Habilidades");
 
-	Ability ability = IndividualCharacteristics.loadAbilitiesData();
+	Ability ability = IndividualCharacteristics.loadAbilitiesData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

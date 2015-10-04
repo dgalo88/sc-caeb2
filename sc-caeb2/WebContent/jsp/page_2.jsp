@@ -5,7 +5,7 @@
 <%
 	Parameters.setPageNumber(2);
 	Parameters.setTitle("Sección 2: Datos de la vivienda");
-	HousingData housingData= new HousingData();
+	HousingData housingData= new HousingData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

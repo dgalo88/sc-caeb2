@@ -7,7 +7,7 @@
 	Parameters.setPageNumber(6);
 	Parameters.setTitle("Sección 5: Características individuales - Educación");
 
-	PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
+	PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

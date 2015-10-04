@@ -21,7 +21,8 @@ public class Constants {
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
 	public static final String ACTION_BACKUP = "#";
 
-	public static final String PATH_SC_CAEB2 = "/sc-caeb2";
+	public static final String SC_CAEB2 = "sc-caeb2";
+	public static final String PATH_SC_CAEB2 = "/" + SC_CAEB2;
 	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";
 	public static final String PATH_CSS = PATH_SC_CAEB2 + "/css";
 	public static final String PATH_IMAGES = PATH_SC_CAEB2 + "/images";

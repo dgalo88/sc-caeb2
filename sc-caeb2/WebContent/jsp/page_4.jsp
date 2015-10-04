@@ -6,7 +6,7 @@
 	Parameters.setPageNumber(4);
 	Parameters.setTitle("Sección 4: Datos del hogar");
 
-	HomeData homeData = new HomeData();
+	HomeData homeData = new HomeData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

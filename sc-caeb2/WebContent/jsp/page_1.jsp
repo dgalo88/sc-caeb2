@@ -6,7 +6,7 @@
 	Parameters.setPageNumber(1);
 	Parameters.setTitle("Sección 1: Identificación de la estructura");
 
-	IdentifyingStructure identifyingStructure= new IdentifyingStructure();
+	IdentifyingStructure identifyingStructure= new IdentifyingStructure(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

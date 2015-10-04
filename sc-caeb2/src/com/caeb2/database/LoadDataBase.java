@@ -49,7 +49,7 @@ import com.caeb2.util.Controller.PropFileRole;
 
 public class LoadDataBase {
 
-	public static boolean loadDwelling(long idDwelling) {
+	public static boolean loadDwelling(long idDwelling, String sessionId) {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
@@ -66,7 +66,8 @@ public class LoadDataBase {
 			rs=pstmt.executeQuery();
             if(rs.next())
             {
-            	PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
+            	PropertiesConfiguration prop = Controller.getPropertiesFile( //
+            			Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, sessionId);
         		String street =rs.getString(1);
         		String name_housing =rs.getString(2);
         		String home_phone=rs.getString(3);
@@ -195,14 +196,15 @@ public class LoadDataBase {
 		return false;
 	}
 	
-	public static boolean loadHome(long homeId){
+	public static boolean loadHome(long homeId, String sessionId) {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
 		ResultSet rs = null;
 		try {
 			
-			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			PropertiesConfiguration prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_HOME, PropFileRole.LOAD, sessionId);
 			connection = Controller.getConnection();			
 			String sql = "SELECT * FROM hogar WHERE id=?";
 			
@@ -291,7 +293,7 @@ public class LoadDataBase {
 		
 	}
 	
-	public static boolean loadPerson(long personId){
+	public static boolean loadPerson(long personId, String sessionId) {
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -299,7 +301,8 @@ public class LoadDataBase {
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		try {
-			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			PropertiesConfiguration prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_HOME, PropFileRole.LOAD, sessionId);
 			connection = Controller.getConnection();			
 			String sql = "SELECT * FROM persona WHERE id= ?";
 			pstmt = connection.prepareStatement(sql);

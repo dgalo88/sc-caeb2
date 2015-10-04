@@ -5,7 +5,7 @@
 <%
 	Parameters.setPageNumber(7);
 	Parameters.setTitle("Sección 5: Características individuales");
-	EducationLevel educationLevel= new EducationLevel();
+	EducationLevel educationLevel= new EducationLevel(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

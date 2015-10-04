@@ -32,9 +32,10 @@ public class HomeData {
 	private String community_problems_other = "";
 	private HashMap<String, String> community_problems=new HashMap<String, String>();
 	
-	public HomeData() {
+	public HomeData(String sessionId) {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_HOME, PropFileRole.LOAD, sessionId);
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);

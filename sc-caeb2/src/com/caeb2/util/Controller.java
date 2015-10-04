@@ -35,11 +35,8 @@ public class Controller {
 
 	private static Logger logger = Logger.getLogger("CAEB2Logger");
 
-	public static String test;
-
 	private Controller() {
 		// empty
-		test = "1";
 	}
 
 	public static Logger getLogger() {
@@ -197,14 +194,13 @@ public class Controller {
 	}
 
 	public static PropertiesConfiguration getPropertiesFile( //
-			String propFileName, PropFileRole propFileType) //
+			String propFileName, PropFileRole propFileType, String sessionId) //
 					throws ConfigurationException, IOException {
 
-		String prefix = Constants.PATH_REAL_PROJECT + Constants.FILE_SEPARATOR;
+		String prefix = Constants.PATH_REAL_PROJECT + Constants.FILE_SEPARATOR //
+				+ Constants.SC_CAEB2 + Constants.FILE_SEPARATOR;
 
-		propFileName = prefix + propFileName;
-
-		System.out.println("Controller.test = " + Controller.test);
+		propFileName = prefix + sessionId + "-" + propFileName;
 
 		switch (propFileType) {
 		case SAVE:

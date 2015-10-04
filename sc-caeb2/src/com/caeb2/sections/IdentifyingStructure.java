@@ -17,9 +17,10 @@ public class IdentifyingStructure {
 	
 	private PropertiesConfiguration prop;
 	
-	public IdentifyingStructure() {
+	public IdentifyingStructure(String sessionId) {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, sessionId);
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);

@@ -21,8 +21,8 @@ public class EducationLevel extends DataBase{
 	private String received_credit_value;
 	private String received_credit_value_other;
 	
-	public EducationLevel() {
-		super();
+	public EducationLevel(String sessionId) {
+		super(sessionId);
 		loadData();
 	}
 	
