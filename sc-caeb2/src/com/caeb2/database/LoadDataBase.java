@@ -66,7 +66,6 @@ public class LoadDataBase {
 			rs=pstmt.executeQuery();
             if(rs.next())
             {
-            	rs.getLong(1);
             	PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
         		String street =rs.getString(1);
         		String name_housing =rs.getString(2);
@@ -76,27 +75,27 @@ public class LoadDataBase {
         		prop.setProperty(Constants.SECTION1_NAME_HOUSING, name_housing);
         		prop.setProperty(Constants.SECTION1_HOME_PHONE, home_phone);
         		
-        		String structure_type=TextUtils.escaparString(rs.getString(4));
-        		String walls_type=TextUtils.escaparString(rs.getString(5));
-        		String flat_type=TextUtils.escaparString(rs.getString(6));
-        		String ceiling_type=TextUtils.escaparString(rs.getString(7));
-        		String holding=TextUtils.escaparString(rs.getString(8));
-        		String location_kitchen=TextUtils.escaparString(rs.getString(9));
-        		String total_rooms=TextUtils.escaparString(rs.getLong(10)+"");
-        		String housing_water=TextUtils.escaparString(rs.getString(11));
+        		String structure_type=rs.getString(4);
+        		String walls_type=rs.getString(5);
+        		String flat_type=rs.getString(6);
+        		String ceiling_type=rs.getString(7);
+        		String holding=rs.getString(8);
+        		String location_kitchen=rs.getString(9);
+        		String total_rooms=rs.getLong(10)+"";
+        		String housing_water=rs.getString(11);
         		String other_housing_water = null; 
         		if(!housing_water.equals("Acueducto o tubería")&&!housing_water.equals("Camión cisterna")&&!housing_water.equals("Pila pública o estanque")){
         			other_housing_water=housing_water; 
         			housing_water="Otros medios, especifique";
         		}
         		
-        		String sanitary_service=TextUtils.escaparString(rs.getString(12));
-        		String electrical_service=TextUtils.escaparString(rs.getByte(13)==0 ? "No" : "Sí");
-        		String garbage_collection=TextUtils.escaparString(rs.getString(14));
-        		String housing_fits_household=TextUtils.escaparString(rs.getByte(15)==0 ? "No" : "Sí");
-        		String house_sector=TextUtils.escaparString(rs.getString(16));
-        		String housing_risk=TextUtils.escaparString(rs.getString(17));
-        		String house_scalability=TextUtils.escaparString(rs.getByte(18)==0 ? "No" : "Sí");
+        		String sanitary_service=rs.getString(12);
+        		String electrical_service=rs.getByte(13)==0 ? "No" : "Sí";
+        		String garbage_collection=rs.getString(14);
+        		String housing_fits_household=rs.getByte(15)==0 ? "No" : "Sí";
+        		String house_sector=rs.getString(16);
+        		String housing_risk=rs.getString(17);
+        		String house_scalability=rs.getByte(18)==0 ? "No" : "Sí";
         		
         		
         		String part_other_response = null;
@@ -104,7 +103,7 @@ public class LoadDataBase {
         		String work_needs_other_response = null;
         		
         		rs.close();
-        		String urgent_housing_improvements=TextUtils.escaparString("No");
+        		String urgent_housing_improvements="No";
     			pstmt2 = connection.prepareStatement("SELECT tipo, clave, valor FROM mejorainfo WHERE viviendaId=?");
     			pstmt2.setLong(1, idDwelling);
     			rs=pstmt2.executeQuery();
@@ -119,25 +118,25 @@ public class LoadDataBase {
                 	if(type.equals("parte")){
                 		partList.add(clave);
                 		if(clave.equals("Otra ¿Cuál?")){
-                			part_other_response=TextUtils.escaparString(value);
+                			part_other_response=value;
                 		}
                 	}else if(type.equals("queMejorar")){
                 		requiredList.add(clave);
                 		if(clave.equals("Otra ¿Cuál?")){
-                			required_other_response=TextUtils.escaparString(value);
+                			required_other_response=value;
                 		}
                 	}else if(type.equals("trabajo")){
                 		workNeedsList.add(clave);
                 		if(clave.equals("Otra ¿Cuál?")){
-                			work_needs_other_response=TextUtils.escaparString(value);
+                			work_needs_other_response=value;
                 		}
                 	}
-                	urgent_housing_improvements=TextUtils.escaparString("Sí");
+                	urgent_housing_improvements="Sí";
                 }
         		
-        		String part[]=TextUtils.escaparArray((String[])partList.toArray());
-        		String required[]=TextUtils.escaparArray((String[])requiredList.toArray());
-        		String workNeeds[]=TextUtils.escaparArray((String[])workNeedsList.toArray());
+        		String part[]=partList.toArray(new String[partList.size()]);
+        		String required[]=requiredList.toArray(new String[requiredList.size()]);
+        		String workNeeds[]=workNeedsList.toArray(new String[workNeedsList.size()]);
 
         		prop.setProperty(Constants.SECTION2_STRUCTURE_TYPE,structure_type);
         		prop.setProperty(Constants.SECTION2_HOLDING,holding);
@@ -196,7 +195,7 @@ public class LoadDataBase {
 		return false;
 	}
 	
-	public static boolean loadHome(long dwellingId){
+	public static boolean loadHome(long homeId){
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
@@ -205,19 +204,18 @@ public class LoadDataBase {
 			
 			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
 			connection = Controller.getConnection();			
-			String sql = "SELECT id, numeroCuartos, numeroBanos, jefeTienePareja, dormitorioTresOMas, utilizaMercal, utilizaPdval,"
-					+ " beneficioMercado, miembroParticipaOrganizacionComunitaria, viviendaId FROM hogar WHERE id=?";
+			String sql = "SELECT * FROM hogar WHERE id=?";
 			
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, dwellingId);
+			pstmt.setLong(1, homeId);
 			rs=pstmt.executeQuery();
             if(rs.next())
             {
             	
-            	String section4_rooms=TextUtils.escaparString(rs.getString("numeroCuartos"));
-            	String section4_number_bathrooms=TextUtils.escaparString(rs.getString("numeroBanos"));
-        		String section4_chief_couple=TextUtils.escaparString(rs.getByte("jefeTienePareja")==0 ? "No" : "Sí");
-        		String section4_sleeps_3_or_more=TextUtils.escaparString(rs.getByte("dormitorioTresOMas")==0 ? "No" : "Sí");
+            	String section4_rooms=rs.getString("numeroCuartos");
+            	String section4_number_bathrooms=rs.getString("numeroBanos");
+        		String section4_chief_couple=rs.getByte("jefeTienePareja")==0 ? "No" : "Sí";
+        		String section4_sleeps_3_or_more=rs.getByte("dormitorioTresOMas")==0 ? "No" : "Sí";
         		multipleProcessesCases(prop, Constants.SECTION4_USED_MERCAL, Constants.SECTION4_USED_MERCAL_SELECTED, rs.getString("utilizaMercal"));
         		multipleProcessesCases(prop, Constants.SECTION4_USED_PDVAL, Constants.SECTION4_USED_PDVALL_SELECTED, rs.getString("utilizaPdval"));
         		multipleProcessesCases(prop, Constants.SECTION4_FOOD_MARKETS, Constants.SECTION4_FOOD_MARKETS_RESPONSE, rs.getString("beneficioMercado"));
@@ -233,20 +231,20 @@ public class LoadDataBase {
         		String section4_community_problems_other = null;
         		
     			pstmt2 = connection.prepareStatement("SELECT id, descripcion, valor FROM principalesproblemascomunidad WHERE hogarId=?");
-    			pstmt2.setLong(1, dwellingId);
+    			pstmt2.setLong(1, homeId);
     			rs=pstmt2.executeQuery();
     			ArrayList<String> communityProblems=new ArrayList<String>();
                 if(rs.next())
                 {
-                	String clave=rs.getString("clave");
-                	String value=rs.getString("clave");
+                	String clave=rs.getString("descripcion");
+                	String value=rs.getString("valor");
                 	communityProblems.add(clave);
                 	if(clave.equals("Otra ¿Cuál?")){
-                		section4_community_problems_other=TextUtils.escaparString(value);
+                		section4_community_problems_other=value;
                 	}
                 }
                 	
-                String section4_community_problems[]=TextUtils.escaparArray((String[])communityProblems.toArray());
+                String section4_community_problems[]=communityProblems.toArray(new String[communityProblems.size()]);
                 
                 prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS,section4_community_problems);
         		prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER,section4_community_problems_other);
@@ -319,7 +317,8 @@ public class LoadDataBase {
 				prop.setProperty(Constants.SECTION5_CEDULA_NUM, documentI.getNumber());
 				String passportNumber = rs.getString("pasaporte");
 				if (!TextUtils.isEmptyOrNull(passportNumber)) {
-					prop.setProperty(Constants.SECTION5_PASSPORT, Integer.valueOf(passportNumber));
+					IdentificationDocument passportI=new IdentificationDocument(passportNumber);
+					prop.setProperty(Constants.SECTION5_PASSPORT, Integer.valueOf(passportI.getNumber()));
 				}
 				String sex = rs.getString("sexo");
 				prop.setProperty(Constants.SECTION5_SEX, sex);
@@ -350,14 +349,14 @@ public class LoadDataBase {
 				
 				//........... PersonEducationData
 				
-				String illiterate = TextUtils.escaparString(rs.getByte("esAnalfabeta")==0 ? "No" : "Sí");
+				String illiterate = rs.getByte("esAnalfabeta")==0 ? "No" : "Sí";
 				prop.setProperty(Constants.SECTION6_ILLITERATE, illiterate);
-				prop.setProperty(Constants.SECTION6_TRAINING_COURSE, rs.getByte("cursoCapacitacion"));	
-				String attendEducEstablishment = TextUtils.escaparString(rs.getByte("asisteEstablecimientoEducacion")==0 ? "No" : "Sí");
+				prop.setProperty(Constants.SECTION6_TRAINING_COURSE, rs.getString("cursoCapacitacion"));	
+				String attendEducEstablishment = rs.getByte("asisteEstablecimientoEducacion")==0 ? "No" : "Sí";
 				prop.setProperty(Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT, attendEducEstablishment);
-				String answerEducEstablishment = TextUtils.escaparString(rs.getString("respEstablecimientoEducacion"));
+				String answerEducEstablishment = rs.getString("respEstablecimientoEducacion");
 				prop.setProperty(Constants.SECTION6_ANSWER_EDUC_ESTABLISHMENT, answerEducEstablishment);
-				String scholarshipDescription = TextUtils.escaparString(rs.getString("recibeBeca"));
+				String scholarshipDescription = rs.getString("recibeBeca");
 				prop.setProperty(Constants.SECTION6_SCHOLARSHIP_DESCRIPTION, scholarshipDescription);
 
 				ArrayList<String> educationalMisionsList=new ArrayList<String>();
@@ -366,7 +365,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM mision WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				String missionType;
 				String missionName;
 				if(rs2.next())
@@ -380,23 +379,23 @@ public class LoadDataBase {
 					}
 					
 	            }
-				String[] educationalMisions = (String[]) educationalMisionsList.toArray();
+				String[] educationalMisions = educationalMisionsList.toArray(new String[educationalMisionsList.size()]);
 				prop.setProperty(Constants.SECTION6_EDUCATIONAL_MISIONS, educationalMisions);
 				
-				String[] otherMisions = (String[]) otherMisionsList.toArray();
+				String[] otherMisions = otherMisionsList.toArray(new String[otherMisionsList.size()]);
 				prop.setProperty(Constants.SECTION10_MISSIONS, otherMisions);
 				
 				//........... Empleo
 				
-				String degree_approved_text=TextUtils.escaparString(rs.getString("nivelEducativo"));
-				String degree_approved_level=TextUtils.escaparString(rs.getInt("ultimoGradoAprobado")+"");
-				String profession=TextUtils.escaparString(rs.getString("profesion"));
-				String skills_activity=TextUtils.escaparString(rs.getString("otrasHabilidades"));
+				String degree_approved_text=rs.getString("nivelEducativo");
+				String degree_approved_level=rs.getInt("ultimoGradoAprobado")+"";
+				String profession=rs.getString("profesion");
+				String skills_activity=rs.getString("otrasHabilidades");
 				String skills_activity_option = "";
 				
 				if(!skills_activity.equals("No")){
 					skills_activity_option=skills_activity;
-					skills_activity=TextUtils.escaparString("Sí ¿Cuál?");	
+					skills_activity="Sí ¿Cuál?";	
 				}
 				
 				
@@ -406,7 +405,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM empleo WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				
 				String you_are = "";
 				String occupation = "";
@@ -417,24 +416,23 @@ public class LoadDataBase {
 				
 				if(rs2.next())
 	            {
-					you_are=TextUtils.escaparString(rs.getString("situacion"));
-					occupation=TextUtils.escaparString(rs.getString("tipo"));
-					occupation_value=TextUtils.escaparString(rs.getString("tipo_seleccion"));
-					work_performed=TextUtils.escaparString(rs.getString("lugarTrabajo"));
-					main_job=TextUtils.escaparString(rs.getString("oficio"));
-					body_works=TextUtils.escaparString(rs.getString("tipoNegocio"));
-					
+					you_are=rs2.getString("situacion");
+					occupation=rs2.getString("tipo");
+					occupation_value=rs2.getString("tipo_seleccion");
+					work_performed=rs2.getString("lugarTrabajo");
+					main_job=rs2.getString("oficio");
+					body_works=rs2.getString("tipoNegocio");
 	            }
 				
-				String monthly_income=TextUtils.escaparString(rs.getString("ingresoMensual"));
-				String received_credit=TextUtils.escaparString(rs.getString("credito"));
+				String monthly_income=rs.getString("ingresoMensual");
+				String received_credit=rs.getString("credito");
 				String received_credit_value = "";
 				String received_credit_value_other = "";
 				
 				if(!received_credit.equals("No")){
 					received_credit_value=received_credit;
 					received_credit="Sí ¿Cuál instituto lo otorgo?";	
-					received_credit_value_other=TextUtils.escaparString(rs.getString("creditoOtros"));
+					received_credit_value_other=rs.getString("creditoOtros");
 				}
 
 				prop.setProperty(Constants.SECTION7_DEGREE_APPROVED_LEVEL,degree_approved_text);
@@ -461,7 +459,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM discapacidad WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				ArrayList<String> disabilitiesList=new ArrayList<String>();
 				if(rs2.next())
 	            {
@@ -469,14 +467,14 @@ public class LoadDataBase {
 					
 	            }
 				
-				String disabilities[] = TextUtils.escaparArray((String[]) disabilitiesList.toArray());
+				String disabilities[] = disabilitiesList.toArray(new String[disabilitiesList.size()]);
 				
 				pstmt2.close();
 				rs2.close();
 				sql = "SELECT * FROM sistemaprevencionsocial WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				ArrayList<String> security_systemsList=new ArrayList<String>();
 				if(rs2.next())
 	            {
@@ -484,14 +482,14 @@ public class LoadDataBase {
 					
 	            }
 				
-				String security_systems[] = TextUtils.escaparArray((String[]) security_systemsList.toArray());
+				String security_systems[] = security_systemsList.toArray(new String[security_systemsList.size()]);
 				
 				pstmt2.close();
 				rs2.close();
 				sql = "SELECT * FROM enfermedadPadecida WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				ArrayList<String> diseasesList=new ArrayList<String>();
 				String diseasesText;
 				String diseases_other="";
@@ -500,15 +498,15 @@ public class LoadDataBase {
 					diseasesText=rs2.getString("descripcion");
 					diseasesList.add(diseasesText);
 					if(diseasesText.equals("Otra ¿Cuál?")){
-						diseases_other=TextUtils.escaparString(rs2.getString("valor"));
+						diseases_other=rs2.getString("valor");
 					}
 				}
 					
-				String diseases[] =TextUtils.escaparArray((String[]) diseasesList.toArray());
+				String diseases[] =diseasesList.toArray(new String[diseasesList.size()]);
 					
 					
-				String medical_assistance =TextUtils.escaparString(rs.getString("lugarAsistenciaMedica"));
-				String medical_assistance_has =TextUtils.escaparString(rs.getString("razonAsistenciaMedica"));
+				String medical_assistance =rs.getString("lugarAsistenciaMedica");
+				String medical_assistance_has =rs.getString("razonAsistenciaMedica");
 				
 				
 				String medical_equipment_required = "";
@@ -521,7 +519,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM aparatomedico WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				if(rs2.next())
 	            {
 					medical_equipment_required=rs2.getString("nombre");
@@ -531,24 +529,24 @@ public class LoadDataBase {
 							medical_equipment_other=rs2.getString("descripcion");
 						}
 						medical_equipment_required="Sí";
-						medical_equipment_has=TextUtils.escaparString(rs.getByte("loTiene")==0 ? "No" : "Sí");
+						medical_equipment_has=rs2.getByte("loTiene")==0 ? "No" : "Sí";
 					}				
 					
 				}
 				
-				String pregnant =TextUtils.escaparString(rs.getByte("seEncuentraEmbarazada")==0 ? "No" : "Sí");
-				String prenatal =TextUtils.escaparString(rs.getByte("asisteControlMedicoParental")==0 ? "No" : "Sí");
+				String pregnant =rs.getByte("seEncuentraEmbarazada")==0 ? "No" : "Sí";
+				String prenatal =rs.getByte("asisteControlMedicoParental")==0 ? "No" : "Sí";
 
 				pstmt2.close();
 				rs2.close();
 				sql = "SELECT * FROM vacuna WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				HashMap<String, String> vaccines=new HashMap<String, String>();
 				if(rs2.next())
 	            {
-					vaccines.put(rs2.getString("nombre"), rs.getInt("numeroDosis")+"");
+					vaccines.put(rs2.getString("nombre"), rs2.getInt("numeroDosis")+"");
 	
 				}
 				
@@ -592,7 +590,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM habilidadartisticamanual WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				ArrayList<String> artisticAbilitiesN=new ArrayList<String>();
 				ArrayList<String> artisticAbilitiesE=new ArrayList<String>();
 				ArrayList<String> artisticAbilitiesI=new ArrayList<String>();
@@ -619,11 +617,11 @@ public class LoadDataBase {
 	
 				}
 
-				String[] artisticAbilities = TextUtils.escaparArray((String[]) artisticAbilitiesN.toArray());
-				String[] artisticAbilitiesInstructor = TextUtils.escaparArray((String[]) artisticAbilitiesI.toArray());
+				String[] artisticAbilities = artisticAbilitiesN.toArray(new String[artisticAbilitiesN.size()]);
+				String[] artisticAbilitiesInstructor = artisticAbilitiesI.toArray(new String[artisticAbilitiesI.size()]);
 				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY, artisticAbilities);
 				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, artisticAbilitiesInstructor);
-				String[] artisticAbilitiesStudent = TextUtils.escaparArray((String[]) artisticAbilitiesE.toArray());
+				String[] artisticAbilitiesStudent = artisticAbilitiesE.toArray(new String[artisticAbilitiesE.size()]);
 				prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, artisticAbilitiesStudent);
 
 
@@ -635,7 +633,7 @@ public class LoadDataBase {
 				sql = "SELECT * FROM deporte WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
-				rs2=pstmt.executeQuery();
+				rs2=pstmt2.executeQuery();
 				ArrayList<String> athleticAbilitiesN=new ArrayList<String>();
 				ArrayList<String> athleticAbilitiesE=new ArrayList<String>();
 				ArrayList<String> athleticAbilitiesI=new ArrayList<String>();
@@ -661,11 +659,11 @@ public class LoadDataBase {
 	
 				}
 
-				String[] athleticAbilities = TextUtils.escaparArray((String[]) athleticAbilitiesN.toArray());
+				String[] athleticAbilities = athleticAbilitiesN.toArray(new String[athleticAbilitiesN.size()]);
 				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY, athleticAbilities);
-				String[] athleticAbilitiesInstructor = TextUtils.escaparArray((String[]) athleticAbilitiesI.toArray());
+				String[] athleticAbilitiesInstructor = athleticAbilitiesI.toArray(new String[athleticAbilitiesI.size()]);
 				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, athleticAbilitiesInstructor);
-				String[] athleticAbilitiesStudent = TextUtils.escaparArray((String[]) athleticAbilitiesE.toArray());
+				String[] athleticAbilitiesStudent = athleticAbilitiesE.toArray(new String[athleticAbilitiesE.size()]);
 				prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, athleticAbilitiesStudent);
 				
 				prop.save();

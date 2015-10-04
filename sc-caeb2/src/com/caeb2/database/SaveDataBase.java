@@ -113,47 +113,47 @@ public class SaveDataBase {
 		try {
 			connection = Controller.getConnection();
             
-			String sql = "DELETE FROM empleo WHERE personId = "+personId;
+			String sql = "DELETE FROM empleo WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM mision WHERE personId = "+personId;
+			sql = "DELETE FROM mision WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM habilidadartisticamanual WHERE personId = "+personId;
+			sql = "DELETE FROM habilidadartisticamanual WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM deporte WHERE personId = "+personId;
+			sql = "DELETE FROM deporte WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM enfermedadPadecida WHERE personId = "+personId;
+			sql = "DELETE FROM enfermedadPadecida WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM vacuna WHERE personId = "+personId;
+			sql = "DELETE FROM vacuna WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM aparatomedico WHERE personId = "+personId;
+			sql = "DELETE FROM aparatomedico WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM sistemaprevencionsocial WHERE personId = "+personId;
+			sql = "DELETE FROM sistemaprevencionsocial WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM discapacidad WHERE personId = "+personId;
+			sql = "DELETE FROM discapacidad WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 
@@ -220,7 +220,7 @@ public class SaveDataBase {
 			
 			EducationLevel educationLevel= new EducationLevel();
 			pstmt.setString(17,educationLevel.getDegree_approved_text());
-			pstmt.setLong(18, Long.parseLong(educationLevel.getDegree_approved_level()));
+			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")) ? -1 : Long.parseLong(educationLevel.getDegree_approved_level()));
 			pstmt.setString(19, educationLevel.getProfession());
 			pstmt.setString(20,educationLevel.getMonthly_income());
 			pstmt.setString(21,educationLevel.getSkills_activity_option());
@@ -417,7 +417,7 @@ public class SaveDataBase {
 		try {
 			connection = Controller.getConnection();
 			
-			String sql = "DELETE FROM principalesproblemascomunidad WHERE personId = "+homeId;
+			String sql = "DELETE FROM principalesproblemascomunidad WHERE hogarId = "+homeId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 
@@ -557,14 +557,14 @@ public class SaveDataBase {
 		return null;
 	}
 	
-	public static boolean deleteDwellingComponents(long homeId){
+	public static boolean deleteDwellingComponents(long viviendaId){
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		try {
 			connection = Controller.getConnection();
 			
-			String sql = "DELETE FROM mejorainfo WHERE personId = "+homeId;
+			String sql = "DELETE FROM mejorainfo WHERE viviendaId = "+viviendaId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 
@@ -592,7 +592,7 @@ public class SaveDataBase {
 		deleteDwellingComponents(dwellingId);
 		String sql = "UPDATE vivienda SET callePasaje=?, nombre=?, telefono=?, tipoEstructura=?, materialParedes=?, materialPiso=?, "
 				+ "materialTecho=?, tenencia=?, ubicacionCocina=?, numeroCuartos=?, servicioAgua=?, servicioSanitario=?, servicioElectrico=?, "
-				+ "servicioRecoleccionBasura=?, seAjustaGrupoFamiliar=?, tipoSector=?, zonaRiesgo=?, posibilidadAmpliacion WHERE id = "+dwellingId;
+				+ "servicioRecoleccionBasura=?, seAjustaGrupoFamiliar=?, tipoSector=?, zonaRiesgo=?, posibilidadAmpliacion=? WHERE id = "+dwellingId;
 		return updateAndInserDwelling(dwellingId,sql);
 	}
 
@@ -647,13 +647,15 @@ public class SaveDataBase {
 	            {
 	                 last_inserted_id = rs.getLong(1);
 	            }
-	            insertPoll(dwellingId);
+	            insertPoll(last_inserted_id);
+	            if(insertPoll(last_inserted_id)==null){
+	            	return null;
+	            }
 			}else{
 				last_inserted_id=dwellingId;
 				pstmt.execute();
+				updatePoll(dwellingId);
 			}
-
-            rs.close();
 
             if(housingData.getUrgent_housing_improvements().equals("No"))
             	return last_inserted_id;
@@ -666,13 +668,11 @@ public class SaveDataBase {
 			pstmt3.executeBatch();
 
 			return last_inserted_id;
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
+			return null;
+		} finally{
 			try {
 				rs.close();
 			} catch (Exception e2) {
@@ -694,7 +694,6 @@ public class SaveDataBase {
 				// TODO: handle exception
 			}
 		}
-		return null;
 	}
 		
 	public static boolean deleteDwelling(long dwellingId){
@@ -825,6 +824,39 @@ public class SaveDataBase {
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+	}
+	
+	public static Long updatePoll(Long dwellingId) {
+
+		Connection connection = null;
+		PreparedStatement pstmt = null;
+		try {
+			connection = Controller.getConnection();
+
+			String sql = "UPDATE encuesta SET observaciones=? where viviendaId="+dwellingId;
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1,PollManager.getObservations());
+			
+			pstmt.execute();
+
+			return dwellingId;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} finally {
 			try {
 				pstmt.close();
 			} catch (Exception e2) {

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.caeb2.database.LoadDataBase;
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -123,7 +125,7 @@ public class Form {
 
 		Controller.getLogger().info("+ saveProcessPage3");
 
-		String observations = request.getParameter(Constants.SECTION3_OBSERVATIONS);
+		String observations = TextUtils.escaparString(request.getParameter(Constants.SECTION3_OBSERVATIONS));
 
 		PropertiesConfiguration prop = null;
 
@@ -139,6 +141,11 @@ public class Form {
 		prop.setProperty(Constants.SECTION3_USER, request.getSession(false).getAttribute(Constants.ATT_USER));
 
 		prop.save();
+		
+		Long v=SaveDataBase.updateDwelling(new Long(1));
+		if(v!=null){
+			PollManager.cleanPropFile(Constants.PROP_FILE_DWELLING);
+		}
 
 		Controller.getLogger().info("- saveProcessPage3");
 
@@ -149,6 +156,7 @@ public class Form {
 	}
 
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		Controller.getLogger().info("+ saveProcessPage4");
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
 
@@ -194,6 +202,14 @@ public class Form {
 		Controller.getLogger().info("- saveProcessPage4");
 
 		PollManager.setCurrentPage(request, 5);
+		Long v=SaveDataBase.updateHome(new Long(1));
+		if(v!=null){
+			PollManager.cleanPropFile(Constants.PROP_FILE_HOME);
+		}
+		
+		System.out.println("----------------------------------------------");
+		LoadDataBase.loadHome(1);
+//		LoadDataBase.loadPerson(1);
 
 		Controller.forward(request, response, "page_5.jsp");
 
