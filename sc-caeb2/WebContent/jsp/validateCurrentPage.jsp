@@ -8,6 +8,6 @@
 	Integer currPage = (Integer) session.getAttribute(Constants.ATT_CURR_PAGE);
 
 	if (pageNum != currPage) {
-		Controller.forward(request, response, "error.jsp", Constants.IT_CANNOT_ERROR);
+// 		Controller.forward(request, response, "error.jsp", Constants.IT_CANNOT_ERROR);
 	}
 %>

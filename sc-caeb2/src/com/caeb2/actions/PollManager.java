@@ -133,7 +133,7 @@ public class PollManager {
 		return observations;
 
 	}
-	
+
 	public static String getUser() {
 
 		PropertiesConfiguration prop = null;
@@ -163,13 +163,11 @@ public class PollManager {
 
 		File file = new File(propFile);
 
-		if (file.delete()) {
-			Controller.getLogger().info(TextUtils.getFormattedMessage( //
-					Constants.FILE_DELETED, new Object[] {propFile}));
-		} else {
-			Controller.getLogger().info(TextUtils.getFormattedMessage( //
-					Constants.FILE_NOT_DELETED, new Object[] {propFile}));
-		}
+		String message = file.delete() ? //
+				Constants.FILE_DELETED : Constants.FILE_NOT_DELETED;
+
+		Controller.getLogger().info(TextUtils.getFormattedMessage( //
+				message, new Object[] {propFile}));
 
 	}
 

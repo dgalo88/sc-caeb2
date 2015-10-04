@@ -35,8 +35,11 @@ public class Controller {
 
 	private static Logger logger = Logger.getLogger("CAEB2Logger");
 
+	public static String test;
+
 	private Controller() {
 		// empty
+		test = "1";
 	}
 
 	public static Logger getLogger() {
@@ -196,6 +199,12 @@ public class Controller {
 	public static PropertiesConfiguration getPropertiesFile( //
 			String propFileName, PropFileRole propFileType) //
 					throws ConfigurationException, IOException {
+
+		String prefix = Constants.PATH_REAL_PROJECT + Constants.FILE_SEPARATOR;
+
+		propFileName = prefix + propFileName;
+
+		System.out.println("Controller.test = " + Controller.test);
 
 		switch (propFileType) {
 		case SAVE:

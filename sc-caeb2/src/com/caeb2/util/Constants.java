@@ -6,7 +6,8 @@ public class Constants {
 	public static final String CENSO_COMUNITARIO = "CENSO COMUNITARIO";
 	public static final String CCAEB2 = "Consejo Comunal Andrés Eloy Blanco 2";
 	public static final String SECTOR_AEB = "Sector Andrés Eloy Blanco";
-	public static final String DIR_CCAEB2 = "Dirección del Consejo Comunal: calle principal, casa 2-32. Telf.: 0426-8288651 / 0416-3705229.";
+	public static final String DIR_CCAEB2 = "Dirección del Consejo Comunal: " //
+			+ "calle principal, casa 2-32. Telf.: 0426-8288651 / 0416-3705229.";
 
 	public static final String EXECUTE = "startup";
 	public static final String ACTION = "action";
@@ -47,6 +48,7 @@ public class Constants {
 	public static final String FORWARD = "[REENVIAR] ";
 	public static final String RESPONSE = "[RESPUESTA] ";
 	public static final String USER_LOGIN = "El usuario ''{0}'' ha iniciado sesión";
+	public static final String USER_LOGOUT = "El usuario ''{0}'' ha cerrado sesión";
 	public static final String SAVE_DATA_TO = "Guardando datos en el archivo \"{0}\"";
 	public static final String LOAD_DATA_FROM = "Cargando datos desde el archivo \"{0}\"";
 	public static final String PASS_CHANGED = "Contraseña cambiada con éxito";
@@ -103,6 +105,8 @@ public class Constants {
 	public static final String JSP_CLOSE = "Cerrar";
 	public static final String JSP_COMEBACK = "Volver";
 	public static final String JSP_GENERATE = "Generar";
+	public static final String JSP_YES = "Si";
+	public static final String JSP_NO = "No";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";

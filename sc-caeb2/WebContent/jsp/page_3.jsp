@@ -7,8 +7,6 @@
 	Parameters.setTitle("Sección 3: Observaciones");
 
 	String observations = PollManager.getObservations();
-
-	System.out.println("curr = " + session.getAttribute(Constants.ATT_CURR_PAGE));
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

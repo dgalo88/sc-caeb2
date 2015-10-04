@@ -204,4 +204,76 @@
 	<%@include file="pagination.jsp"%>
 </div>
 
+<!-- Add Person -->
+<div class="modal fade" id="addPerson" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<br>
+			<div class="modal-body text-center" id="addHomeQuestion">
+				¿Desea agregar otra persona al hogar?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="addPersonYes">
+					<%=Constants.JSP_YES%>
+				</button>
+				<button type="button" class="btn btn-primary" id="addPersonNo">
+					<%=Constants.JSP_NO%>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Add Home -->
+<div class="modal fade" id="addHome" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<br>
+			<div class="modal-body text-center" id="addHomeQuestion">
+				¿Desea agregar otro hogar a la vivienda?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="addHomeYes">
+					<%=Constants.JSP_YES%>
+				</button>
+				<button type="button" class="btn btn-primary" id="addHomeNo">
+					<%=Constants.JSP_NO%>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).on('ready', function() {
+
+		$('#form_<%=Parameters.getPageNumber()%>').submit(function(e) {
+// 			$('#addPerson').modal('show');
+			e.preventDefault();
+		});
+
+		$('#addPersonNo').on('click', function() {
+
+			$('#addPerson').modal('hide');
+
+			$('#addHome').modal('show');
+
+		});
+
+		$('#addPersonYes').on('click', function() {
+			$('#addPerson').modal('hide');
+		});
+
+		$('#addHomeNo').on('click', function() {
+			$('#addHome').modal('hide');
+		});
+
+	});
+
+	function finish() {
+		$('#addPerson').modal('show');
+	}
+
+</script>
+
 <%@include file="footer.jsp"%>

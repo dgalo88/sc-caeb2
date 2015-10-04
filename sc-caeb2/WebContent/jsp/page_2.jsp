@@ -44,7 +44,10 @@
 						</div>
 						<div class="form-group">
 							<label for="total_cuartos">Total de cuartos que contiene la vivienda</label> 
-								<input type="number" required class="form-control" id="<%=Constants.SECTION2_TOTAL_ROOMS%>" name="<%=Constants.SECTION2_TOTAL_ROOMS%>" placeholder="No incluye baños, pasillos, balcones ni lavaderos" value="<%=housingData.getTotal_rooms()%>">
+								<input type="number" required class="form-control" id="<%=Constants.SECTION2_TOTAL_ROOMS%>"
+										name="<%=Constants.SECTION2_TOTAL_ROOMS%>"
+										placeholder="No incluye baños, pasillos, balcones ni lavaderos"
+										value="<%=housingData.getTotal_rooms()%>" min="1">
 						</div>
 						<div class="form-group">
 							<label for="la_vivienda_GFM">¿La vivienda se ajusta a su grupo familiar?</label> 
