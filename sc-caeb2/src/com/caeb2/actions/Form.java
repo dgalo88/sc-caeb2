@@ -17,27 +17,17 @@ import com.caeb2.util.Controller.PropFileRole;
 import com.caeb2.util.TextUtils;
 
 public class Form {
-	//	private static PropertiesConfiguration prop;
-	//	
-	//	public Form() {
-	//		try {
-	//			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
-	//		} catch (ConfigurationException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		} catch (IOException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
 
 	public static void saveProcessPage1(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		Controller.getLogger().info("+ saveProcessPage1");
 
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
-		String street =request.getParameter(Constants.SECTION1_STREET);
-		String name_housing =request.getParameter(Constants.SECTION1_NAME_HOUSING);
-		String home_phone=request.getParameter(Constants.SECTION1_HOME_PHONE);
+		PropertiesConfiguration prop = Controller.getPropertiesFile( //
+				Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, request.getRequestedSessionId());
+
+		String street = request.getParameter(Constants.SECTION1_STREET);
+		String name_housing = request.getParameter(Constants.SECTION1_NAME_HOUSING);
+		String home_phone = request.getParameter(Constants.SECTION1_HOME_PHONE);
 
 		prop.setProperty(Constants.SECTION1_STREET, street);
 		prop.setProperty(Constants.SECTION1_NAME_HOUSING, name_housing);
@@ -54,10 +44,11 @@ public class Form {
 	}
 
 	public static void saveProcessPage2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		Controller.getLogger().info("+ saveProcessPage2");
 
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
-
+		PropertiesConfiguration prop = Controller.getPropertiesFile( //
+				Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, request.getRequestedSessionId());
 
 		String structure_type=TextUtils.escaparString(request.getParameter(Constants.SECTION2_STRUCTURE_TYPE));
 		String holding=TextUtils.escaparString(request.getParameter(Constants.SECTION2_HOLDING));
@@ -130,7 +121,8 @@ public class Form {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
@@ -142,9 +134,10 @@ public class Form {
 
 		prop.save();
 		
-		Long v=SaveDataBase.updateDwelling(new Long(1));
-		if(v!=null){
-			PollManager.cleanPropFile(Constants.PROP_FILE_DWELLING);
+		Long v=SaveDataBase.updateDwelling(new Long(1), request.getRequestedSessionId());
+
+		if (v != null) {
+			PollManager.cleanPropFile(Constants.PROP_FILE_DWELLING, request.getRequestedSessionId());
 		}
 
 		Controller.getLogger().info("- saveProcessPage3");
@@ -158,7 +151,9 @@ public class Form {
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Controller.getLogger().info("+ saveProcessPage4");
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, //
+				PropFileRole.LOAD, request.getRequestedSessionId());
 
 		//		String section4_home=TextUtils.escaparString(request.getParameter(Constants.SECTION4_HOME));
 		//		String section4_to=TextUtils.escaparString(request.getParameter(Constants.SECTION4_TO));
@@ -201,14 +196,15 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage4");
 
+
 		PollManager.setCurrentPage(request, 5);
-		Long v=SaveDataBase.updateHome(new Long(1));
+		Long v=SaveDataBase.updateHome(new Long(1), request.getRequestedSessionId());
 		if(v!=null){
-			PollManager.cleanPropFile(Constants.PROP_FILE_HOME);
+			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, request.getRequestedSessionId());
 		}
 		
 		System.out.println("----------------------------------------------");
-		LoadDataBase.loadHome(1);
+		LoadDataBase.loadHome(1, request.getRequestedSessionId());
 //		LoadDataBase.loadPerson(1);
 
 		Controller.forward(request, response, "page_5.jsp");
@@ -216,9 +212,11 @@ public class Form {
 	}
 
 	public static void saveProcessPage7(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Controller.getLogger().info("+ saveProcessPage7");
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
 
+		Controller.getLogger().info("+ saveProcessPage7");
+
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+				PropFileRole.LOAD, request.getRequestedSessionId());
 
 		String degree_approved_text=TextUtils.escaparString(request.getParameter(Constants.SECTION7_DEGREE_APPROVED_LEVEL));
 		String degree_approved_level=TextUtils.escaparString(request.getParameter(Constants.SECTION7_DEGREE_APPROVED_TEXT));
@@ -265,9 +263,11 @@ public class Form {
 	}
 
 	public static void saveProcessPage8(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Controller.getLogger().info("+ saveProcessPage8");
-		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
 
+		Controller.getLogger().info("+ saveProcessPage8");
+
+		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+				PropFileRole.LOAD, request.getRequestedSessionId());
 
 		String disabilities[] = TextUtils.escaparArray(request.getParameterValues(Constants.SECTION8_DISABILITIES));
 		String security_systems[] = TextUtils.escaparArray(request.getParameterValues(Constants.SECTION8_SECURITY_SYSTEMS));
@@ -293,8 +293,6 @@ public class Form {
 		String vaccines_Sarampion =TextUtils.escaparString(request.getParameter(Constants.SECTION8_VACCINES_SARAMPION));
 
 		String prenatal =TextUtils.escaparString(request.getParameter(Constants.SECTION8_PRENATAL));
-
-
 
 		prop.setProperty(Constants.SECTION8_DISABILITIES,disabilities);
 		prop.setProperty(Constants.SECTION8_SECURITY_SYSTEMS,security_systems);

@@ -49,7 +49,7 @@ import com.caeb2.util.Controller.PropFileRole;
 
 public class LoadDataBase {
 
-	public static boolean loadDwelling(long idDwelling) {
+	public static boolean loadDwelling(long idDwelling, String sessionId) {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
@@ -66,7 +66,8 @@ public class LoadDataBase {
 			rs=pstmt.executeQuery();
             if(rs.next())
             {
-            	PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
+            	PropertiesConfiguration prop = Controller.getPropertiesFile( //
+            			Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, sessionId);
         		String street =rs.getString(1);
         		String name_housing =rs.getString(2);
         		String home_phone=rs.getString(3);
@@ -110,7 +111,7 @@ public class LoadDataBase {
     			ArrayList<String> partList=new ArrayList<String>();
     			ArrayList<String> requiredList=new ArrayList<String>();
     			ArrayList<String> workNeedsList=new ArrayList<String>();
-                if(rs.next())
+                while(rs.next())
                 {
                 	String type=rs.getString("tipo");
                 	String clave=rs.getString("clave");
@@ -195,14 +196,15 @@ public class LoadDataBase {
 		return false;
 	}
 	
-	public static boolean loadHome(long homeId){
+	public static boolean loadHome(long homeId, String sessionId) {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
 		ResultSet rs = null;
 		try {
 			
-			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			PropertiesConfiguration prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_HOME, PropFileRole.LOAD, sessionId);
 			connection = Controller.getConnection();			
 			String sql = "SELECT * FROM hogar WHERE id=?";
 			
@@ -219,7 +221,7 @@ public class LoadDataBase {
         		multipleProcessesCases(prop, Constants.SECTION4_USED_MERCAL, Constants.SECTION4_USED_MERCAL_SELECTED, rs.getString("utilizaMercal"));
         		multipleProcessesCases(prop, Constants.SECTION4_USED_PDVAL, Constants.SECTION4_USED_PDVALL_SELECTED, rs.getString("utilizaPdval"));
         		multipleProcessesCases(prop, Constants.SECTION4_FOOD_MARKETS, Constants.SECTION4_FOOD_MARKETS_RESPONSE, rs.getString("beneficioMercado"));
-        		multipleProcessesCases(prop, Constants.SECTION4_COMMUNITY_ORGANIZATIO, Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH, rs.getString("beneficioMercado"));
+        		multipleProcessesCases(prop, Constants.SECTION4_COMMUNITY_ORGANIZATIO, Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH, rs.getString("miembroParticipaOrganizacionComunitaria"));
         		
         		prop.setProperty(Constants.SECTION4_ROOMS,section4_rooms);
         		prop.setProperty(Constants.SECTION4_CHIEF_COUPLE,section4_chief_couple);
@@ -230,12 +232,13 @@ public class LoadDataBase {
         		
         		String section4_community_problems_other = null;
         		
-    			pstmt2 = connection.prepareStatement("SELECT id, descripcion, valor FROM principalesproblemascomunidad WHERE hogarId=?");
+    			pstmt2 = connection.prepareStatement("SELECT * FROM principalesproblemascomunidad WHERE hogarId=?");
     			pstmt2.setLong(1, homeId);
     			rs=pstmt2.executeQuery();
     			ArrayList<String> communityProblems=new ArrayList<String>();
-                if(rs.next())
+                while(rs.next())
                 {
+                	
                 	String clave=rs.getString("descripcion");
                 	String value=rs.getString("valor");
                 	communityProblems.add(clave);
@@ -291,7 +294,7 @@ public class LoadDataBase {
 		
 	}
 	
-	public static boolean loadPerson(long personId){
+	public static boolean loadPerson(long personId, String sessionId) {
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -299,7 +302,8 @@ public class LoadDataBase {
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		try {
-			PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, PropFileRole.LOAD);
+			PropertiesConfiguration prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_HOME, PropFileRole.LOAD, sessionId);
 			connection = Controller.getConnection();			
 			String sql = "SELECT * FROM persona WHERE id= ?";
 			pstmt = connection.prepareStatement(sql);
@@ -368,7 +372,7 @@ public class LoadDataBase {
 				rs2=pstmt2.executeQuery();
 				String missionType;
 				String missionName;
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					missionType=rs2.getString("tipo");
 					missionName=rs2.getString("mision");
@@ -414,7 +418,7 @@ public class LoadDataBase {
 				String main_job="";
 				String body_works="";
 				
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					you_are=rs2.getString("situacion");
 					occupation=rs2.getString("tipo");
@@ -461,7 +465,7 @@ public class LoadDataBase {
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
 				ArrayList<String> disabilitiesList=new ArrayList<String>();
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					disabilitiesList.add(rs2.getString("descripcion"));
 					
@@ -476,7 +480,7 @@ public class LoadDataBase {
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
 				ArrayList<String> security_systemsList=new ArrayList<String>();
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					security_systemsList.add(rs2.getString("descripcion"));
 					
@@ -493,7 +497,7 @@ public class LoadDataBase {
 				ArrayList<String> diseasesList=new ArrayList<String>();
 				String diseasesText;
 				String diseases_other="";
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					diseasesText=rs2.getString("descripcion");
 					diseasesList.add(diseasesText);
@@ -520,7 +524,7 @@ public class LoadDataBase {
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					medical_equipment_required=rs2.getString("nombre");
 					if(!medical_equipment_required.equals("No")){
@@ -544,7 +548,7 @@ public class LoadDataBase {
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
 				HashMap<String, String> vaccines=new HashMap<String, String>();
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					vaccines.put(rs2.getString("nombre"), rs2.getInt("numeroDosis")+"");
 	
@@ -595,7 +599,7 @@ public class LoadDataBase {
 				ArrayList<String> artisticAbilitiesE=new ArrayList<String>();
 				ArrayList<String> artisticAbilitiesI=new ArrayList<String>();
 				String participation;
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					participation=rs2.getString("participacion");
 					if(participation.equals("E")){
@@ -637,7 +641,7 @@ public class LoadDataBase {
 				ArrayList<String> athleticAbilitiesN=new ArrayList<String>();
 				ArrayList<String> athleticAbilitiesE=new ArrayList<String>();
 				ArrayList<String> athleticAbilitiesI=new ArrayList<String>();
-				if(rs2.next())
+				while(rs2.next())
 	            {
 					participation=rs2.getString("participacion");
 					if(participation.equals("E")){

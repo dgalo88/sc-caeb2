@@ -15,7 +15,6 @@ import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
-import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -31,7 +30,8 @@ public class IndividualCharacteristics {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
@@ -102,6 +102,16 @@ public class IndividualCharacteristics {
 		prop.save();
 
 		PollManager.setCurrentPage(request, 6);
+		
+
+		PollManager.setCurrentPage(request, 5);
+		Long v=SaveDataBase.updatePerson(new Long(1));
+		if(v!=null){
+			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON);
+		}
+		
+		System.out.println("----------------------------------------------");
+		LoadDataBase.loadPerson(1);
 
 		Controller.forward(request, response, "page_6.jsp");
 
@@ -109,14 +119,15 @@ public class IndividualCharacteristics {
 
 	//--------------------------------------------------------------------------------
 
-	public static PersonBasicData loadPersonBasicData() {
+	public static PersonBasicData loadPersonBasicData(String sessionId) {
 
 		PersonBasicData personBasicData = new PersonBasicData();
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return personBasicData;
@@ -195,7 +206,8 @@ public class IndividualCharacteristics {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
@@ -252,14 +264,15 @@ public class IndividualCharacteristics {
 
 	//--------------------------------------------------------------------------------
 
-	public static PersonEducationData loadPersonEducationData() {
+	public static PersonEducationData loadPersonEducationData(String sessionId) {
 
 		PersonEducationData personEducationData = new PersonEducationData();
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return personEducationData;
@@ -306,7 +319,8 @@ public class IndividualCharacteristics {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
@@ -409,14 +423,15 @@ public class IndividualCharacteristics {
 
 	//--------------------------------------------------------------------------------
 
-	public static Ability loadAbilitiesData() {
+	public static Ability loadAbilitiesData(String sessionId) {
 
 		Ability ability = new Ability();
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return ability;
@@ -484,7 +499,8 @@ public class IndividualCharacteristics {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.SAVE);
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
@@ -502,14 +518,15 @@ public class IndividualCharacteristics {
 
 	//--------------------------------------------------------------------------------
 
-	public static PersonMissions loadMissions() {
+	public static PersonMissions loadMissions(String sessionId) {
 
 		PersonMissions personMissions = new PersonMissions();
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return personMissions;

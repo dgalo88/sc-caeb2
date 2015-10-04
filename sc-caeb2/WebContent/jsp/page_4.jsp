@@ -5,7 +5,8 @@
 <%
 	Parameters.setPageNumber(4);
 	Parameters.setTitle("Sección 4: Datos del hogar");
-	HomeData homeData=new HomeData();
+
+	HomeData homeData = new HomeData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>
@@ -21,7 +22,7 @@
 				<td width="50%">
 					<div class="form-group">
 						<label for="numero_DCPD">Número de cuartos para dormir</label> 
-						<input type="number" class="form-control" id="<%=Constants.SECTION4_ROOMS%>" name="<%=Constants.SECTION4_ROOMS%>" min="0" value="<%= !homeData.getRooms().equals("") ? homeData.getRooms(): ""%>">
+						<input type="number" class="form-control" id="<%=Constants.SECTION4_ROOMS%>" name="<%=Constants.SECTION4_ROOMS%>" min="0" value="<%= !homeData.getRooms().equals("") ? homeData.getRooms(): ""%>" required>
 					</div>
 					<div class="form-group">
 						<label for="jefe_OJDEHTP">¿El jefe o jefa de este hogar tiene pareja?</label> 
@@ -88,14 +89,14 @@
 								</td>
 							</tr>
 						</table>
-						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=!(homeData.getCommunity_problems().containsKey("Otra ¿Cuál?")) ? "style=\"display: none\"": ""%>>
+						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=!(homeData.getCommunity_problems().containsKey("Otra ¿Cuál?")) ? "style=\"display: none\"": "value="+homeData.getCommunity_problems_other()%>>
 					</div>
 				</td>
 				<td width="50%">
 					<div>
 						<div class="form-group">
-							<label for="numero_DB">Número de baños</label> 
-							<input type="number" class="form-control" id="numero_DB" name="<%=Constants.SECTION4_NUMBER_BATHROOMS%>" value="<%= !homeData.getNumber_bathrooms().equals("") ? homeData.getNumber_bathrooms(): ""%>" min="0">
+							<label for="numero_DB">Número de baños</label>
+							<input type="number" class="form-control" id="numero_DB" name="<%=Constants.SECTION4_NUMBER_BATHROOMS%>" value="<%= !homeData.getNumber_bathrooms().equals("") ? homeData.getNumber_bathrooms(): ""%>" min="0" required>
 						</div>
 						<div class="form-group">
 							<label for="alguno_DLDDLVD3OMP">¿En alguno de los dormitorios de la vivienda duermen 3 o más personas?</label> 
