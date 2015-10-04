@@ -177,10 +177,10 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static Long updateAndInsertPerson(Long homeId,Long personId,String sql){
+	public static Long updateAndInsertPerson(Long homeId, Long personId, String sql, String sessionId) {
 
-		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData();
-		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData();
+		PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData(sessionId);
+		PersonEducationData personEducationData = IndividualCharacteristics.loadPersonEducationData(sessionId);
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -218,7 +218,7 @@ public class SaveDataBase {
 			pstmt.setString(16,personEducationData.getTrainingCourse());
 			
 			
-			EducationLevel educationLevel= new EducationLevel();
+			EducationLevel educationLevel= new EducationLevel(sessionId);
 			pstmt.setString(17,educationLevel.getDegree_approved_text());
 			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")) ? -1 : Long.parseLong(educationLevel.getDegree_approved_level()));
 			pstmt.setString(19, educationLevel.getProfession());
@@ -226,7 +226,7 @@ public class SaveDataBase {
 			pstmt.setString(21,educationLevel.getSkills_activity_option());
 			pstmt.setString(22,educationLevel.getReceived_credit_value());
 			
-			MedicalData medicalData=new MedicalData();
+			MedicalData medicalData=new MedicalData(sessionId);
 			pstmt.setByte(23,parseByte(medicalData.getPregnant()));
 			pstmt.setByte(24,parseByte(medicalData.getPrenatal()));
 			
@@ -316,7 +316,7 @@ public class SaveDataBase {
 			pstmt2.close();
 			String sqlArtisticAbilities = "INSERT INTO habilidadartisticamanual (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlArtisticAbilities);
-			Ability ability = IndividualCharacteristics.loadAbilitiesData();
+			Ability ability = IndividualCharacteristics.loadAbilitiesData(sessionId);
 			HashMap<String, String> artisticAbilities=ability.getArtisticAbilities();
 			HashMap<String, Boolean> artisticAbilitiesInstructor=ability.getArtisticAbilitiesInstructor();
 			processMapAbility(artisticAbilities, artisticAbilitiesInstructor, pstmt2, last_inserted_id);
@@ -340,7 +340,7 @@ public class SaveDataBase {
 			
 			//..........Procesar Misiones del tipo Otras 
 			pstmt2.close();
-			PersonMissions personMissions = IndividualCharacteristics.loadMissions();
+			PersonMissions personMissions = IndividualCharacteristics.loadMissions(sessionId);
 			HashMap<String, String> missions = personMissions.getMissions();
 			String sqlMissions = "INSERT INTO mision (id, mision, tipo, personaId) VALUES (NULL,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlMissions);
@@ -389,7 +389,7 @@ public class SaveDataBase {
 		return null;
 	}
 	
-	public static Long updatePerson(Long personId){
+	public static Long updatePerson(Long personId, String sessionId) {
 		deletePersonComponents(personId);
 		String sql = "UPDATE persona SET apellidos=?, nombres=?, parentescoJefeHogar=?, "
 				+ "sexo=?, fechaNacimiento=?, nacionalidad=?, cedula=?, pasaporte=?, correoElectronico=?, celular=?, "
@@ -397,20 +397,20 @@ public class SaveDataBase {
 				+ "recibeBeca=?, cursoCapacitacion=?, nivelEducativo=?, ultimoGradoAprobado=?, profesion=?, ingresoMensual=?, "
 				+ "otrasHabilidades=?, credito=?, seEncuentraEmbarazada=?, asisteControlMedicoParental=?, lugarAsistenciaMedica=?, "
 				+ "razonAsistenciaMedica=?, fechaLlegada=?, creditoOtros=? WHERE id = "+personId;
-		return updateAndInsertPerson(null,personId,sql);
+		return updateAndInsertPerson(null, personId, sql, sessionId);
 	}
 
-	public static Long insertPerson(Long homeId){
+	public static Long insertPerson(Long homeId, String sessionId) {
 		String sql = "INSERT INTO persona (id, apellidos, nombres, parentescoJefeHogar, "
 				+ "sexo, fechaNacimiento, nacionalidad, cedula, pasaporte, correoElectronico, celular, "
 				+ "celularOpcional, esAnalfabeta, asisteEstablecimientoEducacion, respEstablecimientoEducacion, "
 				+ "recibeBeca, cursoCapacitacion, nivelEducativo, ultimoGradoAprobado, profesion, ingresoMensual, "
 				+ "otrasHabilidades, credito, seEncuentraEmbarazada, asisteControlMedicoParental, lugarAsistenciaMedica, "
 				+ "razonAsistenciaMedica, fechaLlegada, creditoOtros,hogarId) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		return updateAndInsertPerson(homeId,null,sql);
+		return updateAndInsertPerson(homeId, null, sql, sessionId);
 	}
 	
-	public static boolean deleteHomeComponents(long homeId){
+	public static boolean deleteHomeComponents(long homeId) {
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
@@ -441,22 +441,22 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static Long updateHome(Long homeId){
+	public static Long updateHome(Long homeId, String sessionId) {
 		deleteHomeComponents(homeId);
 		String sql = "UPDATE hogar SET numeroCuartos=?, numeroBanos=?, jefeTienePareja=?, "
 				+ "dormitorioTresOMas=?, utilizaMercal=?, utilizaPdval=?, beneficioMercado=?, "
 				+ "miembroParticipaOrganizacionComunitaria=? WHERE id = "+homeId;
-		return updateAndInserHome(null,homeId,sql);
+		return updateAndInserHome(null, homeId, sql, sessionId);
 	}
 
-	public static Long insertHome(Long dwellingId){
+	public static Long insertHome(Long dwellingId, String sessionId) {
 		String sql = "INSERT INTO hogar (id, numeroCuartos, numeroBanos, jefeTienePareja, dormitorioTresOMas, utilizaMercal, utilizaPdval, beneficioMercado, miembroParticipaOrganizacionComunitaria, viviendaId) VALUES (NULL,?,?,?,?,?,?,?,?,?)";
-		return updateAndInserHome(dwellingId,null,sql);
+		return updateAndInserHome(dwellingId, null, sql, sessionId);
 	}
 	
-	public static Long updateAndInserHome(Long dwellingId,Long homeId,String sql){
+	public static Long updateAndInserHome(Long dwellingId, Long homeId, String sql, String sessionId) {
 		
-		HomeData homeData=new HomeData();
+		HomeData homeData=new HomeData(sessionId);
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
@@ -588,25 +588,25 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static Long updateDwelling(Long dwellingId){
+	public static Long updateDwelling(Long dwellingId, String sessionId) {
 		deleteDwellingComponents(dwellingId);
 		String sql = "UPDATE vivienda SET callePasaje=?, nombre=?, telefono=?, tipoEstructura=?, materialParedes=?, materialPiso=?, "
 				+ "materialTecho=?, tenencia=?, ubicacionCocina=?, numeroCuartos=?, servicioAgua=?, servicioSanitario=?, servicioElectrico=?, "
 				+ "servicioRecoleccionBasura=?, seAjustaGrupoFamiliar=?, tipoSector=?, zonaRiesgo=?, posibilidadAmpliacion=? WHERE id = "+dwellingId;
-		return updateAndInserDwelling(dwellingId,sql);
+		return updateAndInserDwelling(dwellingId, sql, sessionId);
 	}
 
-	public static Long insertDwelling(){
+	public static Long insertDwelling(String sessionId) {
 		String sql = "INSERT INTO vivienda (id, callePasaje, nombre, telefono, tipoEstructura, materialParedes, materialPiso, "
 				+ "materialTecho, tenencia, ubicacionCocina, numeroCuartos, servicioAgua, servicioSanitario, servicioElectrico, "
 				+ "servicioRecoleccionBasura, seAjustaGrupoFamiliar, tipoSector, zonaRiesgo, posibilidadAmpliacion) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		return updateAndInserDwelling(null,sql);
+		return updateAndInserDwelling(null, sql, sessionId);
 	}
 	
-	public static Long updateAndInserDwelling(Long dwellingId,String sql){
+	public static Long updateAndInserDwelling(Long dwellingId, String sql, String sessionId) {
 		
-		IdentifyingStructure identifyingStructure= new IdentifyingStructure();
-		HousingData housingData= new HousingData();
+		IdentifyingStructure identifyingStructure= new IdentifyingStructure(sessionId);
+		HousingData housingData= new HousingData(sessionId);
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt3= null;
@@ -647,14 +647,14 @@ public class SaveDataBase {
 	            {
 	                 last_inserted_id = rs.getLong(1);
 	            }
-	            insertPoll(last_inserted_id);
-	            if(insertPoll(last_inserted_id)==null){
+	            insertPoll(last_inserted_id, sessionId);
+	            if(insertPoll(last_inserted_id, sessionId)==null){
 	            	return null;
 	            }
 			}else{
 				last_inserted_id=dwellingId;
 				pstmt.execute();
-				updatePoll(dwellingId);
+				updatePoll(dwellingId, sessionId);
 			}
 
             if(housingData.getUrgent_housing_improvements().equals("No"))
@@ -789,7 +789,7 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static Long insertPoll(Long dwellingId) {
+	public static Long insertPoll(Long dwellingId, String sessionId) {
 
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -800,8 +800,8 @@ public class SaveDataBase {
 			String sql = "INSERT INTO encuesta (numeroPlanilla, fechaEntrevista, nombreEmpadronador, observaciones, viviendaId) VALUES (NULL,?,?,?,?)";
 			pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1,new java.sql.Date(new Date().getTime()));
-			pstmt.setString(2,PollManager.getUser());
-			pstmt.setString(3,PollManager.getObservations());
+			pstmt.setString(2,PollManager.getUser(sessionId));
+			pstmt.setString(3,PollManager.getObservations(sessionId));
 			pstmt.setLong(4,dwellingId);
 			
 			pstmt.executeUpdate();
@@ -838,7 +838,7 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static Long updatePoll(Long dwellingId) {
+	public static Long updatePoll(Long dwellingId, String sessionId) {
 
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -847,7 +847,7 @@ public class SaveDataBase {
 
 			String sql = "UPDATE encuesta SET observaciones=? where viviendaId="+dwellingId;
 			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1,PollManager.getObservations());
+			pstmt.setString(1,PollManager.getObservations(sessionId));
 			
 			pstmt.execute();
 

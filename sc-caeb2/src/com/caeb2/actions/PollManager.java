@@ -117,12 +117,13 @@ public class PollManager {
 
 	}
 
-	public static String getObservations() {
+	public static String getObservations(String sessionId) {
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return "";
@@ -133,13 +134,14 @@ public class PollManager {
 		return observations;
 
 	}
-	
-	public static String getUser() {
+
+	public static String getUser(String sessionId) {
 
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return "";
@@ -151,25 +153,28 @@ public class PollManager {
 
 	}
 
-	public static void cleanPropFiles() {
+	public static void cleanPropFiles(String sessionId) {
 
-		cleanPropFile(Constants.PROP_FILE_DWELLING);
-		cleanPropFile(Constants.PROP_FILE_HOME);
-		cleanPropFile(Constants.PROP_FILE_PERSON);
+		cleanPropFile(Constants.PROP_FILE_DWELLING, sessionId);
+		cleanPropFile(Constants.PROP_FILE_HOME, sessionId);
+		cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
 
 	}
 
-	public static void cleanPropFile(String propFile) {
+	public static void cleanPropFile(String propFile, String sessionId) {
+
+		String prefix = Constants.PATH_REAL_PROJECT + Constants.FILE_SEPARATOR //
+				+ Constants.SC_CAEB2 + Constants.FILE_SEPARATOR;
+
+		propFile = prefix + sessionId + "-" + propFile;
 
 		File file = new File(propFile);
 
-		if (file.delete()) {
-			Controller.getLogger().info(TextUtils.getFormattedMessage( //
-					Constants.FILE_DELETED, new Object[] {propFile}));
-		} else {
-			Controller.getLogger().info(TextUtils.getFormattedMessage( //
-					Constants.FILE_NOT_DELETED, new Object[] {propFile}));
-		}
+		String message = file.delete() ? //
+				Constants.FILE_DELETED : Constants.FILE_NOT_DELETED;
+
+		Controller.getLogger().info(TextUtils.getFormattedMessage( //
+				message, new Object[] {propFile}));
 
 	}
 

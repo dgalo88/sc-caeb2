@@ -5,7 +5,7 @@
 <%
 	Parameters.setPageNumber(8);
 	Parameters.setTitle("Sección 5: Características individuales");
-	MedicalData medicalData=new MedicalData();
+	MedicalData medicalData=new MedicalData(request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

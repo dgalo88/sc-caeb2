@@ -41,9 +41,10 @@ public class HousingData {
 	private String required_other_response="";
 	private String work_needs_other_response="";
 	
-	public HousingData() {
+	public HousingData(String sessionId) {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, sessionId);
 			prop.setEncoding("UTF-8");
 			loadData();
 		} catch (ConfigurationException | IOException e) {

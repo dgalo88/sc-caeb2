@@ -194,8 +194,13 @@ public class Controller {
 	}
 
 	public static PropertiesConfiguration getPropertiesFile( //
-			String propFileName, PropFileRole propFileType) //
+			String propFileName, PropFileRole propFileType, String sessionId) //
 					throws ConfigurationException, IOException {
+
+		String prefix = Constants.PATH_REAL_PROJECT + Constants.FILE_SEPARATOR //
+				+ Constants.SC_CAEB2 + Constants.FILE_SEPARATOR;
+
+		propFileName = prefix + sessionId + "-" + propFileName;
 
 		switch (propFileType) {
 		case SAVE:

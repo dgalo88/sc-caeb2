@@ -15,9 +15,10 @@ public class DataBase {
 	
 	protected PropertiesConfiguration prop;
 	
-	public DataBase() {
+	public DataBase(String sessionId) {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 		}

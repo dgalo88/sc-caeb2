@@ -40,9 +40,10 @@ public class MedicalData {
 	
 	private String prenatal = "";
 	
-	public MedicalData() {
+	public MedicalData(String sessionId) {
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, PropFileRole.LOAD);
+			prop = Controller.getPropertiesFile( //
+					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
 			loadData();
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.WARNING, Constants.LOAD_PROP_ERROR, e);
