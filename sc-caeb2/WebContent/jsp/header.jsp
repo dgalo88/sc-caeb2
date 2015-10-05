@@ -1,5 +1,16 @@
+<%@page import="com.caeb2.util.TextUtils"%>
 <%@page import="com.caeb2.util.Constants"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	String notification = request.getParameter(Constants.ATT_NOTIFICATION);
+
+	String notificationType = request.getParameter(Constants.ATT_NOTIFICATION_TYPE);
+
+	if (TextUtils.isEmptyOrNull(notificationType)) {
+		notificationType = Constants.ALERT_INFO;
+	}
+%>
 
 <!DOCTYPE html>
 
@@ -38,17 +49,25 @@
 	<script src="/sc-caeb2/js/bootstrap-datepicker.js"></script>
 
 	<script src="/sc-caeb2/js/notifications.js"></script>
-</head>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('[data-toggle="tooltip"]').tooltip();
-	});
-</script>
+	<script type="text/javascript">
+		$(document).on('ready', function() {
+
+			$('[data-toggle="tooltip"]').tooltip();
+
+			<%if (!TextUtils.isEmptyOrNull(notification)) {%>
+				showNotification('<%=notification%>', '<%=notificationType%>');
+			<%}%>
+
+		});
+	</script>
+</head>
 
 <body>
 
 	<%@include file="about.jsp"%>
+
+	<div class="alert alert-dismissible notification hidden" role="alert" id="notification"></div>
 
 	<div class="container-fluid">
 		<table class="table" style="margin-bottom: 0px;">
@@ -75,5 +94,3 @@
 		</tbody>
 		</table>
 	</div>
-
-	<div class="alert alert-dismissible notification hidden" role="alert" id="notification"></div>

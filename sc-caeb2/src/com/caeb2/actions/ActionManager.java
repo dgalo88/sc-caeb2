@@ -180,6 +180,8 @@ public class ActionManager {
 		sql = "SELECT v.callePasaje, v.nombre FROM hogar h, vivienda v WHERE h.id='" //
 				+ hogarId + "' AND h.viviendaId=v.id";
 
+		statement.executeQuery(sql);
+
 		resultSet = statement.getResultSet();
 
 		if (!resultSet.first()) {

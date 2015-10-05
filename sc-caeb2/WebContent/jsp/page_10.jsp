@@ -244,12 +244,23 @@
 	</div>
 </div>
 
+<%@include file="loader.jsp"%>
+
 <script type="text/javascript">
+
+	form = $('#form_<%=Parameters.getPageNumber()%>');
+	params = '';
+
 	$(document).on('ready', function() {
 
-		$('#form_<%=Parameters.getPageNumber()%>').submit(function(e) {
-// 			$('#addPerson').modal('show');
+		form.submit(function(e) {
+
 			e.preventDefault();
+
+			params = '';
+
+			$('#addPerson').modal('show');
+
 		});
 
 		$('#addPersonNo').on('click', function() {
@@ -258,20 +269,83 @@
 
 			$('#addHome').modal('show');
 
+			addParam('<%=Constants.ATT_ADD_PERSON%>', 'false');
+
 		});
 
 		$('#addPersonYes').on('click', function() {
+
 			$('#addPerson').modal('hide');
+
+			addParam('<%=Constants.ATT_ADD_PERSON%>', 'true');
+
+			finish();
+
 		});
 
 		$('#addHomeNo').on('click', function() {
+
 			$('#addHome').modal('hide');
+
+			showLoader();
+
+			addParam('<%=Constants.ATT_ADD_HOME%>', 'false');
+
+			finish();
+
+		});
+
+		$('#addHomeYes').on('click', function() {
+
+			$('#addHome').modal('hide');
+
+			showLoader();
+
+			addParam('<%=Constants.ATT_ADD_HOME%>', 'true');
+
+			finish();
+
 		});
 
 	});
 
+	function addParam(param, value) {
+		params += '&' + param + '=' + value;
+	}
+
 	function finish() {
-		$('#addPerson').modal('show');
+
+		$.ajax({
+
+			url: form.attr('action') + params,
+			method: 'POST',
+			data: form.serialize(),
+
+			success: function(data, status, xhr) {
+
+				var jsonData = JSON.parse(data);
+
+				window.location.href = jsonData.target
+						+ '&' + '<%=Constants.ATT_NOTIFICATION%>=' + jsonData.response
+						+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
+
+				hideLoader();
+
+			},
+
+			error: function(xhr, status, error) {
+
+				hideLoader();
+
+				var msg = xhr.responseText == 'null' ?
+						'<%=Constants.GENERAL_ERROR%>'
+						: xhr.responseText;
+				showError(msg);
+
+			}
+
+		});
+
 	}
 
 </script>

@@ -44,6 +44,16 @@ public class Constants {
 	public static final String ATT_USER = "user";
 	public static final String ATT_ADMIN_PROFILE = "adminProfile";
 	public static final String ATT_CURR_PAGE = "currPage";
+	public static final String ATT_ADD_PERSON = "addPerson";
+	public static final String ATT_ADD_HOME = "addHome";
+	public static final String ATT_NOTIFICATION = "notification";
+	public static final String ATT_NOTIFICATION_TYPE = "notificationType";
+
+	// Notifications types
+	public static final String ALERT_SUCCESS = "alert-success";
+	public static final String ALERT_INFO = "alert-info";
+	public static final String ALERT_WARNING = "alert-warning";
+	public static final String ALERT_DANGER = "alert-danger";
 
 	// Messages
 	public static final String FORWARD = "[REENVIAR] ";
@@ -55,6 +65,8 @@ public class Constants {
 	public static final String PASS_CHANGED = "Contraseña cambiada con éxito";
 	public static final String FILE_DELETED = "El archivo \"{0}\" ha sido eliminado con éxito.";
 	public static final String FILE_NOT_DELETED = "Falló la eliminación del archivo \"{0}\".";
+	public static final String TRY_AGAIN = "Por favor vuelva a intentarlo.";
+	public static final String DATA_SAVED = "La encuesta se ha guardado con éxito.";
 
 	// Errors Messages
 	public static final String ERROR = "Error";
@@ -76,6 +88,11 @@ public class Constants {
 	public static final String NO_DATA_ERROR = "No existen datos para su solicitud.";
 	public static final String LOAD_DATA_ERROR = "No se pueden cargar los datos.";
 	public static final String FORWARD_ERROR = "Error redirigiendo a la página \"{0}\".";
+	public static final String INSERT_ERROR = "No se pudieron guardar los datos";
+	public static final String INSERT_DWELLING_ERROR = INSERT_ERROR + " de la vivienda.";
+	public static final String INSERT_HOME_ERROR = INSERT_ERROR + " del hogar.";
+	public static final String INSERT_PERSON_ERROR = INSERT_ERROR + " de la persona.";
+	public static final String MAX_SIGNERS_ERROR = "Debe seleccionar dos (2) firmantes.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";

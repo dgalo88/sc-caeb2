@@ -14,7 +14,8 @@
 				<p class="text-center"><%=Constants.CENSO_COMUNITARIO%></p>
 				<p class="text-center"><%=Constants.CCAEB2%></p>
 				<p class="text-justify">Proyecto de Servicio Comunitario desarrollado por los estudiantes
-					de la Escuela de Ingeniería de Sistemas: Araujo Arnoely, Galo Donato, Hidalgo José Miguel,
+					de la Escuela de Ingeniería de Sistemas de la Universidad de Los Andes:
+					Araujo Arnoely, Galo Donato, Hidalgo José Miguel,
 					Porcar Marcelino, Velásquez Erik y Viloria Marco.</p>
 			</div>
 			<div class="modal-footer">

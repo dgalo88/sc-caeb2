@@ -105,7 +105,7 @@ public class LoadDataBase {
         		
         		rs.close();
         		String urgent_housing_improvements="No";
-    			pstmt2 = connection.prepareStatement("SELECT tipo, clave, valor FROM mejorainfo WHERE viviendaId=?");
+    			pstmt2 = connection.prepareStatement("SELECT tipo, clave, valor FROM mejoraInfo WHERE viviendaId=?");
     			pstmt2.setLong(1, idDwelling);
     			rs=pstmt2.executeQuery();
     			ArrayList<String> partList=new ArrayList<String>();
@@ -232,7 +232,7 @@ public class LoadDataBase {
         		
         		String section4_community_problems_other = null;
         		
-    			pstmt2 = connection.prepareStatement("SELECT id, descripcion, valor FROM principalesproblemascomunidad WHERE hogarId=?");
+    			pstmt2 = connection.prepareStatement("SELECT id, descripcion, valor FROM principalesProblemasComunidad WHERE hogarId=?");
     			pstmt2.setLong(1, homeId);
     			rs=pstmt2.executeQuery();
     			ArrayList<String> communityProblems=new ArrayList<String>();
@@ -474,7 +474,7 @@ public class LoadDataBase {
 				
 				pstmt2.close();
 				rs2.close();
-				sql = "SELECT * FROM sistemaprevencionsocial WHERE personaId = ?";
+				sql = "SELECT * FROM sistemaPrevencionSocial WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
@@ -519,7 +519,7 @@ public class LoadDataBase {
 
 				pstmt2.close();
 				rs2.close();
-				sql = "SELECT * FROM aparatomedico WHERE personaId = ?";
+				sql = "SELECT * FROM aparatoMedico WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
@@ -590,7 +590,7 @@ public class LoadDataBase {
 				
 				pstmt2.close();
 				rs2.close();
-				sql = "SELECT * FROM habilidadartisticamanual WHERE personaId = ?";
+				sql = "SELECT * FROM habilidadArtisticaManual WHERE personaId = ?";
 				pstmt2 = connection.prepareStatement(sql);
 				pstmt2.setLong(1, personId);
 				rs2=pstmt2.executeQuery();
