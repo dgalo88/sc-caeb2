@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `sexo` char(1) NOT NULL,
   `fechaNacimiento` datetime NOT NULL,
   `nacionalidad` varchar(100) NOT NULL,
-  `cedula` varchar(100) NOT NULL,
-  `pasaporte` varchar(100) DEFAULT NULL,
+  `cedula` varchar(100) NOT NULL UNIQUE,
+  `pasaporte` varchar(100) DEFAULT NULL UNIQUE,
   `correoElectronico` varchar(100) DEFAULT NULL,
   `celular` varchar(100) DEFAULT NULL,
   `celularOpcional` varchar(100) DEFAULT NULL,
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `directivaCC` (
 --
 CREATE TABLE IF NOT EXISTS `administrador` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
-  `usuario` varchar(40) NOT NULL,
+  `usuario` varchar(40) NOT NULL UNIQUE,
   `clave` varchar(40) NOT NULL,
   `directivaCCId` int(11) DEFAULT NULL,
   FOREIGN KEY (`directivaCCId`) REFERENCES `directivaCC` (`id`)
