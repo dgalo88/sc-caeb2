@@ -8,12 +8,14 @@
 <%
 	Parameters.setTitle("Hogares");
 
-	String dwellingIdStr = (String) request.getAttribute("dwellingId");
+	String dwellingIdStr = (String) request.getParameter("dwellingId");
 
 	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
 
 	String homesJSON = BoardsManager.loadAllHomes(dwellingId);
 %>
+
+<%@include file="loader.jsp"%>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -49,18 +51,77 @@
 		$('[data-toggle="tooltip"]').tooltip();
 
 		$('.viewHomeBtn').on('click', function() {
-			console.log('viewHomeBtn on click = ' + $(this).attr('data-home-id'));
-
-			window.location.href = '<%=Constants.EXEC_ACTION + "loadAllPersons"%>&homeId='
-				+ $(this).attr('data-home-id');
+			window.location.href = '<%=Constants.EXEC_ACTION%>loadAllPersons'
+				+ '&dwellingId=<%=String.valueOf(dwellingId)%>&homeId=' + $(this).attr('data-home-id');
 		});
 
 		$('.editHomeBtn').on('click', function() {
-			console.log('editHomeBtn on click = ' + $(this).attr('data-home-id'));
+
+			showLoader();
+
+			$.ajax({
+
+				url: '<%=Constants.EXEC_ACTION%>editHome&homeId='
+						+ $(this).attr('data-home-id'),
+				method: 'POST',
+
+				success: function(data) {
+
+					window.location.href = "page_4.jsp"
+							+ '&' + '<%=Constants.ATT_NOTIFICATION%>=' + data
+							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
+
+					hideLoader();
+
+				},
+
+				error: function(xhr, status, error) {
+
+					hideLoader();
+
+					var msg = xhr.responseText == 'null' ?
+							'<%=Constants.GENERAL_ERROR%>'
+							: xhr.responseText;
+					showError(msg);
+
+				}
+
+			});
+
 		});
 
 		$('.deleteHomeBtn').on('click', function() {
+
 			console.log('deleteHomeBtn on click = ' + $(this).attr('data-home-id'));
+
+			showLoader();
+
+			$.ajax({
+
+				url: '<%=Constants.EXEC_ACTION%>deleteHome&homeId='
+						+ $(this).attr('data-home-id'),
+				method: 'POST',
+
+				success: function(data) {
+
+					showSuccess(data);
+					hideLoader();
+
+				},
+
+				error: function(xhr, status, error) {
+
+					hideLoader();
+
+					var msg = xhr.responseText == 'null' ?
+							'<%=Constants.GENERAL_ERROR%>'
+							: xhr.responseText;
+					showError(msg);
+
+				}
+
+			});
+
 		});
 
 	}
@@ -80,7 +141,7 @@
 		<table id="homesData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">
-			<a href="<%=Constants.ACTION_HOME%>">
+			<a href="<%=Constants.EXEC_ACTION + "loadAllDwellings"%>">
 				<button type="button" class="btn btn-default" id="backBtn"><%=Constants.JSP_COMEBACK%></button>
 			</a>
 			<a href="<%=Constants.ACTION_NEW_POLL%>">

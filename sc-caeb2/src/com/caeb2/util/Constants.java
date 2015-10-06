@@ -67,6 +67,8 @@ public class Constants {
 	public static final String FILE_NOT_DELETED = "Falló la eliminación del archivo \"{0}\".";
 	public static final String TRY_AGAIN = "Por favor vuelva a intentarlo.";
 	public static final String DATA_SAVED = "La encuesta se ha guardado con éxito.";
+	public static final String SUCCESSFUL_DELETED = "{0} eliminad{1} con éxito.";
+	public static final String SUCCESSFUL_LOADED = "Datos cargados con éxito.";
 
 	// Errors Messages
 	public static final String ERROR = "Error";
@@ -93,6 +95,7 @@ public class Constants {
 	public static final String INSERT_HOME_ERROR = INSERT_ERROR + " del hogar.";
 	public static final String INSERT_PERSON_ERROR = INSERT_ERROR + " de la persona.";
 	public static final String MAX_SIGNERS_ERROR = "Debe seleccionar dos (2) firmantes.";
+	public static final String DELETE_ERROR = "Falló eliminación de {0}.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";

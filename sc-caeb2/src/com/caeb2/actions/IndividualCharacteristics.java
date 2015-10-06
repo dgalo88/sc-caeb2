@@ -92,7 +92,7 @@ public class IndividualCharacteristics {
 
 		prop.setProperty(Constants.SECTION5_EMAIL, email);
 
-		String relationship = request.getParameter(Constants.SECTION5_RELATIONSHIP);
+		String relationship = TextUtils.escaparString(request.getParameter(Constants.SECTION5_RELATIONSHIP));
 
 		prop.setProperty(Constants.SECTION5_RELATIONSHIP, relationship);
 
@@ -343,6 +343,9 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, artisticAbilitiesInstructor);
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY, "");
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, "");
 		}
 
 		String[] artisticAbilitiesStudent = TextUtils.escaparArray( //
@@ -359,6 +362,8 @@ public class IndividualCharacteristics {
 				}
 			}
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, "");
 		}
 
 		String[] athleticAbilities = TextUtils.escaparArray( //
@@ -386,6 +391,9 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, athleticAbilitiesInstructor);
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY, "");
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, "");	
 		}
 
 		String[] athleticAbilitiesStudent = TextUtils.escaparArray( //
@@ -402,8 +410,10 @@ public class IndividualCharacteristics {
 				}
 			}
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, "");
 		}
-
+		
 		prop.save();
 
 		PollManager.setCurrentPage(request, 10);
@@ -550,6 +560,8 @@ public class IndividualCharacteristics {
 
 		String jsonResponse = "{ \"response\":\"" + Constants.DATA_SAVED //
 				+ "\", \"target\":\"" + target + "\" }";
+
+		PollManager.cleanPropFiles(request.getRequestedSessionId());
 
 		Controller.sendTextResponse(response, jsonResponse);
 

@@ -208,8 +208,8 @@ public class SaveDataBase {
 			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
 			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
 			pstmt.setString(9,personBasicData.getEmail());
-			pstmt.setString(10,personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
-			pstmt.setString(11,personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
+			pstmt.setString(10,"0"+personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
+			pstmt.setString(11,"0"+personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
 			
 			pstmt.setByte(12,parseByte(personEducationData.isIlliterate()));
 			pstmt.setByte(13,parseByte(personEducationData.hasAttendEducEstablishment()));
@@ -220,7 +220,7 @@ public class SaveDataBase {
 			
 			EducationLevel educationLevel= new EducationLevel(sessionId);
 			pstmt.setString(17,educationLevel.getDegree_approved_text());
-			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")) ? -1 : Long.parseLong(educationLevel.getDegree_approved_level()));
+			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")||educationLevel.getDegree_approved_level().equals("Ninguno")) ? -1 :  Long.parseLong(educationLevel.getDegree_approved_level()));
 			pstmt.setString(19, educationLevel.getProfession());
 			pstmt.setString(20,educationLevel.getMonthly_income());
 			pstmt.setString(21,educationLevel.getSkills_activity_option());
@@ -647,7 +647,6 @@ public class SaveDataBase {
 	            {
 	                 last_inserted_id = rs.getLong(1);
 	            }
-	            insertPoll(last_inserted_id, sessionId);
 	            if(insertPoll(last_inserted_id, sessionId)==null){
 	            	return null;
 	            }

@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.caeb2.actions.bean.DwellingBasicData;
 import com.caeb2.actions.bean.HomeBasicData;
 import com.caeb2.actions.bean.PersonBasicDataMin;
+import com.caeb2.database.LoadDataBase;
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
+import com.caeb2.util.TextUtils;
 import com.google.gson.Gson;
 
 public class BoardsManager {
@@ -389,11 +392,12 @@ public class BoardsManager {
 	public static String getButtonsCrud(String type, int id) {
 
 		return new String("<div class=\\\"btn-group\\\" style=\\\"z-index: 9999;\\\">" //
-				+ "<button type=\\\"button\\\" class=\\\"btn btn-default view" + type + "Btn\\\" aria-label=\\\"Ver\\\"" //
+				+ (type.equalsIgnoreCase("person") ? "" //
+						: ("<button type=\\\"button\\\" class=\\\"btn btn-default view" + type + "Btn\\\" aria-label=\\\"Ver\\\"" //
 				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
 				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Ver\\\">" //
 				+ /**/"<span class=\\\"glyphicon glyphicon-eye-open\\\" aria-hidden=\\\"true\\\"></span>" //
-				+ "</button>" //
+				+ "</button>")) //
 				+ "<button type=\\\"button\\\" class=\\\"btn btn-default edit" + type + "Btn\\\" aria-label=\\\"Editar\\\"" //
 				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
 				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Editar\\\">" //
@@ -405,6 +409,114 @@ public class BoardsManager {
 				+ /**/"<span class=\\\"glyphicon glyphicon-trash\\\" aria-hidden=\\\"true\\\"></span>" //
 				+ "</button>" //
 				+ "</div>");
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void deleteDwelling(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+
+		boolean result = SaveDataBase.deleteDwelling(dwellingId);
+
+		if (result) {
+			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
+					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Vivienda"), new String("a")}));
+		} else {
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					Constants.DELETE_ERROR, new Object[] {new String("Vivienda")}));
+		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void deleteHome(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long homeId = Long.parseLong(request.getParameter("homeId"));
+
+		boolean result = SaveDataBase.deletHome(homeId);
+
+		if (result) {
+			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
+					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Hogar"), new String("o")}));
+		} else {
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					Constants.DELETE_ERROR, new Object[] {new String("Hogar")}));
+		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void deletePerson(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long personId = Long.parseLong(request.getParameter("personId"));
+
+		boolean result = SaveDataBase.deletePerson(personId);
+
+		if (result) {
+			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
+					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Persona"), new String("a")}));
+		} else {
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					Constants.DELETE_ERROR, new Object[] {new String("Persona")}));
+		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void editDwelling(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+
+		boolean result = LoadDataBase.loadDwelling(dwellingId, request.getRequestedSessionId());
+
+		if (result) {
+			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
+		} else {
+			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
+		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void editHome(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long homeId = Long.parseLong(request.getParameter("homeId"));
+
+		boolean result = LoadDataBase.loadHome(homeId, request.getRequestedSessionId());
+
+		if (result) {
+			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
+		} else {
+			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
+		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void editPerson(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		long personId = Long.parseLong(request.getParameter("personId"));
+
+		boolean result = LoadDataBase.loadPerson(personId, request.getRequestedSessionId());
+
+		if (result) {
+			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
+		} else {
+			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
+		}
 
 	}
 

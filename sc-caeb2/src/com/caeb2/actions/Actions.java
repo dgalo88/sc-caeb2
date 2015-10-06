@@ -31,6 +31,12 @@ public class Actions {
 		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.BoardsManager");
 		actionsMapping.put("loadAllHomes", "com.caeb2.actions.BoardsManager");
 		actionsMapping.put("loadAllPersons", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("deleteDwelling", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("deleteHome", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("deletePerson", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("editDwelling", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("editHome", "com.caeb2.actions.BoardsManager");
+		actionsMapping.put("editPerson", "com.caeb2.actions.BoardsManager");
 
 	}
 

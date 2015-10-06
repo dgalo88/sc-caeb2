@@ -26,7 +26,9 @@ public class ActionManager {
 	public static void index(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
+		PollManager.cleanPropFiles(request.getRequestedSessionId());
 		PollManager.setCurrentPage(request, 0);
+
 		Controller.forward(request, response, "index.jsp");
 
 	}
