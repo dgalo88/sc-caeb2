@@ -64,7 +64,7 @@
 									name="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>"
 									id="<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>"
 									<%if (!personEducationData.getTrainingCourse().equalsIgnoreCase("No")) {%>
-										value="<%=personEducationData.getTrainingCourse()%>" <%}%>>
+										required value="<%=personEducationData.getTrainingCourse()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -96,7 +96,7 @@
 								<label>
 									<input type="radio" name="<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>"
 											id="oficial" value="Oficial"
-											<%if (personEducationData.getAnswerEducEstablishment().equalsIgnoreCase("Oficial")) {%>
+											<%if (personEducationData.getAnswerEducEstablishment().equalsIgnoreCase("Oficial")||personEducationData.getAnswerEducEstablishment().equalsIgnoreCase("")) {%>
 												checked <%}%>>
 									Oficial
 								</label>
@@ -118,7 +118,7 @@
 									id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
 									name="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
 									<%if (!personEducationData.hasAttendEducEstablishment()) {%> 
-										value="<%=personEducationData.getAnswerEducEstablishment()%>" <%}%>>
+										required value="<%=personEducationData.getAnswerEducEstablishment()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -146,7 +146,7 @@
 									name="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>"
 									id="<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>"
 									<%if (!personEducationData.getScholarshipDescription().equalsIgnoreCase("No")) {%>
-										value="<%=personEducationData.getScholarshipDescription()%>" <%}%>>
+										required value="<%=personEducationData.getScholarshipDescription()%>" <%}%>>
 						</div>
 					</div>
 				</td>
@@ -207,27 +207,34 @@
 		$('#<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_si').on('click', function() {
 			$('#<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>_div').removeClass('show').addClass('hidden');
 			$('#<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>_div').removeClass('hidden').addClass('show');
+			$('#<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>').prop('required',false);
+
 		});
 
 		$('#<%=Constants.SECTION6_ATTEND_EDUC_ESTABLISHMENT%>_no').on('click', function() {
 			$('#<%=Constants.SECTION6_WHICH_EDUC_ESTABLISHMENT%>_div').removeClass('show').addClass('hidden');
 			$('#<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>_div').removeClass('hidden').addClass('show');
+			$('#<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>').prop('required',true);
 		});
 
 		$('#<%=Constants.SECTION6_TRAINING_COURSE%>_si').on('click', function() {
 			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div').removeClass('hidden').addClass('show');
+			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>').prop('required',true);
 		});
 
 		$('#<%=Constants.SECTION6_TRAINING_COURSE%>_no').on('click', function() {
 			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>_div').removeClass('show').addClass('hidden');
+			$('#<%=Constants.SECTION6_WHICH_TRAINING_COURSE%>').prop('required',false);
 		});
 
 		$('#<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_si').on('click', function() {
 			$('#<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>_div').removeClass('hidden').addClass('show');
+			$('#<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>').prop('required',true);
 		});
 
 		$('#<%=Constants.SECTION6_RECEIVES_SCHOLARSHIP%>_no').on('click', function() {
 			$('#<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>_div').removeClass('show').addClass('hidden');
+			$('#<%=Constants.SECTION6_SCHOLARSHIP_DESCRIPTION%>').prop('required',false);
 		});
 
 		$('label #<%=Constants.SECTION6_NONE_MISION%>, #<%=Constants.SECTION6_NONE_MISION%>').on('click', function() {

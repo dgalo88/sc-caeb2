@@ -165,7 +165,7 @@
 								</tr>
 								<tr>
 									<td style="padding-top: 1%" colspan="4">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" name="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" placeholder="Otros medios de servicio de agua" <%= housingData.getHousing_water().equals("Otros medios, especifique") ? "value='"+housingData.getOther_housing_water()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" name="<%=Constants.SECTION2_OTHER_HOUSING_WATER%>" placeholder="Otros medios de servicio de agua" <%= housingData.getHousing_water().equals("Otros medios, especifique") ? "value='"+housingData.getOther_housing_water()+"' required": "style='display: none'"%>>
 									</td>
 								</tr>
 							</table>
@@ -223,13 +223,13 @@
 								</tr>
 								<tr>
 									<td style="padding-right: 1%; padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getPart().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getPart_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_PART_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getPart().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getPart_other_response()+"' required": "style='display: none'"%>>
 									</td>
 									<td style="padding-right: 1%; padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getRequired().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getRequired_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getRequired().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getRequired_other_response()+"' required": "style='display: none'"%>>
 									</td>
 									<td style="padding-top: 1%">
-										<input type="text" class="form-control" id="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getWorkNeeds().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getWork_needs_other_response()+"'": "style='display: none'"%>>
+										<input type="text" class="form-control" id="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" name="<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>" placeholder="Respuesta" <%= (housingData.getWorkNeeds().containsKey("Otra ¿Cuál?")) ? "value='"+housingData.getWork_needs_other_response()+"' required": "style='display: none'"%>>
 									</td>
 								</tr>
 							</table>
@@ -253,31 +253,31 @@
 		});
 		$('#<%=Constants.SECTION2_PART%>_5').on('change', function (e) {
 		    if($("#<%=Constants.SECTION2_PART%>_5").is(':checked')){
-		    	$('#<%=Constants.SECTION2_PART_OTHER_RESPONSE%>').show();	
+		    	$('#<%=Constants.SECTION2_PART_OTHER_RESPONSE%>').show().prop('required',true);	
 		    }else{
-		    	$('#<%=Constants.SECTION2_PART_OTHER_RESPONSE%>').hide()
+		    	$('#<%=Constants.SECTION2_PART_OTHER_RESPONSE%>').hide().prop('required',false);
 		    }
 		});
 		$('#<%=Constants.SECTION2_REQUIRED%>_5').on('change', function (e) {
 		    if($("#<%=Constants.SECTION2_REQUIRED%>_5").is(':checked')){
-		    	$('#<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>').show();	
+		    	$('#<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>').show().prop('required',true);		
 		    }else{
-		    	$('#<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>').hide()
+		    	$('#<%=Constants.SECTION2_REQUIRED_OTHER_RESPONSE%>').hide().prop('required',false);
 		    }
 		});
 		$('#<%=Constants.SECTION2_WORK_NEEDS%>_5').on('change', function (e) {
 		    if($("#<%=Constants.SECTION2_WORK_NEEDS%>_5").is(':checked')){
-		    	$('#<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>').show();	
+		    	$('#<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>').show().prop('required',true);
 		    }else{
-		    	$('#<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>').hide()
+		    	$('#<%=Constants.SECTION2_WORK_NEEDS_OTHER_RESPONSE%>').hide().prop('required',false);
 		    }
 		});
 		$('#<%=Constants.SECTION2_HOUSING_WATER%>').on('change', function (e) {
 		    var valueSelected = this.value;
 		    if(valueSelected=='Otros medios, especifique'){
-		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').show();	
+		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').show().prop('required',true);
 		    }else{
-		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').hide()
+		    	$('#<%=Constants.SECTION2_OTHER_HOUSING_WATER%>').hide().prop('required',false);	
 		    }
 		});
 		

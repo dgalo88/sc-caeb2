@@ -718,4 +718,80 @@ public class LoadDataBase {
 		}
 		return mapPhone;
 	}
+	
+	public static Long getPrimariHome(long dwellingId){
+		Connection connection = null;
+		PreparedStatement pstmt= null;
+		ResultSet rs = null;
+		try {
+			
+			connection = Controller.getConnection();			
+			String sql = "SELECT * FROM hogar WHERE viviendaId=?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, dwellingId);
+			rs=pstmt.executeQuery();
+            if(rs.next())
+            {        		
+            	return rs.getLong("id");
+            }
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return null;
+	}
+	
+	public static Long getPrimariPerson(long homeId){
+		Connection connection = null;
+		PreparedStatement pstmt= null;
+		ResultSet rs = null;
+		try {
+			
+			connection = Controller.getConnection();			
+			String sql = "SELECT * FROM hogar WHERE hogarId=? and parentescoJefeHogar='Jefe o jefa del Hogar'";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, homeId);
+			rs=pstmt.executeQuery();
+            if(rs.next())
+            {        		
+            	return rs.getLong("id");
+            }
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				connection.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return null;
+	}
 }

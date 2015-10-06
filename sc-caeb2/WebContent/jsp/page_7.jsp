@@ -93,7 +93,7 @@
 								<label><input type="radio" name="<%=Constants.SECTION7_SKILLS_ACTIVITY%>" id="<%=Constants.SECTION7_SKILLS_ACTIVITY%>_si" <%=(educationLevel.getSkills_activity().equals("Sí ¿Cuál?")) ? "checked": ""%> value="Sí ¿Cuál?">Sí ¿Cuál?</label>
 								<label><input type="radio" name="<%=Constants.SECTION7_SKILLS_ACTIVITY%>" id="<%=Constants.SECTION7_SKILLS_ACTIVITY%>_no" <%=(educationLevel.getSkills_activity().equals("No")||educationLevel.getSkills_activity().equals("")) ? "checked": ""%> value="No">No</label>
 							</div>
-							<input type="text" class="form-control" id="<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>" name="<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>" <%= educationLevel.getSkills_activity().equals("Sí ¿Cuál?") ? "value='"+educationLevel.getSkills_activity_option()+"'": "style='display: none'"%> placeholder="¿Cuál?" >
+							<input type="text" class="form-control" id="<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>" name="<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>" <%= educationLevel.getSkills_activity().equals("Sí ¿Cuál?") ? "required value='"+educationLevel.getSkills_activity_option()+"'": "style='display: none'"%> placeholder="¿Cuál?" >
 						</div>
 					</div>
 				</td>
@@ -101,11 +101,11 @@
 					<div>
 						<div class="form-group">
 							<label for="profesion">Profesión</label> 
-							<input type="text" class="form-control" id="<%=Constants.SECTION7_PROFESSION%>" name="<%=Constants.SECTION7_PROFESSION%>" <%= !educationLevel.getProfession().equals("") ? "value='"+educationLevel.getProfession()+"'": ""%> placeholder="Ej: Educador">
+							<input type="text" class="form-control" id="<%=Constants.SECTION7_PROFESSION%>" name="<%=Constants.SECTION7_PROFESSION%>" <%= !educationLevel.getProfession().equals("") ? "value='"+educationLevel.getProfession()+"'": ""%> placeholder="Ej: Educador" required>
 						</div>
 						<div class="form-group">
 							<label for="cual_ESOOCDTP">¿Cuál es su oficio o clase de trabajo principal?</label> 
-							<input type="text" class="form-control" id="<%=Constants.SECTION7_MAIN_JOB%>" name="<%=Constants.SECTION7_MAIN_JOB%>" <%= !educationLevel.getMain_job().equals("") ? "value='"+educationLevel.getMain_job()+"'": ""%>placeholder="Ej: Educador">
+							<input type="text" class="form-control" id="<%=Constants.SECTION7_MAIN_JOB%>" name="<%=Constants.SECTION7_MAIN_JOB%>" <%= !educationLevel.getMain_job().equals("") ? "value='"+educationLevel.getMain_job()+"'": ""%>placeholder="Ej: Educador" required>
 						</div>
 						<div class="form-group">
 							<label for="negocio_OOEDTE">El negocio, organismo o empresa donde trabaja es:</label> 
@@ -143,7 +143,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>" name="<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>" placeholder="¿Cuál?" <%= (educationLevel.getReceived_credit_value().equals("Otra ¿Cuál?")) ? "value='"+educationLevel.getReceived_credit_value_other()+"'": "style='display: none'"%>>
+							<input type="text" class="form-control" id="<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>" name="<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>" placeholder="¿Cuál?" <%= (educationLevel.getReceived_credit_value().equals("Otra ¿Cuál?")) ? "required value='"+educationLevel.getReceived_credit_value_other()+"'": "style='display: none'"%>>
 						</div>
 					</div>
 				</td>
@@ -175,29 +175,29 @@
 		});
 		
 		$('#<%=Constants.SECTION7_SKILLS_ACTIVITY%>_si').change(function() {
-			$('#<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>').show();
+			$('#<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>').show().prop('required',true);
 		});
 		$('#<%=Constants.SECTION7_SKILLS_ACTIVITY%>_no').change(function() {
-			$('#<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>').hide();
+			$('#<%=Constants.SECTION7_SKILLS_ACTIVITY_OPTION%>').hide().prop('required',false);
 		});
 		
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT%>_si').change(function() {
 			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').show();
 			if($('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').val()=='Otra ¿Cuál?'){
-		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').show();	
+		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').show().prop('required',true);	
 			}
 		});
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT%>_no').change(function() {
 			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').hide();
-			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').hide();
+			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').hide().prop('required',false);
 		});
 		
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').change(function() {
 			
 			if($(this).val()=='Otra ¿Cuál?'){
-		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').show();	
+		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').show().prop('required',true);	
 		    }else{
-		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').hide();
+		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').hide().prop('required',false);
 		    }
 		});
 		
