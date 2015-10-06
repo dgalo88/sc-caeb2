@@ -141,7 +141,7 @@ public class PollManager {
 
 		try {
 			prop = Controller.getPropertiesFile( //
-					Constants.PROP_FILE_PERSON, PropFileRole.LOAD, sessionId);
+					Constants.PROP_FILE_DWELLING, PropFileRole.LOAD, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
 			return "";

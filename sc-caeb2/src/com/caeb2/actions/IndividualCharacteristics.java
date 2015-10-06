@@ -15,6 +15,7 @@ import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -91,7 +92,7 @@ public class IndividualCharacteristics {
 
 		prop.setProperty(Constants.SECTION5_EMAIL, email);
 
-		String relationship = request.getParameter(Constants.SECTION5_RELATIONSHIP);
+		String relationship = TextUtils.escaparString(request.getParameter(Constants.SECTION5_RELATIONSHIP));
 
 		prop.setProperty(Constants.SECTION5_RELATIONSHIP, relationship);
 
@@ -102,16 +103,6 @@ public class IndividualCharacteristics {
 		prop.save();
 
 		PollManager.setCurrentPage(request, 6);
-		
-
-		PollManager.setCurrentPage(request, 5);
-		Long v=SaveDataBase.updatePerson(new Long(1));
-		if(v!=null){
-			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON);
-		}
-		
-		System.out.println("----------------------------------------------");
-		LoadDataBase.loadPerson(1);
 
 		Controller.forward(request, response, "page_6.jsp");
 
@@ -352,6 +343,9 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, artisticAbilitiesInstructor);
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY, "");
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, "");
 		}
 
 		String[] artisticAbilitiesStudent = TextUtils.escaparArray( //
@@ -368,6 +362,8 @@ public class IndividualCharacteristics {
 				}
 			}
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, "");
 		}
 
 		String[] athleticAbilities = TextUtils.escaparArray( //
@@ -395,6 +391,9 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, athleticAbilitiesInstructor);
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY, "");
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, "");	
 		}
 
 		String[] athleticAbilitiesStudent = TextUtils.escaparArray( //
@@ -411,8 +410,10 @@ public class IndividualCharacteristics {
 				}
 			}
 
+		}else{
+			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, "");
 		}
-
+		
 		prop.save();
 
 		PollManager.setCurrentPage(request, 10);
@@ -513,6 +514,54 @@ public class IndividualCharacteristics {
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 
 		prop.save();
+
+		boolean addPerson = TextUtils.stringToBoolean( //
+				request.getParameter(Constants.ATT_ADD_PERSON));
+
+		boolean addHome = TextUtils.stringToBoolean( //
+				request.getParameter(Constants.ATT_ADD_HOME));
+
+		Long dwellingId = SaveDataBase.insertDwelling(request.getRequestedSessionId());
+
+		if (dwellingId == null) {
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_DWELLING_ERROR + " " + Constants.TRY_AGAIN);
+			return;
+		}
+
+		Long homeId = SaveDataBase.insertHome(dwellingId, request.getRequestedSessionId());
+
+		if (homeId == null) {
+
+			SaveDataBase.deleteDwelling(dwellingId.longValue());
+
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_HOME_ERROR + " " + Constants.TRY_AGAIN);
+
+			return;
+
+		}
+
+		Long personId = SaveDataBase.insertPerson(homeId, request.getRequestedSessionId());
+
+		if (personId == null) {
+
+			SaveDataBase.deleteHomeComponents(homeId.longValue());
+			SaveDataBase.deleteDwelling(dwellingId.longValue());
+
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_PERSON_ERROR + " " + Constants.TRY_AGAIN);
+
+			return;
+
+		}
+
+		String target = addPerson ? "page_5.jsp" : (addHome ? "page_4.jsp" : Constants.ACTION_HOME);
+
+		String jsonResponse = "{ \"response\":\"" + Constants.DATA_SAVED //
+				+ "\", \"target\":\"" + target + "\" }";
+
+		Controller.sendTextResponse(response, jsonResponse);
 
 	}
 

@@ -123,7 +123,7 @@ public class SaveDataBase {
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM habilidadartisticamanual WHERE personaId = "+personId;
+			sql = "DELETE FROM habilidadArtisticaManual WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
@@ -143,12 +143,12 @@ public class SaveDataBase {
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM aparatomedico WHERE personaId = "+personId;
+			sql = "DELETE FROM aparatoMedico WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
 			
-			sql = "DELETE FROM sistemaprevencionsocial WHERE personaId = "+personId;
+			sql = "DELETE FROM sistemaPrevencionSocial WHERE personaId = "+personId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 			pstmt.close();
@@ -208,8 +208,8 @@ public class SaveDataBase {
 			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
 			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
 			pstmt.setString(9,personBasicData.getEmail());
-			pstmt.setString(10,personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
-			pstmt.setString(11,personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
+			pstmt.setString(10,"0"+personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
+			pstmt.setString(11,"0"+personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
 			
 			pstmt.setByte(12,parseByte(personEducationData.isIlliterate()));
 			pstmt.setByte(13,parseByte(personEducationData.hasAttendEducEstablishment()));
@@ -220,7 +220,7 @@ public class SaveDataBase {
 			
 			EducationLevel educationLevel= new EducationLevel(sessionId);
 			pstmt.setString(17,educationLevel.getDegree_approved_text());
-			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")) ? -1 : Long.parseLong(educationLevel.getDegree_approved_level()));
+			pstmt.setLong(18, (educationLevel.getDegree_approved_level()==null||educationLevel.getDegree_approved_level().equals("")||educationLevel.getDegree_approved_level().equals("Ninguno")) ? -1 :  Long.parseLong(educationLevel.getDegree_approved_level()));
 			pstmt.setString(19, educationLevel.getProfession());
 			pstmt.setString(20,educationLevel.getMonthly_income());
 			pstmt.setString(21,educationLevel.getSkills_activity_option());
@@ -283,14 +283,14 @@ public class SaveDataBase {
 			
 			//..........Procesar sistemas de previsión social
 			pstmt2.close();
-			String sqlSecuritySystems = "INSERT INTO sistemaprevencionsocial (id, descripcion, personaId) VALUES (NULL,?,?)";
+			String sqlSecuritySystems = "INSERT INTO sistemaPrevencionSocial (id, descripcion, personaId) VALUES (NULL,?,?)";
 			pstmt2 = connection.prepareStatement(sqlSecuritySystems);
 			processIndividualMap(medicalData.getSecurity_systems(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
 			
 			//..........Procesar sistemas de previsión social
 			pstmt2.close();
-			String sqlMedicalEquipment = "INSERT INTO aparatomedico (id, nombre, descripcion, loTiene, personaId) VALUES (NULL,?,?,?,?)";
+			String sqlMedicalEquipment = "INSERT INTO aparatoMedico (id, nombre, descripcion, loTiene, personaId) VALUES (NULL,?,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlMedicalEquipment);
 			pstmt2.setString(1,medicalData.getMedical_equipment_which());
 			pstmt2.setString(2,medicalData.getMedical_equipment_other());
@@ -314,7 +314,7 @@ public class SaveDataBase {
 			
 			//..........Procesando habilidades artística
 			pstmt2.close();
-			String sqlArtisticAbilities = "INSERT INTO habilidadartisticamanual (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
+			String sqlArtisticAbilities = "INSERT INTO habilidadArtisticaManual (id, participacion, clave, valor, personaId) VALUES (NULL,?,?,?,?)";
 			pstmt2 = connection.prepareStatement(sqlArtisticAbilities);
 			Ability ability = IndividualCharacteristics.loadAbilitiesData(sessionId);
 			HashMap<String, String> artisticAbilities=ability.getArtisticAbilities();
@@ -417,7 +417,7 @@ public class SaveDataBase {
 		try {
 			connection = Controller.getConnection();
 			
-			String sql = "DELETE FROM principalesproblemascomunidad WHERE hogarId = "+homeId;
+			String sql = "DELETE FROM principalesProblemasComunidad WHERE hogarId = "+homeId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 
@@ -520,7 +520,7 @@ public class SaveDataBase {
 				pstmt.execute();
 			}
 			
-			String sql3 = "INSERT INTO principalesproblemascomunidad (id, descripcion, valor, hogarId) VALUES (NULL,?,?,?);";
+			String sql3 = "INSERT INTO principalesProblemasComunidad (id, descripcion, valor, hogarId) VALUES (NULL,?,?,?);";
 			pstmt2 = connection.prepareStatement(sql3);
 			processMap(homeData.getCommunity_problems(), pstmt2, last_inserted_id);
 			pstmt2.executeBatch();
@@ -564,7 +564,7 @@ public class SaveDataBase {
 		try {
 			connection = Controller.getConnection();
 			
-			String sql = "DELETE FROM mejorainfo WHERE viviendaId = "+viviendaId;
+			String sql = "DELETE FROM mejoraInfo WHERE viviendaId = "+viviendaId;
 			pstmt = connection.prepareStatement(sql);
 			pstmt.execute();
 
@@ -647,7 +647,6 @@ public class SaveDataBase {
 	            {
 	                 last_inserted_id = rs.getLong(1);
 	            }
-	            insertPoll(last_inserted_id, sessionId);
 	            if(insertPoll(last_inserted_id, sessionId)==null){
 	            	return null;
 	            }
@@ -660,7 +659,7 @@ public class SaveDataBase {
             if(housingData.getUrgent_housing_improvements().equals("No"))
             	return last_inserted_id;
             
-			String sql3 = "INSERT INTO mejorainfo (id, tipo, clave, valor, viviendaId) VALUES (NULL,?,?,?,?)";
+			String sql3 = "INSERT INTO mejoraInfo (id, tipo, clave, valor, viviendaId) VALUES (NULL,?,?,?,?)";
 			pstmt3 = connection.prepareStatement(sql3);
 			processMap(housingData.getPart(), pstmt3, "parte", last_inserted_id);
 			processMap(housingData.getRequired(), pstmt3, "queMejorar", last_inserted_id);

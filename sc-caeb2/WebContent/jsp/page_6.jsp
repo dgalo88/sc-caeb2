@@ -117,7 +117,7 @@
 							<input type="text" class="form-control" placeholder="Ej. Falta de recursos económicos"
 									id="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
 									name="<%=Constants.SECTION6_WHYNOT_EDUC_ESTABLISHMENT%>"
-									<%if (personEducationData.hasAttendEducEstablishment()) {%> 
+									<%if (!personEducationData.hasAttendEducEstablishment()) {%> 
 										value="<%=personEducationData.getAnswerEducEstablishment()%>" <%}%>>
 						</div>
 					</div>

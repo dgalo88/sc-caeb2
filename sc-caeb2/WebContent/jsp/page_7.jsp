@@ -37,7 +37,7 @@
 										</select>
 									</td>
     								<td class="td-right-control">
-    									<input type="number" required class="form-control" <%=educationLevel.getDegree_approved_text().equals("Ninguno")||educationLevel.getDegree_approved_text().equals("") ? "disabled" : "value='"+educationLevel.getDegree_approved_level()+"'"%> id="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" name="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" placeholder="Grado, semestre o año" >
+    									<input type="number" required class="form-control" <%=educationLevel.getDegree_approved_text().equals("Ninguno")||educationLevel.getDegree_approved_text().equals("")||educationLevel.getDegree_approved_text().equals("-1") ? "disabled" : "value='"+educationLevel.getDegree_approved_level()+"'"%> id="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" name="<%=Constants.SECTION7_DEGREE_APPROVED_LEVEL%>" placeholder="Grado, semestre o año" >
     								</td>
   								</tr>
 							</table>
@@ -166,12 +166,12 @@
 			});
 		
 		$('#<%=Constants.SECTION7_OCCUPATION%>_empleado').change(function() {
-			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_empleado').show();
-			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_otro').hide();
+			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_empleado').prop("disabled",false).show();
+			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_otro').prop("disabled",true).hide();
 		});
 		$('#<%=Constants.SECTION7_OCCUPATION%>_otro').change(function() {
-			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_otro').show();
-			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_empleado').hide();
+			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_otro').prop("disabled",false).show();
+			$('#<%=Constants.SECTION7_OCCUPATION_VALUE%>_empleado').prop("disabled",true).hide();
 		});
 		
 		$('#<%=Constants.SECTION7_SKILLS_ACTIVITY%>_si').change(function() {
@@ -183,9 +183,13 @@
 		
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT%>_si').change(function() {
 			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').show();
+			if($('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').val()=='Otra ¿Cuál?'){
+		    	$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').show();	
+			}
 		});
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT%>_no').change(function() {
 			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').hide();
+			$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE_OTHER%>').hide();
 		});
 		
 		$('#<%=Constants.SECTION7_RECEIVED_CREDIT_VALUE%>').change(function() {

@@ -101,7 +101,8 @@
 											</div>
 											<div class="form-group">
 												<div class="radio">
-													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%=medicalData.getMedical_equipment_other().equals("") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
+																			<%System.out.println(medicalData.getMedical_equipment_other()); %>
+													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%= !medicalData.getMedical_equipment_which().equals("Otro ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
 												</div>
 											</div>
 										</td>

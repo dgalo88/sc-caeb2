@@ -24,6 +24,16 @@ public class TextUtils {
 		return newData;
 	}
 
+	public static String caparComma(String data) throws UnsupportedEncodingException {
+
+		if (data == null) {
+			return null;
+		}
+
+		String newData = data.replace(",", "\\,");
+		return newData;
+	}
+	
 	public static String[] escaparArray(String[] data) throws UnsupportedEncodingException {
 
 		if (data == null) {
@@ -34,6 +44,22 @@ public class TextUtils {
 
 		for (int i = 0; i < data.length; i++) {
 			String string = new String(data[i].getBytes("ISO-8859-1"), "UTF-8").replace(",", "\\,");
+			newData[i] = string;
+		}
+
+		return newData;
+	}
+	
+	public static String[] caparCommaArray(String[] data) throws UnsupportedEncodingException {
+
+		if (data == null) {
+			return null;
+		}
+
+		String newData[] = new String[data.length];
+
+		for (int i = 0; i < data.length; i++) {
+			String string = new String(data[i].replace(",", "\\,"));
 			newData[i] = string;
 		}
 

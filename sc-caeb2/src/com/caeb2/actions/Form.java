@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-import com.caeb2.database.LoadDataBase;
-import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -121,7 +119,7 @@ public class Form {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, //
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
@@ -133,12 +131,6 @@ public class Form {
 		prop.setProperty(Constants.SECTION3_USER, request.getSession(false).getAttribute(Constants.ATT_USER));
 
 		prop.save();
-		
-		Long v=SaveDataBase.updateDwelling(new Long(1), request.getRequestedSessionId());
-
-		if (v != null) {
-			PollManager.cleanPropFile(Constants.PROP_FILE_DWELLING, request.getRequestedSessionId());
-		}
 
 		Controller.getLogger().info("- saveProcessPage3");
 
@@ -198,14 +190,6 @@ public class Form {
 
 
 		PollManager.setCurrentPage(request, 5);
-		Long v=SaveDataBase.updateHome(new Long(1), request.getRequestedSessionId());
-		if(v!=null){
-			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, request.getRequestedSessionId());
-		}
-		
-		System.out.println("----------------------------------------------");
-		LoadDataBase.loadHome(1, request.getRequestedSessionId());
-//		LoadDataBase.loadPerson(1);
 
 		Controller.forward(request, response, "page_5.jsp");
 
