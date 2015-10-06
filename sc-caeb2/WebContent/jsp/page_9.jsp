@@ -67,6 +67,7 @@
 												</label>
 												<%if (artisticAbility.equals(Constants.OTHER)) {%>
 													<input type="text" class="form-control <%=ability.getArtisticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
+															<%=ability.getArtisticAbilitiesInstructorOther().isEmpty() ? "": "required"%>
 															name="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
 															id="<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>"
 															placeholder="¿Cuál?" value="<%=ability.getArtisticAbilitiesInstructorOther()%>">
@@ -148,6 +149,7 @@
 							</tr>
 						</table>
 						<input type="text" class="form-control <%=ability.getArtisticAbilitiesStudentOther().isEmpty() ? "hidden": ""%>"
+								<%=ability.getArtisticAbilitiesStudentOther().isEmpty() ? "": "required"%>
 								name="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>"
 								id="<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>"
 								placeholder="¿Cuál?" value="<%=ability.getArtisticAbilitiesStudentOther()%>">
@@ -199,7 +201,8 @@
 													<%=athleticAbility%>
 												</label>
 												<%if (athleticAbility.equals(Constants.OTHER)) {%>
-													<input type="text" class="form-control <%=ability.getAthleticAbilitiesInstructorOther().isEmpty() ? "hidden": ""%>"
+													<input type="text" class="form-control <%=ability.getAthleticAbilitiesInstructorOther().isEmpty() ? "hidden": "" %>"
+															<%=ability.getAthleticAbilitiesInstructorOther().isEmpty() ? "": "required" %>
 															name="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
 															id="<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>"
 															placeholder="¿Cuál?" value="<%=ability.getAthleticAbilitiesInstructorOther()%>">
@@ -281,6 +284,7 @@
 							</tr>
 						</table>
 						<input type="text" class="form-control <%=ability.getAthleticAbilitiesStudentOther().isEmpty() ? "hidden": ""%>"
+								<%=ability.getAthleticAbilitiesStudentOther().isEmpty() ? "": "required"%>
 								name="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>"
 								id="<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>"
 								placeholder="¿Cuál?" value="<%=ability.getAthleticAbilitiesStudentOther()%>">
@@ -306,7 +310,7 @@
 					$(this).removeAttr('checked').attr('disabled', 'disabled');
  					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
  					$('#artisticInstructorQuestion').addClass('hidden');
- 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden').prop('required',false);
 				}
 			});
 
@@ -321,7 +325,7 @@
 				} else {
 					$(this).removeAttr('checked').attr('disabled', 'disabled');
  					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
- 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden').prop('required',false);
 				}
 			});
 
@@ -336,7 +340,7 @@
 				} else {
 					$(this).removeAttr('checked').attr('disabled', 'disabled');
  					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
- 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden').prop('required',false);
  					$('#athleticInstructorQuestion').addClass('hidden');
 				}
 			});
@@ -352,7 +356,7 @@
 				} else {
 					$(this).removeAttr('checked').attr('disabled', 'disabled');
  					$('#' + $(this).attr('id') + '_opt').addClass('hidden');
- 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+ 					$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden').prop('required',false);
 				}
 			});
 
@@ -380,9 +384,9 @@
 			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
-		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden').prop('required',true);
 		    } else {
-		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden').prop('required',false);
 		    }
 
 		});
@@ -391,9 +395,9 @@
 			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
-		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden').prop('required',true);
 		    } else {
-		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+		    	$('#<%=Constants.SECTION9_ARTISTIC_ABILITY_STUDENT_OTHER%>').addClass('hidden').prop('required',false);
 		    }
 
 		});
@@ -402,9 +406,9 @@
 			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 			if ($(this).is(':checked')) {
-		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden');
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').removeClass('hidden').prop('required',true);
 		    } else {
-		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden');
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER%>').addClass('hidden').prop('required',false);
 		    }
 
 		});
@@ -413,9 +417,9 @@
 			+ TextUtils.replaceRareSymbolsAndBlankSpaces(Constants.OTHER)%>').on('change', function (e) {
 
 		    if ($(this).is(':checked')) {
-		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden');
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').removeClass('hidden').prop('required',true);
 		    } else {
-		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden');
+		    	$('#<%=Constants.SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER%>').addClass('hidden').prop('required',false);
 		    }
 
 		});
