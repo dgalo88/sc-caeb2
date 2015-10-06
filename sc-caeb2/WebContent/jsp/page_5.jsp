@@ -89,11 +89,11 @@
 										<div class="form-inline" id="celular">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD%>"
 													name="<%=Constants.SECTION5_PHONE_COD%>">
-												<option <%if (personBasicData.getPhoneCod() == 0416) {%> selected <%}%>>0416</option>
-												<option <%if (personBasicData.getPhoneCod() == 0426) {%> selected <%}%>>0426</option>
-												<option <%if (personBasicData.getPhoneCod() == 0416) {%> selected <%}%>>0414</option>
-												<option <%if (personBasicData.getPhoneCod() == 0426) {%> selected <%}%>>0424</option>
-												<option <%if (personBasicData.getPhoneCod() == 0412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getPhoneCod() == 416) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getPhoneCod() == 426) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getPhoneCod() == 414) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getPhoneCod() == 424) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getPhoneCod() == 412) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM%>" name="<%=Constants.SECTION5_PHONE_NUM%>"
@@ -107,11 +107,11 @@
 										<div class="form-inline" id="otroTelefono">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>"
 													name="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>">
-												<option <%if (personBasicData.getPhoneCodOptional() == 0416) {%> selected <%}%>>0416</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 0426) {%> selected <%}%>>0426</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 0416) {%> selected <%}%>>0414</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 0426) {%> selected <%}%>>0424</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 0412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 416) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 426) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 414) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 424) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getPhoneCodOptional() == 412) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"

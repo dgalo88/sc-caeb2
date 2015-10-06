@@ -89,7 +89,7 @@
 								</td>
 							</tr>
 						</table>
-						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=!(homeData.getCommunity_problems().containsKey("Otra ¿Cuál?")) ? "style=\"display: none\"": ""%>>
+						<input type="text" class="form-control" id="cuales_SLPPDLC_otro" name="<%=Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER%>" placeholder="¿Cuál?"  <%=!(homeData.getCommunity_problems().containsKey("Otra ¿Cuál?")) ? "style=\"display: none\"": "required value="+homeData.getCommunity_problems_other()%>>
 					</div>
 				</td>
 				<td width="50%">
@@ -125,7 +125,7 @@
 								<label><input type="radio" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATIO%>" id="algun_MDHPEUOC_si" <%=(homeData.getCommunity_organization().equals("Sí")) ? "checked": ""%> value="Sí">Sí ¿Cuál?</label>
 								<label><input type="radio" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATIO%>" id="algun_MDHPEUOC_no" <%=(homeData.getCommunity_organization().equals("No")||homeData.getCommunity_organization().equals("")) ? "checked": ""%> value="No">No</label>
 							</div> 
-							<input type="text" class="form-control" id="algun_MDHPEUOC_opcion" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH%>" placeholder="¿Cuál?" <%=!homeData.getCommunity_organization().equals("Sí") ? "style=\"display: none\"": "value=\""+homeData.getCommunity_organization_which()+"\""%>>
+							<input type="text" class="form-control" id="algun_MDHPEUOC_opcion" name="<%=Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH%>" placeholder="¿Cuál?" <%=!homeData.getCommunity_organization().equals("Sí") ? "style=\"display: none\"": "value=\""+homeData.getCommunity_organization_which()+"\" required"%>>
 						</div>
 					</div>
 				</td>
@@ -161,18 +161,18 @@
 		});
 		
 		$('#algun_MDHPEUOC_si').change(function() {
-			$('#algun_MDHPEUOC_opcion').show();
+			$('#algun_MDHPEUOC_opcion').show().prop('required',true);
 		});
 		$('#algun_MDHPEUOC_no').change(function() {
-			$('#algun_MDHPEUOC_opcion').hide();
+			$('#algun_MDHPEUOC_opcion').hide().prop('required',false);
 		});
 		
 		
 		$('#cuales_SLPPDLC_checkbox_otro').on('change', function (e) {
 		    if($("#cuales_SLPPDLC_checkbox_otro").is(':checked')){
-		    	$('#cuales_SLPPDLC_otro').show();	
+		    	$('#cuales_SLPPDLC_otro').show().prop('required',true);	
 		    }else{
-		    	$('#cuales_SLPPDLC_otro').hide()
+		    	$('#cuales_SLPPDLC_otro').hide().prop('required',false);
 		    }
 		});
 	});

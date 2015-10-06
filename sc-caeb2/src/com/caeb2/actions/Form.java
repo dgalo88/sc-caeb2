@@ -119,7 +119,7 @@ public class Form {
 		PropertiesConfiguration prop = null;
 
 		try {
-			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
+			prop = Controller.getPropertiesFile(Constants.PROP_FILE_DWELLING, //
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
@@ -187,6 +187,7 @@ public class Form {
 		prop.save();
 
 		Controller.getLogger().info("- saveProcessPage4");
+
 
 		PollManager.setCurrentPage(request, 5);
 

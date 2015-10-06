@@ -27,7 +27,7 @@
 									<td class="td-left-control">
 										<div class="form-group">
 											<div class="checkbox">
-												<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION8_DISABILITIES%>" <%= (medicalData.getDisabilities().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
+												<label><input type="checkbox" value="Ninguna" id="<%=Constants.SECTION8_DISABILITIES%>_Ninguna" name="<%=Constants.SECTION8_DISABILITIES%>" <%= (medicalData.getDisabilities().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
 												<label><input type="checkbox" value="Ceguera total" name="<%=Constants.SECTION8_DISABILITIES%>" <%= (medicalData.getDisabilities().containsKey("Ceguera total")) ? "checked": ""%>>Ceguera total</label><br>
 												<label><input type="checkbox" value="Dificultad para ver" name="<%=Constants.SECTION8_DISABILITIES%>" <%= (medicalData.getDisabilities().containsKey("Dificultad para ver")) ? "checked": ""%>>Dificultad para ver</label><br>
 												<label><input type="checkbox" value="Sordera total" name="<%=Constants.SECTION8_DISABILITIES%>" <%= (medicalData.getDisabilities().containsKey("Sordera total")) ? "checked": ""%>>Sordera total</label>
@@ -101,7 +101,8 @@
 											</div>
 											<div class="form-group">
 												<div class="radio">
-													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%=medicalData.getMedical_equipment_other().equals("") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
+																			<%System.out.println(medicalData.getMedical_equipment_other()); %>
+													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%= !medicalData.getMedical_equipment_which().equals("Otro ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
 												</div>
 											</div>
 										</td>
@@ -136,7 +137,7 @@
 										<label for="por_CDLSSDPSEA">¿Por cuales de los siguientes sistemas de previsión social está amparado?</label>
 										<div class="form-group">
 											<div class="checkbox">
-												<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION8_SECURITY_SYSTEMS%>" <%= (medicalData.getSecurity_systems().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
+												<label><input type="checkbox" value="Ninguna" id="<%=Constants.SECTION8_SECURITY_SYSTEMS%>_Ninguna" name="<%=Constants.SECTION8_SECURITY_SYSTEMS%>" <%= (medicalData.getSecurity_systems().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
 												<label><input type="checkbox" value="Seguro social obligatorio" name="<%=Constants.SECTION8_SECURITY_SYSTEMS%>" <%= (medicalData.getSecurity_systems().containsKey("Seguro social obligatorio")) ? "checked": ""%>>Seguro social obligatorio</label><br>
 												<label><input type="checkbox" value="Seguro privado de asistencia médica por su cuenta" name="<%=Constants.SECTION8_SECURITY_SYSTEMS%>" <%= (medicalData.getSecurity_systems().containsKey("Seguro privado de asistencia médica por su cuenta")) ? "checked": ""%>>Seguro privado de asistencia médica por su cuenta</label><br>
 												<label><input type="checkbox" value="Seguro colectivo de asistencia médica de empresa u organización" name="<%=Constants.SECTION8_SECURITY_SYSTEMS%>" <%= (medicalData.getSecurity_systems().containsKey("Seguro colectivo de asistencia médica de empresa u organización")) ? "checked": ""%>>Seguro colectivo de asistencia médica de empresa u organización</label>
@@ -153,7 +154,7 @@
 									<td class="td-left-control">
 										<div class="form-group">
 											<div class="checkbox">
-												<label><input type="checkbox" value="Ninguna" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
+												<label><input type="checkbox" value="Ninguna" id="<%=Constants.SECTION8_DISEASES%>_Ninguna" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Ninguna")) ? "checked": ""%>>Ninguna</label><br>
 												<label><input type="checkbox" value="Asma bronquial" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Asma bronquial")) ? "checked": ""%>>Asma bronquial</label><br>
 												<label><input type="checkbox" value="Cáncer o tumores malignos" name="<%=Constants.SECTION8_DISEASES%>" <%= (medicalData.getDiseases().containsKey("Cáncer o tumores malignos")) ? "checked": ""%>>Cáncer o tumores malignos</label><br>
 											</div>
@@ -182,7 +183,7 @@
 
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=!medicalData.getDiseases().containsKey("Otra ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getDiseases_other()%>">
+							<input type="text" class="form-control" id="padecido_OHSDPADLSE_text" name="<%=Constants.SECTION8_DISEASES_OTHER%>" placeholder="¿Cuál?"  <%=!medicalData.getDiseases().containsKey("Otra ¿Cuál?") ? "style=\"display: none\"": "required"%> value="<%=medicalData.getDiseases_other()%>">
 						</div>
 						<div class="form-group">
 							<label for="ha_RSHLSV">¿Ha recibido su hijo(s) las siguientes vacunas?</label> 
@@ -334,9 +335,9 @@
 		$('#padecido_OHSDPADLSE_select').on('change', function (e) {
 			
 			if($(this).is(':checked')){
-		    	$('#padecido_OHSDPADLSE_text').show();	
+		    	$('#padecido_OHSDPADLSE_text').show().prop('required',true);	
 		    }else{
-		    	$('#padecido_OHSDPADLSE_text').hide()
+		    	$('#padecido_OHSDPADLSE_text').hide().prop('required',false);
 		    }
 		});
 		
@@ -349,7 +350,37 @@
 		    }
 		});
 		
+		$("#<%=Constants.SECTION8_DISABILITIES%>_Ninguna").change(function() {
+			checkedNone(!$("#<%=Constants.SECTION8_DISABILITIES%>_Ninguna").is(':checked'),"<%=Constants.SECTION8_DISABILITIES%>");
+		}); 
+		
+		$("#<%=Constants.SECTION8_SECURITY_SYSTEMS%>_Ninguna").change(function() {
+			checkedNone(!$("#<%=Constants.SECTION8_SECURITY_SYSTEMS%>_Ninguna").is(':checked'),"<%=Constants.SECTION8_SECURITY_SYSTEMS%>");
+		}); 
+		
+		$("#<%=Constants.SECTION8_DISEASES%>_Ninguna").change(function() {
+			var flag=!$("#<%=Constants.SECTION8_DISEASES%>_Ninguna").is(':checked');
+			checkedNone(flag,"<%=Constants.SECTION8_DISEASES%>");
+			if(!flag){
+				$('#padecido_OHSDPADLSE_text').hide().prop('required',false);
+			}
+		}); 
+		
 	});
+	
+	function checkedNone(flag,param) {
+		if (flag) {
+			$('input[name="'+param+'"]').each(function(index) {
+					$(this).removeAttr('disabled');
+				});
+		} else {
+			$('input[name="'+param+'"]').each(function(index) {
+				console.log($(this).val());
+				if($(this).val()!="Ninguna")
+					$(this).removeAttr('checked').attr('disabled', 'disabled');
+				});
+		}
+	}
 </script>
 
 <%@include file="footer.jsp"%>
