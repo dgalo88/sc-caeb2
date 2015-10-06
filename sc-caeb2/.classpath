@@ -24,5 +24,10 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/sc-caeb2/WebContent/WEB-INF/lib/gson-2.3.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang-2.6.jar" sourcepath="WebContent/WEB-INF/lib/commons-lang-2.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/sc-caeb2/WebContent/WEB-INF/lib/commons-lang-2.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

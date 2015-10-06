@@ -719,7 +719,7 @@ public class LoadDataBase {
 		return mapPhone;
 	}
 	
-	public static Long getPrimariHome(long dwellingId){
+	public static Long getPrimaryHome(long dwellingId){
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		ResultSet rs = null;
@@ -757,7 +757,7 @@ public class LoadDataBase {
 		return null;
 	}
 	
-	public static Long getPrimariPerson(long homeId){
+	public static Long getPrimaryPerson(long homeId){
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		ResultSet rs = null;

@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.caeb2.actions.bean.DwellingBasicData;
 import com.caeb2.actions.bean.HomeBasicData;
 import com.caeb2.actions.bean.PersonBasicDataMin;
@@ -394,10 +396,10 @@ public class BoardsManager {
 		return new String("<div class=\\\"btn-group\\\" style=\\\"z-index: 9999;\\\">" //
 				+ (type.equalsIgnoreCase("person") ? "" //
 						: ("<button type=\\\"button\\\" class=\\\"btn btn-default view" + type + "Btn\\\" aria-label=\\\"Ver\\\"" //
-				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
-				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Ver\\\">" //
-				+ /**/"<span class=\\\"glyphicon glyphicon-eye-open\\\" aria-hidden=\\\"true\\\"></span>" //
-				+ "</button>")) //
+								+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
+								+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Ver\\\">" //
+								+ /**/"<span class=\\\"glyphicon glyphicon-eye-open\\\" aria-hidden=\\\"true\\\"></span>" //
+								+ "</button>")) //
 				+ "<button type=\\\"button\\\" class=\\\"btn btn-default edit" + type + "Btn\\\" aria-label=\\\"Editar\\\"" //
 				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
 				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Editar\\\">" //
@@ -438,7 +440,7 @@ public class BoardsManager {
 
 		long homeId = Long.parseLong(request.getParameter("homeId"));
 
-		boolean result = SaveDataBase.deletHome(homeId);
+		boolean result = SaveDataBase.deleteHome(homeId);
 
 		if (result) {
 			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
@@ -475,13 +477,47 @@ public class BoardsManager {
 			HttpServletResponse response) throws Exception {
 
 		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+		String sessionId = request.getRequestedSessionId();
 
-		boolean result = LoadDataBase.loadDwelling(dwellingId, request.getRequestedSessionId());
+		boolean result = LoadDataBase.loadDwelling(dwellingId, sessionId);
 
 		if (result) {
-			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
+
+			Long homeId = LoadDataBase.getPrimaryHome(dwellingId);
+
+			if (homeId != null) {
+
+				boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
+
+				if (loadHomeResult) {
+
+					Long personId = LoadDataBase.getPrimaryPerson(homeId);
+
+					if (personId != null) {
+
+						boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
+
+						if (!loadPersonResult) {
+							sendLoadDataError(response, sessionId);
+						}
+
+					} else {
+						sendLoadDataError(response, sessionId);
+					}
+
+				} else {
+					sendLoadDataError(response, sessionId);
+				}
+
+			} else {
+				sendLoadDataError(response, sessionId);
+			}
+
+			Controller.sendTextResponse(response, //
+					StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
+
 		} else {
-			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
+			sendLoadDataError(response, sessionId);
 		}
 
 	}
@@ -518,6 +554,15 @@ public class BoardsManager {
 			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
 		}
 
+	}
+
+	//--------------------------------------------------------------------------------
+
+	private static void sendLoadDataError(HttpServletResponse response, //
+			String sessionId) throws Exception {
+		PollManager.cleanPropFiles(sessionId);
+		Controller.sendErrorResponse(response, //
+				StringEscapeUtils.escapeHtml(Constants.LOAD_DATA_ERROR));
 	}
 
 	//--------------------------------------------------------------------------------

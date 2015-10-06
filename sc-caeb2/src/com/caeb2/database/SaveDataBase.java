@@ -726,7 +726,7 @@ public class SaveDataBase {
 		}
 	}
 	
-	public static boolean deletHome(long homeId){
+	public static boolean deleteHome(long homeId){
 		
 		Connection connection = null;
 		PreparedStatement pstmt= null;
