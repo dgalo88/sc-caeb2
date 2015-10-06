@@ -101,8 +101,7 @@
 											</div>
 											<div class="form-group">
 												<div class="radio">
-																			<%System.out.println(medicalData.getMedical_equipment_other()); %>
-													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%= !medicalData.getMedical_equipment_which().equals("Otro ¿Cuál?") ? "style=\"display: none\"": ""%> value="<%=medicalData.getMedical_equipment_other()%>">
+													<input type="text" class="form-control" id="requiere_UDAOEM_cual_text" name="<%=Constants.SECTION8_MEDICAL_EQUIPMENT_OTHER%>" placeholder="¿Cuál?" <%= !medicalData.getMedical_equipment_which().equals("Otro ¿Cuál?") ? "style=\"display: none\"": "required value="+medicalData.getMedical_equipment_other()%>>
 												</div>
 											</div>
 										</td>
@@ -317,9 +316,13 @@
 		
 		$('#requiere_UDAOEM_si').change(function() {
 			$('#requiere_UDAOEM_div').show();
+			if($('#padecido_OHSDPADLSE_select').is(':checked')){
+		    	$('#padecido_OHSDPADLSE_text').prop('required',true);	
+		    }
 		});
 		$('#requiere_UDAOEM_no').change(function() {
 			$('#requiere_UDAOEM_div').hide();
+			$('#padecido_OHSDPADLSE_text').prop('required',false);
 		});
 
 		
@@ -344,9 +347,9 @@
 		$('#requiere_UDAOEM_cual_select').on('change', function (e) {
 		    var valueSelected = this.value;
 		    if(valueSelected=='Otro ¿Cuál?'){
-		    	$('#requiere_UDAOEM_cual_text').show();	
+		    	$('#requiere_UDAOEM_cual_text').show().prop('required',true);
 		    }else{
-		    	$('#requiere_UDAOEM_cual_text').hide()
+		    	$('#requiere_UDAOEM_cual_text').hide().prop('required',false);
 		    }
 		});
 		
