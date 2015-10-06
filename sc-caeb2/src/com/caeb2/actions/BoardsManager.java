@@ -301,7 +301,7 @@ public class BoardsManager {
 			connection = Controller.getConnection();
 			statement = connection.createStatement();
 
-			String sql = "SELECT h.id, p.apellidos, p.nombres, h.numeroPersonas " //
+			String sql = "SELECT h.id, p.apellidos, p.nombres, COUNT(p.id) " //
 					+ " FROM hogar h, persona p WHERE h.id = '" + String.valueOf(dwellingId) //
 					+ "' AND h.id = p.hogarId AND p.parentescoJefeHogar like 'Jefe o jefa del Hogar'";
 			statement.executeQuery(sql);

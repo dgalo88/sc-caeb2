@@ -19,7 +19,7 @@
 			<tr>
 				<td>
 					<div class="form-group">
-						<label for="cedula">Ingrese la cédula de identidad:</label>
+						<label for="cedula">Cédula de identidad:</label>
 						<div class="form-inline" id="cedula">
 							<select class="form-control" id="<%=Constants.SECTION5_CEDULA_TYPE%>"
 									name="<%=Constants.SECTION5_CEDULA_TYPE%>">
@@ -35,7 +35,7 @@
 				<td width="50%">
 					<div class="form-group">
 						<div class="form-group">
-							<label for="formlalityType">Seleccione el tipo de trámite</label>
+							<label for="formlalityType">Tipo de trámite:</label>
 							<select class="form-control" id="formlalityType" name="formlalityType">
 								<option>Social</option>
 								<option>Bancario</option>
@@ -50,18 +50,28 @@
 				<td width="50%">
 					<div class="form-group">
 						<div class="form-group">
-							<label for="docType">Seleccione quien firma</label>
-							<select class="form-control" id="docSigner" name="docSigner">
-								<option>Ani Villarreal</option>
-								<option>José Ivan González</option>
-							</select>
+							<label for="docSigner">Firmantes:</label>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="docSigner" id="docSigner1" value="Angela Maldonado">
+									Angela Maldonado
+								</label><br>
+								<label>
+									<input type="checkbox" name="docSigner" id="docSigner2" value="Ani Villarreal">
+									Ani Villarreal
+								</label><br>
+								<label>
+									<input type="checkbox" name="docSigner" id="docSigner3" value="José Ivan González">
+									José Ivan González
+								</label>
+							</div>
 						</div>
 					</div>
 				</td>
 				<td width="50%">
 					<div class="form-group">
 						<div class="form-group">
-							<label for="docType">Seleccione el tipo de documento</label>
+							<label for="docType">Tipo de documento:</label>
 							<select class="form-control" id="docType" name="docType">
 								<option><%=Constants.JSP_RES_PROOF%></option>
 								<option><%=Constants.JSP_RES_PROOF_LOW_INCOME%></option>
@@ -152,14 +162,14 @@
 							<br><br>
 							__________________
 							<br>
-							<h5>Angela Maldonado</h5>
+							<h5 id="signer1"></h5>
 							Unidad Administrativa y Financiera
 						</td>
 						<td class="text-right" colspan="2">
 							<br><br>
 							__________________
 							<br>
-							<h5 id="signer"></h5>
+							<h5 id="signer2"></h5>
 							Unidad Administrativa y Financiera
 						</td>
 					</tr>
@@ -202,13 +212,38 @@
 	month[10] = "noviembre";
 	month[11] = "diciembre";
 
-	$(document).ready(function() {
+	counter = 0;
+
+	$(document).on('ready', function() {
+
+		$('input[name="docSigner"]').on('click', function(e) {
+
+			if ($(this).is(':checked')) {
+
+				if (counter == 2) {
+					e.stopPropagation();
+					showError('<%=Constants.MAX_SIGNERS_ERROR%>');
+					e.preventDefault();
+				} else {
+					counter++;
+				}
+
+			} else {
+				counter--;
+			}
+
+		});
 
 		$('#form_docs').submit(function(event) {
 
 			hideNotification();
 
 			event.preventDefault();
+
+			if (counter != 2) {
+				showError('<%=Constants.MAX_SIGNERS_ERROR%>');
+				return;
+			}
 
 			$.ajax({
 
@@ -265,14 +300,34 @@
 	    var nationality = first.toUpperCase() + data.nationality.substr(1, data.nationality.length - 1);
 
 		contentText = contentText.replace('_CED', $('#<%=Constants.SECTION5_CEDULA_NUM%>').val());
-		contentText = contentText.replace('_DIR', data.direction);
+		contentText = contentText.replace('_DIR', data.address);
 		contentText = contentText.replace('_NAC', nationality);
 
 		contentText = replaceContentData(contentText, data.sex);
 
 		$('#docContent').text(contentText);
 		$('#docDate').text(date);
-		$('#signer').text($('#docSigner').val());
+
+		assignSigners();
+
+	}
+
+	function assignSigners() {
+
+		var signers = [];
+		var i = 0;
+
+		$('input[name="docSigner"]').each(function() {
+
+			if ($(this).is(':checked')) {
+				signers[i] = $(this).val();
+				i++;
+			}
+
+		});
+
+		$('#signer1').text(signers[0]);
+		$('#signer2').text(signers[1]);
 
 	}
 
@@ -307,4 +362,4 @@
 	}
 </script>
 
-<%@ include file="footer.jsp"%>
+<%@include file="footer.jsp"%>

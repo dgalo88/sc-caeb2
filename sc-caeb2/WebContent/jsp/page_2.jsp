@@ -145,8 +145,8 @@
 									</td>
 									<td style="padding-right: 1%;">
 										<select class="form-control" name="<%=Constants.SECTION2_SANITARY_SERVICE%>">
-											<option value="Peseta conectada a la cloaca" <%= housingData.getSanitary_service().equals("Peseta conectada a la cloaca") ? "selected": ""%>>Peseta conectada a la cloaca</option>
-											<option value="Peseta conectada al río" <%= housingData.getSanitary_service().equals("Peseta conectada al río") ? "selected": ""%>>Peseta conectada al río</option>
+											<option value="Poceta conectada a la cloaca" <%= housingData.getSanitary_service().equals("Poceta conectada a la cloaca") ? "selected": ""%>>Poceta conectada a la cloaca</option>
+											<option value="Poceta conectada al río" <%= housingData.getSanitary_service().equals("Poceta conectada al río") ? "selected": ""%>>Poceta conectada al río</option>
 										</select>
 									</td>
 									<td style="padding-right: 1%;">
@@ -158,7 +158,7 @@
 									<td>
 										<select class="form-control" name="<%=Constants.SECTION2_GARBAGE_COLLECTION%>">
 											<option value="Recogida por el servicio de aseo urbano" <%= housingData.getGarbage_collection().equals("Recogida por el servicio de aseo urbano") ? "selected": ""%>>Recogida por el servicio de aseo urbano</option>
-											<option value="Depositada en conteiner colectivo" <%= housingData.getGarbage_collection().equals("Depositada en conteiner colectivo") ? "selected": ""%>>Depositada en conteiner colectivo</option>
+											<option value="Depositada en container colectivo" <%= housingData.getGarbage_collection().equals("Depositada en container colectivo") ? "selected": ""%>>Depositada en container colectivo</option>
 											<option value="Vertida en quebradas, ríos, lagos, calles o terrenos baldíos" <%= housingData.getGarbage_collection().equals("Vertida en quebradas, ríos, lagos, calles o terrenos baldíos") ? "selected": ""%>>Vertida en quebradas, ríos, lagos, calles o terrenos baldíos</option>
 										</select>
 									</td>
