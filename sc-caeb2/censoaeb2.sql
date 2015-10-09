@@ -10,7 +10,7 @@ USE `censoaeb2`;
 CREATE TABLE IF NOT EXISTS `vivienda` (
   `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `callePasaje` varchar(255) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL UNIQUE,
   `telefono` varchar(100) DEFAULT NULL,
   `tipoEstructura` varchar(100) DEFAULT NULL,
   `materialParedes` varchar(255) DEFAULT NULL,
