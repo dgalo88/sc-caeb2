@@ -37,14 +37,12 @@ public class InitDatabase {
 		try {
 			createDatabaseUser(DB_NAME, DB_PASS);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
 		try {
 			createDatabase(DB_NAME);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -162,7 +160,6 @@ public class InitDatabase {
 		try {
 			initDatabase.init(DB_CONFIG_FILE);
 		} catch (IOException | SQLException | ClassNotFoundException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 

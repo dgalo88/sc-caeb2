@@ -48,7 +48,8 @@
 
 		$('.viewDwellingBtn').on('click', function() {
 
-			window.location.href = '<%=Constants.EXEC_ACTION%>loadAllHomes&dwellingId='
+			window.location.href = '<%=Constants.EXEC_ACTION%>loadAllHomes'
+										+ '&<%=Constants.ATT_DWELLING_ID%>='
 										+ $(this).attr('data-dwelling-id');
 
 		});
@@ -59,15 +60,17 @@
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>editDwelling&dwellingId='
+				url: '<%=Constants.EXEC_ACTION%>editDwelling'
+						+'&<%=Constants.ATT_DWELLING_ID%>='
 						+ $(this).attr('data-dwelling-id'),
+
 				method: 'POST',
 
 				success: function(data) {
 
-					window.location.href = "page_1.jsp"
-							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
-							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
+					window.location.href = 'page_1.jsp'
+							+ '?' + '<%=Constants.ATT_MESSAGE%>=' + data
+							+ '&' + '<%=Constants.ATT_NOTIFICATION + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
 
@@ -94,8 +97,10 @@
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>deleteDwelling&dwellingId='
+				url: '<%=Constants.EXEC_ACTION%>deleteDwelling'
+						+ '&<%=Constants.ATT_DWELLING_ID%>='
 						+ $(this).attr('data-dwelling-id'),
+
 				method: 'POST',
 
 				success: function(data) {
@@ -138,10 +143,14 @@
 
 		<div class="btn-footer">
 			<a href="<%=Constants.ACTION_HOME%>">
-				<button type="button" class="btn btn-default" id="backBtn"><%=Constants.JSP_COMEBACK%></button>
+				<button type="button" class="btn btn-default" id="backBtn">
+					<%=Constants.JSP_COMEBACK%>
+				</button>
 			</a>
 			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn"><%=Constants.JSP_NEW_POLL%></button>
+				<button type="button" class="btn btn-primary" id="newPollBtn">
+					<%=Constants.JSP_NEW_DWELLING%>
+				</button>
 			</a>
 		</div>
 	</div>

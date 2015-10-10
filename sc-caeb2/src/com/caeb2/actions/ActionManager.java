@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +31,7 @@ public class ActionManager {
 			HttpServletResponse response) throws Exception {
 
 		PollManager.cleanPropFiles(request.getRequestedSessionId());
-		PollManager.setCurrentPage(request, 0);
+		PollManager.setCurrentPage(request, new Integer(0));
 
 		Controller.forward(request, response, "index.jsp");
 
@@ -43,8 +47,8 @@ public class ActionManager {
 
 		try {
 
-			String user = request.getParameter("user");
-			String pass = request.getParameter("pass");
+			String user = request.getParameter(Constants.ATT_USERNAME);
+			String pass = request.getParameter(Constants.ATT_PASSWORD);
 
 			HttpSession session = request.getSession();
 
@@ -61,14 +65,21 @@ public class ActionManager {
 
 				session.setAttribute(Constants.ATT_USER, user);
 
-				PollManager.setCurrentPage(session, 0);
+				PollManager.setCurrentPage(session, new Integer(0));
 
 				Controller.forward(request, response, "main.jsp");
 
 			} else {
 
+				String params = Constants.ATT_MESSAGE + "=" + Constants.LOGIN_ERROR //
+						+ "&" + Constants.ATT_NOTIFICATION + "=" + Constants.ALERT_DANGER;
+
+				request.setAttribute(Constants.ATT_USERNAME, user);
+
 				Controller.getLogger().severe(Constants.LOGIN_ERROR);
-				Controller.forward(request, response, "error.jsp", Constants.LOGIN_ERROR);
+
+				Controller.forwardParams(request, response, "index.jsp", params);
+
 
 			}
 
@@ -128,6 +139,27 @@ public class ActionManager {
 
 	//--------------------------------------------------------------------------------
 
+	/**
+	 * Get a diff between two dates
+	 * @param date1 the oldest date
+	 * @param date2 the newest date
+	 * @param timeUnit the unit in which you want the diff
+	 * @return the diff value, in the provided unit
+	 */
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+		long diffInMillies = date2.getTime() - date1.getTime();
+		return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static boolean checkAntiquity(Date arrivalDate) throws ParseException {
+		long diff = getDateDiff(arrivalDate, new Date(), TimeUnit.DAYS) / 30;
+		return diff >= 6;
+	}
+
+	//--------------------------------------------------------------------------------
+
 	public static void loadFormalityData(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
@@ -150,7 +182,7 @@ public class ActionManager {
 
 		String cedula = cedulaType + cedulaNum;
 
-		String sql = "SELECT apellidos, nombres, sexo, hogarId, nacionalidad " //
+		String sql = "SELECT apellidos, nombres, sexo, hogarId, nacionalidad, fechaLlegada " //
 				+ " FROM persona WHERE cedula='" + cedula + "'";
 
 		statement.executeQuery(sql);
@@ -174,11 +206,23 @@ public class ActionManager {
 		String sex = resultSet.getString(3);
 		String hogarId = resultSet.getString(4);
 		String nationality = resultSet.getString(5);
+		Date arrivalDate = resultSet.getDate(6);
 
 		resultSet.close();
 
-		//		sql = "SELECT v.direccion FROM vivienda v WHERE v.id IN " //
-		//				+ "(SELECT h.viviendaId FROM hogar h WHERE h.id='" + hogarId + "')";
+		if (!checkAntiquity(arrivalDate)) {
+
+			statement.close();
+			connection.close();
+
+			Controller.sendErrorResponse(response, Constants.ARRIVAL_DATE_ERROR);
+
+			return;
+
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 		sql = "SELECT v.callePasaje, v.nombre FROM hogar h, vivienda v WHERE h.id='" //
 				+ hogarId + "' AND h.viviendaId=v.id";
 
@@ -204,7 +248,8 @@ public class ActionManager {
 		String address = street + (TextUtils.isEmptyOrNull(houseName) ? //
 				"" : ", Casa " + houseName);
 
-		FormalityData formalityData = new FormalityData(lastnames, names, sex, address, nationality);
+		FormalityData formalityData = new FormalityData(lastnames, //
+				names, sex, address, nationality, sdf.format(arrivalDate));
 
 		Gson gson = new Gson();
 		String jsonResponse = gson.toJson(formalityData);
@@ -311,7 +356,7 @@ public class ActionManager {
 			Controller.forward(request, response, "profile.jsp");
 		} else {
 			Controller.getLogger().severe(Constants.LOGIN_ERROR);
-			Controller.forward(request, response, "error.jsp", Constants.GENERAL_ERROR);
+			Controller.forwardError(request, response, Constants.GENERAL_ERROR);
 		}
 
 	}

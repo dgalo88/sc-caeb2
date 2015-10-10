@@ -35,9 +35,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage1");
 
-		PollManager.setCurrentPage(request, 2);
-
-		Controller.forward(request, response, "page_2.jsp");
+		Controller.forwardToPage(request, response, new Integer(2));
 
 	}
 
@@ -104,9 +102,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage2");
 
-		PollManager.setCurrentPage(request, 3);
-
-		Controller.forward(request, response, "page_3.jsp");
+		Controller.forwardToPage(request, response, new Integer(3));
 
 	}
 
@@ -123,7 +119,7 @@ public class Form {
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
-			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			Controller.forwardError(request, response, Constants.LOAD_DATA_ERROR);
 			return;
 		}
 
@@ -134,9 +130,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage3");
 
-		PollManager.setCurrentPage(request, 4);
-
-		Controller.forward(request, response, "page_4.jsp");
+		Controller.forwardToPage(request, response, new Integer(4));
 
 	}
 
@@ -188,10 +182,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage4");
 
-
-		PollManager.setCurrentPage(request, 5);
-
-		Controller.forward(request, response, "page_5.jsp");
+		Controller.forwardToPage(request, response, new Integer(5));
 
 	}
 
@@ -240,9 +231,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage7");
 
-		PollManager.setCurrentPage(request, 8);
-
-		Controller.forward(request, response, "page_8.jsp");
+		Controller.forwardToPage(request, response, new Integer(8));
 
 	}
 
@@ -304,9 +293,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage8");
 
-		PollManager.setCurrentPage(request, 9);
-
-		Controller.forward(request, response, "page_9.jsp");
+		Controller.forwardToPage(request, response, new Integer(9));
 
 	}
 

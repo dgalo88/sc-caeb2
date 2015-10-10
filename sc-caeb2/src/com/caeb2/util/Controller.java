@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import com.caeb2.actions.PollManager;
+
 public class Controller {
 
 	public enum PropFileRole {
@@ -88,8 +90,8 @@ public class Controller {
 		Controller.dbPass = dbPass;
 	}
 
-	public static void forward(HttpServletRequest request, HttpServletResponse response, //
-			String page) throws Exception {
+	public static void forward(HttpServletRequest request, //
+			HttpServletResponse response, String page) throws Exception {
 
 		try {
 
@@ -109,8 +111,9 @@ public class Controller {
 
 	}
 
-	public static void forward(HttpServletRequest request, HttpServletResponse response, //
-			String page, String message) throws Exception {
+	public static void forward(HttpServletRequest request, //
+			HttpServletResponse response, String page, //
+			String message) throws Exception {
 
 		request.setAttribute(Constants.ATT_MESSAGE, message);
 
@@ -118,19 +121,39 @@ public class Controller {
 
 	}
 
-	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
-			String page, String params) throws Exception {
+	public static void forwardParams(HttpServletRequest request, //
+			HttpServletResponse response, String page, //
+			String params) throws Exception {
 
 		forward(request, response, page + "?" + params);
 
 	}
 
-	public static void forwardParams(HttpServletRequest request, HttpServletResponse response, //
-			String page, String params, String message) throws Exception {
+	public static void forwardParams(HttpServletRequest request, //
+			HttpServletResponse response, String page, //
+			String params, String message) throws Exception {
 
 		request.setAttribute(Constants.ATT_MESSAGE, message);
 
 		forward(request, response, page + "?" + params);
+
+	}
+
+	public static void forwardToPage(HttpServletRequest request, //
+			HttpServletResponse response, Integer pageNum) throws Exception {
+
+		PollManager.setCurrentPage(request, pageNum);
+
+		forward(request, response, "page_" + String.valueOf(pageNum.intValue()) + ".jsp");
+
+	}
+
+	public static void forwardError(HttpServletRequest request, //
+			HttpServletResponse response, String errorMessage) throws Exception {
+
+		request.setAttribute(Constants.ATT_ERROR, errorMessage);
+
+		forward(request, response, "error.jsp");
 
 	}
 

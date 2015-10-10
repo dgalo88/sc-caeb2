@@ -12,8 +12,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringEscapeUtils;
-
 import com.caeb2.actions.bean.DwellingBasicData;
 import com.caeb2.actions.bean.HomeBasicData;
 import com.caeb2.actions.bean.PersonBasicDataMin;
@@ -35,7 +33,9 @@ public class BoardsManager {
 
 		request.setAttribute("dwellingsJSON", dwellingsJSON);
 
-		Controller.forward(request, response, "dwellingBoard.jsp", "Message");
+		PollManager.setCurrentPage(request, new Integer(0));
+
+		Controller.forward(request, response, "dwellingBoard.jsp");
 
 	}
 
@@ -149,11 +149,11 @@ public class BoardsManager {
 	public static void loadAllPersons( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String homeId = (String) request.getParameter("homeId");
+		String homeId = (String) request.getParameter(Constants.ATT_HOME_ID);
 
-		request.setAttribute("homeId", homeId);
+		request.setAttribute(Constants.ATT_HOME_ID, homeId);
 
-		Controller.forward(request, response, "personBoard.jsp", "Message");
+		Controller.forward(request, response, "personBoard.jsp");
 
 	}
 
@@ -275,11 +275,11 @@ public class BoardsManager {
 	public static void loadAllHomes( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String dwellingId = (String) request.getParameter("dwellingId");
+		String dwellingId = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 
-		request.setAttribute("dwellingId", dwellingId);
+		request.setAttribute(Constants.ATT_DWELLING_ID, dwellingId);
 
-		Controller.forward(request, response, "homeBoard.jsp", "Message");
+		Controller.forward(request, response, "homeBoard.jsp");
 
 	}
 
@@ -420,7 +420,7 @@ public class BoardsManager {
 	public static void deleteDwelling(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+		long dwellingId = Long.parseLong(request.getParameter(Constants.ATT_DWELLING_ID));
 
 		boolean result = SaveDataBase.deleteDwelling(dwellingId);
 
@@ -439,7 +439,7 @@ public class BoardsManager {
 	public static void deleteHome(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		long homeId = Long.parseLong(request.getParameter("homeId"));
+		long homeId = Long.parseLong(request.getParameter(Constants.ATT_HOME_ID));
 
 		boolean result = SaveDataBase.deleteHome(homeId);
 
@@ -458,7 +458,7 @@ public class BoardsManager {
 	public static void deletePerson(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		long personId = Long.parseLong(request.getParameter("personId"));
+		long personId = Long.parseLong(request.getParameter(Constants.ATT_PERSON_ID));
 
 		boolean result = SaveDataBase.deletePerson(personId);
 
@@ -481,65 +481,74 @@ public class BoardsManager {
 
 		logger.info(" + Load Poll Data");
 
-		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+		PollManager.setCurrentPage(request, new Integer(0));
+
 		String sessionId = request.getRequestedSessionId();
+
+		Long dwellingId = request.getParameter(Constants.ATT_DWELLING_ID) == null ? //
+				null : Long.parseLong(request.getParameter(Constants.ATT_DWELLING_ID));
+
+		if (dwellingId == null) {
+			sendLoadDataError(response, sessionId, "dwelling");
+			return;
+		}
 
 		logger.info("Load Dwelling: " + dwellingId);
 
 		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
 
-		if (loadDwellingResult) {
-
-			Long homeId = (request.getParameter("homeId") == null ? //
-					LoadDataBase.getPrimaryHome(dwellingId) //
-					: Long.parseLong(request.getParameter("homeId")));
-
-			if (homeId != null) {
-
-				logger.info("Load Home: " + homeId);
-
-				boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
-
-				if (loadHomeResult) {
-
-					Long personId = (request.getParameter("personId") == null ? //
-							LoadDataBase.getPrimaryPerson(homeId.longValue()) //
-							: Long.parseLong(request.getParameter("personId")));
-
-					if (personId != null) {
-
-						logger.info("Load Person: " + personId);
-
-						boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
-
-						if (loadPersonResult) {
-
-							PollManager.setCurrentPage(request, currPage);
-
-							Controller.sendTextResponse(response, //
-									StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
-
-							logger.info(" - Load Poll Data");
-
-							return;
-
-						} else {
-							logger.info("Failed loading person");
-						}
-
-					}
-
-				} else {
-					logger.info("Failed loading home");
-				}
-
-			}
-
-		} else {
-			logger.info("Failed loading dwelling");
+		if (!loadDwellingResult) {
+			sendLoadDataError(response, sessionId, "dwelling");
+			return;
 		}
 
-		sendLoadDataError(response, sessionId);
+		Long homeId = (request.getParameter(Constants.ATT_HOME_ID) == null ? //
+				LoadDataBase.getPrimaryHome(dwellingId) //
+				: Long.parseLong(request.getParameter(Constants.ATT_HOME_ID)));
+
+		String fail = "home";
+
+		if (homeId != null) {
+
+			logger.info("Load Home: " + homeId);
+
+			boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
+
+			if (loadHomeResult) {
+
+				Long personId = (request.getParameter(Constants.ATT_PERSON_ID) == null ? //
+						LoadDataBase.getPrimaryPerson(homeId.longValue()) //
+						: Long.parseLong(request.getParameter(Constants.ATT_PERSON_ID)));
+
+				if (personId != null) {
+
+					logger.info("Load Person: " + personId);
+
+					boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
+
+					if (loadPersonResult) {
+
+						PollManager.setCurrentPage(request, currPage);
+
+						Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
+
+						logger.info(" - Load Poll Data");
+
+						return;
+
+					} else {
+						fail = "person";
+					}
+
+				}
+
+			} else {
+				fail = "home";
+			}
+
+		}
+
+		sendLoadDataError(response, sessionId, fail);
 
 	}
 
@@ -549,70 +558,6 @@ public class BoardsManager {
 			HttpServletResponse response) throws Exception {
 
 		loadPollData(request, response, new Integer(1));
-
-//		Logger logger = Controller.getLogger();
-//
-//		logger.info(" + Load Poll Data");
-//
-//		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
-//		String sessionId = request.getRequestedSessionId();
-//
-//		logger.info("Load Dwelling: " + dwellingId);
-//
-//		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
-//
-//		if (loadDwellingResult) {
-//
-//			Long homeId = LoadDataBase.getPrimaryHome(dwellingId);
-//
-//			if (homeId != null) {
-//
-//				logger.info("Load Home: " + homeId);
-//
-//				boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
-//
-//				if (loadHomeResult) {
-//
-//					Long personId = LoadDataBase.getPrimaryPerson(homeId.longValue());
-//
-//					if (personId != null) {
-//
-//						logger.info("Load Person: " + personId);
-//
-//						boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
-//
-//						if (loadPersonResult) {
-//
-//							PollManager.setCurrentPage(request, 1);
-//
-//							Controller.sendTextResponse(response, //
-//									StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
-//
-//							logger.info(" - Load Poll Data");
-//
-//							return;
-//
-//						} else {
-//							logger.info("Failed loading person");
-//						}
-//
-//					} else {
-//						logger.info("Failed getting person");
-//					}
-//
-//				} else {
-//					logger.info("Failed loading home");
-//				}
-//
-//			} else {
-//				logger.info("Failed getting home");
-//			}
-//
-//		} else {
-//			logger.info("Failed loading dwelling");
-//		}
-//
-//		sendLoadDataError(response, sessionId);
 
 	}
 
@@ -637,10 +582,12 @@ public class BoardsManager {
 	//--------------------------------------------------------------------------------
 
 	private static void sendLoadDataError(HttpServletResponse response, //
-			String sessionId) throws Exception {
+			String sessionId, String fail) throws Exception {
+
 		PollManager.cleanPropFiles(sessionId);
-		Controller.sendErrorResponse(response, //
-				StringEscapeUtils.escapeHtml(Constants.LOAD_DATA_ERROR));
+		Controller.getLogger().severe("Failed loading " + fail);
+		Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
+
 	}
 
 	//--------------------------------------------------------------------------------

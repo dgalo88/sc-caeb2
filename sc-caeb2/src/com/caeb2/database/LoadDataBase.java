@@ -395,9 +395,7 @@ public class LoadDataBase {
 				//........... Empleo
 				
 				String degree_approved_text=TextUtils.caparComma(rs.getString("nivelEducativo"));
-				System.out.println(degree_approved_text);
 				String degree_approved_level=rs.getInt("ultimoGradoAprobado")+"";
-				System.out.println(degree_approved_level);
 				String profession=TextUtils.caparComma(rs.getString("profesion"));
 				String skills_activity=TextUtils.caparComma(rs.getString("otrasHabilidades"));
 				String skills_activity_option = "";
@@ -768,7 +766,7 @@ public class LoadDataBase {
 		try {
 			
 			connection = Controller.getConnection();			
-			String sql = "SELECT * FROM hogar WHERE hogarId=? and parentescoJefeHogar='Jefe o jefa del Hogar'";
+			String sql = "SELECT * FROM persona WHERE hogarId=? and parentescoJefeHogar='Jefe o jefa del Hogar'";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, homeId);
 			rs=pstmt.executeQuery();

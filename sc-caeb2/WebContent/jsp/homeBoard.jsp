@@ -8,11 +8,14 @@
 <%
 	Parameters.setTitle("Hogares");
 
-	String dwellingIdStr = (String) request.getParameter("dwellingId");
+	String dwellingIdStr = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 
 	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
 
 	String homesJSON = BoardsManager.loadAllHomes(dwellingId);
+
+	String newHomeAction = Constants.ACTION_NEW_HOME
+			+ "&" + Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId);
 %>
 
 <%@include file="loader.jsp"%>
@@ -51,8 +54,11 @@
 		$('[data-toggle="tooltip"]').tooltip();
 
 		$('.viewHomeBtn').on('click', function() {
+
 			window.location.href = '<%=Constants.EXEC_ACTION%>loadAllPersons'
-				+ '&dwellingId=<%=String.valueOf(dwellingId)%>&homeId=' + $(this).attr('data-home-id');
+				+ '&<%=Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId)%>'
+				+ '&<%=Constants.ATT_HOME_ID%>=' + $(this).attr('data-home-id');
+
 		});
 
 		$('.editHomeBtn').on('click', function() {
@@ -62,15 +68,16 @@
 			$.ajax({
 
 				url: '<%=Constants.EXEC_ACTION%>editHome'
-						+ '&dwellingId=' + '<%=String.valueOf(dwellingId)%>'
-						+ '&homeId=' + $(this).attr('data-home-id'),
+						+ '&<%=Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId)%>'
+						+ '&<%=Constants.ATT_HOME_ID%>=' + $(this).attr('data-home-id'),
+
 				method: 'POST',
 
 				success: function(data) {
 
-					window.location.href = "page_4.jsp"
-							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
-							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
+					window.location.href = 'page_4.jsp'
+							+ '?' + '<%=Constants.ATT_MESSAGE%>=' + data
+							+ '&' + '<%=Constants.ATT_NOTIFICATION + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
 
@@ -97,8 +104,10 @@
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>deleteHome&homeId='
+				url: '<%=Constants.EXEC_ACTION%>deleteHome'
+						+ '&<%=Constants.ATT_HOME_ID%>='
 						+ $(this).attr('data-home-id'),
+
 				method: 'POST',
 
 				success: function(data) {
@@ -141,10 +150,14 @@
 
 		<div class="btn-footer">
 			<a href="<%=Constants.EXEC_ACTION + "loadAllDwellings"%>">
-				<button type="button" class="btn btn-default" id="backBtn"><%=Constants.JSP_COMEBACK%></button>
+				<button type="button" class="btn btn-default" id="backBtn">
+					<%=Constants.JSP_COMEBACK%>
+				</button>
 			</a>
-			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn"><%=Constants.JSP_NEW_POLL%></button>
+			<a href="<%=newHomeAction%>">
+				<button type="button" class="btn btn-primary" id="newHomeBtn">
+					<%=Constants.JSP_NEW_HOME%>
+				</button>
 			</a>
 		</div>
 	</div>

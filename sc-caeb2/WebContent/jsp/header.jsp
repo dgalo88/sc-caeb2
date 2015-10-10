@@ -1,14 +1,21 @@
 <%@page import="com.caeb2.util.TextUtils"%>
 <%@page import="com.caeb2.util.Constants"%>
+
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
+	String message = null;
+
+	if (request.getAttribute(Constants.ATT_MESSAGE) != null) {
+		message = (String) request.getAttribute(Constants.ATT_MESSAGE);
+	} else if (!TextUtils.isEmptyOrNull(request.getParameter(Constants.ATT_MESSAGE))) {
+		message = request.getParameter(Constants.ATT_MESSAGE);
+	}
+
 	String notification = request.getParameter(Constants.ATT_NOTIFICATION);
 
-	String notificationType = request.getParameter(Constants.ATT_NOTIFICATION_TYPE);
-
-	if (TextUtils.isEmptyOrNull(notificationType)) {
-		notificationType = Constants.ALERT_INFO;
+	if (TextUtils.isEmptyOrNull(notification)) {
+		notification = Constants.ALERT_INFO;
 	}
 %>
 
@@ -55,8 +62,8 @@
 
 			$('[data-toggle="tooltip"]').tooltip();
 
-			<%if (!TextUtils.isEmptyOrNull(notification)) {%>
-				showNotification('<%=notification%>', '<%=notificationType%>');
+			<%if (!TextUtils.isEmptyOrNull(message)) {%>
+				showNotification('<%=message%>', '<%=notification%>');
 			<%}%>
 
 		});

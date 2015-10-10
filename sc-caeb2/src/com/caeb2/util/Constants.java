@@ -16,6 +16,8 @@ public class Constants {
 	public static final String ACTION_EXIT = EXEC_ACTION + "logout";
 	public static final String ACTION_PROFILE = EXEC_ACTION + "loadAdminProfile";
 	public static final String ACTION_NEW_POLL = EXEC_ACTION + "newPoll";
+	public static final String ACTION_NEW_HOME = EXEC_ACTION + "newHome";
+	public static final String ACTION_NEW_PERSON = EXEC_ACTION + "newPerson";
 	public static final String ACTION_SEARCH = EXEC_ACTION + "loadAllDwellings";
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
@@ -47,7 +49,11 @@ public class Constants {
 	public static final String ATT_ADD_PERSON = "addPerson";
 	public static final String ATT_ADD_HOME = "addHome";
 	public static final String ATT_NOTIFICATION = "notification";
-	public static final String ATT_NOTIFICATION_TYPE = "notificationType";
+	public static final String ATT_USERNAME = "username";
+	public static final String ATT_PASSWORD = "password";
+	public static final String ATT_DWELLING_ID = "dwellingId";
+	public static final String ATT_HOME_ID = "homeId";
+	public static final String ATT_PERSON_ID = "personId";
 
 	// Notifications types
 	public static final String ALERT_SUCCESS = "alert-success";
@@ -71,7 +77,7 @@ public class Constants {
 	public static final String SUCCESSFUL_LOADED = "Datos cargados con éxito.";
 
 	// Errors Messages
-	public static final String ERROR = "Error";
+	public static final String ERROR = "Ha ocurrido un problema.";
 	public static final String IT_CANNOT_ERROR = "No se puede realizar la acción solicitada.";
 	public static final String CONTACT_ADMIN = "Contacte con el administrador.";
 	public static final String GENERAL_ERROR = IT_CANNOT_ERROR + " " + CONTACT_ADMIN;
@@ -85,6 +91,7 @@ public class Constants {
 	public static final String EQUALS_PASS_ERROR = "Debe elegir una contraseña diferente a la actual.";
 	public static final String NOT_FOUND_ERROR = "La persona con la cédula \"{0}\" no ha sido encuestada.";
 	public static final String READING_DATA_ERROR = "No se pueden obtener los datos solicitados.";
+	public static final String ARRIVAL_DATE_ERROR = "La persona debe tener al menos seis meses viviendo en la comunidad.";
 	public static final String EMPTY_FIELD_ERROR = "El campo \"{0}\" no puede estar vacío.";
 	public static final String EMPTY_CEDULA_ERROR = "La cédula no puede estar vacía.";
 	public static final String NO_DATA_ERROR = "No existen datos para su solicitud.";
@@ -104,7 +111,7 @@ public class Constants {
 	public static final String JSP_PREV = "Anterior";
 	public static final String JSP_SAVE = "Guardar";
 	public static final String JSP_RETURN = "Regresar";
-	public static final String JSP_ERROR = "Ups algo ha salido mal!";
+	public static final String JSP_ERROR = "Algo ha salido mal!";
 	public static final String JSP_LOGIN_TITLE = "Bienvenido";
 	public static final String JSP_USER = "Usuario";
 	public static final String JSP_PASS = "Contraseña";
@@ -128,6 +135,9 @@ public class Constants {
 	public static final String JSP_GENERATE = "Generar";
 	public static final String JSP_YES = "Si";
 	public static final String JSP_NO = "No";
+	public static final String JSP_NEW_DWELLING = "Nueva Vivienda";
+	public static final String JSP_NEW_HOME = "Nuevo Hogar";
+	public static final String JSP_NEW_PERSON = "Nueva Persona";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";

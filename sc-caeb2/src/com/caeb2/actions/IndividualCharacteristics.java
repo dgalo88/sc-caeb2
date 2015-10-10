@@ -35,7 +35,7 @@ public class IndividualCharacteristics {
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
-			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			Controller.forwardError(request, response, Constants.LOAD_DATA_ERROR);
 			return;
 		}
 
@@ -102,9 +102,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		PollManager.setCurrentPage(request, 6);
-
-		Controller.forward(request, response, "page_6.jsp");
+		Controller.forwardToPage(request, response, new Integer(6));
 
 	}
 
@@ -201,7 +199,7 @@ public class IndividualCharacteristics {
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
-			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			Controller.forwardError(request, response, Constants.LOAD_DATA_ERROR);
 			return;
 		}
 
@@ -247,9 +245,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		PollManager.setCurrentPage(request, 7);
-
-		Controller.forward(request, response, "page_7.jsp");
+		Controller.forwardToPage(request, response, new Integer(7));
 
 	}
 
@@ -314,7 +310,7 @@ public class IndividualCharacteristics {
 					PropFileRole.SAVE, request.getRequestedSessionId());
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
-			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			Controller.forwardError(request, response, Constants.LOAD_DATA_ERROR);
 			return;
 		}
 
@@ -343,7 +339,7 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, artisticAbilitiesInstructor);
 
-		}else{
+		} else {
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY, "");
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_INSTRUCTOR, "");
 		}
@@ -362,7 +358,7 @@ public class IndividualCharacteristics {
 				}
 			}
 
-		}else{
+		} else {
 			prop.setProperty(Constants.SECTION9_ARTISTIC_ABILITY_STUDENT, "");
 		}
 
@@ -391,7 +387,7 @@ public class IndividualCharacteristics {
 
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, athleticAbilitiesInstructor);
 
-		}else{
+		} else {
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY, "");
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_INSTRUCTOR, "");	
 		}
@@ -410,15 +406,13 @@ public class IndividualCharacteristics {
 				}
 			}
 
-		}else{
+		} else {
 			prop.setProperty(Constants.SECTION9_ATHLETIC_ABILITY_STUDENT, "");
 		}
-		
+
 		prop.save();
 
-		PollManager.setCurrentPage(request, 10);
-
-		Controller.forward(request, response, "page_10.jsp");
+		Controller.forwardToPage(request, response, new Integer(10));
 
 	}
 
@@ -499,18 +493,20 @@ public class IndividualCharacteristics {
 
 		PropertiesConfiguration prop = null;
 
+		String sessionId = request.getRequestedSessionId();
+
 		try {
 			prop = Controller.getPropertiesFile(Constants.PROP_FILE_PERSON, //
-					PropFileRole.SAVE, request.getRequestedSessionId());
+					PropFileRole.SAVE, sessionId);
 		} catch (ConfigurationException | IOException e) {
 			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
-			Controller.forward(request, response, "error.jsp", Constants.LOAD_DATA_ERROR);
+			Controller.forwardError(request, response, Constants.LOAD_DATA_ERROR);
 			return;
 		}
 
 		String[] missions = TextUtils.escaparArray( //
 				request.getParameterValues(Constants.SECTION10_MISSIONS));
-		
+
 		prop.setProperty(Constants.SECTION10_MISSIONS, missions);
 
 		prop.save();
@@ -521,7 +517,7 @@ public class IndividualCharacteristics {
 		boolean addHome = TextUtils.stringToBoolean( //
 				request.getParameter(Constants.ATT_ADD_HOME));
 
-		Long dwellingId = SaveDataBase.insertDwelling(request.getRequestedSessionId());
+		Long dwellingId = SaveDataBase.insertDwelling(sessionId);
 
 		if (dwellingId == null) {
 			Controller.sendErrorResponse(response, //
@@ -529,7 +525,7 @@ public class IndividualCharacteristics {
 			return;
 		}
 
-		Long homeId = SaveDataBase.insertHome(dwellingId, request.getRequestedSessionId());
+		Long homeId = SaveDataBase.insertHome(dwellingId, sessionId);
 
 		if (homeId == null) {
 
@@ -542,7 +538,7 @@ public class IndividualCharacteristics {
 
 		}
 
-		Long personId = SaveDataBase.insertPerson(homeId, request.getRequestedSessionId());
+		Long personId = SaveDataBase.insertPerson(homeId, sessionId);
 
 		if (personId == null) {
 
@@ -556,12 +552,31 @@ public class IndividualCharacteristics {
 
 		}
 
-		String target = addPerson ? "page_5.jsp" : (addHome ? "page_4.jsp" : Constants.ACTION_HOME);
+		String target = "";
+
+		if (addPerson) {
+
+			target = "page_5.jsp";
+
+			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
+
+		} else if (addHome) {
+
+			target = "page_4.jsp";
+
+			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
+			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, sessionId);
+
+		} else {
+
+			target = Constants.ACTION_HOME;
+
+			PollManager.cleanPropFiles(sessionId);
+
+		}
 
 		String jsonResponse = "{ \"response\":\"" + Constants.DATA_SAVED //
 				+ "\", \"target\":\"" + target + "\" }";
-
-		PollManager.cleanPropFiles(request.getRequestedSessionId());
 
 		Controller.sendTextResponse(response, jsonResponse);
 

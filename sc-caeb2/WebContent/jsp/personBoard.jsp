@@ -8,13 +8,17 @@
 <%
 	Parameters.setTitle("Personas");
 
-	String dwellingIdStr = (String) request.getParameter("dwellingId");
+	String dwellingIdStr = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
 
-	String homeIdStr = (String) request.getParameter("homeId");
+	String homeIdStr = (String) request.getParameter(Constants.ATT_HOME_ID);
 	int homeId = TextUtils.isEmptyOrNull(homeIdStr) ? -1 : Integer.valueOf(homeIdStr);
 
 	String personsJSON = BoardsManager.loadAllPersons(homeId);
+
+	String newPersonAction = Constants.ACTION_NEW_PERSON
+			+ "&" + Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId)
+			+ "&" + Constants.ATT_HOME_ID + "=" + String.valueOf(homeId);
 %>
 
 <%@include file="loader.jsp"%>
@@ -57,17 +61,17 @@
 			$.ajax({
 
 				url: '<%=Constants.EXEC_ACTION%>editPerson'
-					+ '&personId=' + $(this).attr('data-person-id')
-					+ '&dwellingId=' + '<%=String.valueOf(dwellingId)%>'
-					+ '&homeId=' + '<%=String.valueOf(homeId)%>',
+					+ '&<%=Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId)%>'
+					+ '&<%=Constants.ATT_HOME_ID + "=" + String.valueOf(homeId)%>'
+					+ '&<%=Constants.ATT_PERSON_ID%>=' + $(this).attr('data-person-id'),
 
 				method: 'POST',
 
 				success: function(data) {
 
-					window.location.href = "page_5.jsp"
-							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
-							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
+					window.location.href = 'page_5.jsp'
+							+ '?' + '<%=Constants.ATT_MESSAGE%>=' + data
+							+ '&' + '<%=Constants.ATT_NOTIFICATION + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
 
@@ -92,8 +96,10 @@
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>deletePerson&personId='
+				url: '<%=Constants.EXEC_ACTION%>deletePerson'
+						+ '&<%=Constants.ATT_PERSON_ID%>='
 						+ $(this).attr('data-person-id'),
+
 				method: 'POST',
 
 				success: function(data) {
@@ -135,14 +141,14 @@
 		<table id="personsData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">
-			<a href="<%=Constants.EXEC_ACTION + "loadAllHomes&dwellingId=" + String.valueOf(dwellingId)%>">
+			<a href="<%=Constants.EXEC_ACTION + "loadAllHomes&" + Constants.ATT_DWELLING_ID + "=" + String.valueOf(dwellingId)%>">
 				<button type="button" class="btn btn-default" id="backBtn">
 					<%=Constants.JSP_COMEBACK%>
 				</button>
 			</a>
-			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn">
-					<%=Constants.JSP_NEW_POLL%>
+			<a href="<%=newPersonAction%>">
+				<button type="button" class="btn btn-primary" id="newPersonBtn">
+					<%=Constants.JSP_NEW_PERSON%>
 				</button>
 			</a>
 		</div>
