@@ -256,6 +256,8 @@ public class LoadDataBase {
         		
         		
             }
+            
+            return true;
         	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -675,6 +677,8 @@ public class LoadDataBase {
 				
 				prop.save();
             }
+			
+			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
