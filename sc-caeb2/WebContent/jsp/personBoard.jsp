@@ -11,9 +11,6 @@
 	String dwellingIdStr = (String) request.getParameter("dwellingId");
 	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
 
-	System.out.println("dwellingIdStr = " + dwellingIdStr);
-	System.out.println("dwellingId = " + dwellingId);
-
 	String homeIdStr = (String) request.getParameter("homeId");
 	int homeId = TextUtils.isEmptyOrNull(homeIdStr) ? -1 : Integer.valueOf(homeIdStr);
 
@@ -55,24 +52,21 @@
 
 		$('[data-toggle="tooltip"]').tooltip();
 
-		$('.viewPersonBtn').on('click', function() {
-			console.log('viewPersonBtn on click = ' + $(this).attr('data-person-id'));
-		});
-
 		$('.editPersonBtn').on('click', function() {
-
-			console.log('editPersonBtn on click = ' + $(this).attr('data-person-id'));
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>editPerson&personId='
-						+ $(this).attr('data-person-id'),
+				url: '<%=Constants.EXEC_ACTION%>editPerson'
+					+ '&personId=' + $(this).attr('data-person-id')
+					+ '&dwellingId=' + '<%=String.valueOf(dwellingId)%>'
+					+ '&homeId=' + '<%=String.valueOf(homeId)%>',
+
 				method: 'POST',
 
 				success: function(data) {
 
 					window.location.href = "page_5.jsp"
-							+ '&' + '<%=Constants.ATT_NOTIFICATION%>=' + data
+							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
 							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
@@ -95,8 +89,6 @@
 		});
 
 		$('.deletePersonBtn').on('click', function() {
-
-			console.log('deletePersonBtn on click = ' + $(this).attr('data-person-id'));
 
 			$.ajax({
 

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -397,17 +398,17 @@ public class BoardsManager {
 				+ (type.equalsIgnoreCase("person") ? "" //
 						: ("<button type=\\\"button\\\" class=\\\"btn btn-default view" + type + "Btn\\\" aria-label=\\\"Ver\\\"" //
 								+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
-								+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Ver\\\">" //
+								+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"right\\\" title=\\\"Ver\\\">" //
 								+ /**/"<span class=\\\"glyphicon glyphicon-eye-open\\\" aria-hidden=\\\"true\\\"></span>" //
 								+ "</button>")) //
 				+ "<button type=\\\"button\\\" class=\\\"btn btn-default edit" + type + "Btn\\\" aria-label=\\\"Editar\\\"" //
 				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
-				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Editar\\\">" //
+				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"right\\\" title=\\\"Editar\\\">" //
 				+ /**/"<span class=\\\"glyphicon glyphicon-edit\\\" aria-hidden=\\\"true\\\"></span>" //
 				+ "</button>" //
 				+ "<button type=\\\"button\\\" class=\\\"btn btn-default delete" + type + "Btn\\\" aria-label=\\\"Eliminar\\\"" //
 				+ /*	*/"data-" + type.toLowerCase() + "-id=\\\"" + id //
-				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"top\\\" title=\\\"Eliminar\\\">" //
+				+ /*	*/"\\\" data-toggle=\\\"tooltip\\\" data-placement=\\\"left\\\" title=\\\"Eliminar\\\">" //
 				+ /**/"<span class=\\\"glyphicon glyphicon-trash\\\" aria-hidden=\\\"true\\\"></span>" //
 				+ "</button>" //
 				+ "</div>");
@@ -473,52 +474,145 @@ public class BoardsManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void editDwelling(HttpServletRequest request, //
-			HttpServletResponse response) throws Exception {
+	private static void loadPollData(HttpServletRequest request, //
+			HttpServletResponse response, Integer currPage) throws Exception {
+
+		Logger logger = Controller.getLogger();
+
+		logger.info(" + Load Poll Data");
 
 		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
 		String sessionId = request.getRequestedSessionId();
 
-		boolean result = LoadDataBase.loadDwelling(dwellingId, sessionId);
+		logger.info("Load Dwelling: " + dwellingId);
 
-		if (result) {
+		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
 
-			Long homeId = LoadDataBase.getPrimaryHome(dwellingId);
+		if (loadDwellingResult) {
+
+			Long homeId = (request.getParameter("homeId") == null ? //
+					LoadDataBase.getPrimaryHome(dwellingId) //
+					: Long.parseLong(request.getParameter("homeId")));
 
 			if (homeId != null) {
+
+				logger.info("Load Home: " + homeId);
 
 				boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
 
 				if (loadHomeResult) {
 
-					Long personId = LoadDataBase.getPrimaryPerson(homeId);
+					Long personId = (request.getParameter("personId") == null ? //
+							LoadDataBase.getPrimaryPerson(homeId.longValue()) //
+							: Long.parseLong(request.getParameter("personId")));
 
 					if (personId != null) {
 
+						logger.info("Load Person: " + personId);
+
 						boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
 
-						if (!loadPersonResult) {
-							sendLoadDataError(response, sessionId);
+						if (loadPersonResult) {
+
+							PollManager.setCurrentPage(request, currPage);
+
+							Controller.sendTextResponse(response, //
+									StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
+
+							logger.info(" - Load Poll Data");
+
+							return;
+
+						} else {
+							logger.info("Failed loading person");
 						}
 
-					} else {
-						sendLoadDataError(response, sessionId);
 					}
 
 				} else {
-					sendLoadDataError(response, sessionId);
+					logger.info("Failed loading home");
 				}
 
-			} else {
-				sendLoadDataError(response, sessionId);
 			}
 
-			Controller.sendTextResponse(response, //
-					StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
-
 		} else {
-			sendLoadDataError(response, sessionId);
+			logger.info("Failed loading dwelling");
 		}
+
+		sendLoadDataError(response, sessionId);
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void editDwelling(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		loadPollData(request, response, new Integer(1));
+
+//		Logger logger = Controller.getLogger();
+//
+//		logger.info(" + Load Poll Data");
+//
+//		long dwellingId = Long.parseLong(request.getParameter("dwellingId"));
+//		String sessionId = request.getRequestedSessionId();
+//
+//		logger.info("Load Dwelling: " + dwellingId);
+//
+//		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
+//
+//		if (loadDwellingResult) {
+//
+//			Long homeId = LoadDataBase.getPrimaryHome(dwellingId);
+//
+//			if (homeId != null) {
+//
+//				logger.info("Load Home: " + homeId);
+//
+//				boolean loadHomeResult = LoadDataBase.loadHome(homeId.longValue(), sessionId);
+//
+//				if (loadHomeResult) {
+//
+//					Long personId = LoadDataBase.getPrimaryPerson(homeId.longValue());
+//
+//					if (personId != null) {
+//
+//						logger.info("Load Person: " + personId);
+//
+//						boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
+//
+//						if (loadPersonResult) {
+//
+//							PollManager.setCurrentPage(request, 1);
+//
+//							Controller.sendTextResponse(response, //
+//									StringEscapeUtils.escapeHtml(Constants.SUCCESSFUL_LOADED));
+//
+//							logger.info(" - Load Poll Data");
+//
+//							return;
+//
+//						} else {
+//							logger.info("Failed loading person");
+//						}
+//
+//					} else {
+//						logger.info("Failed getting person");
+//					}
+//
+//				} else {
+//					logger.info("Failed loading home");
+//				}
+//
+//			} else {
+//				logger.info("Failed getting home");
+//			}
+//
+//		} else {
+//			logger.info("Failed loading dwelling");
+//		}
+//
+//		sendLoadDataError(response, sessionId);
 
 	}
 
@@ -527,15 +621,7 @@ public class BoardsManager {
 	public static void editHome(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		long homeId = Long.parseLong(request.getParameter("homeId"));
-
-		boolean result = LoadDataBase.loadHome(homeId, request.getRequestedSessionId());
-
-		if (result) {
-			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
-		} else {
-			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
-		}
+		loadPollData(request, response, new Integer(4));
 
 	}
 
@@ -544,15 +630,7 @@ public class BoardsManager {
 	public static void editPerson(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
-		long personId = Long.parseLong(request.getParameter("personId"));
-
-		boolean result = LoadDataBase.loadPerson(personId, request.getRequestedSessionId());
-
-		if (result) {
-			Controller.sendTextResponse(response, Constants.SUCCESSFUL_LOADED);
-		} else {
-			Controller.sendErrorResponse(response, Constants.LOAD_DATA_ERROR);
-		}
+		loadPollData(request, response, new Integer(5));
 
 	}
 

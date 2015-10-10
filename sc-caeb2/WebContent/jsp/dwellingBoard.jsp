@@ -55,8 +55,6 @@
 
 		$('.editDwellingBtn').on('click', function() {
 
-			console.log('editDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
-
 			showLoader();
 
 			$.ajax({
@@ -68,7 +66,7 @@
 				success: function(data) {
 
 					window.location.href = "page_1.jsp"
-							+ '&' + '<%=Constants.ATT_NOTIFICATION%>=' + data
+							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
 							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
@@ -91,8 +89,6 @@
 		});
 
 		$('.deleteDwellingBtn').on('click', function() {
-
-			console.log('deleteDwellingBtn on click = ' + $(this).attr('data-dwelling-id'));
 
 			showLoader();
 

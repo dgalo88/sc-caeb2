@@ -170,10 +170,18 @@ public class PollManager {
 
 		File file = new File(propFile);
 
-		String message = file.delete() ? //
-				Constants.FILE_DELETED : Constants.FILE_NOT_DELETED;
+		String message;
+		Level level;
 
-		Controller.getLogger().info(TextUtils.getFormattedMessage( //
+		if (file.delete()) {
+			level = Level.INFO;
+			message = Constants.FILE_DELETED;
+		} else {
+			level = Level.SEVERE;
+			message = Constants.FILE_NOT_DELETED;
+		}
+
+		Controller.getLogger().log(level, TextUtils.getFormattedMessage( //
 				message, new Object[] {propFile}));
 
 	}

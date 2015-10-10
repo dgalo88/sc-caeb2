@@ -61,14 +61,15 @@
 
 			$.ajax({
 
-				url: '<%=Constants.EXEC_ACTION%>editHome&homeId='
-						+ $(this).attr('data-home-id'),
+				url: '<%=Constants.EXEC_ACTION%>editHome'
+						+ '&dwellingId=' + '<%=String.valueOf(dwellingId)%>'
+						+ '&homeId=' + $(this).attr('data-home-id'),
 				method: 'POST',
 
 				success: function(data) {
 
 					window.location.href = "page_4.jsp"
-							+ '&' + '<%=Constants.ATT_NOTIFICATION%>=' + data
+							+ '?' + '<%=Constants.ATT_NOTIFICATION%>=' + data
 							+ '&' + '<%=Constants.ATT_NOTIFICATION_TYPE + "=" + Constants.ALERT_SUCCESS%>';
 
 					hideLoader();
@@ -91,8 +92,6 @@
 		});
 
 		$('.deleteHomeBtn').on('click', function() {
-
-			console.log('deleteHomeBtn on click = ' + $(this).attr('data-home-id'));
 
 			showLoader();
 
