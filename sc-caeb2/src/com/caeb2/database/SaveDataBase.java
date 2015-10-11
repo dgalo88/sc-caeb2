@@ -209,8 +209,8 @@ public class SaveDataBase {
 			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
 			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
 			pstmt.setString(9,personBasicData.getEmail());
-			pstmt.setString(10,"0"+personBasicData.getPhoneCod()+"-"+personBasicData.getPhoneNum());
-			pstmt.setString(11,"0"+personBasicData.getPhoneCodOptional()+"-"+personBasicData.getPhoneNumOptional());
+			pstmt.setString(10,personBasicData.getPhone().toString());
+			pstmt.setString(11,personBasicData.getOptionalPhone().toString());
 			
 			pstmt.setByte(12,parseByte(personEducationData.isIlliterate()));
 			pstmt.setByte(13,parseByte(personEducationData.hasAttendEducEstablishment()));

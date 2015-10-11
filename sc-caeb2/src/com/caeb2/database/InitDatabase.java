@@ -8,8 +8,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
+import com.caeb2.util.TextUtils;
 
 /**
  * @author D. Galo
@@ -44,6 +50,32 @@ public class InitDatabase {
 			createDatabase(DB_NAME);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+	}
+
+	public static void initDatabase(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		String html = "<html><head><title>{0}</title></head>" //
+				+ "<body><div align=\"center\"><br><h2>{1}</h2><p></div></body></html>";
+
+		try {
+
+			InitDatabase initDatabase = new InitDatabase();
+
+			initDatabase.init(DB_CONFIG_FILE);
+
+			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
+					html, new Object[] {Constants.DB_INIT, Constants.DB_SUCCESSFUL_INIT}));
+
+		} catch (IOException | SQLException | ClassNotFoundException e) {
+
+			Controller.putLogger(Level.SEVERE, Constants.IT_CANNOT_ERROR, e);
+
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					html, new Object[] {Constants.ERROR, Constants.IT_CANNOT_ERROR}));
+
 		}
 
 	}

@@ -14,6 +14,7 @@
 <%@include file="loader.jsp"%>
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
 
 		<%if (TextUtils.isEmptyOrNull(dwellingsJSON)) {%>
@@ -92,6 +93,10 @@
 		});
 
 		$('.deleteDwellingBtn').on('click', function() {
+			$('#confirm').modal('show');
+		});
+
+		$('#confirmYes').on('click', function() {
 
 			showLoader();
 
@@ -152,6 +157,25 @@
 					<%=Constants.JSP_NEW_DWELLING%>
 				</button>
 			</a>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<br>
+			<div class="modal-body text-center" id="confirmQuestion">
+				¿Está seguro que desea eliminar la vivienda?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" id="confirmYes">
+					<%=Constants.JSP_YES%>
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="confirmNo">
+					<%=Constants.JSP_NO%>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

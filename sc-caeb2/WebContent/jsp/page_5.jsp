@@ -89,15 +89,15 @@
 										<div class="form-inline" id="celular">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD%>"
 													name="<%=Constants.SECTION5_PHONE_COD%>">
-												<option <%if (personBasicData.getPhoneCod() == 416) {%> selected <%}%>>0416</option>
-												<option <%if (personBasicData.getPhoneCod() == 426) {%> selected <%}%>>0426</option>
-												<option <%if (personBasicData.getPhoneCod() == 414) {%> selected <%}%>>0414</option>
-												<option <%if (personBasicData.getPhoneCod() == 424) {%> selected <%}%>>0424</option>
-												<option <%if (personBasicData.getPhoneCod() == 412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getPhone().getCode().equals("0416")) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getPhone().getCode().equals("0426")) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getPhone().getCode().equals("0414")) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getPhone().getCode().equals("0424")) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getPhone().getCode().equals("0412")) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM%>" name="<%=Constants.SECTION5_PHONE_NUM%>"
-													value="<%=personBasicData.getPhoneNum()%>" required>
+													value="<%=personBasicData.getPhone().getNumber()%>" required>
 										</div>
 									</div>
 								</td>
@@ -107,17 +107,17 @@
 										<div class="form-inline" id="otroTelefono">
 											<select class="form-control" id="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>"
 													name="<%=Constants.SECTION5_PHONE_COD_OPTIONAL%>">
-												<option <%if (personBasicData.getPhoneCodOptional() == 416) {%> selected <%}%>>0416</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 426) {%> selected <%}%>>0426</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 414) {%> selected <%}%>>0414</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 424) {%> selected <%}%>>0424</option>
-												<option <%if (personBasicData.getPhoneCodOptional() == 412) {%> selected <%}%>>0412</option>
+												<option <%if (personBasicData.getOptionalPhone().getCode().equals("0416")) {%> selected <%}%>>0416</option>
+												<option <%if (personBasicData.getOptionalPhone().getCode().equals("0426")) {%> selected <%}%>>0426</option>
+												<option <%if (personBasicData.getOptionalPhone().getCode().equals("0414")) {%> selected <%}%>>0414</option>
+												<option <%if (personBasicData.getOptionalPhone().getCode().equals("0424")) {%> selected <%}%>>0424</option>
+												<option <%if (personBasicData.getOptionalPhone().getCode().equals("0412")) {%> selected <%}%>>0412</option>
 											</select>
 											<input type="number" class="form-control" placeholder="Ej. 4753698" min="1"
 													id="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
 													name="<%=Constants.SECTION5_PHONE_NUM_OPTIONAL%>"
-													<%if (personBasicData.getPhoneNumOptional() != 0) {%>
-														value="<%=personBasicData.getPhoneNumOptional()%>" <%}%>>
+													<%if (personBasicData.getOptionalPhone().isValid()) {%>
+														value="<%=personBasicData.getOptionalPhone().getNumber()%>" <%}%>>
 										</div>
 									</div>
 								</td>
@@ -171,8 +171,8 @@
 										<input type="number" class="form-control" placeholder="Ej. 12340989" min="1"
 												id="<%=Constants.SECTION5_PASSPORT%>"
 												name="<%=Constants.SECTION5_PASSPORT%>"
-												<%if (personBasicData.getPassport().getNumber() != 0) {%>
-													value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
+												<%if (personBasicData.getPassport().isValid()) {%>
+													value="<%=personBasicData.getPassport().toString()%>" <%}%>>
 									</div>
 								</td>
 							</tr>

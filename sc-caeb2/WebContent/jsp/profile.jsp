@@ -13,7 +13,7 @@
 
 <div class="container-fluid">
 	<div class="container">
-		<form class="form-horizontal" id="form_profile" name="form_profile"
+		<form class="form-horizontal" id="formProfile" name="formProfile"
 				action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=updateAdminProfile" method="POST">
 			<h4 class="text-center">Datos personales</h4>
 			<table class="table" id="datos">
@@ -45,23 +45,19 @@
 						<div class="form-group">
 							<label for="cedula" class="col-sm-4 control-label">Cédula de Identidad</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control"
-										id="cedula" name="cedula"
-										<%if (adminProfile.getCedula().getNumber() != 0) {%>
-											value="<%=adminProfile.getCedula().getType() + "-"
-														+ adminProfile.getCedula().getNumber()%>" <%}%> disabled>
+								<input type="text" class="form-control" id="cedula" name="cedula"
+										value="<%=adminProfile.getCedula().isValid() ?
+												adminProfile.getCedula().toString() : ""%>" disabled>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<label for="celular" class="col-sm-4 control-label">Teléfono celular</label>
+							<label for="phone" class="col-sm-4 control-label">Teléfono celular</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control"
-										id="cedula" name="celular"
-										<%if (adminProfile.getPhoneNum() != 0) {%>
-											value="<%=adminProfile.getPhoneCod() + "-"
-														+ adminProfile.getPhoneNum()%>" <%}%> disabled>
+								<input type="text" class="form-control" id="phone" name="phone"
+										value="<%=adminProfile.getPhone().isValid() ?
+												adminProfile.getPhone().toString() : ""%>" disabled>
 							</div>
 						</div>
 					</td>
@@ -79,13 +75,11 @@
 					</td>
 					<td>
 						<div class="form-group">
-							<label for="celularOpcional" class="col-sm-4 control-label">Teléfono celular (opcional)</label>
+							<label for="optionalPhone" class="col-sm-4 control-label">Teléfono celular (opcional)</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control"
-										id="cedula" name="celular"
-										<%if (adminProfile.getPhoneNumOptional() != 0) {%>
-											value="<%=adminProfile.getPhoneCodOptional() + "-"
-														+ adminProfile.getPhoneNumOptional()%>" <%}%> disabled>
+								<input type="text" class="form-control" id="optionalPhone" name="optionalPhone"
+										value="<%=adminProfile.getOptionalPhone().isValid() ?
+												adminProfile.getOptionalPhone().toString() : ""%>" disabled>
 							</div>
 						</div>
 					</td>
@@ -132,6 +126,11 @@
 						<%=Constants.JSP_COMEBACK%>
 					</button>
 				</a>
+				<a href="addUser.jsp">
+					<button type="button" class="btn btn-warning" id="addUserBtn">
+						<%=Constants.JSP_ADD_USER%>
+					</button>
+				</a>
 				<button type="submit" class="btn btn-primary" id="save" name="save">
 					<%=Constants.JSP_SAVE%>
 				</button>
@@ -144,18 +143,18 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('#form_profile').submit(function(event) {
+		$('#formProfile').submit(function(event) {
 
 			hideNotification();
 
 			event.preventDefault();
 
-			if (checkEmptyFields()) {
+			if (checkFields()) {
 
 				$.ajax({
-					url: $('#form_profile').attr('action'),
+					url: $('#formProfile').attr('action'),
 					method: 'POST',
-					data: $('#form_profile').serialize(),
+					data: $('#formProfile').serialize(),
 
 					success: function(result, status, xhr) {
 						showSuccess(result);
@@ -179,7 +178,7 @@
 		$('#<%=Constants.PROFILE_CONFIRM_PASS%>').val('');
 	}
 
-	function checkEmptyFields() {
+	function checkFields() {
 
 		if ($('#<%=Constants.PROFILE_NEW_PASS%>').val()
 				!== $('#<%=Constants.PROFILE_CONFIRM_PASS%>').val()) {

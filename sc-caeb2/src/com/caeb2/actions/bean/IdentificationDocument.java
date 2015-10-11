@@ -1,22 +1,23 @@
 package com.caeb2.actions.bean;
 
+import com.caeb2.util.TextUtils;
+
 public class IdentificationDocument {
 
 	private String type;
-	private int number;
+	private String number;
 
 	public IdentificationDocument() {
-		this("V", 0);
+		this("V", "");
 	}
 
-	public IdentificationDocument(String type, int number) {
+	public IdentificationDocument(String type, String number) {
 		this.type = type;
 		this.number = number;
 	}
 
 	public IdentificationDocument(String identificationDocument) {
-		this.type = identificationDocument.substring(0, 1);
-		this.number = Integer.valueOf(identificationDocument.substring(1));
+		setIdentificationDocument(identificationDocument);
 	}
 
 	public String getType() {
@@ -27,26 +28,30 @@ public class IdentificationDocument {
 		this.type = type;
 	}
 
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
 	public void setIdentificationDocument(String document) {
 		this.type = document.substring(0, 1);
-		this.number = Integer.valueOf(document.substring(1));
+		this.number = document.substring(1);
 	}
 
-	public IdentificationDocument fromString(String document) {
-		return new IdentificationDocument(document);
+	public void fromString(String document) {
+		setIdentificationDocument(document);
 	}
 
 	@Override
 	public String toString() {
-		return type + String.valueOf(number);
+		return type + number;
+	}
+
+	public boolean isValid() {
+		return !(TextUtils.isEmptyOrNull(type) || TextUtils.isEmptyOrNull(number));
 	}
 
 }

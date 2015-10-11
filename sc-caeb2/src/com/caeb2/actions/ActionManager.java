@@ -1,13 +1,16 @@
 package com.caeb2.actions;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import com.caeb2.actions.bean.AdminProfile;
 import com.caeb2.actions.bean.FormalityData;
 import com.caeb2.actions.bean.IdentificationDocument;
+import com.caeb2.actions.bean.PersonMinimalData;
+import com.caeb2.actions.bean.Phone;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.TextUtils;
@@ -270,6 +275,7 @@ public class ActionManager {
 		Statement statement = connection.createStatement();
 
 		String sql = "SELECT directivaCCId FROM administrador WHERE usuario='" + adminUser + "'";
+
 		statement.executeQuery(sql);
 		ResultSet resultSet = statement.getResultSet();
 
@@ -284,61 +290,51 @@ public class ActionManager {
 
 		resultSet.close();
 
-		if (directivaCCId == null) {
+		if (TextUtils.isEmptyOrNull(directivaCCId)) {
 
 			statement.close();
 			connection.close();
 
 			return new AdminProfile("Admin", "Super", //
-					new IdentificationDocument(), 0, 0, "");
+					new IdentificationDocument(), new Phone(), new Phone(), "");
 
 		}
 
-		sql = "SELECT personaId FROM directivaCC WHERE id='" + directivaCCId + "'";
-		statement.executeQuery(sql);
-		resultSet = statement.getResultSet();
-
-		String personaId = resultSet.getString(1);
-
-		resultSet.close();
-
-		sql = "SELECT apellidos, nombres, cedula, celular, celularOpcional, correoElectronico " //
-				+ " FROM persona WHERE id='" + personaId + "'";
+		sql = "SELECT p.apellidos, p.nombres, p.cedula, p.celular, p.celularOpcional, p.correoElectronico " //
+				+ " FROM persona p, directivaCC d WHERE p.id=d.personaId AND d.id='" + directivaCCId + "'";
 
 		statement.executeQuery(sql);
 		resultSet = statement.getResultSet();
+
+		if (!resultSet.next()) {
+			resultSet.close();
+			statement.close();
+			connection.close();
+			return null;
+		}
 
 		String lastnames = resultSet.getString(1);
 		String names = resultSet.getString(2);
-		String cedulaBD = resultSet.getString(3);
-		String phone = resultSet.getString(4);
-		String phoneOptional = resultSet.getString(5);
+		String cedulaDB = resultSet.getString(3);
+		String phoneDB = resultSet.getString(4);
+		String optionalPhoneDB = resultSet.getString(5);
 		String email = resultSet.getString(6);
 
-		String cedType = cedulaBD.substring(0, 1);
-		int cedNumber = Integer.parseInt(cedulaBD.substring(1));
+		IdentificationDocument cedula = new IdentificationDocument(cedulaDB);
 
-		IdentificationDocument cedula = new IdentificationDocument(cedType, cedNumber);
+		Phone phone = new Phone(phoneDB);
 
-		int phoneCod = Integer.parseInt(phone.substring(0, 4));
-		int phoneNum = Integer.parseInt(phone.substring(4));
+		Phone optionalPhone = new Phone();
 
-		int phoneCodOptional = 0;
-		int phoneNumOptional = 0;
-
-		if (phoneOptional != null) {
-
-			phoneCodOptional = Integer.parseInt(phoneOptional.substring(0, 4));
-			phoneNumOptional = Integer.parseInt(phoneOptional.substring(4));
-
+		if (TextUtils.isEmptyOrNull(optionalPhoneDB)) {
+			optionalPhone = new Phone(optionalPhoneDB);
 		}
 
 		resultSet.close();
 		statement.close();
 		connection.close();
 
-		return new AdminProfile(lastnames, names, cedula, //
-				phoneCod, phoneNum, phoneCodOptional, phoneNumOptional, email);
+		return new AdminProfile(lastnames, names, cedula, phone, optionalPhone, email);
 
 	}
 
@@ -347,7 +343,7 @@ public class ActionManager {
 	public static void loadAdminProfile( //
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String user = (String) request.getSession().getAttribute(Constants.ATT_USER);
+		String user = (String) request.getSession(false).getAttribute(Constants.ATT_USER);
 
 		AdminProfile adminProfile = loadAdminProfileFromDB(user);
 
@@ -477,6 +473,178 @@ public class ActionManager {
 			Controller.sendTextResponse(response, status, msg);
 
 		}
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static String getPersons() {
+
+		Controller.getLogger().info(" + Get Persons");
+
+		List<PersonMinimalData> persons = new ArrayList<PersonMinimalData>();
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			connection = Controller.getConnection();
+			statement = connection.createStatement();
+
+			String sql = "SELECT id, apellidos, nombres, cedula FROM persona";
+
+			statement.executeQuery(sql);
+
+			resultSet = statement.getResultSet();
+
+			while (resultSet.next()) {
+
+				int id = resultSet.getInt(1);
+				String lastnames = resultSet.getString(2);
+				String names = resultSet.getString(3);
+
+				IdentificationDocument cedula = new IdentificationDocument(resultSet.getString(4));
+
+				persons.add(new PersonMinimalData(id, lastnames, names, cedula));
+
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+
+			Controller.putLogger(Level.SEVERE, //
+					Constants.LOAD_DATA_ERROR + ". " + e.getMessage(), e);
+
+			return "[]";
+
+		} finally {
+
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+		}
+
+		Controller.getLogger().info(" - Get Persons");
+
+		return new Gson().toJson(persons);
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void saveNewUser(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		Controller.getLogger().info(" + Save new user");
+
+		Connection connection = null;
+		PreparedStatement statement1 = null;
+		PreparedStatement statement2 = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			connection = Controller.getConnection();
+
+			String personaId = request.getParameter(Constants.ATT_PERSON_ID);
+			String user = request.getParameter(Constants.PROFILE_USER);
+			String pass = request.getParameter(Constants.PROFILE_NEW_PASS);
+			String directivaCCId = null;
+
+			String sql = "INSERT INTO directivaCC (personaId) VALUES (?)";
+
+			statement1 = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			statement1.setInt(1, Integer.parseInt(personaId));
+
+			statement1.executeUpdate();
+
+			resultSet = statement1.getGeneratedKeys();
+
+			if (resultSet.next()) {
+				directivaCCId = resultSet.getString(1);
+			}
+
+			sql = "INSERT INTO administrador (usuario, clave, directivaCCId) VALUES (?, SHA1(?), ?)";
+
+			statement2 = connection.prepareStatement(sql);
+
+			statement2.setString(1, user);
+			statement2.setString(2, pass);
+			statement2.setString(3, directivaCCId);
+
+			statement2.executeUpdate();
+
+			String msg = TextUtils.getFormattedMessage( //
+					Constants.USER_SUCCESSFUL_CREATED, new Object[] {user});
+
+			Controller.sendTextResponse(response, msg);
+
+			Controller.getLogger().info(msg);
+
+		} catch (ClassNotFoundException | SQLException e) {
+
+			Controller.putLogger(Level.SEVERE, Constants.NEW_USER_ERROR, e);
+
+			Controller.sendErrorResponse(response, Constants.NEW_USER_ERROR);
+
+		} finally {
+
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (statement1 != null) {
+					statement1.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (statement2 != null) {
+					statement2.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+		}
+
+		Controller.getLogger().info(" - Save new user");
 
 	}
 

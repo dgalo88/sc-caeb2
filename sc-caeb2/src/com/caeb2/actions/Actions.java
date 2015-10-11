@@ -11,6 +11,7 @@ public class Actions {
 
 		actionsMapping = new HashMap<String, String>();
 
+		actionsMapping.put("initDatabase", "com.caeb2.database.InitDatabase");
 		actionsMapping.put("index", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("login", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("logout", "com.caeb2.actions.ActionManager");
@@ -27,6 +28,7 @@ public class Actions {
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("saveNewUser", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
 		actionsMapping.put("newHome", "com.caeb2.actions.PollManager");
 		actionsMapping.put("newPerson", "com.caeb2.actions.PollManager");

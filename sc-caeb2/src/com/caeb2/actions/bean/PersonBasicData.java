@@ -9,10 +9,8 @@ public class PersonBasicData {
 	private String sex;
 	private String birthdate;
 	private String nationality;
-	private int phoneCod;
-	private int phoneNum;
-	private int phoneCodOptional;
-	private int phoneNumOptional;
+	private Phone phone;
+	private Phone optionalPhone;
 	private String email;
 	private String relationship;
 	private String arrivalDate;
@@ -20,8 +18,8 @@ public class PersonBasicData {
 	public PersonBasicData(String lastnames, String names, //
 			IdentificationDocument cedula, IdentificationDocument passport, 
 			String sex, String birthdate, String nationality, //
-			int phoneCod, int phoneNum, int phoneCodOptional, int phoneNumOptional, //
-			String email, String relationship, String arrivalDate) {
+			Phone phone, Phone optionalPhone, String email, //
+			String relationship, String arrivalDate) {
 
 		this.lastnames = lastnames;
 		this.names = names;
@@ -30,10 +28,8 @@ public class PersonBasicData {
 		this.sex = sex;
 		this.birthdate = birthdate;
 		this.nationality = nationality;
-		this.phoneCod = phoneCod;
-		this.phoneNum = phoneNum;
-		this.phoneCodOptional = phoneCodOptional;
-		this.phoneNumOptional = phoneNumOptional;
+		this.phone = phone;
+		this.optionalPhone = optionalPhone;
 		this.email = email;
 		this.relationship = relationship;
 		this.arrivalDate = arrivalDate;
@@ -41,21 +37,20 @@ public class PersonBasicData {
 	}
 
 	public PersonBasicData(String lastnames, String names, //
-			IdentificationDocument cedula, //
-			String sex, String birthdate, String nationality, //
-			int phoneCod, int phoneNum, //
+			IdentificationDocument cedula, String sex, //
+			String birthdate, String nationality, Phone phone, //
 			String email, String relationship, String arrivalDate) {
 
-		this(lastnames, names, cedula, new IdentificationDocument("P", 0), //
-				sex, birthdate, nationality, phoneCod, phoneNum, 0, 0, email, //
+		this(lastnames, names, cedula, new IdentificationDocument("P", ""), //
+				sex, birthdate, nationality, phone, new Phone(), email, //
 				relationship, arrivalDate);
 
 	}
 
 	public PersonBasicData() {
 
-		this("", "", new IdentificationDocument(), new IdentificationDocument("P", 0), //
-				"", "", "", 0, 0, 0, 0, "", "", "");
+		this("", "", new IdentificationDocument(), new IdentificationDocument("P", ""), //
+				"", "", "", new Phone(), new Phone(), "", "", "");
 
 	}
 
@@ -115,36 +110,20 @@ public class PersonBasicData {
 		this.nationality = nationality;
 	}
 
-	public int getPhoneCod() {
-		return phoneCod;
+	public Phone getPhone() {
+		return phone;
 	}
 
-	public void setPhoneCod(int phoneCod) {
-		this.phoneCod = phoneCod;
+	public void setPhone(Phone phone) {
+		this.phone = phone;
 	}
 
-	public int getPhoneNum() {
-		return phoneNum;
+	public Phone getOptionalPhone() {
+		return optionalPhone;
 	}
 
-	public void setPhoneNum(int phoneNum) {
-		this.phoneNum = phoneNum;
-	}
-
-	public int getPhoneCodOptional() {
-		return phoneCodOptional;
-	}
-
-	public void setPhoneCodOptional(int phoneCodOptional) {
-		this.phoneCodOptional = phoneCodOptional;
-	}
-
-	public int getPhoneNumOptional() {
-		return phoneNumOptional;
-	}
-
-	public void setPhoneNumOptional(int phoneNumOptional) {
-		this.phoneNumOptional = phoneNumOptional;
+	public void setOptionalPhone(Phone optionalPhone) {
+		this.optionalPhone = optionalPhone;
 	}
 
 	public String getEmail() {
@@ -174,33 +153,20 @@ public class PersonBasicData {
 	@Override
 	public String toString() {
 
-		String ret = "IndividualCharacteristics {\n" //
+		return "PersonBasicData {\n" //
 				+ "  Apellidos = " + lastnames + "\n" //
-				+ "  Nombres = " + names + "\n";
-
-		if ((cedula != null) && (cedula.getNumber() != 0)) {
-			ret += "  Cédula = " + cedula.toString() + "\n";
-		}
-
-		if ((passport != null) && (passport.getNumber() != 0)) {
-			ret += "  Pasaporte = " + passport.toString() + "\n";
-		}
-
-		ret += "  Sexo = " + sex + "\n" //
+				+ "  Nombres = " + names + "\n" //
+				+ (cedula.isValid() ? "  Cédula = " + cedula.toString() + "\n" : "") //
+				+ (passport.isValid() ? "  Pasaporte = " + passport.toString() + "\n" : "") //
+				+ "  Sexo = " + sex + "\n" //
 				+ "  Fecha de nacimiento = " + birthdate + "\n" //
 				+ "  Nacionalidad = " + nationality + "\n" //
-				+ "  Teléfono celular = " + phoneCod + "-" + phoneNum + "\n";
-
-		if (phoneNumOptional != 0) {
-			ret += "  Teléfono celular (opcional) = " + phoneCodOptional + "-" + phoneNumOptional + "\n";
-		}
-
-		ret += "  Correo electrónico = " + email + "\n" //
+				+ (phone.isValid() ? "  Teléfono celular = " + phone + "\n" : "") //
+				+ (optionalPhone.isValid() ? "  Teléfono celular = " + optionalPhone + "\n" : "") //
+				+ "  Correo electrónico = " + email + "\n" //
 				+ "  Relación con el jefe del hogar = " + relationship + "\n" //
 				+ "  Fecha de llegada a la comunidad = " + arrivalDate + "\n" //
 				+ "}";
-
-		return ret;
 
 	}
 

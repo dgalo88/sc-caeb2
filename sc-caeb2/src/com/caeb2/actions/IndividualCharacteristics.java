@@ -15,6 +15,7 @@ import com.caeb2.actions.bean.IdentificationDocument;
 import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
+import com.caeb2.actions.bean.Phone;
 import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
@@ -129,15 +130,15 @@ public class IndividualCharacteristics {
 		personBasicData.setNames(names);
 
 		String cedType = prop.getString(Constants.SECTION5_CEDULA_TYPE, "V");
-		int cedNumber = prop.getInt(Constants.SECTION5_CEDULA_NUM, 0);
+		String cedNumber = prop.getString(Constants.SECTION5_CEDULA_NUM, "");
 
 		IdentificationDocument cedula = new IdentificationDocument(cedType, cedNumber);
 
 		personBasicData.setCedula(cedula);
 
-		int passportNumber = prop.getInt(Constants.SECTION5_PASSPORT, 0);
+		String passportNumber = prop.getString(Constants.SECTION5_PASSPORT, "");
 
-		if (passportNumber != 0) {
+		if (TextUtils.isEmptyOrNull(passportNumber)) {
 			IdentificationDocument passport = new IdentificationDocument("P", passportNumber);
 			personBasicData.setPassport(passport);
 		}
@@ -154,20 +155,18 @@ public class IndividualCharacteristics {
 
 		personBasicData.setNationality(nationality);
 
-		int phoneCod = prop.getInt(Constants.SECTION5_PHONE_COD, 0);
-		int phoneNum = prop.getInt(Constants.SECTION5_PHONE_NUM, 0);
+		String phoneCod = prop.getString(Constants.SECTION5_PHONE_COD, "");
+		String phoneNum = prop.getString(Constants.SECTION5_PHONE_NUM, "");
 
-		personBasicData.setPhoneCod(phoneCod);
-		personBasicData.setPhoneNum(phoneNum);
+		personBasicData.setPhone(new Phone(phoneCod, phoneNum));
 
-		int phoneNumOptional = prop.getInt(Constants.SECTION5_PHONE_NUM_OPTIONAL, 0);
+		String optionalPhoneNum = prop.getString(Constants.SECTION5_PHONE_NUM_OPTIONAL, "");
 
-		if (phoneNumOptional != 0) {
+		if (TextUtils.isEmptyOrNull(optionalPhoneNum)) {
 
-			int phoneCodOptional = prop.getInt(Constants.SECTION5_PHONE_COD_OPTIONAL, 0);
+			String optionalPhoneCod = prop.getString(Constants.SECTION5_PHONE_COD_OPTIONAL, "");
 
-			personBasicData.setPhoneCodOptional(phoneCodOptional);
-			personBasicData.setPhoneNumOptional(phoneNumOptional);
+			personBasicData.setOptionalPhone(new Phone(optionalPhoneCod, optionalPhoneNum));
 
 		}
 

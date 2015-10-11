@@ -75,6 +75,9 @@ public class Constants {
 	public static final String DATA_SAVED = "La encuesta se ha guardado con éxito.";
 	public static final String SUCCESSFUL_DELETED = "{0} eliminad{1} con éxito.";
 	public static final String SUCCESSFUL_LOADED = "Datos cargados con éxito.";
+	public static final String USER_SUCCESSFUL_CREATED = "Usuario ''{0}'' creado con éxito.";
+	public static final String DB_INIT = "Base de datos inicializada";
+	public static final String DB_SUCCESSFUL_INIT = "La base de datos se ha inicializado con éxito.";
 
 	// Errors Messages
 	public static final String ERROR = "Ha ocurrido un problema.";
@@ -103,6 +106,8 @@ public class Constants {
 	public static final String INSERT_PERSON_ERROR = INSERT_ERROR + " de la persona.";
 	public static final String MAX_SIGNERS_ERROR = "Debe seleccionar dos (2) firmantes.";
 	public static final String DELETE_ERROR = "Falló eliminación de {0}.";
+	public static final String NEW_USER_ERROR = "No se pudo crear el nuevo usuario.";
+	public static final String NOT_SEL_CEDULA_ERROR = "Debe seleccionar una cédula.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -138,6 +143,7 @@ public class Constants {
 	public static final String JSP_NEW_DWELLING = "Nueva Vivienda";
 	public static final String JSP_NEW_HOME = "Nuevo Hogar";
 	public static final String JSP_NEW_PERSON = "Nueva Persona";
+	public static final String JSP_ADD_USER = "Agregar Usuario";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";
@@ -366,5 +372,8 @@ public class Constants {
 	public static final String PROFILE_CURR_PASS = "profile_curr_pass";
 	public static final String PROFILE_NEW_PASS = "profile_new_pass";
 	public static final String PROFILE_CONFIRM_PASS = "profile_confirm_pass";
+	public static final String PROFILE_CEDULA = "profile_cedula";
+	public static final String PROFILE_USER = "profile_user";
+	public static final String PROFILE_PASS = "profile_pass";
 
 }
