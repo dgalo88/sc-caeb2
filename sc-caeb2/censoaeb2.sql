@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `hogar` (
   `utilizaMercal` varchar(20) DEFAULT NULL,
   `utilizaPdval` varchar(20) DEFAULT NULL,
   `beneficioMercado` varchar(20) DEFAULT NULL,
-  `jefeId` varchar(20) DEFAULT NULL,
+  `jefeId` varchar(20) NULL UNIQUE,
   `miembroParticipaOrganizacionComunitaria` varchar(255) DEFAULT NULL,
   `viviendaId` int(11) NOT NULL,
   FOREIGN KEY (`viviendaId`) REFERENCES `vivienda` (`id`)
