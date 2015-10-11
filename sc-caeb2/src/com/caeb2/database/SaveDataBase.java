@@ -185,6 +185,7 @@ public class SaveDataBase {
 		Connection connection = null;
 		PreparedStatement pstmt= null;
 		PreparedStatement pstmt2= null;
+		PreparedStatement pstmt3= null;
 		PreparedStatement pstmtEmployee= null;
 		ResultSet rs = null;
 		try {
@@ -254,6 +255,14 @@ public class SaveDataBase {
 			}else{
 				last_inserted_id=personId;
 				pstmt.execute();
+			}
+			
+			if(personBasicData.getRelationship()!=null&&personBasicData.getRelationship().equals("Jefe o jefa del Hogar")){
+				String sqlUpdateHome = "UPDATE hogar Set jefeId=? WHERE id=?";
+				pstmt3 = connection.prepareStatement(sqlUpdateHome);
+				pstmt3.setString(1,personBasicData.getCedula().getNumber()+"");
+				pstmt3.setLong(2,homeId);
+				pstmt3.execute();
 			}
 
             //..........Procesando Empleo
@@ -367,6 +376,11 @@ public class SaveDataBase {
 			}
 			try {
 				pstmt2.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+			try {
+				pstmt3.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
