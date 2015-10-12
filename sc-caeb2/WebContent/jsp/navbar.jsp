@@ -27,7 +27,7 @@
 							<li><a href="<%=Constants.ACTION_HOME%>"><%=Constants.JSP_HOME%></a></li>
 							<li class="divider"></li>
 							<li><a href="<%=Constants.ACTION_NEW_POLL%>"><%=Constants.JSP_NEW_POLL%></a></li>
-							<li><a href="<%=Constants.ACTION_SEARCH%>"><%=Constants.JSP_SEARCH%></a></li>
+							<li><a href="<%=Constants.ACTION_VIEW_DWELLINGS%>"><%=Constants.JSP_VIEW_DWELLINGS%></a></li>
 							<li><a href="<%=Constants.ACTION_GEN_FORMALITY%>"><%=Constants.JSP_GEN_FORMALITY%></a></li>
 							<li class="divider"></li>
 							<li><a href="<%=Constants.ACTION_PROFILE%>"><%=Constants.JSP_PROFILE%></a></li>

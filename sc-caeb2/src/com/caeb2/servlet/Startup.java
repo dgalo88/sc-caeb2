@@ -2,6 +2,10 @@ package com.caeb2.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 
 import javax.servlet.ServletConfig;
@@ -37,7 +41,29 @@ public class Startup extends HttpServlet {
 
 	// Destroys the servlet.
 	public void destroy() {
-		// empty
+
+		// This manually deregisters JDBC driver, which prevents Tomcat 7
+		// from complaining about memory leaks wrto this class
+		Enumeration<Driver> drivers = DriverManager.getDrivers();
+
+		while (drivers.hasMoreElements()) {
+
+			Driver driver = drivers.nextElement();
+
+			try {
+
+				DriverManager.deregisterDriver(driver);
+
+				Controller.getLogger().info( //
+						String.format("Deregistering jdbc driver: %s", driver));
+
+			} catch (SQLException e) {
+				Controller.putLogger(Level.SEVERE, //
+						String.format("Error deregistering driver %s", driver), e);
+			}
+
+		}
+
 	}
 
 	/** Processes requests for both HTTP  

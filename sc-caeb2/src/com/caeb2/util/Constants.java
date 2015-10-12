@@ -18,7 +18,7 @@ public class Constants {
 	public static final String ACTION_NEW_POLL = EXEC_ACTION + "newPoll";
 	public static final String ACTION_NEW_HOME = EXEC_ACTION + "newHome";
 	public static final String ACTION_NEW_PERSON = EXEC_ACTION + "newPerson";
-	public static final String ACTION_SEARCH = EXEC_ACTION + "loadAllDwellings";
+	public static final String ACTION_VIEW_DWELLINGS = EXEC_ACTION + "loadAllDwellings";
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
 	public static final String ACTION_BACKUP = "#";
@@ -126,7 +126,7 @@ public class Constants {
 	public static final String JSP_NEW_POLL = "Nueva Encuesta";
 	public static final String JSP_PROFILE = "Perfil";
 	public static final String JSP_EXIT = "Salir";
-	public static final String JSP_SEARCH = "Buscar";
+	public static final String JSP_VIEW_DWELLINGS = "Ver viviendas";
 	public static final String JSP_GEN_FORMALITY = "Generar Constancias";
 	public static final String JSP_HOME = "Inicio";
 	public static final String JSP_BACKUP = "Respaldo de datos";
@@ -144,6 +144,7 @@ public class Constants {
 	public static final String JSP_NEW_HOME = "Nuevo Hogar";
 	public static final String JSP_NEW_PERSON = "Nueva Persona";
 	public static final String JSP_ADD_USER = "Agregar Usuario";
+	public static final String JSP_CONTINUE = "Continuar";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";
