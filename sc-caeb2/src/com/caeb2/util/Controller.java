@@ -248,6 +248,41 @@ public class Controller {
 
 	}
 
+	public static Long getId(String propFileName, String sessionId, String att) {
+
+		PropertiesConfiguration prop = null;
+
+		try {
+			prop = Controller.getPropertiesFile( //
+					propFileName, PropFileRole.LOAD, sessionId);
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+			return null;
+		}
+
+		return prop.getLong(att, null);
+
+	}
+
+	public static void addId(String propFileName, String sessionId, String att, Long id) {
+
+		PropertiesConfiguration prop = null;
+
+		try {
+
+			prop = Controller.getPropertiesFile( //
+					propFileName, PropFileRole.SAVE, sessionId);
+
+			prop.setProperty(att, id);
+
+			prop.save();
+
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+		}
+
+	}
+
 	public static HashMap<String, String> arrayToHashMap( //
 			PropertiesConfiguration prop, String filter) {
 

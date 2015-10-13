@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.caeb2.actions.bean.DwellingBasicData;
 import com.caeb2.actions.bean.HomeBasicData;
@@ -502,6 +503,9 @@ public class BoardsManager {
 			return;
 		}
 
+		Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+				Constants.ATT_DWELLING_ID, dwellingId);
+
 		Long homeId = (request.getParameter(Constants.ATT_HOME_ID) == null ? //
 				LoadDataBase.getPrimaryHome(dwellingId) //
 				: Long.parseLong(request.getParameter(Constants.ATT_HOME_ID)));
@@ -516,6 +520,9 @@ public class BoardsManager {
 
 			if (loadHomeResult) {
 
+				Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
+						Constants.ATT_HOME_ID, homeId);
+
 				Long personId = (request.getParameter(Constants.ATT_PERSON_ID) == null ? //
 						LoadDataBase.getPrimaryPerson(homeId.longValue()) //
 						: Long.parseLong(request.getParameter(Constants.ATT_PERSON_ID)));
@@ -527,6 +534,9 @@ public class BoardsManager {
 					boolean loadPersonResult = LoadDataBase.loadPerson(personId.longValue(), sessionId);
 
 					if (loadPersonResult) {
+
+						Controller.addId(Constants.PROP_FILE_PERSON, sessionId, //
+								Constants.ATT_PERSON_ID, personId);
 
 						PollManager.setCurrentPage(request, currPage);
 
@@ -557,6 +567,12 @@ public class BoardsManager {
 	public static void editDwelling(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_UPDATE);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_UPDATE);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_UPDATE);
+
 		loadPollData(request, response, new Integer(1));
 
 	}
@@ -566,6 +582,12 @@ public class BoardsManager {
 	public static void editHome(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_UPDATE);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_UPDATE);
+
 		loadPollData(request, response, new Integer(4));
 
 	}
@@ -574,6 +596,12 @@ public class BoardsManager {
 
 	public static void editPerson(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
+
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_UPDATE);
 
 		loadPollData(request, response, new Integer(5));
 

@@ -7,7 +7,9 @@
 	Parameters.setPageNumber(5);
 	Parameters.setTitle("Sección 5: Características individuales");
 
-	PersonBasicData personBasicData = IndividualCharacteristics.loadPersonBasicData(request.getRequestedSessionId());
+	PersonBasicData personBasicData =
+			IndividualCharacteristics.loadPersonBasicData(
+					request.getRequestedSessionId());
 %>
 
 <%@include file="validateCurrentPage.jsp"%>

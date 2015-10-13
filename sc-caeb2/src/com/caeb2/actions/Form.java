@@ -31,6 +31,12 @@ public class Form {
 		prop.setProperty(Constants.SECTION1_NAME_HOUSING, name_housing);
 		prop.setProperty(Constants.SECTION1_HOME_PHONE, home_phone);
 
+		String dwellingId = request.getParameter(Constants.ATT_DWELLING_ID);
+
+		if (!TextUtils.isEmptyOrNull(dwellingId)) {
+			prop.setProperty(Constants.ATT_DWELLING_ID, dwellingId);
+		}
+
 		prop.save();
 
 		Controller.getLogger().info("- saveProcessPage1");
@@ -177,6 +183,12 @@ public class Form {
 		prop.setProperty(Constants.SECTION4_COMMUNITY_ORGANIZATION_WHICH,section4_community_organization_which);
 		prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS,section4_community_problems);
 		prop.setProperty(Constants.SECTION4_COMMUNITY_PROBLEMS_OTHER,section4_community_problems_other);
+
+		String homeId = request.getParameter(Constants.ATT_HOME_ID);
+
+		if (!TextUtils.isEmptyOrNull(homeId)) {
+			prop.setProperty(Constants.ATT_HOME_ID, homeId);
+		}
 
 		prop.save();
 

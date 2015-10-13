@@ -52,6 +52,14 @@ public class PollManager {
 
 		Controller.getLogger().info(" + New Poll");
 
+		PollManager.cleanPropFiles(request.getRequestedSessionId());
+
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_INSERT);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
 		Controller.forwardToPage(request, response, new Integer(1));
 
 		Controller.getLogger().info(" - New Poll");
@@ -81,6 +89,15 @@ public class PollManager {
 			sendLoadingError(request, response, "dwelling (from database)");
 			return;
 		}
+
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+		Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+				Constants.ATT_DWELLING_ID, dwellingId);
 
 		Controller.forwardToPage(request, response, new Integer(4));
 
@@ -126,6 +143,18 @@ public class PollManager {
 			sendLoadingError(request, response, "home (from database)");
 			return;
 		}
+
+		HttpSession session = request.getSession(false);
+
+		session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_IGNORE);
+		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+		Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+				Constants.ATT_DWELLING_ID, dwellingId);
+
+		Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
+				Constants.ATT_HOME_ID, homeId);
 
 		Controller.forwardToPage(request, response, new Integer(5));
 

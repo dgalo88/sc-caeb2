@@ -57,6 +57,14 @@ public class Constants {
 	public static final String ATT_DWELLING_ID = "dwellingId";
 	public static final String ATT_HOME_ID = "homeId";
 	public static final String ATT_PERSON_ID = "personId";
+	public static final String ATT_DWELLING_OP = "dwellingOp";
+	public static final String ATT_HOME_OP = "homeOp";
+	public static final String ATT_PERSON_OP = "personOp";
+
+	// OP Types
+	public static final String OP_INSERT = "insert";
+	public static final String OP_UPDATE = "update";
+	public static final String OP_IGNORE = "ignore";
 
 	// Notifications types
 	public static final String ALERT_SUCCESS = "alert-success";

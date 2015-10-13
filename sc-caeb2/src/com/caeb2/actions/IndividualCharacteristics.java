@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -100,6 +101,12 @@ public class IndividualCharacteristics {
 		String arrivalDate = request.getParameter(Constants.SECTION5_ARRIVAL_DATE);
 
 		prop.setProperty(Constants.SECTION5_ARRIVAL_DATE, arrivalDate);
+
+		String personId = request.getParameter(Constants.ATT_PERSON_ID);
+
+		if (!TextUtils.isEmptyOrNull(personId)) {
+			prop.setProperty(Constants.ATT_PERSON_ID, personId);
+		}
 
 		prop.save();
 
@@ -492,6 +499,7 @@ public class IndividualCharacteristics {
 
 		PropertiesConfiguration prop = null;
 
+		HttpSession session = request.getSession(false);
 		String sessionId = request.getRequestedSessionId();
 
 		try {
@@ -516,7 +524,29 @@ public class IndividualCharacteristics {
 		boolean addHome = TextUtils.stringToBoolean( //
 				request.getParameter(Constants.ATT_ADD_HOME));
 
-		Long dwellingId = SaveDataBase.insertDwelling(sessionId);
+		String dwellingOp = (String) session.getAttribute(Constants.ATT_DWELLING_OP);
+		String homeOp = (String) session.getAttribute(Constants.ATT_HOME_OP);
+		String personOp = (String) session.getAttribute(Constants.ATT_PERSON_OP);
+
+		Long dwellingId = null;
+
+		if (dwellingOp.equals(Constants.OP_INSERT)) {
+
+			System.out.println(" * insert dwelling");
+
+			dwellingId = SaveDataBase.insertDwelling(sessionId);
+
+		} else {
+
+			dwellingId = Controller.getId(Constants.PROP_FILE_DWELLING, //
+					sessionId, Constants.ATT_DWELLING_ID);
+			
+			if (dwellingOp.equals(Constants.OP_UPDATE)) {
+				System.out.println(" * update dwelling");
+				dwellingId = SaveDataBase.updateDwelling(dwellingId, sessionId);
+			}
+
+		}
 
 		if (dwellingId == null) {
 			Controller.sendErrorResponse(response, //
@@ -524,7 +554,25 @@ public class IndividualCharacteristics {
 			return;
 		}
 
-		Long homeId = SaveDataBase.insertHome(dwellingId, sessionId);
+		Long homeId = null;
+
+		if (homeOp.equals(Constants.OP_INSERT)) {
+
+			System.out.println(" * insert home - dwellingId = " + dwellingId.longValue());
+
+			homeId = SaveDataBase.insertHome(dwellingId, sessionId);
+
+		} else {
+
+			homeId = Controller.getId(Constants.PROP_FILE_HOME, //
+					sessionId, Constants.ATT_HOME_ID);
+
+			if (homeOp.equals(Constants.OP_UPDATE)) {
+				System.out.println(" * update home - dwellingId = " + dwellingId.longValue());
+				homeId = SaveDataBase.updateHome(homeId, sessionId);
+			}
+
+		}
 
 		if (homeId == null) {
 
@@ -537,7 +585,25 @@ public class IndividualCharacteristics {
 
 		}
 
-		Long personId = SaveDataBase.insertPerson(homeId, sessionId);
+		Long personId = null;
+
+		if (personOp.equals(Constants.OP_INSERT)) {
+
+			System.out.println(" * insert person - homeId = " + homeId.longValue());
+
+			personId = SaveDataBase.insertPerson(homeId, sessionId);
+
+		} else {
+
+			personId = Controller.getId(Constants.PROP_FILE_PERSON, //
+					sessionId, Constants.ATT_PERSON_ID);
+
+			if (personOp.equals(Constants.OP_UPDATE)) {
+				System.out.println(" * update person - homeId = " + homeId.longValue());
+				personId = SaveDataBase.updatePerson(personId, sessionId);
+			}
+
+		}
 
 		if (personId == null) {
 
@@ -557,11 +623,28 @@ public class IndividualCharacteristics {
 
 			target = "page_5.jsp";
 
+			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+					Constants.ATT_DWELLING_ID, dwellingId);
+
+			Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
+					Constants.ATT_HOME_ID, homeId);
+
 			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
 
 		} else if (addHome) {
 
 			target = "page_4.jsp";
+
+			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
+			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+					Constants.ATT_DWELLING_ID, dwellingId);
 
 			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
 			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, sessionId);
@@ -569,6 +652,10 @@ public class IndividualCharacteristics {
 		} else {
 
 			target = Constants.ACTION_HOME;
+
+			session.removeAttribute(Constants.ATT_DWELLING_OP);
+			session.removeAttribute(Constants.ATT_HOME_OP);
+			session.removeAttribute(Constants.ATT_PERSON_OP);
 
 			PollManager.cleanPropFiles(sessionId);
 
