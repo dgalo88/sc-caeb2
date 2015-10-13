@@ -326,7 +326,7 @@
 				var jsonData = JSON.parse(data);
 
 				window.location.href = jsonData.target
-						+ '?' + '<%=Constants.ATT_MESSAGE%>=' + jsonData.response
+						+ '&' + '<%=Constants.ATT_MESSAGE%>=' + jsonData.response
 						+ '&' + '<%=Constants.ATT_NOTIFICATION + "=" + Constants.ALERT_SUCCESS%>';
 
 				hideLoader();

@@ -152,11 +152,9 @@
 					<%=Constants.JSP_COMEBACK%>
 				</button>
 			</a>
-			<a href="<%=Constants.ACTION_NEW_POLL%>">
-				<button type="button" class="btn btn-primary" id="newPollBtn">
-					<%=Constants.JSP_NEW_DWELLING%>
-				</button>
-			</a>
+			<button type="button" class="btn btn-primary" id="newPoll">
+				<%=Constants.JSP_NEW_DWELLING%>
+			</button>
 		</div>
 	</div>
 </div>
@@ -179,5 +177,7 @@
 		</div>
 	</div>
 </div>
+
+<%@include file="continueNewPoll.jsp"%>
 
 <%@include file="footer.jsp"%>

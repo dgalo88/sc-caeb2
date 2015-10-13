@@ -321,11 +321,14 @@ public class LoadDataBase {
 				IdentificationDocument documentI=new IdentificationDocument(document);
 				prop.setProperty(Constants.SECTION5_CEDULA_TYPE, documentI.getType());
 				prop.setProperty(Constants.SECTION5_CEDULA_NUM, documentI.getNumber());
+
 				String passportNumber = TextUtils.caparComma(rs.getString("pasaporte"));
+
 				if (!TextUtils.isEmptyOrNull(passportNumber)) {
 					IdentificationDocument passportI=new IdentificationDocument(passportNumber);
 					prop.setProperty(Constants.SECTION5_PASSPORT, Integer.valueOf(passportI.getNumber()));
 				}
+
 				String sex = TextUtils.caparComma(rs.getString("sexo"));
 				prop.setProperty(Constants.SECTION5_SEX, sex);
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

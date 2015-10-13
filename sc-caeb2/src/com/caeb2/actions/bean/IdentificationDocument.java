@@ -47,7 +47,7 @@ public class IdentificationDocument {
 
 	@Override
 	public String toString() {
-		return type + number;
+		return isValid() ? type + number : "";
 	}
 
 	public boolean isValid() {

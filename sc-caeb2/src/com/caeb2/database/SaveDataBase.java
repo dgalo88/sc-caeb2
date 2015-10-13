@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -207,7 +208,13 @@ public class SaveDataBase {
 			pstmt.setDate(5,new java.sql.Date(date.getTime()));
 			pstmt.setString(6,personBasicData.getNationality());
 			pstmt.setString(7,personBasicData.getCedula().getType()+personBasicData.getCedula().getNumber());
-			pstmt.setString(8,personBasicData.getPassport().getType()+personBasicData.getPassport().getNumber());
+
+			if (personBasicData.getPassport().isValid()) {
+				pstmt.setString(8,personBasicData.getPassport().toString());
+			} else {
+				pstmt.setNull(8, Types.VARCHAR);
+			}
+
 			pstmt.setString(9,personBasicData.getEmail());
 			pstmt.setString(10,personBasicData.getPhone().toString());
 			pstmt.setString(11,personBasicData.getOptionalPhone().toString());

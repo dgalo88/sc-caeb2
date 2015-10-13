@@ -16,6 +16,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.caeb2.database.LoadDataBase;
+import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -159,6 +160,172 @@ public class PollManager {
 		Controller.forwardToPage(request, response, new Integer(5));
 
 		Controller.getLogger().info(" - New Person");
+
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void savePoll(HttpServletRequest request, //
+			HttpServletResponse response, String sessionId) throws Exception {
+
+		HttpSession session = request.getSession(false);
+
+		boolean addPerson = TextUtils.stringToBoolean( //
+				request.getParameter(Constants.ATT_ADD_PERSON));
+
+		boolean addHome = TextUtils.stringToBoolean( //
+				request.getParameter(Constants.ATT_ADD_HOME));
+
+		String dwellingOp = (String) session.getAttribute(Constants.ATT_DWELLING_OP);
+		String homeOp = (String) session.getAttribute(Constants.ATT_HOME_OP);
+		String personOp = (String) session.getAttribute(Constants.ATT_PERSON_OP);
+
+		Long dwellingId = null;
+
+		if (dwellingOp.equals(Constants.OP_INSERT)) {
+
+			Controller.getLogger().info("Insert Dwelling");
+
+			dwellingId = SaveDataBase.insertDwelling(sessionId);
+
+		} else {
+
+			dwellingId = Controller.getId(Constants.PROP_FILE_DWELLING, //
+					sessionId, Constants.ATT_DWELLING_ID);
+
+			if (dwellingOp.equals(Constants.OP_UPDATE)) {
+
+				Controller.getLogger().info("Update Dwelling");
+
+				dwellingId = SaveDataBase.updateDwelling(dwellingId, sessionId);
+
+			}
+
+		}
+
+		if (dwellingId == null) {
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_DWELLING_ERROR + " " + Constants.TRY_AGAIN);
+			return;
+		}
+
+		Long homeId = null;
+
+		if (homeOp.equals(Constants.OP_INSERT)) {
+
+			Controller.getLogger().info("Insert Home - DwellingId = " + dwellingId.longValue());
+
+			homeId = SaveDataBase.insertHome(dwellingId, sessionId);
+
+		} else {
+
+			homeId = Controller.getId(Constants.PROP_FILE_HOME, //
+					sessionId, Constants.ATT_HOME_ID);
+
+			if (homeOp.equals(Constants.OP_UPDATE)) {
+
+				Controller.getLogger().info("Update Home - DwellingId = " + dwellingId.longValue());
+
+				homeId = SaveDataBase.updateHome(homeId, sessionId);
+
+			}
+
+		}
+
+		if (homeId == null) {
+
+			SaveDataBase.deleteDwelling(dwellingId.longValue());
+
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_HOME_ERROR + " " + Constants.TRY_AGAIN);
+
+			return;
+
+		}
+
+		Long personId = null;
+
+		if (personOp.equals(Constants.OP_INSERT)) {
+
+			Controller.getLogger().info("Insert Person - HomeId = " + homeId.longValue());
+
+			personId = SaveDataBase.insertPerson(homeId, sessionId);
+
+		} else {
+
+			personId = Controller.getId(Constants.PROP_FILE_PERSON, //
+					sessionId, Constants.ATT_PERSON_ID);
+
+			if (personOp.equals(Constants.OP_UPDATE)) {
+
+				Controller.getLogger().info("Update Person - HomeId = " + homeId.longValue());
+
+				personId = SaveDataBase.updatePerson(personId, sessionId);
+
+			}
+
+		}
+
+		if (personId == null) {
+
+			SaveDataBase.deleteHomeComponents(homeId.longValue());
+			SaveDataBase.deleteDwelling(dwellingId.longValue());
+
+			Controller.sendErrorResponse(response, //
+					Constants.INSERT_PERSON_ERROR + " " + Constants.TRY_AGAIN);
+
+			return;
+
+		}
+
+		String target = "";
+
+		if (addPerson) {
+
+			target = "page_5.jsp?";
+
+			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+					Constants.ATT_DWELLING_ID, dwellingId);
+
+			Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
+					Constants.ATT_HOME_ID, homeId);
+
+			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
+
+		} else if (addHome) {
+
+			target = "page_4.jsp?";
+
+			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
+			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
+			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
+
+			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
+					Constants.ATT_DWELLING_ID, dwellingId);
+
+			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
+			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, sessionId);
+
+		} else {
+
+			target = Constants.ACTION_HOME;
+
+			session.removeAttribute(Constants.ATT_DWELLING_OP);
+			session.removeAttribute(Constants.ATT_HOME_OP);
+			session.removeAttribute(Constants.ATT_PERSON_OP);
+
+			PollManager.cleanPropFiles(sessionId);
+
+		}
+
+		String jsonResponse = "{ \"response\":\"" + Constants.DATA_SAVED //
+				+ "\", \"target\":\"" + target + "\" }";
+
+		Controller.sendTextResponse(response, jsonResponse);
 
 	}
 

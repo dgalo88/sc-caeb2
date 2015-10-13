@@ -54,12 +54,12 @@
 										<div class="radio">
 											<label>
 												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="masculino" value="M"
-														<%if (personBasicData.getSex().equals("M")) {%> checked <%}%>>
+														<%if (personBasicData.getSex().equalsIgnoreCase("M")) {%> checked <%}%>>
 												Masculino
 											</label>
 											<label>
 												<input type="radio" name="<%=Constants.SECTION5_SEX%>" id="femenino" value="F"
-														<%if (personBasicData.getSex().equals("F")) {%> checked <%}%>>
+														<%if (personBasicData.getSex().equalsIgnoreCase("F")) {%> checked <%}%>>
 												Femenino
 											</label>
 										</div>
@@ -129,20 +129,28 @@
 
 						<div class="form-group">
 							<label for="<%=Constants.SECTION5_RELATIONSHIP%>">Parentesco con Jefe(a) del Hogar</label>
-							<select class="form-control" id="<%=Constants.SECTION5_RELATIONSHIP%>"
-									name="<%=Constants.SECTION5_RELATIONSHIP%>">
-								<option <%if (personBasicData.getRelationship().equals("Jefe o jefa del Hogar")) {%> selected <%}%>>Jefe o jefa del Hogar</option>
-								<option <%if (personBasicData.getRelationship().equals("Esposa(o) o compañera(o)")) {%> selected <%}%>>Esposa(o) o compañera(o)</option>
-								<option <%if (personBasicData.getRelationship().equals("Hijo(a) o hijastro(a)")) {%> selected <%}%>>Hijo(a) o hijastro(a)</option>
-								<option <%if (personBasicData.getRelationship().equals("Nieto o nieta")) {%> selected <%}%>>Nieto o nieta</option>
-								<option <%if (personBasicData.getRelationship().equals("Yerno o nuera")) {%> selected <%}%>>Yerno o nuera</option>
-								<option <%if (personBasicData.getRelationship().equals("Padre, madre o suegro(a)")) {%> selected <%}%>>Padre, madre o suegro(a)</option>
-								<option <%if (personBasicData.getRelationship().equals("Hermano(a) o cuñado(a)")) {%> selected <%}%>>Hermano(a) o cuñado(a)</option>
-								<option <%if (personBasicData.getRelationship().equals("Sobrino(a)")) {%> selected <%}%>>Sobrino(a)</option>
-								<option <%if (personBasicData.getRelationship().equals("Otro pariente")) {%> selected <%}%>>Otro pariente</option>
-								<option <%if (personBasicData.getRelationship().equals("No pariente")) {%> selected <%}%>>No pariente</option>
-								<option <%if (personBasicData.getRelationship().equals("Inquilino")) {%> selected <%}%>>Inquilino</option>
-							</select>
+
+							<%if (session.getAttribute(Constants.ATT_HOME_OP).equals(Constants.OP_INSERT) 
+									|| personBasicData.getRelationship().equals("Jefe o jefa del Hogar")) {%>
+								<input type="text" class="form-control"
+										id="<%=Constants.SECTION5_RELATIONSHIP%>" name="<%=Constants.SECTION5_RELATIONSHIP%>"
+										value="Jefe o jefa del Hogar" required readonly>
+							<%} else {%>
+								<select class="form-control" id="<%=Constants.SECTION5_RELATIONSHIP%>"
+										name="<%=Constants.SECTION5_RELATIONSHIP%>">
+									<option <%if (personBasicData.getRelationship().equals("Esposa(o) o compañera(o)")) {%> selected <%}%>>Esposa(o) o compañera(o)</option>
+									<option <%if (personBasicData.getRelationship().equals("Hijo(a) o hijastro(a)")) {%> selected <%}%>>Hijo(a) o hijastro(a)</option>
+									<option <%if (personBasicData.getRelationship().equals("Nieto o nieta")) {%> selected <%}%>>Nieto o nieta</option>
+									<option <%if (personBasicData.getRelationship().equals("Yerno o nuera")) {%> selected <%}%>>Yerno o nuera</option>
+									<option <%if (personBasicData.getRelationship().equals("Padre, madre o suegro(a)")) {%> selected <%}%>>Padre, madre o suegro(a)</option>
+									<option <%if (personBasicData.getRelationship().equals("Hermano(a) o cuñado(a)")) {%> selected <%}%>>Hermano(a) o cuñado(a)</option>
+									<option <%if (personBasicData.getRelationship().equals("Sobrino(a)")) {%> selected <%}%>>Sobrino(a)</option>
+									<option <%if (personBasicData.getRelationship().equals("Otro pariente")) {%> selected <%}%>>Otro pariente</option>
+									<option <%if (personBasicData.getRelationship().equals("No pariente")) {%> selected <%}%>>No pariente</option>
+									<option <%if (personBasicData.getRelationship().equals("Inquilino")) {%> selected <%}%>>Inquilino</option>
+								</select>
+							<%}%>
+
 						</div>
 
 					</div>
@@ -174,7 +182,7 @@
 												id="<%=Constants.SECTION5_PASSPORT%>"
 												name="<%=Constants.SECTION5_PASSPORT%>"
 												<%if (personBasicData.getPassport().isValid()) {%>
-													value="<%=personBasicData.getPassport().toString()%>" <%}%>>
+													value="<%=personBasicData.getPassport().getNumber()%>" <%}%>>
 									</div>
 								</td>
 							</tr>

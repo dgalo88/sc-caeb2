@@ -6,7 +6,6 @@ import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -17,7 +16,6 @@ import com.caeb2.actions.bean.PersonBasicData;
 import com.caeb2.actions.bean.PersonEducationData;
 import com.caeb2.actions.bean.PersonMissions;
 import com.caeb2.actions.bean.Phone;
-import com.caeb2.database.SaveDataBase;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.Controller.PropFileRole;
@@ -41,8 +39,8 @@ public class IndividualCharacteristics {
 			return;
 		}
 
-		String lastnames = request.getParameter(Constants.SECTION5_LASTNAMES);
-		String names = request.getParameter(Constants.SECTION5_NAMES);
+		String lastnames = TextUtils.escaparString(request.getParameter(Constants.SECTION5_LASTNAMES));
+		String names = TextUtils.escaparString(request.getParameter(Constants.SECTION5_NAMES));
 
 		prop.setProperty(Constants.SECTION5_LASTNAMES, lastnames);
 		prop.setProperty(Constants.SECTION5_NAMES, names);
@@ -69,7 +67,7 @@ public class IndividualCharacteristics {
 
 		prop.setProperty(Constants.SECTION5_BIRTHDATE, birthdate);
 
-		String nationality = request.getParameter(Constants.SECTION5_NATIONALITY);
+		String nationality = TextUtils.escaparString(request.getParameter(Constants.SECTION5_NATIONALITY));
 
 		prop.setProperty(Constants.SECTION5_NATIONALITY, nationality);
 
@@ -499,7 +497,6 @@ public class IndividualCharacteristics {
 
 		PropertiesConfiguration prop = null;
 
-		HttpSession session = request.getSession(false);
 		String sessionId = request.getRequestedSessionId();
 
 		try {
@@ -518,153 +515,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		boolean addPerson = TextUtils.stringToBoolean( //
-				request.getParameter(Constants.ATT_ADD_PERSON));
-
-		boolean addHome = TextUtils.stringToBoolean( //
-				request.getParameter(Constants.ATT_ADD_HOME));
-
-		String dwellingOp = (String) session.getAttribute(Constants.ATT_DWELLING_OP);
-		String homeOp = (String) session.getAttribute(Constants.ATT_HOME_OP);
-		String personOp = (String) session.getAttribute(Constants.ATT_PERSON_OP);
-
-		Long dwellingId = null;
-
-		if (dwellingOp.equals(Constants.OP_INSERT)) {
-
-			System.out.println(" * insert dwelling");
-
-			dwellingId = SaveDataBase.insertDwelling(sessionId);
-
-		} else {
-
-			dwellingId = Controller.getId(Constants.PROP_FILE_DWELLING, //
-					sessionId, Constants.ATT_DWELLING_ID);
-			
-			if (dwellingOp.equals(Constants.OP_UPDATE)) {
-				System.out.println(" * update dwelling");
-				dwellingId = SaveDataBase.updateDwelling(dwellingId, sessionId);
-			}
-
-		}
-
-		if (dwellingId == null) {
-			Controller.sendErrorResponse(response, //
-					Constants.INSERT_DWELLING_ERROR + " " + Constants.TRY_AGAIN);
-			return;
-		}
-
-		Long homeId = null;
-
-		if (homeOp.equals(Constants.OP_INSERT)) {
-
-			System.out.println(" * insert home - dwellingId = " + dwellingId.longValue());
-
-			homeId = SaveDataBase.insertHome(dwellingId, sessionId);
-
-		} else {
-
-			homeId = Controller.getId(Constants.PROP_FILE_HOME, //
-					sessionId, Constants.ATT_HOME_ID);
-
-			if (homeOp.equals(Constants.OP_UPDATE)) {
-				System.out.println(" * update home - dwellingId = " + dwellingId.longValue());
-				homeId = SaveDataBase.updateHome(homeId, sessionId);
-			}
-
-		}
-
-		if (homeId == null) {
-
-			SaveDataBase.deleteDwelling(dwellingId.longValue());
-
-			Controller.sendErrorResponse(response, //
-					Constants.INSERT_HOME_ERROR + " " + Constants.TRY_AGAIN);
-
-			return;
-
-		}
-
-		Long personId = null;
-
-		if (personOp.equals(Constants.OP_INSERT)) {
-
-			System.out.println(" * insert person - homeId = " + homeId.longValue());
-
-			personId = SaveDataBase.insertPerson(homeId, sessionId);
-
-		} else {
-
-			personId = Controller.getId(Constants.PROP_FILE_PERSON, //
-					sessionId, Constants.ATT_PERSON_ID);
-
-			if (personOp.equals(Constants.OP_UPDATE)) {
-				System.out.println(" * update person - homeId = " + homeId.longValue());
-				personId = SaveDataBase.updatePerson(personId, sessionId);
-			}
-
-		}
-
-		if (personId == null) {
-
-			SaveDataBase.deleteHomeComponents(homeId.longValue());
-			SaveDataBase.deleteDwelling(dwellingId.longValue());
-
-			Controller.sendErrorResponse(response, //
-					Constants.INSERT_PERSON_ERROR + " " + Constants.TRY_AGAIN);
-
-			return;
-
-		}
-
-		String target = "";
-
-		if (addPerson) {
-
-			target = "page_5.jsp";
-
-			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
-			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_IGNORE);
-			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
-
-			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
-					Constants.ATT_DWELLING_ID, dwellingId);
-
-			Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
-					Constants.ATT_HOME_ID, homeId);
-
-			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
-
-		} else if (addHome) {
-
-			target = "page_4.jsp";
-
-			session.setAttribute(Constants.ATT_DWELLING_OP, Constants.OP_IGNORE);
-			session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
-			session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
-
-			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
-					Constants.ATT_DWELLING_ID, dwellingId);
-
-			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
-			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, sessionId);
-
-		} else {
-
-			target = Constants.ACTION_HOME;
-
-			session.removeAttribute(Constants.ATT_DWELLING_OP);
-			session.removeAttribute(Constants.ATT_HOME_OP);
-			session.removeAttribute(Constants.ATT_PERSON_OP);
-
-			PollManager.cleanPropFiles(sessionId);
-
-		}
-
-		String jsonResponse = "{ \"response\":\"" + Constants.DATA_SAVED //
-				+ "\", \"target\":\"" + target + "\" }";
-
-		Controller.sendTextResponse(response, jsonResponse);
+		PollManager.savePoll(request, response, sessionId);
 
 	}
 
