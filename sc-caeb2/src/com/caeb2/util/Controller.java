@@ -52,9 +52,16 @@ public class Controller {
 	public static Connection getConnection() //
 			throws SQLException, ClassNotFoundException {
 
-		Class.forName(driver);
 		String url = "jdbc:mysql://" + dbHost + "/" + dbName;
-		return DriverManager.getConnection(url, dbUser, dbPass);
+		return getConnection(url, dbUser, dbPass);
+
+	}
+
+	public static Connection getConnection(String url, String user, String pass) //
+			throws SQLException, ClassNotFoundException {
+
+		Class.forName(driver);
+		return DriverManager.getConnection(url, user, pass);
 
 	}
 

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
 import com.caeb2.util.TextUtils;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * @author D. Galo
@@ -32,27 +32,9 @@ public class InitDatabase {
 
 	private static final String DB_ROOT_PASS = "123456";
 	private static final String DB_ROOT_USER = "root";
-	private static final String DB_NAME = "censoaeb2";
-	private static final String DB_PASS = "123456";
 
 	private static final String SUPER_ADMIN_NAME = "admin";
 	private static final String SUPER_ADMIN_PASS = "1234";
-
-	public InitDatabase() {
-
-		try {
-			createDatabaseUser(DB_NAME, DB_PASS);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			createDatabase(DB_NAME);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	public static void initDatabase(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
@@ -60,11 +42,44 @@ public class InitDatabase {
 		String html = "<html><head><title>{0}</title></head>" //
 				+ "<body><div align=\"center\"><br><h2>{1}</h2><p></div></body></html>";
 
+		String uploadDir = Constants.PATH_REAL_PROJECT + Constants.PATH_SC_CAEB2;
+
+		MultipartRequest multipartRequest = new MultipartRequest(request, uploadDir);
+
+		String fileName = multipartRequest.getFilesystemName("file");
+		String password = multipartRequest.getParameter(Constants.ATT_PASSWORD);
+
+		if (TextUtils.isEmptyOrNull(password) || !password.equals(SUPER_ADMIN_PASS)) {
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					html, new Object[] {Constants.ERROR, Constants.INVALID_PASSWORD}));
+			return;
+		}
+
+		if (TextUtils.isEmptyOrNull(fileName)) {
+			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
+					html, new Object[] {Constants.ERROR, Constants.IT_CANNOT_ERROR}));
+			return;
+		}
+
+		String pathname = uploadDir + File.separator + fileName;
+
+		try {
+			InitDatabase.createDatabaseUser(Controller.getDBUser(), Controller.getDBPass());
+		} catch (SQLException | ClassNotFoundException e) {
+			Controller.putLogger(Level.SEVERE, "Failed creating user", e);
+		}
+
+		try {
+			InitDatabase.createDatabase(Controller.getDBName());
+		} catch (SQLException | ClassNotFoundException e) {
+			Controller.putLogger(Level.SEVERE, "Failed creating database", e);
+		}
+
 		try {
 
-			InitDatabase initDatabase = new InitDatabase();
+			Controller.getLogger().info("Loading database configuration from: " + pathname);
 
-			initDatabase.init(DB_CONFIG_FILE);
+			InitDatabase.loadData(pathname);
 
 			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
 					html, new Object[] {Constants.DB_INIT, Constants.DB_SUCCESSFUL_INIT}));
@@ -80,9 +95,32 @@ public class InitDatabase {
 
 	}
 
-	private void init(String fileName) throws IOException, SQLException, ClassNotFoundException {
+	public static void init(String fileName) {
 
-		File file = new File(fileName);
+		try {
+			InitDatabase.createDatabaseUser(Controller.getDBUser(), Controller.getDBPass());
+		} catch (SQLException | ClassNotFoundException e) {
+			Controller.putLogger(Level.SEVERE, "Failed creating user", e);
+		}
+
+		try {
+			InitDatabase.createDatabase(Controller.getDBName());
+		} catch (SQLException | ClassNotFoundException e) {
+			Controller.putLogger(Level.SEVERE, "Failed creating database", e);
+		}
+
+		try {
+			InitDatabase.loadData(fileName);
+		} catch (IOException | SQLException | ClassNotFoundException e) {
+			Controller.putLogger(Level.SEVERE, "Failed loading database data", e);
+		}
+
+	}
+
+	private static void loadData(String pathname) //
+			throws IOException, SQLException, ClassNotFoundException {
+
+		File file = new File(pathname);
 		FileReader fileReader = new FileReader(file);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -126,51 +164,48 @@ public class InitDatabase {
 
 	}
 
-	public void createDatabaseUser(String user, String pass) throws SQLException {
+	public static void createDatabaseUser(String user, String pass) //
+			throws SQLException, ClassNotFoundException {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
-		Connection connection = DriverManager.getConnection( //
-				url, DB_ROOT_USER, DB_ROOT_PASS);
+		Connection connection = Controller.getConnection(url, DB_ROOT_USER, DB_ROOT_PASS);
+
 		Statement statement = connection.createStatement();
 
 		String sql = "CREATE USER " + user + "@" + DB_HOST + " IDENTIFIED BY '" + pass + "'";
 
-		statement.execute(sql);
+		statement.executeUpdate(sql);
 
 		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + DB_HOST + "";
 
 		statement.execute(sql);
-
-		Controller.setDBUser(user);
-		Controller.setDBPass(pass);
 
 		statement.close();
 		connection.close();
 
 	}
 
-	public void createDatabase(String dbName) throws SQLException {
+	public static void createDatabase(String dbName) //
+			throws SQLException, ClassNotFoundException {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
-		Connection connection = DriverManager.getConnection(url, //
+		Connection connection = Controller.getConnection(url, //
 				Controller.getDBUser(), Controller.getDBPass());
 
 		String sql = "CREATE DATABASE IF NOT EXISTS " + dbName //
 				+ " DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci";
 
 		Statement statement = connection.createStatement();
-		statement.execute(sql);
-
-		Controller.setDBName(dbName);
+		statement.executeUpdate(sql);
 
 		statement.close();
 		connection.close();
 
 	}
 
-	public void createSuperAdmin() throws ClassNotFoundException, SQLException {
+	private static void createSuperAdmin() throws ClassNotFoundException, SQLException {
 
 		Connection connection = Controller.getConnection();
 
@@ -178,7 +213,7 @@ public class InitDatabase {
 				+ SUPER_ADMIN_NAME + "', SHA1('" + SUPER_ADMIN_PASS + "'))";
 
 		Statement statement = connection.createStatement();
-		statement.execute(sql);
+		statement.executeUpdate(sql);
 
 		statement.close();
 		connection.close();
@@ -186,15 +221,7 @@ public class InitDatabase {
 	}
 
 	public static void main(String[] args) {
-
-		InitDatabase initDatabase = new InitDatabase();
-
-		try {
-			initDatabase.init(DB_CONFIG_FILE);
-		} catch (IOException | SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
+		InitDatabase.init(DB_CONFIG_FILE);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.caeb2.util;
 
+import java.io.File;
+
 public class Constants {
 
 	// General constants
@@ -24,14 +26,15 @@ public class Constants {
 	public static final String ACTION_BACKUP = "#";
 
 	public static final String SC_CAEB2 = "sc-caeb2";
-	public static final String PATH_SC_CAEB2 = "/" + SC_CAEB2;
-	public static final String PATH_JSP = PATH_SC_CAEB2 + "/jsp";
-	public static final String PATH_CSS = PATH_SC_CAEB2 + "/css";
-	public static final String PATH_IMAGES = PATH_SC_CAEB2 + "/images";
+	public static final String PATH_SC_CAEB2 = File.separator + SC_CAEB2;
+	public static final String PATH_JSP = PATH_SC_CAEB2 + File.separator + "jsp";
+	public static final String PATH_CSS = PATH_SC_CAEB2 + File.separator + "css";
+	public static final String PATH_IMAGES = PATH_SC_CAEB2 + File.separator + "images";
+	public static final String PATH_TEMP = PATH_SC_CAEB2 + File.separator + "temp";
 	public static final String PATH_REAL_PROJECT = System.getProperty("user.dir");
 	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
-	public static final String LOGO_CCAEB2 = PATH_IMAGES + "/logoccaeb2.png";
+	public static final String LOGO_CCAEB2 = PATH_IMAGES + File.separator + "logoccaeb2.png";
 
 	// Properties files names
 	public static final String PROP_FILE_DWELLING = "dwelling.prop";
@@ -108,6 +111,8 @@ public class Constants {
 	public static final String DELETE_ERROR = "Falló eliminación de {0}.";
 	public static final String NEW_USER_ERROR = "No se pudo crear el nuevo usuario.";
 	public static final String NOT_SEL_CEDULA_ERROR = "Debe seleccionar una cédula.";
+	public static final String FILE_EMPTY = "Debe seleccionar un archivo.";
+	public static final String INVALID_PASSWORD = "Contraseña incorrecta.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";
@@ -145,6 +150,7 @@ public class Constants {
 	public static final String JSP_NEW_PERSON = "Nueva Persona";
 	public static final String JSP_ADD_USER = "Agregar Usuario";
 	public static final String JSP_CONTINUE = "Continuar";
+	public static final String JSP_SEND = "Enviar";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";

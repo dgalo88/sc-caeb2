@@ -29,5 +29,7 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/sc-caeb2/WebContent/WEB-INF/lib/commons-lang-2.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cos-05Nov2002.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.30-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
