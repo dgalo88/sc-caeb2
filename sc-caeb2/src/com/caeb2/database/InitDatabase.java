@@ -28,13 +28,6 @@ public class InitDatabase {
 	private static final String COMMENT2 = "/*";
 
 	private static final String DB_CONFIG_FILE = "censoaeb2.sql";
-	private static final String DB_HOST = "localhost";
-
-	private static final String DB_ROOT_PASS = "123456";
-	private static final String DB_ROOT_USER = "root";
-
-	private static final String SUPER_ADMIN_NAME = "admin";
-	private static final String SUPER_ADMIN_PASS = "1234";
 
 	public static void initDatabase(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
@@ -44,27 +37,45 @@ public class InitDatabase {
 
 		String uploadDir = Constants.PATH_REAL_PROJECT + Constants.PATH_SC_CAEB2;
 
+		File file = new File(uploadDir);
+
+		if (!file.exists()) {
+			if (file.mkdir()) {
+				Controller.getLogger().info("Directory '" + uploadDir + "' is created.");
+			} else {
+				Controller.getLogger().info("Failed to create directory '" + uploadDir + "'.");
+			}
+		}
+
 		MultipartRequest multipartRequest = new MultipartRequest(request, uploadDir);
 
 		String fileName = multipartRequest.getFilesystemName("file");
 		String password = multipartRequest.getParameter(Constants.ATT_PASSWORD);
 
-		if (TextUtils.isEmptyOrNull(password) || !password.equals(SUPER_ADMIN_PASS)) {
+		if (TextUtils.isEmptyOrNull(password) || //
+				!password.equals(Controller.getSuperAdminPass())) {
+
 			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
 					html, new Object[] {Constants.ERROR, Constants.INVALID_PASSWORD}));
+
 			return;
+
 		}
 
 		if (TextUtils.isEmptyOrNull(fileName)) {
+
 			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
 					html, new Object[] {Constants.ERROR, Constants.IT_CANNOT_ERROR}));
+
 			return;
+
 		}
 
 		String pathname = uploadDir + File.separator + fileName;
 
 		try {
-			InitDatabase.createDatabaseUser(Controller.getDBUser(), Controller.getDBPass());
+			InitDatabase.createDatabaseUser( //
+					Controller.getDBUser(), Controller.getDBPass());
 		} catch (SQLException | ClassNotFoundException e) {
 			Controller.putLogger(Level.SEVERE, "Failed creating user", e);
 		}
@@ -169,15 +180,17 @@ public class InitDatabase {
 
 		String url = "jdbc:mysql://" + Controller.getDBHost();
 
-		Connection connection = Controller.getConnection(url, DB_ROOT_USER, DB_ROOT_PASS);
+		Connection connection = Controller.getConnection( //
+				url, Controller.getDbRootUser(), Controller.getDbRootPass());
 
 		Statement statement = connection.createStatement();
 
-		String sql = "CREATE USER " + user + "@" + DB_HOST + " IDENTIFIED BY '" + pass + "'";
+		String sql = "CREATE USER " + user + "@" //
+				+ Controller.getDBHost() + " IDENTIFIED BY '" + pass + "'";
 
 		statement.executeUpdate(sql);
 
-		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + DB_HOST + "";
+		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + Controller.getDBHost() + "";
 
 		statement.execute(sql);
 
@@ -210,7 +223,8 @@ public class InitDatabase {
 		Connection connection = Controller.getConnection();
 
 		String sql = "INSERT INTO administrador (usuario, clave) VALUES ('" //
-				+ SUPER_ADMIN_NAME + "', SHA1('" + SUPER_ADMIN_PASS + "'))";
+				+ Controller.getSuperAdminName() //
+				+ "', SHA1('" + Controller.getSuperAdminPass() + "'))";
 
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);

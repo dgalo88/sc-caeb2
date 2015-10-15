@@ -20,6 +20,7 @@
 <div class="container-fluid">
 	<form class="form-group" id="form_<%=Parameters.getPageNumber()%>" name="form_<%=Parameters.getPageNumber()%>"
 			action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=saveMissions" method="POST">
+		<br>
 		<label for="misionesEducativas">¿Ha asistido o asiste a alguna de las siguientes misiones?</label>
 			<table class="table" id="misionesEducativas">
 				<tr>
@@ -110,6 +111,12 @@
 											<%=missions.containsKey(Constants.CASA_COMUNITARIA) ? "checked" : ""%>>
 									<%=Constants.CASA_COMUNITARIA%>
 								</label><br>
+								<label>
+									<input type="checkbox" name="<%=Constants.SECTION10_MISSIONS%>"
+											id="madresDelBarrio" value="<%=Constants.MADRES_DEL_BARRIO%>"
+											<%=missions.containsKey(Constants.MADRES_DEL_BARRIO) ? "checked" : ""%>>
+									<%=Constants.MADRES_DEL_BARRIO%>
+								</label><br>
 							</div>
 						</div>
 					</td>
@@ -151,6 +158,12 @@
 											id="misionGuaicaipuro" value="<%=Constants.MISION_GUAICAIPURO%>"
 											<%=missions.containsKey(Constants.MISION_GUAICAIPURO) ? "checked" : ""%>>
 									<%=Constants.MISION_GUAICAIPURO%>
+								</label><br>
+								<label>
+									<input type="checkbox" name="<%=Constants.SECTION10_MISSIONS%>"
+											id="hijosDeVenezuela" value="<%=Constants.HIJOS_DE_VENEZUELA%>"
+											<%=missions.containsKey(Constants.HIJOS_DE_VENEZUELA) ? "checked" : ""%>>
+									<%=Constants.HIJOS_DE_VENEZUELA%>
 								</label><br>
 							</div>
 						</div>

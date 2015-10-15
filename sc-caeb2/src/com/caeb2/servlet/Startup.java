@@ -1,5 +1,6 @@
 package com.caeb2.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.Driver;
@@ -15,9 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+
 import com.caeb2.actions.Actions;
 import com.caeb2.util.Constants;
 import com.caeb2.util.Controller;
+import com.caeb2.util.Controller.PropFileRole;
 import com.caeb2.util.TextUtils;
 
 /**
@@ -37,6 +42,31 @@ public class Startup extends HttpServlet {
 
 		this.actions = new Actions();
 
+		try {
+
+			String contextPath = config.getServletContext().getRealPath(File.separator);
+
+			PropertiesConfiguration prop = Controller.getPropertiesFile( //
+					contextPath + Constants.PROP_FILE_CONFIG, PropFileRole.SAVE);
+
+			String dbHost = prop.getString(Constants.CONFIG_DB_HOST);
+			String dbRootUser = prop.getString(Constants.CONFIG_DB_ROOT_USER);
+			String dbRootPass = prop.getString(Constants.CONFIG_DB_ROOT_PASS);
+			String dbName = prop.getString(Constants.CONFIG_DB_NAME);
+			String dbUser = prop.getString(Constants.CONFIG_DB_USER);
+			String dbPass = prop.getString(Constants.CONFIG_DB_PASS);
+
+			Controller.setDBHost(dbHost);
+			Controller.setDBRootUser(dbRootUser);
+			Controller.setDBRootPass(dbRootPass);
+			Controller.setDBName(dbName);
+			Controller.setDBUser(dbUser);
+			Controller.setDBPass(dbPass);
+
+		} catch (ConfigurationException | IOException e) {
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_PROP_ERROR, e);
+		}
+
 	}
 
 	// Destroys the servlet.
@@ -54,12 +84,12 @@ public class Startup extends HttpServlet {
 
 				DriverManager.deregisterDriver(driver);
 
-				Controller.getLogger().info( //
-						String.format("Deregistering jdbc driver: %s", driver));
+				Controller.getLogger().info(TextUtils.getFormattedMessage( //
+						"Deregistering JDBC Driver: {0}", new Object[] {driver}));
 
 			} catch (SQLException e) {
-				Controller.putLogger(Level.SEVERE, //
-						String.format("Error deregistering driver %s", driver), e);
+				Controller.putLogger(Level.SEVERE, TextUtils.getFormattedMessage( //
+						"Error Deregistering JDBC Driver: {0}", new Object[] {driver}), e);
 			}
 
 		}

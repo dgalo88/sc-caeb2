@@ -74,6 +74,10 @@ public class PollManager {
 
 		Controller.getLogger().info(" + New Home");
 
+		String sessionId = request.getRequestedSessionId();
+
+		PollManager.cleanPropFiles(sessionId);
+
 		Long dwellingId = request.getParameter(Constants.ATT_DWELLING_ID) == null ? //
 				null : Long.parseLong(request.getParameter(Constants.ATT_DWELLING_ID));
 
@@ -81,8 +85,6 @@ public class PollManager {
 			sendLoadingError(request, response, "dwelling (null)");
 			return;
 		}
-
-		String sessionId = request.getRequestedSessionId();
 
 		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
 
@@ -113,6 +115,10 @@ public class PollManager {
 
 		Controller.getLogger().info(" + New Person");
 
+		String sessionId = request.getRequestedSessionId();
+
+		PollManager.cleanPropFiles(sessionId);
+
 		Long dwellingId = request.getParameter(Constants.ATT_DWELLING_ID) == null ? //
 				null : Long.parseLong(request.getParameter(Constants.ATT_DWELLING_ID));
 
@@ -120,8 +126,6 @@ public class PollManager {
 			sendLoadingError(request, response, "dwelling (null)");
 			return;
 		}
-
-		String sessionId = request.getRequestedSessionId();
 
 		boolean loadDwellingResult = LoadDataBase.loadDwelling(dwellingId, sessionId);
 

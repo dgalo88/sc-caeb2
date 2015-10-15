@@ -143,7 +143,7 @@ public class IndividualCharacteristics {
 
 		String passportNumber = prop.getString(Constants.SECTION5_PASSPORT, "");
 
-		if (TextUtils.isEmptyOrNull(passportNumber)) {
+		if (!TextUtils.isEmptyOrNull(passportNumber)) {
 			IdentificationDocument passport = new IdentificationDocument("P", passportNumber);
 			personBasicData.setPassport(passport);
 		}
@@ -156,7 +156,7 @@ public class IndividualCharacteristics {
 
 		personBasicData.setBirthdate(birthdate);
 
-		String nationality = prop.getString(Constants.SECTION5_NATIONALITY, "");
+		String nationality = prop.getString(Constants.SECTION5_NATIONALITY, "Venezolano");
 
 		personBasicData.setNationality(nationality);
 

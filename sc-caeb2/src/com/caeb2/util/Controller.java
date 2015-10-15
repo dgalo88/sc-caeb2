@@ -35,6 +35,12 @@ public class Controller {
 	private static String dbUser = "censoaeb2";
 	private static String dbPass = "123456";
 
+	private static String dbRootPass = "123456";
+	private static String dbRootUser = "root";
+
+	private static String superAdminName = "admin";
+	private static String superAdminPass = "1234";
+
 	private static Logger logger = Logger.getLogger("CAEB2Logger");
 
 	private Controller() {
@@ -95,6 +101,38 @@ public class Controller {
 
 	public static void setDBPass(String dbPass) {
 		Controller.dbPass = dbPass;
+	}
+
+	public static String getDbRootPass() {
+		return dbRootPass;
+	}
+
+	public static void setDBRootPass(String dbRootPass) {
+		Controller.dbRootPass = dbRootPass;
+	}
+
+	public static String getDbRootUser() {
+		return dbRootUser;
+	}
+
+	public static void setDBRootUser(String dbRootUser) {
+		Controller.dbRootUser = dbRootUser;
+	}
+
+	public static String getSuperAdminName() {
+		return superAdminName;
+	}
+
+	public static void setSuperAdminName(String superAdminName) {
+		Controller.superAdminName = superAdminName;
+	}
+
+	public static String getSuperAdminPass() {
+		return superAdminPass;
+	}
+
+	public static void setSuperAdminPass(String superAdminPass) {
+		Controller.superAdminPass = superAdminPass;
 	}
 
 	public static void forward(HttpServletRequest request, //
@@ -231,6 +269,14 @@ public class Controller {
 				+ Constants.SC_CAEB2 + Constants.FILE_SEPARATOR;
 
 		propFileName = prefix + sessionId + "-" + propFileName;
+
+		return getPropertiesFile(propFileName, propFileType);
+
+	}
+
+	public static PropertiesConfiguration getPropertiesFile( //
+			String propFileName, PropFileRole propFileType) //
+					throws ConfigurationException, IOException {
 
 		switch (propFileType) {
 		case SAVE:

@@ -486,6 +486,8 @@ public class BoardsManager {
 
 		String sessionId = request.getRequestedSessionId();
 
+		PollManager.cleanPropFiles(sessionId);
+
 		Long dwellingId = request.getParameter(Constants.ATT_DWELLING_ID) == null ? //
 				null : Long.parseLong(request.getParameter(Constants.ATT_DWELLING_ID));
 

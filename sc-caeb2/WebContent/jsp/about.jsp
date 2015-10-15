@@ -11,12 +11,20 @@
 				<h4 class="modal-title"><%=Constants.JSP_ABOUT%></h4>
 			</div>
 			<div class="modal-body">
-				<p class="text-center"><%=Constants.CENSO_COMUNITARIO%></p>
-				<p class="text-center"><%=Constants.CCAEB2%></p>
-				<p class="text-justify">Proyecto de Servicio Comunitario desarrollado por los estudiantes
+				<h4 class="text-center"><%=Constants.CENSO_COMUNITARIO%>
+					<br>
+					<small><%=Constants.CCAEB2%></small>
+				</h4>
+				<br>
+				<p class="text-justify">
+					Proyecto de Servicio Comunitario desarrollado por los estudiantes
 					de la Escuela de Ingeniería de Sistemas de la Universidad de Los Andes:
 					Araujo Arnoely, Galo Donato, Hidalgo José Miguel,
-					Porcar Marcelino, Velásquez Erik y Viloria Marco.</p>
+					Porcar Marcelino, Velásquez Erik y Viloria Marco.
+				</p>
+				<p class="text-justify">
+					Con la tutoría del Prof. Richard Márquez y la supervisión de la Lic. Merlyn Rangel.
+				</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">

@@ -23,7 +23,7 @@ public class Constants {
 	public static final String ACTION_VIEW_DWELLINGS = EXEC_ACTION + "loadAllDwellings";
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
-	public static final String ACTION_BACKUP = "#";
+	public static final String ACTION_BACKUP = "http://localhost/serviciocomunitario/public/";
 
 	public static final String SC_CAEB2 = "sc-caeb2";
 	public static final String PATH_SC_CAEB2 = File.separator + SC_CAEB2;
@@ -40,6 +40,7 @@ public class Constants {
 	public static final String PROP_FILE_DWELLING = "dwelling.prop";
 	public static final String PROP_FILE_HOME = "home.prop";
 	public static final String PROP_FILE_PERSON = "person.prop";
+	public static final String PROP_FILE_CONFIG = "config.prop";
 
 	// Attributes
 	public static final String ATT_MESSAGE = "message";
@@ -159,6 +160,7 @@ public class Constants {
 	public static final String JSP_ADD_USER = "Agregar Usuario";
 	public static final String JSP_CONTINUE = "Continuar";
 	public static final String JSP_SEND = "Enviar";
+	public static final String JSP_INFO = "Mostrar Datos";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";
@@ -200,12 +202,14 @@ public class Constants {
 	public static final String FOGON_COMUNITARIO = "Fogón Comunitario";
 	public static final String CASA_DE_ALIMENTACION = "Casa de Alimentación";
 	public static final String CASA_COMUNITARIA = "Casa Comunitaria";
+	public static final String MADRES_DEL_BARRIO = "Madres del barrio";
 	public static final String BOTICAS_POPULARES = "Boticas Populares";
 	public static final String MISION_CULTURA = "Misión Cultura";
 	public static final String MISION_HABITAT = "Misión Hábitat";
 	public static final String MISION_DEPORTE_ADENTRO = "Misión Deporte Adentro";
 	public static final String MISION_ZAMORA = "Misión Zamora";
 	public static final String MISION_GUAICAIPURO = "Misión Guaicaipuro";
+	public static final String HIJOS_DE_VENEZUELA = "Hijos de Venezuela";
 	public static final String MISION_IDENTIDAD = "Misión Identidad";
 	public static final String MISION_PIAR = "Misión Piar";
 	public static final String MISION_MIRANDA = "Misión Miranda";
@@ -380,7 +384,7 @@ public class Constants {
 	public static final String SECTION9_ATHLETIC_ABILITY_INSTRUCTOR_OTHER = SECTION9_ATHLETIC_ABILITY_INSTRUCTOR + "_other";
 	public static final String SECTION9_ATHLETIC_ABILITY_STUDENT_OTHER = SECTION9_ATHLETIC_ABILITY_STUDENT + "_other";
 
-	// Properties and ids Section 9
+	// Properties and ids Section 10
 	public static final String SECTION10_MISSIONS = "section10_missions";
 
 	// Properties and ids Profile
@@ -390,5 +394,15 @@ public class Constants {
 	public static final String PROFILE_CEDULA = "profile_cedula";
 	public static final String PROFILE_USER = "profile_user";
 	public static final String PROFILE_PASS = "profile_pass";
+
+	// Properties config file
+	public static final String CONFIG_DB_HOST = "config_db_host";
+	public static final String CONFIG_DB_NAME = "config_db_name";
+	public static final String CONFIG_DB_USER = "config_db_user";
+	public static final String CONFIG_DB_PASS = "config_db_pass";
+	public static final String CONFIG_DB_ROOT_USER = "config_db_root_user";
+	public static final String CONFIG_DB_ROOT_PASS = "config_db_root_pass";
+	public static final String CONFIG_SUP_ADMIN_NAME = "config_sup_admin_name";
+	public static final String CONFIG_SUP_ADMIN_PASS = "config_sup_admin_pass";
 
 }
