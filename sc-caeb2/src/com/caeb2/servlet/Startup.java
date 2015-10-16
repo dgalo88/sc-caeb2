@@ -44,6 +44,19 @@ public class Startup extends HttpServlet {
 
 		try {
 
+			String sccaeb2Dir = Constants.PATH_REAL_PROJECT //
+					+ Constants.FILE_SEPARATOR + Constants.SC_CAEB2;
+
+			File file = new File(sccaeb2Dir);
+
+			if (!file.exists()) {
+				if (file.mkdir()) {
+					Controller.getLogger().info("Directory '" + sccaeb2Dir + "' is created.");
+				} else {
+					Controller.getLogger().severe("Failed to create directory '" + sccaeb2Dir + "'.");
+				}
+			}
+
 			String contextPath = config.getServletContext().getRealPath(File.separator);
 
 			PropertiesConfiguration prop = Controller.getPropertiesFile( //

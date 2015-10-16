@@ -43,7 +43,7 @@ public class InitDatabase {
 			if (file.mkdir()) {
 				Controller.getLogger().info("Directory '" + uploadDir + "' is created.");
 			} else {
-				Controller.getLogger().info("Failed to create directory '" + uploadDir + "'.");
+				Controller.getLogger().severe("Failed to create directory '" + uploadDir + "'.");
 			}
 		}
 
