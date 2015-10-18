@@ -12,26 +12,33 @@ public class Actions {
 		actionsMapping = new HashMap<String, String>();
 
 		actionsMapping.put("initDatabase", "com.caeb2.database.InitDatabase");
+
 		actionsMapping.put("index", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("login", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("logout", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("initDB", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("generateFormality", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("saveNewUser", "com.caeb2.actions.ActionManager");
+
 		actionsMapping.put("saveProcessPage1", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage2", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage3", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage4", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage7", "com.caeb2.actions.Form");
 		actionsMapping.put("saveProcessPage8", "com.caeb2.actions.Form");
+
 		actionsMapping.put("savePersonBasicData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("savePersonEducationData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("saveAbilitiesData", "com.caeb2.actions.IndividualCharacteristics");
 		actionsMapping.put("saveMissions", "com.caeb2.actions.IndividualCharacteristics");
-		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
-		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
-		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
-		actionsMapping.put("saveNewUser", "com.caeb2.actions.ActionManager");
+
 		actionsMapping.put("newPoll", "com.caeb2.actions.PollManager");
 		actionsMapping.put("newHome", "com.caeb2.actions.PollManager");
 		actionsMapping.put("newPerson", "com.caeb2.actions.PollManager");
+
 		actionsMapping.put("loadAllDwellings", "com.caeb2.actions.BoardsManager");
 		actionsMapping.put("loadAllHomes", "com.caeb2.actions.BoardsManager");
 		actionsMapping.put("loadAllPersons", "com.caeb2.actions.BoardsManager");

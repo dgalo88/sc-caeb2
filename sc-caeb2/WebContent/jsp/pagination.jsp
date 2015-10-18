@@ -18,8 +18,10 @@
 			<%
 				for (Integer i = 1; i < numPages + 1; i++) {
 					out.print("<li " + (i > curr ? "class=\"disabled\"" : "")
-							+ "><a href=" + (i > curr ? "#" : "\"/sc-caeb2/jsp/page_" + i + ".jsp\" ")
-							+ " id=\"page_" + i + "\">" + i + "</a></li>");
+							+ "><a href=\"#\" id=\"page_" + i 
+							+ "\" class=\"goToPage\" data-src=\"" + i + "\""
+							+ (i > curr ? "style=\"pointer-events: none;\"" : "")
+							+ ">" + i + "</a></li>");
 				}
 			%>
 			<li>
@@ -32,9 +34,9 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).on('ready', function() {
 
-		pageNum = <%=Parameters.getPageNumber()%>;
+		var pageNum = parseInt(<%=Parameters.getPageNumber()%>);
 		var pageId = '#page_' + pageNum;
 		var formId = '#form_' + pageNum;
 
@@ -43,22 +45,39 @@
 			$('#prev').attr('href', '#');
 		} else if (pageNum == <%=numPages%>) {
 			$('#next').text('<%=Constants.JSP_FINISH%>').attr('aria-label', '<%=Constants.JSP_FINISH%>');
-			$('#prev').attr('href', '<%=Constants.PATH_JSP%>/page_' + (pageNum - 1) + '.jsp');
-		} else {
-			$('#prev').attr('href', '<%=Constants.PATH_JSP%>/page_' + (pageNum - 1) + '.jsp');
 		}
 
 		$(pageId).attr('href', '#').append('<span class="sr-only">(current)</span>');
 		$(pageId).parent().addClass('active');
 
+		$('#prev').on('click', function() {
+			changePage(formId, (pageNum - 1));
+			return false;
+		});
+
 		$('#next').on('click', function() {
-			nextPage(formId);
+			changePage(formId, (pageNum + 1));
+			return false;
+		});
+
+		$('.goToPage').on('click', function() {
+			changePage(formId, $(this).attr('data-src'));
 			return false;
 		});
 
 	});
 
-	function nextPage(formId) {
+	function changePage(formId, tgt) {
+
+		var action = $(formId).attr('action');
+		var index = action.indexOf('&tgt=');
+
+		action = index == -1 ? action : action.substring(0, index);
+		action += '&tgt=' + tgt;
+
+		$(formId).attr('action', action);
+
 		$('#submitBtn<%=Parameters.getPageNumber()%>').trigger('click');
+
 	}
 </script>

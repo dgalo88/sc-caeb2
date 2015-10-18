@@ -22,7 +22,7 @@ public class Constants {
 	public static final String ACTION_NEW_PERSON = EXEC_ACTION + "newPerson";
 	public static final String ACTION_VIEW_DWELLINGS = EXEC_ACTION + "loadAllDwellings";
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
-	public static final String ACTION_GEN_FORMALITY = "formalityGenerator.jsp";
+	public static final String ACTION_GEN_FORMALITY = EXEC_ACTION + "generateFormality";
 	public static final String ACTION_BACKUP = "http://localhost/serviciocomunitario/public/";
 
 	public static final String SC_CAEB2 = "sc-caeb2";
@@ -80,16 +80,16 @@ public class Constants {
 	public static final String USER_LOGOUT = "El usuario ''{0}'' ha cerrado sesión";
 	public static final String SAVE_DATA_TO = "Guardando datos en el archivo \"{0}\"";
 	public static final String LOAD_DATA_FROM = "Cargando datos desde el archivo \"{0}\"";
-	public static final String PASS_CHANGED = "Contraseña cambiada con éxito";
-	public static final String FILE_DELETED = "El archivo \"{0}\" ha sido eliminado con éxito.";
+	public static final String PASS_CHANGED = "Contraseña cambiada exitosamente";
+	public static final String FILE_DELETED = "El archivo \"{0}\" ha sido eliminado exitosamente.";
 	public static final String FILE_NOT_DELETED = "Falló la eliminación del archivo \"{0}\".";
 	public static final String TRY_AGAIN = "Por favor vuelva a intentarlo.";
-	public static final String DATA_SAVED = "La encuesta se ha guardado con éxito.";
-	public static final String SUCCESSFUL_DELETED = "{0} eliminad{1} con éxito.";
-	public static final String SUCCESSFUL_LOADED = "Datos cargados con éxito.";
-	public static final String USER_SUCCESSFUL_CREATED = "Usuario ''{0}'' creado con éxito.";
+	public static final String DATA_SAVED = "La encuesta se ha guardado exitosamente.";
+	public static final String SUCCESSFUL_DELETED = "{0} eliminad{1} exitosamente.";
+	public static final String SUCCESSFUL_LOADED = "Datos cargados exitosamente.";
+	public static final String USER_SUCCESSFUL_CREATED = "Usuario ''{0}'' creado exitosamente.";
 	public static final String DB_INIT = "Base de datos inicializada";
-	public static final String DB_SUCCESSFUL_INIT = "La base de datos se ha inicializado con éxito.";
+	public static final String DB_SUCCESSFUL_INIT = "La base de datos se ha inicializado exitosamente.";
 
 	// Errors Messages
 	public static final String ERROR = "Ha ocurrido un problema.";
@@ -122,6 +122,7 @@ public class Constants {
 	public static final String NOT_SEL_CEDULA_ERROR = "Debe seleccionar una cédula.";
 	public static final String FILE_EMPTY = "Debe seleccionar un archivo.";
 	public static final String INVALID_PASSWORD = "Contraseña incorrecta.";
+	public static final String CANNOT_ACCESS_ERROR = "No tiene permisos para realizar la acción solicitada.";
 
 	// JSP
 	public static final String JSP_OK = "Aceptar";

@@ -108,7 +108,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		Controller.forwardToPage(request, response, new Integer(6));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -249,7 +249,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		Controller.forwardToPage(request, response, new Integer(7));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -416,7 +416,7 @@ public class IndividualCharacteristics {
 
 		prop.save();
 
-		Controller.forwardToPage(request, response, new Integer(10));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 

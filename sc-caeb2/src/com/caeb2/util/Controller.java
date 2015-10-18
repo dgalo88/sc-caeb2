@@ -185,11 +185,22 @@ public class Controller {
 	}
 
 	public static void forwardToPage(HttpServletRequest request, //
-			HttpServletResponse response, Integer pageNum) throws Exception {
+			HttpServletResponse response, String pageNum) throws Exception {
 
-		PollManager.setCurrentPage(request, pageNum);
+		PollManager.setCurrentPage(request, Integer.valueOf(pageNum));
 
-		forward(request, response, "page_" + String.valueOf(pageNum.intValue()) + ".jsp");
+		forward(request, response, "page_" + pageNum + ".jsp");
+
+	}
+
+	public static void forwardToTgtPage(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		String pageNum = request.getParameter("tgt");
+
+		PollManager.setCurrentPage(request, Integer.valueOf(pageNum));
+
+		forward(request, response, "page_" + pageNum + ".jsp");
 
 	}
 

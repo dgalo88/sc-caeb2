@@ -36,7 +36,7 @@ public class ActionManager {
 			HttpServletResponse response) throws Exception {
 
 		PollManager.cleanPropFiles(request.getRequestedSessionId());
-		PollManager.setCurrentPage(request, new Integer(0));
+		PollManager.forceCurrentPage(request, new Integer(0));
 
 		Controller.forward(request, response, "index.jsp");
 
@@ -70,7 +70,7 @@ public class ActionManager {
 
 				session.setAttribute(Constants.ATT_USER, user);
 
-				PollManager.setCurrentPage(session, new Integer(0));
+				PollManager.forceCurrentPage(request, new Integer(0));
 
 				Controller.forward(request, response, "main.jsp");
 
@@ -144,6 +144,15 @@ public class ActionManager {
 
 	//--------------------------------------------------------------------------------
 
+	public static void initDB(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		Controller.forward(request, response, "initDatabase.jsp");
+
+	}
+
+	//--------------------------------------------------------------------------------
+
 	/**
 	 * Get a diff between two dates
 	 * @param date1 the oldest date
@@ -161,6 +170,18 @@ public class ActionManager {
 	public static boolean checkAntiquity(Date arrivalDate) throws ParseException {
 		long diff = getDateDiff(arrivalDate, new Date(), TimeUnit.DAYS) / 30;
 		return diff >= 6;
+	}
+
+	//--------------------------------------------------------------------------------
+
+	public static void generateFormality(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
+
+		PollManager.cleanPropFiles(request.getRequestedSessionId());
+		PollManager.forceCurrentPage(request, new Integer(0));
+
+		Controller.forward(request, response, "formalityGenerator.jsp");
+
 	}
 
 	//--------------------------------------------------------------------------------
@@ -513,8 +534,7 @@ public class ActionManager {
 
 		} catch (ClassNotFoundException | SQLException e) {
 
-			Controller.putLogger(Level.SEVERE, //
-					Constants.LOAD_DATA_ERROR + ". " + e.getMessage(), e);
+			Controller.putLogger(Level.SEVERE, Constants.LOAD_DATA_ERROR, e);
 
 			return "[]";
 

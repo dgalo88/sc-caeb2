@@ -371,18 +371,20 @@
 		
 	});
 	
-	function checkedNone(flag,param) {
+	function checkedNone(flag, param) {
+
 		if (flag) {
-			$('input[name="'+param+'"]').each(function(index) {
-					$(this).removeAttr('disabled');
-				});
+			$('input[name="' + param + '"]').each(function(index) {
+				$(this).removeAttr('disabled');
+			});
 		} else {
-			$('input[name="'+param+'"]').each(function(index) {
-				console.log($(this).val());
-				if($(this).val()!="Ninguna")
+			$('input[name="' + param + '"]').each(function(index) {
+				if ($(this).val() != "Ninguna") {
 					$(this).removeAttr('checked').attr('disabled', 'disabled');
-				});
+				}
+			});
 		}
+
 	}
 </script>
 

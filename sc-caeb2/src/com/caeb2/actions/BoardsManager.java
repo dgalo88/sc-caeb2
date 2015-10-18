@@ -1,6 +1,7 @@
 package com.caeb2.actions;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,7 +35,7 @@ public class BoardsManager {
 
 		request.setAttribute("dwellingsJSON", dwellingsJSON);
 
-		PollManager.setCurrentPage(request, new Integer(0));
+		PollManager.forceCurrentPage(request, new Integer(0));
 
 		Controller.forward(request, response, "dwellingBoard.jsp");
 
@@ -147,8 +148,8 @@ public class BoardsManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void loadAllPersons( //
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void loadAllPersons(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		String homeId = (String) request.getParameter(Constants.ATT_HOME_ID);
 
@@ -273,8 +274,8 @@ public class BoardsManager {
 
 	//--------------------------------------------------------------------------------
 
-	public static void loadAllHomes( //
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public static void loadAllHomes(HttpServletRequest request, //
+			HttpServletResponse response) throws Exception {
 
 		String dwellingId = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 
@@ -301,33 +302,53 @@ public class BoardsManager {
 		}
 
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement statement1 = null;
+		PreparedStatement statement2 = null;
 
 		try {
 
 			connection = Controller.getConnection();
-			statement = connection.createStatement();
 
-			String sql = "SELECT h.id, p.apellidos, p.nombres, COUNT(p.id) " //
-					+ " FROM hogar h, persona p WHERE h.id = '" + String.valueOf(dwellingId) //
-					+ "' AND h.id = p.hogarId AND p.parentescoJefeHogar like 'Jefe o jefa del Hogar'";
-			statement.executeQuery(sql);
+			String sql = "SELECT id FROM hogar WHERE viviendaId=?";
 
-			ResultSet resultSet = statement.getResultSet();
+			statement1 = connection.prepareStatement(sql);
 
-			while (resultSet.next()) {
+			statement1.setInt(1, dwellingId);
 
-				int homeId = resultSet.getInt(1);
-				String headOfHousehold = resultSet.getString(2) + ", " + resultSet.getString(3);
-				int numberPeople = resultSet.getInt(4);
+			statement1.executeQuery();
 
-				String crud = getButtonsCrud("Home", homeId);
+			ResultSet resultSet1 = statement1.getResultSet();
 
-				homes.add(new HomeBasicData(homeId, headOfHousehold, numberPeople, crud));
+			while (resultSet1.next()) {
+
+				int homeId = resultSet1.getInt(1);
+
+				sql = "SELECT apellidos, nombres, COUNT(*) FROM persona WHERE hogarId=?";
+
+				statement2 = connection.prepareStatement(sql);
+
+				statement2.setInt(1, homeId);
+
+				statement2.executeQuery();
+
+				ResultSet resultSet2 = statement2.getResultSet();
+
+				if (resultSet2.first()) {
+
+					String headOfHousehold = resultSet2.getString(1) + ", " + resultSet2.getString(2);
+					int numberPeople = resultSet2.getInt(3);
+
+					String crud = getButtonsCrud("Home", homeId);
+
+					homes.add(new HomeBasicData(homeId, headOfHousehold, numberPeople, crud));
+
+				}
+
+				resultSet2.close();
 
 			}
 
-			resultSet.close();
+			resultSet1.close();
 
 		} catch (ClassNotFoundException | SQLException e) {
 
@@ -336,8 +357,16 @@ public class BoardsManager {
 		} finally {
 
 			try {
-				if (statement != null) {
-					statement.close();
+				if (statement1 != null) {
+					statement1.close();
+				}
+			} catch (SQLException e) {
+				// ignore
+			}
+
+			try {
+				if (statement2 != null) {
+					statement2.close();
 				}
 			} catch (SQLException e) {
 				// ignore
@@ -427,7 +456,8 @@ public class BoardsManager {
 
 		if (result) {
 			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
-					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Vivienda"), new String("a")}));
+					Constants.SUCCESSFUL_DELETED, //
+					new Object[] {new String("Vivienda"), new String("a")}));
 		} else {
 			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
 					Constants.DELETE_ERROR, new Object[] {new String("Vivienda")}));
@@ -446,7 +476,8 @@ public class BoardsManager {
 
 		if (result) {
 			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
-					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Hogar"), new String("o")}));
+					Constants.SUCCESSFUL_DELETED, //
+					new Object[] {new String("Hogar"), new String("o")}));
 		} else {
 			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
 					Constants.DELETE_ERROR, new Object[] {new String("Hogar")}));
@@ -465,7 +496,8 @@ public class BoardsManager {
 
 		if (result) {
 			Controller.sendTextResponse(response, TextUtils.getFormattedMessage( //
-					Constants.SUCCESSFUL_DELETED, new Object[] {new String("Persona"), new String("a")}));
+					Constants.SUCCESSFUL_DELETED, //
+					new Object[] {new String("Persona"), new String("a")}));
 		} else {
 			Controller.sendErrorResponse(response, TextUtils.getFormattedMessage( //
 					Constants.DELETE_ERROR, new Object[] {new String("Persona")}));
@@ -482,7 +514,7 @@ public class BoardsManager {
 
 		logger.info(" + Load Poll Data");
 
-		PollManager.setCurrentPage(request, new Integer(0));
+		PollManager.forceCurrentPage(request, new Integer(0));
 
 		String sessionId = request.getRequestedSessionId();
 

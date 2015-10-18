@@ -41,7 +41,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage1");
 
-		Controller.forwardToPage(request, response, new Integer(2));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -108,7 +108,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage2");
 
-		Controller.forwardToPage(request, response, new Integer(3));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -136,12 +136,12 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage3");
 
-		Controller.forwardToPage(request, response, new Integer(4));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
 	public static void saveProcessPage4(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		Controller.getLogger().info("+ saveProcessPage4");
 
 		PropertiesConfiguration prop = Controller.getPropertiesFile(Constants.PROP_FILE_HOME, //
@@ -194,7 +194,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage4");
 
-		Controller.forwardToPage(request, response, new Integer(5));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -243,7 +243,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage7");
 
-		Controller.forwardToPage(request, response, new Integer(8));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 
@@ -305,7 +305,7 @@ public class Form {
 
 		Controller.getLogger().info("- saveProcessPage8");
 
-		Controller.forwardToPage(request, response, new Integer(9));
+		Controller.forwardToTgtPage(request, response);
 
 	}
 

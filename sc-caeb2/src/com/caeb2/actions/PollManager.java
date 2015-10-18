@@ -46,6 +46,14 @@ public class PollManager {
 
 	}
 
+	public static void forceCurrentPage(HttpServletRequest request, //
+			Integer currPage) throws Exception {
+
+		HttpSession session = request.getSession(false);
+		session.setAttribute(Constants.ATT_CURR_PAGE, currPage);
+
+	}
+
 	//--------------------------------------------------------------------------------
 
 	public static void newPoll(HttpServletRequest request, //
@@ -61,7 +69,9 @@ public class PollManager {
 		session.setAttribute(Constants.ATT_HOME_OP, Constants.OP_INSERT);
 		session.setAttribute(Constants.ATT_PERSON_OP, Constants.OP_INSERT);
 
-		Controller.forwardToPage(request, response, new Integer(1));
+		PollManager.forceCurrentPage(request, new Integer(1));
+
+		Controller.forwardToPage(request, response, "1");
 
 		Controller.getLogger().info(" - New Poll");
 
@@ -102,7 +112,9 @@ public class PollManager {
 		Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
 				Constants.ATT_DWELLING_ID, dwellingId);
 
-		Controller.forwardToPage(request, response, new Integer(4));
+		PollManager.forceCurrentPage(request, new Integer(4));
+
+		Controller.forwardToPage(request, response, "4");
 
 		Controller.getLogger().info(" - New Home");
 
@@ -161,7 +173,9 @@ public class PollManager {
 		Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
 				Constants.ATT_HOME_ID, homeId);
 
-		Controller.forwardToPage(request, response, new Integer(5));
+		PollManager.forceCurrentPage(request, new Integer(5));
+
+		Controller.forwardToPage(request, response, "5");
 
 		Controller.getLogger().info(" - New Person");
 
@@ -298,6 +312,8 @@ public class PollManager {
 			Controller.addId(Constants.PROP_FILE_HOME, sessionId, //
 					Constants.ATT_HOME_ID, homeId);
 
+			PollManager.forceCurrentPage(request, new Integer(5));
+
 			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
 
 		} else if (addHome) {
@@ -310,6 +326,8 @@ public class PollManager {
 
 			Controller.addId(Constants.PROP_FILE_DWELLING, sessionId, //
 					Constants.ATT_DWELLING_ID, dwellingId);
+
+			PollManager.forceCurrentPage(request, new Integer(4));
 
 			PollManager.cleanPropFile(Constants.PROP_FILE_PERSON, sessionId);
 			PollManager.cleanPropFile(Constants.PROP_FILE_HOME, sessionId);

@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `fechaNacimiento` datetime NOT NULL,
   `nacionalidad` varchar(100) NOT NULL,
   `cedula` varchar(100) NOT NULL UNIQUE,
-  `pasaporte` varchar(100) DEFAULT NULL UNIQUE,
+  `pasaporte` varchar(100) DEFAULT NULL,
   `correoElectronico` varchar(100) DEFAULT NULL,
   `celular` varchar(100) DEFAULT NULL,
   `celularOpcional` varchar(100) DEFAULT NULL,
