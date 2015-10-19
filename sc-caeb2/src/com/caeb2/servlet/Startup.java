@@ -51,7 +51,7 @@ public class Startup extends HttpServlet {
 
 			if (!file.exists()) {
 				if (file.mkdir()) {
-					Controller.getLogger().info("Directory '" + sccaeb2Dir + "' is created.");
+					Controller.getLogger().info("Directory '" + sccaeb2Dir + "' was created.");
 				} else {
 					Controller.getLogger().severe("Failed to create directory '" + sccaeb2Dir + "'.");
 				}
