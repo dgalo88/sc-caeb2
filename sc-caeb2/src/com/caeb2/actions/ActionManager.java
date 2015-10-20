@@ -225,16 +225,13 @@ public class ActionManager {
 			HttpServletResponse response) throws Exception {
 
 		Sincronizer sc =new Sincronizer();
-		boolean state= sc.enviarDatos();
+		sc.enviarDatos();
 		sc.reestablecerAdactador();
-		if(state){
-			request.setAttribute("messageBackup", "El proceso de copiado a finalizado correctamente. Precione Inicio en el Menu para regresar a la pantalla principal");
-			request.setAttribute("type", "1");
-			URL url = new URL("http://"+sc.getDireccionServidor()+":8080/sc-caeb2/reset");
-			url.openStream();
-			Controller.forward(request, response, "stateBackup.jsp");
-			
-		}
+		request.setAttribute("messageBackup", "El proceso de copiado ha finalizado correctamente. Presione Inicio en el Menu para regresar a la pantalla principal");
+		request.setAttribute("type", "1");
+		URL url = new URL("http://"+sc.getDireccionServidor()+":8080/sc-caeb2/reset");
+		url.openStream();
+		Controller.forward(request, response, "stateBackup.jsp");
 		
 	}
 

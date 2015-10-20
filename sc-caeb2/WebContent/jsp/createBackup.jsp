@@ -10,7 +10,7 @@
 <form action="<%=Constants.EXECUTE%>?<%=Constants.ACTION%>=prepararConexion" method="POST">
 	<div class="form-group center-block text-center main-panel">
 		<div class="form-group">
-			<label>Defina la condicion de este equipo</label>
+			<label>Defina la condición de éste equipo</label>
 		</div>
 		<table class="table">
 			<tr>

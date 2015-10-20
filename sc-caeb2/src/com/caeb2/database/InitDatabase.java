@@ -182,15 +182,27 @@ public class InitDatabase {
 
 		Connection connection = Controller.getConnection( //
 				url, Controller.getDbRootUser(), Controller.getDbRootPass());
-
+		
 		Statement statement = connection.createStatement();
+		
+		String sql = "";
+		
+		try {
+			
 
-		String sql = "CREATE USER " + user + "@" //
-				+ Controller.getDBHost() + " IDENTIFIED BY '" + pass + "'";
+			sql = "CREATE USER " + user + "@" //
+					+ Controller.getDBHost() + " IDENTIFIED BY '" + pass + "'";
 
-		statement.executeUpdate(sql);
+			statement.executeUpdate(sql);
+			
+			sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + Controller.getDBHost() + "";
 
-		sql = "GRANT ALL PRIVILEGES ON *.* TO " + user + "@" + Controller.getDBHost() + "";
+			statement.execute(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		sql = "GRANT ALL PRIVILEGES ON *.* TO " + "'copy'" + "@" + "'192.168.0.2'" + " IDENTIFIED BY '12'";
 
 		statement.execute(sql);
 

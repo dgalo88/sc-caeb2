@@ -19,7 +19,7 @@ public class Sincronizer {
 	private String nombreAdaptador   = "\"Conexión de área local\"";
 	private String conexionServidor  ="jdbc:mysql://192.168.0.3/censoaeb2";
 	private String conexionLocal  ="jdbc:mysql://localhost/censoaeb2";
-	private String usuarioForaneo = "Ale";
+	private String usuarioForaneo = "copy";
 	private String claveUsuarioForaneo   = "12";
 	private String usuarioLocal = "root";
 	private String claveUsuarioLocal   = "";
@@ -1369,7 +1369,7 @@ public class Sincronizer {
 
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}finally{
 			try {
 				declaracionHogarLocal.close();
@@ -1495,7 +1495,7 @@ public class Sincronizer {
 			}
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}finally{
 			try {
 				declaracionLocal.close();
@@ -1528,6 +1528,7 @@ public class Sincronizer {
 		try {
 	    // Execute a command without arguments
 	    String command = "netsh interface ip set address " + nombreAdaptador + " static " + direccionServidor + " 255.255.255.0 192.168.0.1 1";
+	    System.out.println(command);
 	    Runtime.getRuntime().exec(command);
 	    return true;
 	} catch (IOException e) {

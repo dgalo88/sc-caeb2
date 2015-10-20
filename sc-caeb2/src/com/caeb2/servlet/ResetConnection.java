@@ -31,6 +31,7 @@ public class ResetConnection extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Sincronizer sc =new Sincronizer();
 		sc.reestablecerAdactador();
+		System.out.println("reestablecer Adactador");
 	}
 
 	/**
