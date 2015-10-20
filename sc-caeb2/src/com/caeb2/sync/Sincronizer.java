@@ -14,8 +14,9 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class Sincronizer {
 	
-	private String DireccionServidor = "192.168.0.3";
-	private String DireccionCliente  = "192.168.0.2";
+	private String direccionServidor = "192.168.0.3";
+	private String direccionCliente  = "192.168.0.2";
+	private String nombreAdaptador   = "\"Conexión de área local\"";
 	private String conexionServidor  ="jdbc:mysql://192.168.0.3/censoaeb2";
 	private String conexionLocal  ="jdbc:mysql://localhost/censoaeb2";
 	private String usuarioForaneo = "Ale";
@@ -329,7 +330,7 @@ public class Sincronizer {
 				Connection conexionDiscapacidadForanea = null;
 				PreparedStatement st = null;
 				try {
-					conexionDiscapacidadForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionDiscapacidadForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					st = (PreparedStatement) conexionDiscapacidadForanea.prepareStatement(comandoInsercionDiscapacidad);
 				    st.setString(1, consultaDiscapacidadLocal.getString(2));
 				    st.setLong(2, idForaneo);
@@ -606,7 +607,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionHabilidadartisticamanualLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionHabilidadartisticamanualLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionHabilidadartisticamanualLocal = conexionHabilidadartisticamanualLocal.createStatement();
 			
@@ -619,7 +620,7 @@ public class Sincronizer {
 				
 				PreparedStatement st = null;
 				try {
-					 	conexionHabilidadartisticamanualForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					 	conexionHabilidadartisticamanualForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 						
 						st = (PreparedStatement) conexionHabilidadartisticamanualForanea.prepareStatement(comandoInsercionHabilidadartisticamanual);
 					    st.setString(1, consultaHabilidadartisticamanualLocal.getString(2));
@@ -678,7 +679,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionMejorainfoLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionMejorainfoLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionMejorainfoLocal = conexionMejorainfoLocal.createStatement();
 			
@@ -694,7 +695,7 @@ public class Sincronizer {
 				
 				try {
 
-				    conexionMejorainfoForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+				    conexionMejorainfoForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionMejorainfoForanea.prepareStatement(comandoInsercionMejorainfo);
 				    st.setString(1, consultaMejorainfoLocal.getString(2));
@@ -755,7 +756,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionMisionLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionMisionLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionMisionLocal = conexionMisionLocal.createStatement();
 			
@@ -768,7 +769,7 @@ public class Sincronizer {
 				
 				PreparedStatement st = null;
 				try {
-					conexionMisionForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionMisionForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionMisionForanea.prepareStatement(comandoInsercionMision);
 				    st.setString(1, consultaMisionLocal.getString(2));
@@ -829,7 +830,7 @@ public class Sincronizer {
 		
 		try {
 			
-			conexionPrincipalesproblemascomunidadLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionPrincipalesproblemascomunidadLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionPrincipalesproblemascomunidadLocal = conexionPrincipalesproblemascomunidadLocal.createStatement();
 			
@@ -844,7 +845,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 					
 				try {
-					conexionPrincipalesproblemascomunidadForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionPrincipalesproblemascomunidadForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionPrincipalesproblemascomunidadForanea.prepareStatement(comandoInsercionPrincipalesproblemascomunidad);
 				    st.setString(1, consultaPrincipalesproblemascomunidadLocal.getString(2));
@@ -904,7 +905,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionSistemaprevencionsocialLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionSistemaprevencionsocialLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionSistemaprevencionsocialLocal = conexionSistemaprevencionsocialLocal.createStatement();
 			
@@ -919,7 +920,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 				
 				try {
-					conexionSistemaprevencionsocialForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionSistemaprevencionsocialForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					st = (PreparedStatement) conexionSistemaprevencionsocialForanea.prepareStatement(comandoInsercionSistemaprevencionsocial);
 				    st.setString(1, consultaSistemaprevencionsocialLocal.getString(2));
 				    st.setLong(2, idForaneo);
@@ -976,7 +977,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionVacunaLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionVacunaLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionVacunaLocal = conexionVacunaLocal.createStatement();
 			
@@ -991,7 +992,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 				
 				try {
-					conexionVacunaForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionVacunaForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionVacunaForanea.prepareStatement(comandoInsercionVacuna);
 				    st.setString(1, consultaVacunaLocal.getString(2));
@@ -1050,7 +1051,7 @@ public class Sincronizer {
 				
 		try {
 			
-			conexionAparatomedicoLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionAparatomedicoLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionAparatomedicoLocal = conexionAparatomedicoLocal.createStatement();
 			
@@ -1065,7 +1066,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 				
 				try {
-					conexionAparatomedicoForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionAparatomedicoForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionAparatomedicoForanea.prepareStatement(comandoInsercionAparatomedico);
 				    st.setString(1, consultaAparatomedicoLocal.getString(2));
@@ -1127,7 +1128,7 @@ public class Sincronizer {
 		
 		try {
 			
-			conexionPersonaLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionPersonaLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
 			declaracionPersonaLocal = conexionPersonaLocal.createStatement();
 			
@@ -1144,7 +1145,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 					
 				try {
-						conexionPersonaForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+						conexionPersonaForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 						
 						st = (PreparedStatement) conexionPersonaForanea.prepareStatement(comandoInsercionPersona);
 					    st.setString(1, consultaPersonaLocal.getString(2));
@@ -1281,7 +1282,7 @@ public class Sincronizer {
 		ResultSet consultaHogarLocal = null;
 		
 		try {
-			conexionHogarLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionHogarLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 //			
 			declaracionHogarLocal = conexionHogarLocal.createStatement();
 			
@@ -1299,7 +1300,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 				
 				try {
-					conexionHogarForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					conexionHogarForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 					
 					st = (PreparedStatement) conexionHogarForanea.prepareStatement(comandoInsercionHogar);
 					
@@ -1390,18 +1391,18 @@ public class Sincronizer {
 	}
 	
 	
-	void copiarTablaVivienda() throws SQLException {
+	boolean copiarTablaVivienda() throws SQLException {
 		
-		Connection conexionLocal = null;
+		Connection conexionViviendaLocal = null;
 		
 		Statement declaracionLocal = null;
 		
 		ResultSet consultaLocal = null;
 		
 		try {
-			conexionLocal = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/censoaeb2", "root", "");
+			conexionViviendaLocal = (Connection) DriverManager.getConnection(conexionLocal, usuarioLocal, claveUsuarioLocal);
 			
-			declaracionLocal = conexionLocal.createStatement();
+			declaracionLocal = conexionViviendaLocal.createStatement();
 			
 			consultaLocal = declaracionLocal.executeQuery(consulta_vivienda_local);
 			
@@ -1417,7 +1418,7 @@ public class Sincronizer {
 				PreparedStatement st = null;
 				
 				try {
-					 	conexionForanea = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.0.3/censoaeb2", "Ale", "12");
+					 	conexionForanea = (Connection) DriverManager.getConnection(conexionServidor, usuarioForaneo, claveUsuarioForaneo);
 						
 						st = (PreparedStatement) conexionForanea.prepareStatement(comandoInsercionVivienda);
 						
@@ -1492,6 +1493,7 @@ public class Sincronizer {
 					}
 				}
 			}
+			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
@@ -1501,7 +1503,7 @@ public class Sincronizer {
 				// TODO: handle exception
 			}
 			try {
-				conexionLocal.close();
+				conexionViviendaLocal.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
 			}
@@ -1511,31 +1513,47 @@ public class Sincronizer {
 				// TODO: handle exception
 			}
 		}
+		return false;
 	}
 
 
-	void enviarDatos() throws SQLException {
+	public boolean enviarDatos() throws SQLException {
 		
-		copiarTablaVivienda();
+		return copiarTablaVivienda();
 		
 	}
 	
-	void prepararConexionServidor() {
+	public boolean prepararConexionServidor() {
 		
 		try {
 	    // Execute a command without arguments
-	    String command = "netsh interface ip set address \"Conexión de área local\" static 192.168.0.3 255.255.255.0 192.168.0.1 1";
+	    String command = "netsh interface ip set address " + nombreAdaptador + " static " + direccionServidor + " 255.255.255.0 192.168.0.1 1";
 	    Runtime.getRuntime().exec(command);
+	    return true;
 	} catch (IOException e) {
+		return false;
 	}
 		
 	}
 	
-	void prepararConexionCliente() {
+	public boolean prepararConexionCliente() {
 		
 		try {
 	    // Execute a command without arguments
-	    String command = "netsh interface ip set address \"Conexión de área local\" static 192.168.0.2 255.255.255.0 192.168.0.1 1";
+	    String command = "netsh interface ip set address " + nombreAdaptador + " static " + direccionCliente + " 255.255.255.0 192.168.0.1 1";
+	    Runtime.getRuntime().exec(command);
+	    return true;
+	} catch (IOException e) {
+		return false;
+	}
+		
+	}
+	
+	public void reestablecerAdactador() {
+		
+		try {
+	    // Execute a command without arguments
+	    String command = "netsh interface ip set address " + nombreAdaptador + " dhcp";
 	    Runtime.getRuntime().exec(command);
 	} catch (IOException e) {
 	}
@@ -1548,6 +1566,9 @@ public class Sincronizer {
 
 		sc.enviarDatos();
 		
+	}
+	public String getDireccionServidor(){
+		return direccionServidor;
 	}
 
 

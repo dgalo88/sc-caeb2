@@ -48,7 +48,7 @@
 						<button type="button" class="btn btn-primary btn-panel btn-panel-backup"
 								id="backup" name="backup"
 								data-toggle="tooltip" data-placement="bottom"
-								title="<%=Constants.JSP_BACKUP%>" disabled>
+								title="<%=Constants.JSP_BACKUP%>">
 						</button></a>
 					</div>
 				</td>

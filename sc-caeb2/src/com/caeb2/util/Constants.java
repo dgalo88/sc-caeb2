@@ -23,7 +23,7 @@ public class Constants {
 	public static final String ACTION_VIEW_DWELLINGS = EXEC_ACTION + "loadAllDwellings";
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = EXEC_ACTION + "generateFormality";
-	public static final String ACTION_BACKUP = "http://localhost/serviciocomunitario/public/";
+	public static final String ACTION_BACKUP = EXEC_ACTION + "createBackup";
 
 	public static final String SC_CAEB2 = "sc-caeb2";
 	public static final String PATH_SC_CAEB2 = File.separator + SC_CAEB2;

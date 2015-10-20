@@ -35,7 +35,7 @@ public class Controller {
 	private static String dbUser = "censoaeb2";
 	private static String dbPass = "123456";
 
-	private static String dbRootPass = "123456";
+	private static String dbRootPass = "";
 	private static String dbRootUser = "root";
 
 	private static String superAdminName = "admin";
@@ -58,8 +58,12 @@ public class Controller {
 	public static Connection getConnection() //
 			throws SQLException, ClassNotFoundException {
 
-		String url = "jdbc:mysql://" + dbHost + "/" + dbName;
-		return getConnection(url, dbUser, dbPass);
+		System.out.println(dbUser);
+		System.out.println(dbPass);
+		System.out.println(dbHost);
+		System.out.println(dbName);
+		String url = "jdbc:mysql://" + "localhost" + "/" + "censoaeb2";
+		return getConnection(url, "censoaeb2", "123456");
 
 	}
 

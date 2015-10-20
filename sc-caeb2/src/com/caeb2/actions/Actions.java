@@ -18,6 +18,9 @@ public class Actions {
 		actionsMapping.put("logout", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("initDB", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("generateFormality", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("createBackup", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("prepararConexion", "com.caeb2.actions.ActionManager");
+		actionsMapping.put("ejecutarCopiado", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("loadFormalityData", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("loadAdminProfile", "com.caeb2.actions.ActionManager");
 		actionsMapping.put("updateAdminProfile", "com.caeb2.actions.ActionManager");
