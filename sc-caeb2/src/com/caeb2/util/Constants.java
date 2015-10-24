@@ -24,6 +24,7 @@ public class Constants {
 	public static final String ACTION_HOME = EXEC_ACTION + "index";
 	public static final String ACTION_GEN_FORMALITY = EXEC_ACTION + "generateFormality";
 	public static final String ACTION_BACKUP = EXEC_ACTION + "createBackup";
+	public static final String ACTION_INFO = "http://localhost/serviciocomunitario/public/";
 
 	public static final String SC_CAEB2 = "sc-caeb2";
 	public static final String PATH_SC_CAEB2 = File.separator + SC_CAEB2;
@@ -162,6 +163,9 @@ public class Constants {
 	public static final String JSP_CONTINUE = "Continuar";
 	public static final String JSP_SEND = "Enviar";
 	public static final String JSP_INFO = "Mostrar Datos";
+	public static final String JSP_DWELLINGS = "Viviendas";
+	public static final String JSP_HOMES = "Hogares";
+	public static final String JSP_PERSONS = "Personas";
 
 	public static final String NONE = "Ninguna";
 	public static final String OTHER = "Otra ¿Cuál?";

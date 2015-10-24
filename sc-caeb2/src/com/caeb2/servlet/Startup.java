@@ -60,7 +60,7 @@ public class Startup extends HttpServlet {
 			String contextPath = config.getServletContext().getRealPath(File.separator);
 
 			PropertiesConfiguration prop = Controller.getPropertiesFile( //
-					contextPath + Constants.PROP_FILE_CONFIG, PropFileRole.SAVE);
+					contextPath + Constants.PROP_FILE_CONFIG, PropFileRole.LOAD);
 
 			String dbHost = prop.getString(Constants.CONFIG_DB_HOST);
 			String dbRootUser = prop.getString(Constants.CONFIG_DB_ROOT_USER);
@@ -85,7 +85,7 @@ public class Startup extends HttpServlet {
 	// Destroys the servlet.
 	public void destroy() {
 
-		// This manually deregisters JDBC driver, which prevents Tomcat 7
+		// This manually deregisters JDBC driver, which prevents Tomcat
 		// from complaining about memory leaks wrto this class
 		Enumeration<Driver> drivers = DriverManager.getDrivers();
 

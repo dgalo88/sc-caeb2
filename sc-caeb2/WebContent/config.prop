@@ -3,6 +3,6 @@ config_db_name=censoaeb2
 config_db_user=censoaeb2
 config_db_pass=123456
 config_db_root_user=root
-config_db_root_pass=
+config_db_root_pass=123456
 config_sup_admin_name=admin
 config_sup_admin_pass=1234

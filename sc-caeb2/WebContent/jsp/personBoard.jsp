@@ -6,7 +6,7 @@
 <%@include file="header.jsp"%>
 
 <%
-	Parameters.setTitle("Personas");
+	Parameters.setTitle(Constants.JSP_PERSONS);
 
 	String dwellingIdStr = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 	int dwellingId = TextUtils.isEmptyOrNull(dwellingIdStr) ? -1 : Integer.valueOf(dwellingIdStr);
@@ -144,6 +144,7 @@
 	<div class="container table-responsive">
 
 		<br>
+		<h4 class="text-center"><%=Constants.JSP_PERSONS%></h4>
 		<table id="personsData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">

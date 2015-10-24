@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <servlet>
-    <servlet-name>Startup</servlet-name>
-    <servlet-class>com.caeb2.servlet.Startup</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Startup</servlet-name>
-    <url-pattern>/startup</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Startup</servlet-name>
-    <url-pattern>/jsp/startup</url-pattern>
-  </servlet-mapping>
-  
-   <servlet>
-    <servlet-name>ResetConnection</servlet-name>
-    <servlet-class>com.caeb2.servlet.ResetConnection</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ResetConnection</servlet-name>
-    <url-pattern>/reset</url-pattern>
-  </servlet-mapping>
+
+<!DOCTYPE servlet-configuration>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<servlet>
+		<servlet-name>Startup</servlet-name>
+		<servlet-class>com.caeb2.servlet.Startup</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Startup</servlet-name>
+		<url-pattern>/startup</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Startup</servlet-name>
+		<url-pattern>/jsp/startup</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ResetConnection</servlet-name>
+		<servlet-class>com.caeb2.servlet.ResetConnection</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ResetConnection</servlet-name>
+		<url-pattern>/reset</url-pattern>
+	</servlet-mapping>
+
 </web-app>

@@ -252,8 +252,6 @@ public class PollManager {
 
 		if (homeId == null) {
 
-			SaveDataBase.deleteDwelling(dwellingId.longValue());
-
 			Controller.sendErrorResponse(response, //
 					Constants.INSERT_HOME_ERROR + " " + Constants.TRY_AGAIN);
 
@@ -285,9 +283,6 @@ public class PollManager {
 		}
 
 		if (personId == null) {
-
-			SaveDataBase.deleteHomeComponents(homeId.longValue());
-			SaveDataBase.deleteDwelling(dwellingId.longValue());
 
 			Controller.sendErrorResponse(response, //
 					Constants.INSERT_PERSON_ERROR + " " + Constants.TRY_AGAIN);

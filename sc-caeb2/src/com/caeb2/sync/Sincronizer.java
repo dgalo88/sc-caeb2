@@ -22,7 +22,7 @@ public class Sincronizer {
 	private String usuarioForaneo = "copy";
 	private String claveUsuarioForaneo   = "12";
 	private String usuarioLocal = "root";
-	private String claveUsuarioLocal   = "";
+	private String claveUsuarioLocal   = "123456";
 	
 	private String consulta_vivienda_local = "SELECT w.* FROM vivienda w";
 	
@@ -410,6 +410,7 @@ public class Sincronizer {
 				    st.setString(5, consultaEmpleoLocal.getString(6));
 				    st.setString(6, consultaEmpleoLocal.getString(7));
 				    st.setLong(7, idForaneo);
+				    st.executeUpdate();
 				} catch (Exception e) {
 					// TODO: handle exception
 				}finally{

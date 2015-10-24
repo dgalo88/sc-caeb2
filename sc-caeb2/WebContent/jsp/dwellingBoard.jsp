@@ -6,7 +6,7 @@
 <%@include file="header.jsp"%>
 
 <%
-	Parameters.setTitle("Viviendas");
+	Parameters.setTitle(Constants.JSP_DWELLINGS);
 
 	String dwellingsJSON = BoardsManager.loadAllDwellings();
 %>
@@ -144,6 +144,7 @@
 	<div class="container table-responsive">
 
 		<br>
+		<h4 class="text-center"><%=Constants.JSP_DWELLINGS%></h4>
 		<table id="dwellingsData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">

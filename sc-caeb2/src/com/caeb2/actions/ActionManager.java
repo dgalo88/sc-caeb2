@@ -185,40 +185,37 @@ public class ActionManager {
 		Controller.forward(request, response, "formalityGenerator.jsp");
 
 	}
-	
+
 	//--------------------------------------------------------------------------------
 
 	public static void createBackup(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
-		
+
 		Controller.forward(request, response, "createBackup.jsp");
 
 	}
-	
+
 	//--------------------------------------------------------------------------------
 
 	public static void prepararConexion(HttpServletRequest request, //
 			HttpServletResponse response) throws Exception {
 
 		String e_principal = request.getParameter("radio");
-		Sincronizer sc =new Sincronizer();
-		
-		if(e_principal.equals("equipo_temporal")){
-			if (sc.prepararConexionCliente()) {
-				request.setAttribute("messageBackup", "Su equipo fue configurado como Temporal, presione siguiente para iniciar el proceso");
-				request.setAttribute("type", "0");
-				Controller.forward(request, response, "stateBackup.jsp");
-			}
-		}else{	
-			if(sc.prepararConexionServidor()){
-				request.setAttribute("messageBackup", "Su equipo fue configurado como Principal, Espere a que el equipo temporal iniciel el proceso");
-				request.setAttribute("type", "1");
-				Controller.forward(request, response, "stateBackup.jsp");
-			}
-	
+
+		if (e_principal.equals("equipo_temporal")) {
+			request.setAttribute("messageBackup", //
+					"Su equipo fue configurado como Temporal, presione siguiente para iniciar el proceso");
+			request.setAttribute("type", "0");
+			Controller.forward(request, response, "stateBackup.jsp");
+		} else {
+			request.setAttribute("messageBackup", //
+					"Su equipo fue configurado como Principal, Espere a que el equipo temporal iniciel el proceso");
+			request.setAttribute("type", "1");
+			Controller.forward(request, response, "stateBackup.jsp");
 		}
+
 	}
-	
+
 	//--------------------------------------------------------------------------------
 
 	public static void ejecutarCopiado(HttpServletRequest request, //
@@ -232,7 +229,7 @@ public class ActionManager {
 		URL url = new URL("http://"+sc.getDireccionServidor()+":8080/sc-caeb2/reset");
 		url.openStream();
 		Controller.forward(request, response, "stateBackup.jsp");
-		
+
 	}
 
 	//--------------------------------------------------------------------------------

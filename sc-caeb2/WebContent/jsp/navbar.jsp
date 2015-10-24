@@ -29,7 +29,8 @@
 							<li><a href="<%=Constants.ACTION_NEW_POLL%>"><%=Constants.JSP_NEW_POLL%></a></li>
 							<li><a href="<%=Constants.ACTION_VIEW_DWELLINGS%>"><%=Constants.JSP_VIEW_DWELLINGS%></a></li>
 							<li><a href="<%=Constants.ACTION_GEN_FORMALITY%>"><%=Constants.JSP_GEN_FORMALITY%></a></li>
-							<li><a href="<%=Constants.ACTION_BACKUP%>"><%=Constants.JSP_INFO%></a></li>
+							<li><a href="<%=Constants.ACTION_BACKUP%>"><%=Constants.JSP_BACKUP%></a></li>
+							<li><a href="<%=Constants.ACTION_INFO%>"><%=Constants.JSP_INFO%></a></li>
 							<li class="divider"></li>
 							<li><a href="<%=Constants.ACTION_PROFILE%>"><%=Constants.JSP_PROFILE%></a></li>
 							<li><a href="<%=Constants.ACTION_EXIT%>"><%=Constants.JSP_EXIT%></a></li>

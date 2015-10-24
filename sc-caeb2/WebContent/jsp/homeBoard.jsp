@@ -6,7 +6,7 @@
 <%@include file="header.jsp"%>
 
 <%
-	Parameters.setTitle("Hogares");
+	Parameters.setTitle(Constants.JSP_HOMES);
 
 	String dwellingIdStr = (String) request.getParameter(Constants.ATT_DWELLING_ID);
 
@@ -150,6 +150,7 @@
 	<div class="container table-responsive">
 
 		<br>
+		<h4 class="text-center"><%=Constants.JSP_HOMES%></h4>
 		<table id="homesData" class="table table-striped table-bordered"></table>
 
 		<div class="btn-footer">
