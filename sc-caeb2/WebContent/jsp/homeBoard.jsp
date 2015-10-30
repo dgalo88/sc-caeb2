@@ -21,6 +21,9 @@
 <%@include file="loader.jsp"%>
 
 <script type="text/javascript">
+
+	curr = null;
+
 	$(document).ready(function() {
 
 		<%if (TextUtils.isEmptyOrNull(homesJSON)) {%>
@@ -99,18 +102,20 @@
 		});
 
 		$('.deleteHomeBtn').on('click', function() {
+			curr = $(this);
 			$('#confirm').modal('show');
 		});
 
 		$('#confirmYes').on('click', function() {
 
+			$('#confirm').modal('hide');
 			showLoader();
 
 			$.ajax({
 
 				url: '<%=Constants.EXEC_ACTION%>deleteHome'
 						+ '&<%=Constants.ATT_HOME_ID%>='
-						+ $(this).attr('data-home-id'),
+						+ curr.attr('data-home-id'),
 
 				method: 'POST',
 
@@ -118,6 +123,8 @@
 
 					showSuccess(data);
 					hideLoader();
+
+					location.reload(true);
 
 				},
 

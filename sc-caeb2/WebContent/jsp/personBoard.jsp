@@ -24,6 +24,9 @@
 <%@include file="loader.jsp"%>
 
 <script type="text/javascript">
+
+	curr = null;
+
 	$(document).ready(function() {
 
 		<%if (TextUtils.isEmptyOrNull(personsJSON)) {%>
@@ -93,18 +96,20 @@
 		});
 
 		$('.deletePersonBtn').on('click', function() {
+			curr = $(this);
 			$('#confirm').modal('show');
 		});
 
 		$('#confirmYes').on('click', function() {
 
+			$('#confirm').modal('hide');
 			showLoader();
 
 			$.ajax({
 
 				url: '<%=Constants.EXEC_ACTION%>deletePerson'
 						+ '&<%=Constants.ATT_PERSON_ID%>='
-						+ $(this).attr('data-person-id'),
+						+ curr.attr('data-person-id'),
 
 				method: 'POST',
 
@@ -112,6 +117,8 @@
 
 					showSuccess(data);
 					hideLoader();
+
+					location.reload(true);
 
 				},
 

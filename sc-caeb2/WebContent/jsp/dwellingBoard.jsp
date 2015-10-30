@@ -15,6 +15,8 @@
 
 <script type="text/javascript">
 
+	curr = null;
+
 	$(document).ready(function() {
 
 		<%if (TextUtils.isEmptyOrNull(dwellingsJSON)) {%>
@@ -93,18 +95,20 @@
 		});
 
 		$('.deleteDwellingBtn').on('click', function() {
+			curr = $(this);
 			$('#confirm').modal('show');
 		});
 
-		$('#confirmYes').on('click', function() {
+		$('#confirmYes').on('click', function(e) {
 
+			$('#confirm').modal('hide');
 			showLoader();
 
 			$.ajax({
 
 				url: '<%=Constants.EXEC_ACTION%>deleteDwelling'
 						+ '&<%=Constants.ATT_DWELLING_ID%>='
-						+ $(this).attr('data-dwelling-id'),
+						+ curr.attr('data-dwelling-id'),
 
 				method: 'POST',
 
@@ -112,6 +116,8 @@
 
 					showSuccess(data);
 					hideLoader();
+
+					location.reload(true);
 
 				},
 
